@@ -8,7 +8,7 @@ using System.IO;
 
 /**
 / For use with http://graphviz.org/
-digraph "FacetedWorlds.MyCon.Model.Models"
+digraph "FacetedWorlds.MyCon.Model"
 {
     rankdir=BT
     DisableToastNotification -> Identity
@@ -40,7 +40,7 @@ digraph "FacetedWorlds.MyCon.Model.Models"
 }
 **/
 
-namespace FacetedWorlds.MyCon.Model.Models
+namespace FacetedWorlds.MyCon.Model
 {
     public partial class Identity : CorrespondenceFact
     {
@@ -79,7 +79,7 @@ namespace FacetedWorlds.MyCon.Model.Models
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Models.Identity", 1);
+			"FacetedWorlds.MyCon.Model.Identity", 1);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -180,7 +180,7 @@ namespace FacetedWorlds.MyCon.Model.Models
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Models.DisableToastNotification", 1);
+			"FacetedWorlds.MyCon.Model.DisableToastNotification", 1);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -191,7 +191,7 @@ namespace FacetedWorlds.MyCon.Model.Models
         public static Role RoleIdentity = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"identity",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.Identity", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Identity", 1),
 			false));
 
         // Queries
@@ -285,7 +285,7 @@ namespace FacetedWorlds.MyCon.Model.Models
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Models.EnableToastNotification", 1);
+			"FacetedWorlds.MyCon.Model.EnableToastNotification", 1);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -296,7 +296,7 @@ namespace FacetedWorlds.MyCon.Model.Models
         public static Role RoleDisable = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"disable",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.DisableToastNotification", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.DisableToastNotification", 1),
 			false));
 
         // Queries
@@ -382,7 +382,7 @@ namespace FacetedWorlds.MyCon.Model.Models
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Models.Conference", 1);
+			"FacetedWorlds.MyCon.Model.Conference", 1);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -471,7 +471,7 @@ namespace FacetedWorlds.MyCon.Model.Models
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Models.Attendee", 1);
+			"FacetedWorlds.MyCon.Model.Attendee", 1);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -482,12 +482,12 @@ namespace FacetedWorlds.MyCon.Model.Models
         public static Role RoleIdentity = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"identity",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.Identity", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Identity", 1),
 			false));
         public static Role RoleConference = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"conference",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.Conference", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
 			false));
 
         // Queries
@@ -581,7 +581,7 @@ namespace FacetedWorlds.MyCon.Model.Models
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Models.Time", 1);
+			"FacetedWorlds.MyCon.Model.Time", 1);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -592,7 +592,7 @@ namespace FacetedWorlds.MyCon.Model.Models
         public static Role RoleConference = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"conference",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.Conference", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
 			false));
 
         // Queries
@@ -683,7 +683,7 @@ namespace FacetedWorlds.MyCon.Model.Models
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Models.Slot", 1);
+			"FacetedWorlds.MyCon.Model.Slot", 1);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -694,12 +694,12 @@ namespace FacetedWorlds.MyCon.Model.Models
         public static Role RoleAttendee = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"attendee",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.Attendee", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Attendee", 1),
 			false));
         public static Role RoleSlotTime = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"slotTime",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.Time", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Time", 1),
 			false));
 
         // Queries
@@ -793,7 +793,7 @@ namespace FacetedWorlds.MyCon.Model.Models
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Models.Room", 1);
+			"FacetedWorlds.MyCon.Model.Room", 1);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -804,7 +804,7 @@ namespace FacetedWorlds.MyCon.Model.Models
         public static Role RoleConference = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"conference",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.Conference", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
 			false));
 
         // Queries
@@ -897,7 +897,7 @@ namespace FacetedWorlds.MyCon.Model.Models
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Models.Track", 1);
+			"FacetedWorlds.MyCon.Model.Track", 1);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -908,7 +908,7 @@ namespace FacetedWorlds.MyCon.Model.Models
         public static Role RoleConference = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"conference",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.Conference", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
 			false));
 
         // Queries
@@ -1001,7 +1001,7 @@ namespace FacetedWorlds.MyCon.Model.Models
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Models.Speaker", 1);
+			"FacetedWorlds.MyCon.Model.Speaker", 1);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -1012,7 +1012,7 @@ namespace FacetedWorlds.MyCon.Model.Models
         public static Role RoleConference = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"conference",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.Conference", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
 			false));
 
         // Queries
@@ -1103,7 +1103,7 @@ namespace FacetedWorlds.MyCon.Model.Models
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Models.Place", 1);
+			"FacetedWorlds.MyCon.Model.Place", 1);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -1114,12 +1114,12 @@ namespace FacetedWorlds.MyCon.Model.Models
         public static Role RolePlaceTime = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"placeTime",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.Time", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Time", 1),
 			false));
         public static Role RoleRoom = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"room",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.Room", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Room", 1),
 			false));
 
         // Queries
@@ -1213,7 +1213,7 @@ namespace FacetedWorlds.MyCon.Model.Models
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Models.Session", 1);
+			"FacetedWorlds.MyCon.Model.Session", 1);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -1224,7 +1224,7 @@ namespace FacetedWorlds.MyCon.Model.Models
         public static Role RoleConference = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"conference",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.Conference", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
 			false));
 
         // Queries
@@ -1330,7 +1330,7 @@ namespace FacetedWorlds.MyCon.Model.Models
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Models.SessionName", 1);
+			"FacetedWorlds.MyCon.Model.SessionName", 1);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -1341,12 +1341,12 @@ namespace FacetedWorlds.MyCon.Model.Models
         public static Role RoleSession = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"session",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.Session", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
 			false));
         public static Role RolePrior = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"prior",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.SessionName", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionName", 1),
 			false));
 
         // Queries
@@ -1449,7 +1449,7 @@ namespace FacetedWorlds.MyCon.Model.Models
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Models.GeneralSession", 1);
+			"FacetedWorlds.MyCon.Model.GeneralSession", 1);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -1460,7 +1460,7 @@ namespace FacetedWorlds.MyCon.Model.Models
         public static Role RoleSession = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"session",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.Session", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
 			false));
 
         // Queries
@@ -1544,7 +1544,7 @@ namespace FacetedWorlds.MyCon.Model.Models
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Models.BreakoutSession", 1);
+			"FacetedWorlds.MyCon.Model.BreakoutSession", 1);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -1555,17 +1555,17 @@ namespace FacetedWorlds.MyCon.Model.Models
         public static Role RoleSession = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"session",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.Session", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
 			false));
         public static Role RoleSpeaker = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"speaker",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.Speaker", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Speaker", 1),
 			false));
         public static Role RoleTrack = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"track",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.Track", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Track", 1),
 			false));
 
         // Queries
@@ -1665,7 +1665,7 @@ namespace FacetedWorlds.MyCon.Model.Models
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Models.SessionPlace", 1);
+			"FacetedWorlds.MyCon.Model.SessionPlace", 1);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -1676,17 +1676,17 @@ namespace FacetedWorlds.MyCon.Model.Models
         public static Role RoleSession = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"session",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.Session", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
 			false));
         public static Role RolePlace = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"place",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.Place", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Place", 1),
 			false));
         public static Role RolePrior = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"prior",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.SessionPlace", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionPlace", 1),
 			false));
 
         // Queries
@@ -1786,7 +1786,7 @@ namespace FacetedWorlds.MyCon.Model.Models
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Models.Schedule", 1);
+			"FacetedWorlds.MyCon.Model.Schedule", 1);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -1797,17 +1797,17 @@ namespace FacetedWorlds.MyCon.Model.Models
         public static Role RoleSlot = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"slot",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.Slot", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Slot", 1),
 			false));
         public static Role RoleSessionPlace = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"sessionPlace",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.SessionPlace", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionPlace", 1),
 			false));
         public static Role RolePrior = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"prior",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.Schedule", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Schedule", 1),
 			false));
 
         // Queries
@@ -1907,7 +1907,7 @@ namespace FacetedWorlds.MyCon.Model.Models
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Models.Evaluation", 1);
+			"FacetedWorlds.MyCon.Model.Evaluation", 1);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -1918,7 +1918,7 @@ namespace FacetedWorlds.MyCon.Model.Models
         public static Role RoleSchedule = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"schedule",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Models.Schedule", 1),
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Schedule", 1),
 			false));
 
         // Queries

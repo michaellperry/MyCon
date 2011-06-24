@@ -1,4 +1,4 @@
-namespace FacetedWorlds.MyCon.Model.Models;
+namespace FacetedWorlds.MyCon.Model;
 
 fact Identity {
 key:
