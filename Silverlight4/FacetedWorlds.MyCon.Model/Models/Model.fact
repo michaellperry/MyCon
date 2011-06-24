@@ -1,0 +1,115 @@
+namespace FacetedWorlds.MyCon.Model.Models;
+
+fact Identity {
+key:
+    string anonymousId;
+
+query:
+    DisableToastNotification* isToastNotificationDisabled {
+        DisableToastNotification d : d.identity = this
+            where not d.isReenabled
+    }
+}
+
+fact DisableToastNotification {
+key:
+    unique;
+    Identity identity;
+
+query:
+    bool isReenabled {
+        exists EnableToastNotification e : e.disable = this
+    }
+}
+
+fact EnableToastNotification {
+key:
+    DisableToastNotification* disable;
+}
+
+fact Conference {
+key:
+    string name;
+}
+
+fact Attendee {
+key:
+    Identity identity;
+    Conference conference;
+}
+
+fact Time {
+key:
+    Conference conference;
+    time start;
+}
+
+fact Slot {
+key:
+    Attendee attendee;
+    Time slotTime;
+}
+
+fact Room {
+key:
+    Conference conference;
+    string roomNumber;
+}
+
+fact Track {
+key:
+    Conference conference;
+    string name;
+}
+
+fact Speaker {
+key:
+    Conference conference;
+    string name;
+}
+
+fact Place {
+key:
+    Time placeTime;
+    Room room;
+}
+
+fact Session {
+key:
+    unique;
+    Conference conference;
+
+mutable:
+    string name;
+}
+
+fact GeneralSession {
+key:
+    Session session;
+}
+
+fact BreakoutSession {
+key:
+    Session session;
+    Speaker speaker;
+    Track track;
+}
+
+fact SessionPlace {
+key:
+    Session session;
+    Place place;
+    SessionPlace* prior;
+}
+
+fact Schedule {
+key:
+    Slot slot;
+    SessionPlace sessionPlace;
+    Schedule* prior;
+}
+
+fact Evaluation {
+key:
+    Schedule schedule;
+}

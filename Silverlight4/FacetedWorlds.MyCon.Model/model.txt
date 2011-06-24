@@ -1,0 +1,31 @@
+digraph "FacetedWorlds.MyCon.Model.Models"
+{
+    rankdir=BT
+    DisableToastNotification -> Identity
+    EnableToastNotification -> DisableToastNotification [label="  *"]
+    Attendee -> Identity
+    Attendee -> Conference
+    Time -> Conference
+    Slot -> Attendee
+    Slot -> Time
+    Room -> Conference
+    Track -> Conference
+    Speaker -> Conference
+    Place -> Time
+    Place -> Room
+    Session -> Conference
+    SessionName -> Session
+    SessionName -> SessionName [label="  *"]
+    GeneralSession -> Session
+    BreakoutSession -> Session
+    BreakoutSession -> Speaker
+    BreakoutSession -> Track
+    SessionPlace -> Session
+    SessionPlace -> Place
+    SessionPlace -> SessionPlace [label="  *"]
+    Schedule -> Slot
+    Schedule -> SessionPlace
+    Schedule -> Schedule [label="  *"]
+    Evaluation -> Schedule
+}
+
