@@ -51,6 +51,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Phone" />
+    <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
@@ -85,12 +86,19 @@
     <Compile Include="ViewModels\ScheduleSlotViewModel.cs" />
     <Compile Include="ViewModels\ScheduleViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\TrackDayViewModel.cs" />
+    <Compile Include="ViewModels\TrackSessionViewModel.cs" />
+    <Compile Include="ViewModels\TracksViewModel.cs" />
+    <Compile Include="ViewModels\TrackViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\ScheduleView.xaml.cs">
       <DependentUpon>ScheduleView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SessionWithTimeControl.xaml.cs">
       <DependentUpon>SessionWithTimeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TracksView.xaml.cs">
+      <DependentUpon>TracksView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -105,6 +113,10 @@
     <Page Include="Views\SessionWithTimeControl.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TracksView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +147,9 @@
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>
     <DesignData Include="SampleData\ScheduleViewModelSampleData.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+    </DesignData>
+    <DesignData Include="SampleData\TracksViewModelSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>
   </ItemGroup>

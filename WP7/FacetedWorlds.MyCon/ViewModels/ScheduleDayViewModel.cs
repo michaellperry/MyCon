@@ -1,7 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FacetedWorlds.MyCon.Model;
-using System;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {

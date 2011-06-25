@@ -39,6 +39,10 @@ query:
 		Day d : d.conference = this
 	}
 
+	Track* tracks {
+		Track t : t.conference = this
+	}
+
 	Session* sessions {
 		Session s : s.conference = this
 	}
@@ -89,6 +93,12 @@ fact Track {
 key:
     Conference conference;
     string name;
+
+query:
+	SessionPlace* currentSessionPlaces {
+		SessionPlace sp : sp.session.track = this
+			where sp.isCurrent
+	}
 }
 
 fact Speaker {

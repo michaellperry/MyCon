@@ -400,6 +400,9 @@ namespace FacetedWorlds.MyCon.Model
         public static Query QueryDays = new Query()
             .JoinSuccessors(Day.RoleConference)
             ;
+        public static Query QueryTracks = new Query()
+            .JoinSuccessors(Track.RoleConference)
+            ;
         public static Query QuerySessions = new Query()
             .JoinSuccessors(Session.RoleConference)
             ;
@@ -414,6 +417,7 @@ namespace FacetedWorlds.MyCon.Model
         // Results
         private Result<ConferenceName> _name;
         private Result<Day> _days;
+        private Result<Track> _tracks;
         private Result<Session> _sessions;
 
         // Business constructor
@@ -436,6 +440,7 @@ namespace FacetedWorlds.MyCon.Model
         {
             _name = new Result<ConferenceName>(this, QueryName);
             _days = new Result<Day>(this, QueryDays);
+            _tracks = new Result<Track>(this, QueryTracks);
             _sessions = new Result<Session>(this, QuerySessions);
         }
 
@@ -451,6 +456,10 @@ namespace FacetedWorlds.MyCon.Model
         public IEnumerable<Day> Days
         {
             get { return _days; }
+        }
+        public IEnumerable<Track> Tracks
+        {
+            get { return _tracks; }
         }
         public IEnumerable<Session> Sessions
         {
@@ -1190,6 +1199,11 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
+        public static Query QueryCurrentSessionPlaces = new Query()
+            .JoinSuccessors(Session.RoleTrack)
+            .JoinSuccessors(SessionPlace.RoleSession, Condition.WhereIsEmpty(SessionPlace.QueryIsCurrent)
+            )
+            ;
 
         // Predicates
 
@@ -1200,6 +1214,7 @@ namespace FacetedWorlds.MyCon.Model
         private string _name;
 
         // Results
+        private Result<SessionPlace> _currentSessionPlaces;
 
         // Business constructor
         public Track(
@@ -1222,6 +1237,7 @@ namespace FacetedWorlds.MyCon.Model
         // Result initializer
         private void InitializeResults()
         {
+            _currentSessionPlaces = new Result<SessionPlace>(this, QueryCurrentSessionPlaces);
         }
 
         // Predecessor access
@@ -1237,6 +1253,10 @@ namespace FacetedWorlds.MyCon.Model
         }
 
         // Query result access
+        public IEnumerable<SessionPlace> CurrentSessionPlaces
+        {
+            get { return _currentSessionPlaces; }
+        }
 
         // Mutable property access
 
@@ -2094,6 +2114,9 @@ namespace FacetedWorlds.MyCon.Model
 				Conference.QueryDays.QueryDefinition);
 			community.AddQuery(
 				Conference._correspondenceFactType,
+				Conference.QueryTracks.QueryDefinition);
+			community.AddQuery(
+				Conference._correspondenceFactType,
 				Conference.QuerySessions.QueryDefinition);
 			community.AddType(
 				ConferenceName._correspondenceFactType,
@@ -2132,6 +2155,9 @@ namespace FacetedWorlds.MyCon.Model
 				Track._correspondenceFactType,
 				new Track.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Track._correspondenceFactType }));
+			community.AddQuery(
+				Track._correspondenceFactType,
+				Track.QueryCurrentSessionPlaces.QueryDefinition);
 			community.AddType(
 				Speaker._correspondenceFactType,
 				new Speaker.CorrespondenceFactFactory(fieldSerializerByType),

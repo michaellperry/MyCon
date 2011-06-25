@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using FacetedWorlds.MyCon.Model;
 
 namespace FacetedWorlds.MyCon.ViewModels
@@ -22,7 +20,20 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public ScheduleViewModel Schedule
         {
-            get { return new ScheduleViewModel(_identity.NewAttendee("Conference ID")); }
+            get { return new ScheduleViewModel(Attendee); }
+        }
+
+        public TracksViewModel Tracks
+        {
+            get
+            {
+                return new TracksViewModel(Attendee);
+            }
+        }
+
+        private Attendee Attendee
+        {
+            get { return _identity.NewAttendee("Conference ID"); }
         }
     }
 }
