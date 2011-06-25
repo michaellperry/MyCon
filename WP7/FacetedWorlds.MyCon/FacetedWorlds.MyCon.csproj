@@ -25,6 +25,8 @@
     <SilverlightAppEntry>FacetedWorlds.MyCon.App</SilverlightAppEntry>
     <ValidateXaml>true</ValidateXaml>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <Utf8Output>true</Utf8Output>
+    <ExpressionBlendVersion>4.0.20901.0</ExpressionBlendVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -75,24 +77,34 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="POXConfigurationProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SynchronizationService.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ScheduleDayViewModel.cs" />
+    <Compile Include="ViewModels\ScheduleSlotViewModel.cs" />
+    <Compile Include="ViewModels\ScheduleViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\ScheduleView.xaml.cs">
+      <DependentUpon>ScheduleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SessionWithTimeControl.xaml.cs">
+      <DependentUpon>SessionWithTimeControl.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Page Include="MainPage.xaml">
+    <Page Include="Views\ScheduleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SessionWithTimeControl.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +127,14 @@
       <Project>{C2A15C3B-BA6E-4FE4-9E69-B3CDE6CD8B75}</Project>
       <Name>FacetedWorlds.MyCon.Model %28WP7\FacetedWorlds.MyCon.Model%29</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <DesignData Include="SampleData\ScheduleSlotViewModelSampleData.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+    </DesignData>
+    <DesignData Include="SampleData\ScheduleViewModelSampleData.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+    </DesignData>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />

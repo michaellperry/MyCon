@@ -21,5 +21,11 @@ namespace FacetedWorlds.MyCon.Model
                 }
             }
         }
+
+        public Attendee NewAttendee(string conferenceId)
+        {
+            Conference conference = Community.AddFact(new Conference(conferenceId));
+            return Community.AddFact(new Attendee(this, conference));
+        }
     }
 }

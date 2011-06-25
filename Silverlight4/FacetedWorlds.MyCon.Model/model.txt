@@ -1,11 +1,14 @@
-digraph "FacetedWorlds.MyCon.Model.Models"
+digraph "FacetedWorlds.MyCon.Model"
 {
     rankdir=BT
     DisableToastNotification -> Identity
     EnableToastNotification -> DisableToastNotification [label="  *"]
+    ConferenceName -> Conference
+    ConferenceName -> ConferenceName [label="  *"]
     Attendee -> Identity
     Attendee -> Conference
-    Time -> Conference
+    Day -> Conference
+    Time -> Day
     Slot -> Attendee
     Slot -> Time
     Room -> Conference
@@ -14,12 +17,10 @@ digraph "FacetedWorlds.MyCon.Model.Models"
     Place -> Time
     Place -> Room
     Session -> Conference
+    Session -> Speaker
+    Session -> Track [label="  ?"]
     SessionName -> Session
     SessionName -> SessionName [label="  *"]
-    GeneralSession -> Session
-    BreakoutSession -> Session
-    BreakoutSession -> Speaker
-    BreakoutSession -> Track
     SessionPlace -> Session
     SessionPlace -> Place
     SessionPlace -> SessionPlace [label="  *"]
@@ -28,4 +29,3 @@ digraph "FacetedWorlds.MyCon.Model.Models"
     Schedule -> Schedule [label="  *"]
     Evaluation -> Schedule
 }
-

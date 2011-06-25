@@ -29,7 +29,19 @@ key:
 
 fact Conference {
 key:
+	string id;
+
+mutable:
     string name;
+
+query:
+	Day* days {
+		Day d : d.conference = this
+	}
+
+	Session* sessions {
+		Session s : s.conference = this
+	}
 }
 
 fact Attendee {
@@ -38,10 +50,27 @@ key:
     Conference conference;
 }
 
+fact Day {
+key:
+	Conference conference;
+	date conferenceDate;
+
+query:
+	Time* times {
+		Time t : t.day = this
+	}
+}
+
 fact Time {
 key:
-    Conference conference;
+    Day day;
     time start;
+
+query:
+	SessionPlace* availableSessions {
+		SessionPlace sp : sp.place.placeTime = this
+			where sp.isCurrent
+	}
 }
 
 fact Slot {
@@ -78,21 +107,11 @@ fact Session {
 key:
     unique;
     Conference conference;
+    Speaker speaker;
+    Track? track;
 
 mutable:
     string name;
-}
-
-fact GeneralSession {
-key:
-    Session session;
-}
-
-fact BreakoutSession {
-key:
-    Session session;
-    Speaker speaker;
-    Track track;
 }
 
 fact SessionPlace {
@@ -100,6 +119,11 @@ key:
     Session session;
     Place place;
     SessionPlace* prior;
+
+query:
+	bool isCurrent {
+		not exists SessionPlace next : next.prior = this
+	}
 }
 
 fact Schedule {

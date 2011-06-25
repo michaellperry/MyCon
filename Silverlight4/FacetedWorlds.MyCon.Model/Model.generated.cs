@@ -13,9 +13,12 @@ digraph "FacetedWorlds.MyCon.Model"
     rankdir=BT
     DisableToastNotification -> Identity
     EnableToastNotification -> DisableToastNotification [label="  *"]
+    ConferenceName -> Conference
+    ConferenceName -> ConferenceName [label="  *"]
     Attendee -> Identity
     Attendee -> Conference
-    Time -> Conference
+    Day -> Conference
+    Time -> Day
     Slot -> Attendee
     Slot -> Time
     Room -> Conference
@@ -24,12 +27,10 @@ digraph "FacetedWorlds.MyCon.Model"
     Place -> Time
     Place -> Room
     Session -> Conference
+    Session -> Speaker
+    Session -> Track [label="  ?"]
     SessionName -> Session
     SessionName -> SessionName [label="  *"]
-    GeneralSession -> Session
-    BreakoutSession -> Session
-    BreakoutSession -> Speaker
-    BreakoutSession -> Track
     SessionPlace -> Session
     SessionPlace -> Place
     SessionPlace -> SessionPlace [label="  *"]
@@ -366,7 +367,7 @@ namespace FacetedWorlds.MyCon.Model
 				{
 					using (BinaryReader output = new BinaryReader(data))
 					{
-						newFact._name = (string)_fieldSerializerByType[typeof(string)].ReadData(output);
+						newFact._id = (string)_fieldSerializerByType[typeof(string)].ReadData(output);
 					}
 				}
 
@@ -376,7 +377,7 @@ namespace FacetedWorlds.MyCon.Model
 			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
 			{
 				Conference fact = (Conference)obj;
-				_fieldSerializerByType[typeof(string)].WriteData(output, fact._name);
+				_fieldSerializerByType[typeof(string)].WriteData(output, fact._id);
 			}
 		}
 
@@ -392,23 +393,36 @@ namespace FacetedWorlds.MyCon.Model
         // Roles
 
         // Queries
+        public static Query QueryName = new Query()
+            .JoinSuccessors(ConferenceName.RoleConference, Condition.WhereIsEmpty(ConferenceName.QueryIsCurrent)
+            )
+            ;
+        public static Query QueryDays = new Query()
+            .JoinSuccessors(Day.RoleConference)
+            ;
+        public static Query QuerySessions = new Query()
+            .JoinSuccessors(Session.RoleConference)
+            ;
 
         // Predicates
 
         // Predecessors
 
         // Fields
-        private string _name;
+        private string _id;
 
         // Results
+        private Result<ConferenceName> _name;
+        private Result<Day> _days;
+        private Result<Session> _sessions;
 
         // Business constructor
         public Conference(
-            string name
+            string id
             )
         {
             InitializeResults();
-            _name = name;
+            _id = id;
         }
 
         // Hydration constructor
@@ -420,14 +434,154 @@ namespace FacetedWorlds.MyCon.Model
         // Result initializer
         private void InitializeResults()
         {
+            _name = new Result<ConferenceName>(this, QueryName);
+            _days = new Result<Day>(this, QueryDays);
+            _sessions = new Result<Session>(this, QuerySessions);
         }
 
         // Predecessor access
 
         // Field access
-        public string Name
+        public string Id
         {
-            get { return _name; }
+            get { return _id; }
+        }
+
+        // Query result access
+        public IEnumerable<Day> Days
+        {
+            get { return _days; }
+        }
+        public IEnumerable<Session> Sessions
+        {
+            get { return _sessions; }
+        }
+
+        // Mutable property access
+        public Disputable<string> Name
+        {
+            get { return _name.Select(fact => fact.Value).AsDisputable(); }
+			set
+			{
+				Community.AddFact(new ConferenceName(this, _name, value.Value));
+			}
+        }
+
+    }
+    
+    public partial class ConferenceName : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				ConferenceName newFact = new ConferenceName(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+						newFact._value = (string)_fieldSerializerByType[typeof(string)].ReadData(output);
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				ConferenceName fact = (ConferenceName)obj;
+				_fieldSerializerByType[typeof(string)].WriteData(output, fact._value);
+			}
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.ConferenceName", 1);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Roles
+        public static Role RoleConference = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"conference",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			false));
+        public static Role RolePrior = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"prior",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.ConferenceName", 1),
+			false));
+
+        // Queries
+        public static Query QueryIsCurrent = new Query()
+            .JoinSuccessors(ConferenceName.RolePrior)
+            ;
+
+        // Predicates
+        public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
+
+        // Predecessors
+        private PredecessorObj<Conference> _conference;
+        private PredecessorList<ConferenceName> _prior;
+
+        // Fields
+        private string _value;
+
+        // Results
+
+        // Business constructor
+        public ConferenceName(
+            Conference conference
+            ,IEnumerable<ConferenceName> prior
+            ,string value
+            )
+        {
+            InitializeResults();
+            _conference = new PredecessorObj<Conference>(this, RoleConference, conference);
+            _prior = new PredecessorList<ConferenceName>(this, RolePrior, prior);
+            _value = value;
+        }
+
+        // Hydration constructor
+        private ConferenceName(FactMemento memento)
+        {
+            InitializeResults();
+            _conference = new PredecessorObj<Conference>(this, RoleConference, memento);
+            _prior = new PredecessorList<ConferenceName>(this, RolePrior, memento);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+        public Conference Conference
+        {
+            get { return _conference.Fact; }
+        }
+        public IEnumerable<ConferenceName> Prior
+        {
+            get { return _prior; }
+        }
+     
+        // Field access
+        public string Value
+        {
+            get { return _value; }
         }
 
         // Query result access
@@ -544,6 +698,119 @@ namespace FacetedWorlds.MyCon.Model
 
     }
     
+    public partial class Day : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				Day newFact = new Day(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+						newFact._conferenceDate = (DateTime)_fieldSerializerByType[typeof(DateTime)].ReadData(output);
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				Day fact = (Day)obj;
+				_fieldSerializerByType[typeof(DateTime)].WriteData(output, fact._conferenceDate);
+			}
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.Day", 1);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Roles
+        public static Role RoleConference = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"conference",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			false));
+
+        // Queries
+        public static Query QueryTimes = new Query()
+            .JoinSuccessors(Time.RoleDay)
+            ;
+
+        // Predicates
+
+        // Predecessors
+        private PredecessorObj<Conference> _conference;
+
+        // Fields
+        private DateTime _conferenceDate;
+
+        // Results
+        private Result<Time> _times;
+
+        // Business constructor
+        public Day(
+            Conference conference
+            ,DateTime conferenceDate
+            )
+        {
+            InitializeResults();
+            _conference = new PredecessorObj<Conference>(this, RoleConference, conference);
+            _conferenceDate = conferenceDate;
+        }
+
+        // Hydration constructor
+        private Day(FactMemento memento)
+        {
+            InitializeResults();
+            _conference = new PredecessorObj<Conference>(this, RoleConference, memento);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+            _times = new Result<Time>(this, QueryTimes);
+        }
+
+        // Predecessor access
+        public Conference Conference
+        {
+            get { return _conference.Fact; }
+        }
+
+        // Field access
+        public DateTime ConferenceDate
+        {
+            get { return _conferenceDate; }
+        }
+
+        // Query result access
+        public IEnumerable<Time> Times
+        {
+            get { return _times; }
+        }
+
+        // Mutable property access
+
+    }
+    
     public partial class Time : CorrespondenceFact
     {
 		// Factory
@@ -589,32 +856,38 @@ namespace FacetedWorlds.MyCon.Model
 		}
 
         // Roles
-        public static Role RoleConference = new Role(new RoleMemento(
+        public static Role RoleDay = new Role(new RoleMemento(
 			_correspondenceFactType,
-			"conference",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			"day",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Day", 1),
 			false));
 
         // Queries
+        public static Query QueryAvailableSessions = new Query()
+            .JoinSuccessors(Place.RolePlaceTime)
+            .JoinSuccessors(SessionPlace.RolePlace, Condition.WhereIsEmpty(SessionPlace.QueryIsCurrent)
+            )
+            ;
 
         // Predicates
 
         // Predecessors
-        private PredecessorObj<Conference> _conference;
+        private PredecessorObj<Day> _day;
 
         // Fields
         private DateTime _start;
 
         // Results
+        private Result<SessionPlace> _availableSessions;
 
         // Business constructor
         public Time(
-            Conference conference
+            Day day
             ,DateTime start
             )
         {
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, conference);
+            _day = new PredecessorObj<Day>(this, RoleDay, day);
             _start = start;
         }
 
@@ -622,18 +895,19 @@ namespace FacetedWorlds.MyCon.Model
         private Time(FactMemento memento)
         {
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, memento);
+            _day = new PredecessorObj<Day>(this, RoleDay, memento);
         }
 
         // Result initializer
         private void InitializeResults()
         {
+            _availableSessions = new Result<SessionPlace>(this, QueryAvailableSessions);
         }
 
         // Predecessor access
-        public Conference Conference
+        public Day Day
         {
-            get { return _conference.Fact; }
+            get { return _day.Fact; }
         }
 
         // Field access
@@ -643,6 +917,10 @@ namespace FacetedWorlds.MyCon.Model
         }
 
         // Query result access
+        public IEnumerable<SessionPlace> AvailableSessions
+        {
+            get { return _availableSessions; }
+        }
 
         // Mutable property access
 
@@ -1226,6 +1504,16 @@ namespace FacetedWorlds.MyCon.Model
 			"conference",
 			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
 			false));
+        public static Role RoleSpeaker = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"speaker",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Speaker", 1),
+			false));
+        public static Role RoleTrack = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"track",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Track", 1),
+			false));
 
         // Queries
         public static Query QueryName = new Query()
@@ -1237,6 +1525,8 @@ namespace FacetedWorlds.MyCon.Model
 
         // Predecessors
         private PredecessorObj<Conference> _conference;
+        private PredecessorObj<Speaker> _speaker;
+        private PredecessorOpt<Track> _track;
 
         // Unique
         private Guid _unique;
@@ -1249,11 +1539,15 @@ namespace FacetedWorlds.MyCon.Model
         // Business constructor
         public Session(
             Conference conference
+            ,Speaker speaker
+            ,Track track
             )
         {
             _unique = Guid.NewGuid();
             InitializeResults();
             _conference = new PredecessorObj<Conference>(this, RoleConference, conference);
+            _speaker = new PredecessorObj<Speaker>(this, RoleSpeaker, speaker);
+            _track = new PredecessorOpt<Track>(this, RoleTrack, track);
         }
 
         // Hydration constructor
@@ -1261,6 +1555,8 @@ namespace FacetedWorlds.MyCon.Model
         {
             InitializeResults();
             _conference = new PredecessorObj<Conference>(this, RoleConference, memento);
+            _speaker = new PredecessorObj<Speaker>(this, RoleSpeaker, memento);
+            _track = new PredecessorOpt<Track>(this, RoleTrack, memento);
         }
 
         // Result initializer
@@ -1273,6 +1569,14 @@ namespace FacetedWorlds.MyCon.Model
         public Conference Conference
         {
             get { return _conference.Fact; }
+        }
+        public Speaker Speaker
+        {
+            get { return _speaker.Fact; }
+        }
+        public Track Track
+        {
+            get { return _track.Fact; }
         }
 
         // Field access
@@ -1414,222 +1718,6 @@ namespace FacetedWorlds.MyCon.Model
 
     }
     
-    public partial class GeneralSession : CorrespondenceFact
-    {
-		// Factory
-		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
-		{
-			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
-
-			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
-			{
-				_fieldSerializerByType = fieldSerializerByType;
-			}
-
-			public CorrespondenceFact CreateFact(FactMemento memento)
-			{
-				GeneralSession newFact = new GeneralSession(memento);
-
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
-
-				return newFact;
-			}
-
-			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
-			{
-				GeneralSession fact = (GeneralSession)obj;
-			}
-		}
-
-		// Type
-		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.GeneralSession", 1);
-
-		protected override CorrespondenceFactType GetCorrespondenceFactType()
-		{
-			return _correspondenceFactType;
-		}
-
-        // Roles
-        public static Role RoleSession = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"session",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
-			false));
-
-        // Queries
-
-        // Predicates
-
-        // Predecessors
-        private PredecessorObj<Session> _session;
-
-        // Fields
-
-        // Results
-
-        // Business constructor
-        public GeneralSession(
-            Session session
-            )
-        {
-            InitializeResults();
-            _session = new PredecessorObj<Session>(this, RoleSession, session);
-        }
-
-        // Hydration constructor
-        private GeneralSession(FactMemento memento)
-        {
-            InitializeResults();
-            _session = new PredecessorObj<Session>(this, RoleSession, memento);
-        }
-
-        // Result initializer
-        private void InitializeResults()
-        {
-        }
-
-        // Predecessor access
-        public Session Session
-        {
-            get { return _session.Fact; }
-        }
-
-        // Field access
-
-        // Query result access
-
-        // Mutable property access
-
-    }
-    
-    public partial class BreakoutSession : CorrespondenceFact
-    {
-		// Factory
-		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
-		{
-			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
-
-			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
-			{
-				_fieldSerializerByType = fieldSerializerByType;
-			}
-
-			public CorrespondenceFact CreateFact(FactMemento memento)
-			{
-				BreakoutSession newFact = new BreakoutSession(memento);
-
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
-
-				return newFact;
-			}
-
-			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
-			{
-				BreakoutSession fact = (BreakoutSession)obj;
-			}
-		}
-
-		// Type
-		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.BreakoutSession", 1);
-
-		protected override CorrespondenceFactType GetCorrespondenceFactType()
-		{
-			return _correspondenceFactType;
-		}
-
-        // Roles
-        public static Role RoleSession = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"session",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
-			false));
-        public static Role RoleSpeaker = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"speaker",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Speaker", 1),
-			false));
-        public static Role RoleTrack = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"track",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Track", 1),
-			false));
-
-        // Queries
-
-        // Predicates
-
-        // Predecessors
-        private PredecessorObj<Session> _session;
-        private PredecessorObj<Speaker> _speaker;
-        private PredecessorObj<Track> _track;
-
-        // Fields
-
-        // Results
-
-        // Business constructor
-        public BreakoutSession(
-            Session session
-            ,Speaker speaker
-            ,Track track
-            )
-        {
-            InitializeResults();
-            _session = new PredecessorObj<Session>(this, RoleSession, session);
-            _speaker = new PredecessorObj<Speaker>(this, RoleSpeaker, speaker);
-            _track = new PredecessorObj<Track>(this, RoleTrack, track);
-        }
-
-        // Hydration constructor
-        private BreakoutSession(FactMemento memento)
-        {
-            InitializeResults();
-            _session = new PredecessorObj<Session>(this, RoleSession, memento);
-            _speaker = new PredecessorObj<Speaker>(this, RoleSpeaker, memento);
-            _track = new PredecessorObj<Track>(this, RoleTrack, memento);
-        }
-
-        // Result initializer
-        private void InitializeResults()
-        {
-        }
-
-        // Predecessor access
-        public Session Session
-        {
-            get { return _session.Fact; }
-        }
-        public Speaker Speaker
-        {
-            get { return _speaker.Fact; }
-        }
-        public Track Track
-        {
-            get { return _track.Fact; }
-        }
-
-        // Field access
-
-        // Query result access
-
-        // Mutable property access
-
-    }
-    
     public partial class SessionPlace : CorrespondenceFact
     {
 		// Factory
@@ -1690,8 +1778,12 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
+        public static Query QueryIsCurrent = new Query()
+            .JoinSuccessors(SessionPlace.RolePrior)
+            ;
 
         // Predicates
+        public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
 
         // Predecessors
         private PredecessorObj<Session> _session;
@@ -1994,14 +2086,40 @@ namespace FacetedWorlds.MyCon.Model
 				Conference._correspondenceFactType,
 				new Conference.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Conference._correspondenceFactType }));
+			community.AddQuery(
+				Conference._correspondenceFactType,
+				Conference.QueryName.QueryDefinition);
+			community.AddQuery(
+				Conference._correspondenceFactType,
+				Conference.QueryDays.QueryDefinition);
+			community.AddQuery(
+				Conference._correspondenceFactType,
+				Conference.QuerySessions.QueryDefinition);
+			community.AddType(
+				ConferenceName._correspondenceFactType,
+				new ConferenceName.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { ConferenceName._correspondenceFactType }));
+			community.AddQuery(
+				ConferenceName._correspondenceFactType,
+				ConferenceName.QueryIsCurrent.QueryDefinition);
 			community.AddType(
 				Attendee._correspondenceFactType,
 				new Attendee.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Attendee._correspondenceFactType }));
 			community.AddType(
+				Day._correspondenceFactType,
+				new Day.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { Day._correspondenceFactType }));
+			community.AddQuery(
+				Day._correspondenceFactType,
+				Day.QueryTimes.QueryDefinition);
+			community.AddType(
 				Time._correspondenceFactType,
 				new Time.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Time._correspondenceFactType }));
+			community.AddQuery(
+				Time._correspondenceFactType,
+				Time.QueryAvailableSessions.QueryDefinition);
 			community.AddType(
 				Slot._correspondenceFactType,
 				new Slot.CorrespondenceFactFactory(fieldSerializerByType),
@@ -2037,17 +2155,12 @@ namespace FacetedWorlds.MyCon.Model
 				SessionName._correspondenceFactType,
 				SessionName.QueryIsCurrent.QueryDefinition);
 			community.AddType(
-				GeneralSession._correspondenceFactType,
-				new GeneralSession.CorrespondenceFactFactory(fieldSerializerByType),
-				new FactMetadata(new List<CorrespondenceFactType> { GeneralSession._correspondenceFactType }));
-			community.AddType(
-				BreakoutSession._correspondenceFactType,
-				new BreakoutSession.CorrespondenceFactFactory(fieldSerializerByType),
-				new FactMetadata(new List<CorrespondenceFactType> { BreakoutSession._correspondenceFactType }));
-			community.AddType(
 				SessionPlace._correspondenceFactType,
 				new SessionPlace.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { SessionPlace._correspondenceFactType }));
+			community.AddQuery(
+				SessionPlace._correspondenceFactType,
+				SessionPlace.QueryIsCurrent.QueryDefinition);
 			community.AddType(
 				Schedule._correspondenceFactType,
 				new Schedule.CorrespondenceFactFactory(fieldSerializerByType),

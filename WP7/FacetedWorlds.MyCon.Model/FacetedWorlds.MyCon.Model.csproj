@@ -54,6 +54,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\Silverlight4\FacetedWorlds.MyCon.Model\Attendee.cs">
+      <Link>Attendee.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Silverlight4\FacetedWorlds.MyCon.Model\Conference.cs">
+      <Link>Conference.cs</Link>
+    </Compile>
     <Compile Include="..\..\Silverlight4\FacetedWorlds.MyCon.Model\Identity.cs">
       <Link>Identity.cs</Link>
     </Compile>

@@ -11,12 +11,11 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 
-namespace FacetedWorlds.MyCon
+namespace FacetedWorlds.MyCon.Views
 {
-    public partial class MainPage : PhoneApplicationPage
+    public partial class ScheduleView : PhoneApplicationPage
     {
-        // Constructor
-        public MainPage()
+        public ScheduleView()
         {
             InitializeComponent();
         }
