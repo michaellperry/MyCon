@@ -54,17 +54,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Silverlight4\FacetedWorlds.MyCon.Model\Attendee.cs">
-      <Link>Attendee.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Silverlight4\FacetedWorlds.MyCon.Model\Conference.cs">
-      <Link>Conference.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Silverlight4\FacetedWorlds.MyCon.Model\Identity.cs">
-      <Link>Identity.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Silverlight4\FacetedWorlds.MyCon.Model\Model.generated.cs">
-      <Link>Model.generated.cs</Link>
+    <Compile Include="Attendee.cs" />
+    <Compile Include="Conference.cs" />
+    <Compile Include="Identity.cs" />
+    <Compile Include="Model.generated.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -72,6 +68,11 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Model.fact" />
+    <None Include="Model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Model.generated.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
