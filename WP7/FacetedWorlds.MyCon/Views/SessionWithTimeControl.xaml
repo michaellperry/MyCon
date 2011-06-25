@@ -26,8 +26,8 @@
 				<ColumnDefinition Width="0.559*"/>
 				<ColumnDefinition Width="0.441*"/>
 			</Grid.ColumnDefinitions>
-			<TextBlock Text="{Binding Room}" Margin="4,4,8,4" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Grid.Column="1" Grid.Row="1"/>
-			<TextBlock Text="{Binding Speaker}" Margin="4" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" TextWrapping="Wrap" Grid.Row="1"/>
+			<TextBlock Text="{Binding Room}" Margin="4,0,8,4" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneSubtleBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Grid.Column="1" Grid.Row="1"/>
+			<TextBlock Text="{Binding Speaker}" Margin="4,0,4,4" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneSubtleBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" TextWrapping="Wrap" Grid.Row="1"/>
 			<TextBlock Text="{Binding Title}" Margin="4,4,8,4" TextWrapping="Wrap" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Grid.ColumnSpan="2"/>
 		</Grid>
 		<Image Grid.Column="1" Margin="8,4" Source="{Binding ImageUrl}" VerticalAlignment="Center" Height="80" Width="80" HorizontalAlignment="Center"/>
