@@ -5,23 +5,31 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d"
 	x:Class="FacetedWorlds.MyCon.SessionWithTimeControl"
-	d:DesignWidth="456" d:DesignHeight="114">
+	d:DesignWidth="456" d:DesignHeight="97">
 
 	<Grid x:Name="LayoutRoot" Background="Transparent" d:DataContext="{d:DesignData /SampleData/ScheduleSlotViewModelSampleData.xaml}">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="97"/>
 			<ColumnDefinition Width="96"/>
-			<ColumnDefinition Width="155"/>
 			<ColumnDefinition/>
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
-			<RowDefinition/>
 		</Grid.RowDefinitions>
-		<TextBlock Text="{Binding Room}" Margin="8,4" Grid.Column="3" Grid.Row="1" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}"/>
-		<TextBlock Text="{Binding Speaker}" Margin="8,4" Grid.Row="1" Grid.Column="2" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}"/>
-		<TextBlock Text="{Binding Time}" Margin="8,4" Grid.RowSpan="2" VerticalAlignment="Center" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}"/>
-		<TextBlock Text="{Binding Title}" Grid.ColumnSpan="2" Margin="8,4" Grid.Column="2" TextWrapping="Wrap" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}"/>
-		<Image Grid.Column="1" Margin="8,4" Grid.RowSpan="2" Source="{Binding ImageUrl}" VerticalAlignment="Center" Height="80" Width="80" HorizontalAlignment="Center"/>
+		<TextBlock Text="{Binding Time}" Margin="8,4" VerticalAlignment="Center" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" d:LayoutOverrides="GridBox"/>
+		<Grid Grid.Column="2">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="0.559*"/>
+				<ColumnDefinition Width="0.441*"/>
+			</Grid.ColumnDefinitions>
+			<TextBlock Text="{Binding Room}" Margin="4,4,8,4" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Grid.Column="1" Grid.Row="1"/>
+			<TextBlock Text="{Binding Speaker}" Margin="4" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" TextWrapping="Wrap" Grid.Row="1"/>
+			<TextBlock Text="{Binding Title}" Margin="4,4,8,4" TextWrapping="Wrap" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Grid.ColumnSpan="2"/>
+		</Grid>
+		<Image Grid.Column="1" Margin="8,4" Source="{Binding ImageUrl}" VerticalAlignment="Center" Height="80" Width="80" HorizontalAlignment="Center"/>
 	</Grid>
 </UserControl>
