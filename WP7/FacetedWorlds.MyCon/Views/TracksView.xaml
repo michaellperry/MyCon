@@ -25,9 +25,9 @@
 			</Grid>
 		</DataTemplate>
 		<DataTemplate x:Key="TrackViewModelTemplate">
-			<StackPanel>
-				<ItemsControl ItemTemplate="{StaticResource TrackDayViewModelTemplate}" ItemsSource="{Binding Days}" d:LayoutOverrides="Width"/>
-			</StackPanel>
+			<ScrollViewer>
+				<ItemsControl ItemTemplate="{StaticResource TrackDayViewModelTemplate}" ItemsSource="{Binding Days}"/>
+			</ScrollViewer>
 		</DataTemplate>
 	</phone:PhoneApplicationPage.Resources>
     
