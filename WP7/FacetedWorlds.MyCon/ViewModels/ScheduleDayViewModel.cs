@@ -29,10 +29,14 @@ namespace FacetedWorlds.MyCon.ViewModels
         {
             get
             {
-                return
+                var slots =
                     from time in _day.Times
-                    orderby time.Start
-                    select new ScheduleSlotViewModel(_attendee.NewSlot(time), null, _imageCache);
+                    select _attendee.NewSlot(time);
+                return
+                    from slot in slots
+                    from schedule in slot.CurrentSchedules.DefaultIfEmpty()
+                    orderby slot.SlotTime.Start
+                    select new ScheduleSlotViewModel(slot, schedule, _imageCache);
             }
         }
     }
