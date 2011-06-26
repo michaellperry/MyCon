@@ -91,6 +91,7 @@
     <Compile Include="ViewModels\SessionDetailsViewModel.cs" />
     <Compile Include="ViewModels\SessionViewModelBase.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\SlotViewModel.cs" />
     <Compile Include="ViewModels\TrackDayViewModel.cs" />
     <Compile Include="ViewModels\TrackSessionViewModel.cs" />
     <Compile Include="ViewModels\TracksViewModel.cs" />
@@ -104,6 +105,9 @@
     </Compile>
     <Compile Include="Views\SessionWithTimeControl.xaml.cs">
       <DependentUpon>SessionWithTimeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SlotView.xaml.cs">
+      <DependentUpon>SlotView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TracksView.xaml.cs">
       <DependentUpon>TracksView.xaml</DependentUpon>
@@ -125,6 +129,10 @@
     <Page Include="Views\SessionWithTimeControl.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SlotView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TracksView.xaml">
       <SubType>Designer</SubType>
@@ -165,6 +173,9 @@
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>
     <DesignData Include="SampleData\SessionDetailsViewModelSampleData.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+    </DesignData>
+    <DesignData Include="SampleData\SlotViewModelSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>
     <DesignData Include="SampleData\TracksViewModelSampleData.xaml">

@@ -53,6 +53,26 @@ namespace FacetedWorlds.MyCon.ViewModels
             return ForView.Wrap(new SessionDetailsViewModel(slot, sessionPlace, _imageCache));
         }
 
+        public object GetSlotViewModel(string startTime)
+        {
+            Conference conference = _synchronizationService.Community.AddFact(new Conference("Conference ID"));
+            Attendee attendee = _synchronizationService.Community.AddFact(new Attendee(_synchronizationService.Identity, conference));
+            DateTime start;
+            if (!DateTime.TryParse(startTime, out start))
+                return null;
+
+            Day day = conference.Days.FirstOrDefault(d => d.ConferenceDate == start.Date);
+            if (day == null)
+                return null;
+
+            Time time = day.Times.FirstOrDefault(t => t.Start == start);
+            if (time == null)
+                return null;
+
+            Slot slot = attendee.NewSlot(time);
+            return ForView.Wrap(new SlotViewModel(slot, _imageCache));
+        }
+
         private void CreateSampleData()
         {
             Conference conference = _synchronizationService.Community.AddFact(new Conference("Conference ID"));

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using FacetedWorlds.MyCon.ImageUtilities;
 using FacetedWorlds.MyCon.Model;
-using UpdateControls;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {

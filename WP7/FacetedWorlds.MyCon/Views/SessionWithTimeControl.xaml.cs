@@ -1,25 +1,32 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using UpdateControls.XAML;
 using FacetedWorlds.MyCon.ViewModels;
 using Microsoft.Phone.Controls;
+using UpdateControls.XAML;
 
 namespace FacetedWorlds.MyCon
 {
 	public partial class SessionWithTimeControl : UserControl
 	{
+        public static DependencyProperty TimeVisibleProperty = DependencyProperty.Register(
+            "TimeVisible",
+            typeof(Visibility),
+            typeof(SessionWithTimeControl),
+            new PropertyMetadata(Visibility.Visible));
+
 		public SessionWithTimeControl()
 		{
 			// Required to initialize variables
 			InitializeComponent();
 		}
+
+        public Visibility TimeVisible
+        {
+            get { return (Visibility)GetValue(TimeVisibleProperty); }
+            set { SetValue(TimeVisibleProperty, value); }
+        }
 
         private void UserControl_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
         {
