@@ -118,7 +118,7 @@ key:
 
 fact Session {
 key:
-    unique;
+    string id;
     Conference conference;
     Speaker speaker;
     Track? track;

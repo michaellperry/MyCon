@@ -88,6 +88,7 @@
     <Compile Include="ViewModels\ScheduleDayViewModel.cs" />
     <Compile Include="ViewModels\ScheduleSlotViewModel.cs" />
     <Compile Include="ViewModels\ScheduleViewModel.cs" />
+    <Compile Include="ViewModels\SessionDetailsViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\TrackDayViewModel.cs" />
     <Compile Include="ViewModels\TrackSessionViewModel.cs" />
@@ -96,6 +97,9 @@
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\ScheduleView.xaml.cs">
       <DependentUpon>ScheduleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SessionDetailsView.xaml.cs">
+      <DependentUpon>SessionDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SessionWithTimeControl.xaml.cs">
       <DependentUpon>SessionWithTimeControl.xaml</DependentUpon>
@@ -110,6 +114,10 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Page Include="Views\ScheduleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SessionDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

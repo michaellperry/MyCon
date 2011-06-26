@@ -1632,7 +1632,7 @@ namespace FacetedWorlds.MyCon.Model
 				{
 					using (BinaryReader output = new BinaryReader(data))
 					{
-						newFact._unique = (Guid)_fieldSerializerByType[typeof(Guid)].ReadData(output);
+						newFact._id = (string)_fieldSerializerByType[typeof(string)].ReadData(output);
 					}
 				}
 
@@ -1642,7 +1642,7 @@ namespace FacetedWorlds.MyCon.Model
 			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
 			{
 				Session fact = (Session)obj;
-				_fieldSerializerByType[typeof(Guid)].WriteData(output, fact._unique);
+				_fieldSerializerByType[typeof(string)].WriteData(output, fact._id);
 			}
 		}
 
@@ -1685,10 +1685,8 @@ namespace FacetedWorlds.MyCon.Model
         private PredecessorObj<Speaker> _speaker;
         private PredecessorOpt<Track> _track;
 
-        // Unique
-        private Guid _unique;
-
         // Fields
+        private string _id;
 
         // Results
         private Result<SessionName> _name;
@@ -1698,13 +1696,14 @@ namespace FacetedWorlds.MyCon.Model
             Conference conference
             ,Speaker speaker
             ,Track track
+            ,string id
             )
         {
-            _unique = Guid.NewGuid();
             InitializeResults();
             _conference = new PredecessorObj<Conference>(this, RoleConference, conference);
             _speaker = new PredecessorObj<Speaker>(this, RoleSpeaker, speaker);
             _track = new PredecessorOpt<Track>(this, RoleTrack, track);
+            _id = id;
         }
 
         // Hydration constructor
@@ -1737,8 +1736,10 @@ namespace FacetedWorlds.MyCon.Model
         }
 
         // Field access
-		public Guid Unique { get { return _unique; } }
-
+        public string Id
+        {
+            get { return _id; }
+        }
 
         // Query result access
 

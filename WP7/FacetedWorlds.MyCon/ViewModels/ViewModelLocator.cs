@@ -41,6 +41,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
             // General sessions
             conference.NewSessionPlace(
+                "lunch",
                 "Lunch",
                 "",
                 null,
@@ -50,6 +51,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
             // Cloud
             conference.NewSessionPlace(
+                "cloud1",
                 "Developing Your First Azure Service",
                 "Jennifer Marsman",
                 "http://techfests.com/Tulsa/2009/SiteImages/Speakers/Jennifer_Marsman.jpg",
@@ -57,6 +59,7 @@ namespace FacetedWorlds.MyCon.ViewModels
                 new DateTime(2009, 11, 6, 9, 0, 0),
                 "A110");
             conference.NewSessionPlace(
+                "cloud2",
                 "Developer's Overview of SQL Azure",
                 "Chris Koenig",
                 "http://techfests.com/Tulsa/2009/SiteImages/Speakers/Chris_Koenig.jpg",
@@ -64,6 +67,7 @@ namespace FacetedWorlds.MyCon.ViewModels
                 new DateTime(2009, 11, 6, 10, 30, 0),
                 "A110");
             conference.NewSessionPlace(
+                "cloud3",
                 "Salesforce.com / Force.com Cloud Platform",
                 "Fadi Shami",
                 "http://techfests.com/Tulsa/2009/SiteImages/Speakers/Fadi_Shami.jpg",
@@ -71,6 +75,7 @@ namespace FacetedWorlds.MyCon.ViewModels
                 new DateTime(2009, 11, 6, 13, 0, 0),
                 "A110");
             conference.NewSessionPlace(
+                "cloud4",
                 "Azure storage for the relational database minded developer",
                 "Dennis Palmer",
                 "http://techfests.com/Tulsa/2009/SiteImages/Speakers/Dennis_Palmer.jpg",
@@ -78,6 +83,7 @@ namespace FacetedWorlds.MyCon.ViewModels
                 new DateTime(2009, 11, 6, 14, 30, 0),
                 "A110");
             conference.NewSessionPlace(
+                "cloud5",
                 "Business Value from the Cloud",
                 "David Walker",
                 "http://techfests.com/Tulsa/2009/SiteImages/Speakers/David_Walker.jpg",
@@ -87,6 +93,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
             // Silverlight & WPF
             conference.NewSessionPlace(
+                "xaml1",
                 "What's new in Silverlight 3.0?",
                 "Todd Anglin",
                 "http://techfests.com/Tulsa/2009/SiteImages/Speakers/Todd_Anglin.jpg",
@@ -94,6 +101,7 @@ namespace FacetedWorlds.MyCon.ViewModels
                 new DateTime(2009, 11, 6, 9, 0, 0),
                 "B120");
             conference.NewSessionPlace(
+                "xaml2",
                 "XAML Data Bound for Greatness!",
                 "Michael Benkovich",
                 "http://techfests.com/Tulsa/2009/SiteImages/Speakers/Michael_Benkovich.jpg",
@@ -101,6 +109,7 @@ namespace FacetedWorlds.MyCon.ViewModels
                 new DateTime(2009, 11, 6, 10, 30, 0),
                 "B120");
             conference.NewSessionPlace(
+                "xaml3",
                 "Rich Islands of Functionality: Silverlight in ASP.NET",
                 "Todd Anglin",
                 "http://techfests.com/Tulsa/2009/SiteImages/Speakers/Todd_Anglin.jpg",
@@ -108,6 +117,7 @@ namespace FacetedWorlds.MyCon.ViewModels
                 new DateTime(2009, 11, 6, 13, 0, 0),
                 "B120");
             conference.NewSessionPlace(
+                "xaml4",
                 "Expression Blend 3.0 and Sketchflow",
                 "Michael Benkovich",
                 "http://techfests.com/Tulsa/2009/SiteImages/Speakers/Michael_Benkovich.jpg",
@@ -115,6 +125,7 @@ namespace FacetedWorlds.MyCon.ViewModels
                 new DateTime(2009, 11, 6, 14, 30, 0),
                 "B120");
             conference.NewSessionPlace(
+                "xaml5",
                 "Building LOB Applications in Silverlight",
                 "Chris Koenig",
                 "http://techfests.com/Tulsa/2009/SiteImages/Speakers/Chris_Koenig.jpg",
