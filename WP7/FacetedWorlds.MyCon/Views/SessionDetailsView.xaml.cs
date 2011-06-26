@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using FacetedWorlds.MyCon.ViewModels;
 using Microsoft.Phone.Controls;
 
 namespace FacetedWorlds.MyCon.Views
@@ -18,6 +9,14 @@ namespace FacetedWorlds.MyCon.Views
         public SessionDetailsView()
         {
             InitializeComponent();
+        }
+
+        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            string sessionId = NavigationContext.QueryString["SessionId"];
+            ViewModelLocator locator = Application.Current.Resources["Locator"] as ViewModelLocator;
+            if (locator != null)
+                DataContext = locator.GetSessionDetailsViewModel(sessionId);
         }
     }
 }

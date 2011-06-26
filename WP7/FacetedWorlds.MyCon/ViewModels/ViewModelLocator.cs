@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using FacetedWorlds.MyCon.Model;
 using UpdateControls.XAML;
+using FacetedWorlds.MyCon.ImageUtilities;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {
@@ -12,13 +13,15 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         private readonly MainViewModel _main;
         private readonly SettingsViewModel _settings;
+        private readonly ImageCache _imageCache;
 
         public ViewModelLocator()
         {
             _synchronizationService = new SynchronizationService();
             if (!DesignerProperties.IsInDesignTool)
                 _synchronizationService.Initialize();
-            _main = new MainViewModel(_synchronizationService.Identity, _synchronizationService);
+            _imageCache = new ImageCache();
+            _main = new MainViewModel(_synchronizationService.Identity, _synchronizationService, _imageCache);
             _settings = new SettingsViewModel(_synchronizationService.Identity);
             if (!DesignerProperties.IsInDesignTool)
                 CreateSampleData();
@@ -32,6 +35,22 @@ namespace FacetedWorlds.MyCon.ViewModels
         public object Settings
         {
             get { return ForView.Wrap(_settings); }
+        }
+
+        public object GetSessionDetailsViewModel(string sessionId)
+        {
+            Conference conference = _synchronizationService.Community.AddFact(new Conference("Conference ID"));
+            Session session = conference.Sessions.FirstOrDefault(s => s.Id == sessionId);
+            if (session == null)
+                return null;
+
+            Attendee attendee = _synchronizationService.Community.AddFact(new Attendee(_synchronizationService.Identity, conference));
+            if (session.CurrentSessionPlaces.Count() != 1)
+                return null;
+
+            SessionPlace sessionPlace = session.CurrentSessionPlaces.Single();
+            Slot slot = attendee.NewSlot(sessionPlace.Place.PlaceTime);
+            return ForView.Wrap(new SessionDetailsViewModel(slot, sessionPlace, _imageCache));
         }
 
         private void CreateSampleData()

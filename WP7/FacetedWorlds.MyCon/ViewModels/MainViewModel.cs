@@ -9,11 +9,11 @@ namespace FacetedWorlds.MyCon.ViewModels
         private SynchronizationService _synhronizationService;
         private ImageCache _imageCache;
 
-        public MainViewModel(Identity identity, SynchronizationService synhronizationService)
+        public MainViewModel(Identity identity, SynchronizationService synhronizationService, ImageCache imageCache)
         {
             _identity = identity;
             _synhronizationService = synhronizationService;
-            _imageCache = new ImageCache();
+            _imageCache = imageCache;
         }
 
         public bool Synchronizing

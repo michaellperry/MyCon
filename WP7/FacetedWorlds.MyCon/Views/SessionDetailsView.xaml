@@ -12,23 +12,59 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True"
-    DataContext="{Binding Main.SessionDetails, Source={StaticResource Locator}}">
+    Loaded="PhoneApplicationPage_Loaded">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot" Background="Transparent" d:DataContext="{d:DesignData /SampleData/SessionDetailsViewModelSampleData.xaml}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
+    	<TextBlock Text="{Binding Title}" Margin="8,8,8,0" VerticalAlignment="Top" FontSize="{StaticResource PhoneFontSizeLarge}" TextWrapping="Wrap"/>
+    	<Grid Grid.Row="1">
+    		<Grid.RowDefinitions>
+    			<RowDefinition Height="Auto"/>
+    			<RowDefinition Height="Auto"/>
+    			<RowDefinition Height="Auto"/>
+    		</Grid.RowDefinitions>
+    		<Grid.ColumnDefinitions>
+    			<ColumnDefinition Width="0.273*"/>
+    			<ColumnDefinition Width="0.402*"/>
+    			<ColumnDefinition Width="0.325*"/>
+    		</Grid.ColumnDefinitions>
+    		<Image Margin="8" Grid.RowSpan="3" Source="{Binding ImageUrl}" Width="115" Height="115"/>
+    		<TextBlock Text="{Binding Time}" Margin="8" Grid.Column="1" Grid.ColumnSpan="2"/>
+    		<TextBlock Text="{Binding Speaker}" Margin="8" Grid.Column="1" Grid.Row="1"/>
+    		<TextBlock Text="{Binding Room}" Margin="8" Grid.Column="2" Grid.Row="1"/>
+    		<TextBlock Text="{Binding Track}" Margin="8" Grid.Column="1" Grid.Row="2"/>
+    		<TextBlock Text="{Binding Level}" Margin="8" Grid.Column="2" Grid.Row="2"/>
+    	</Grid>
+    	<ScrollViewer Grid.Row="2">
+    		<Grid>
+    			<Grid.RowDefinitions>
+    				<RowDefinition Height="Auto"/>
+    				<RowDefinition Height="Auto"/>
+    				<RowDefinition Height="Auto"/>
+    			</Grid.RowDefinitions>
+    			<TextBlock Text="{Binding Description}" Margin="8" TextWrapping="Wrap"/>
+    			<Grid Height="50" Margin="0" VerticalAlignment="Bottom" Grid.Row="1">
+    				<Grid.ColumnDefinitions>
+    					<ColumnDefinition Width="Auto"/>
+    					<ColumnDefinition Width="0.506*"/>
+    				</Grid.ColumnDefinitions>
+    				<TextBlock Text="{Binding Speaker}" Margin="8" FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
+    				<TextBlock Text="{Binding Contact}" Margin="8" Grid.Column="1" FontSize="{StaticResource PhoneFontSizeMediumLarge}" TextAlignment="Right"/>
+    			</Grid>
+    			<TextBlock Text="{Binding Bio}" Margin="8" TextWrapping="Wrap" Grid.Row="2"/>
+
+    		</Grid>
+
+    	</ScrollViewer>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="MY APPLICATION" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="page name" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
-        </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0"></Grid>
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->

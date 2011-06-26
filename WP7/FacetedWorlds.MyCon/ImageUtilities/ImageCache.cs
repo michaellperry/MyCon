@@ -15,6 +15,13 @@ namespace FacetedWorlds.MyCon.ImageUtilities
             return GetCell(sourceImageUrl).SmallImageUrl;
         }
 
+        public string LargeImageUrl(string sourceImageUrl)
+        {
+            if (String.IsNullOrEmpty(sourceImageUrl))
+                return ImageCacheCell.DefaultSmallImageUrl;
+            return GetCell(sourceImageUrl).LargeImageUrl;
+        }
+
         private ImageCacheCell GetCell(string sourceImageUrl)
         {
             lock (this)

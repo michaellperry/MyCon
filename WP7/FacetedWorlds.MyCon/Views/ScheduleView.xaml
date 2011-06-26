@@ -13,12 +13,12 @@
     >
 	<phone:PhoneApplicationPage.Resources>
 		<DataTemplate x:Key="ScheduleSlotViewModelTemplate">
-			<FacetedWorlds_MyCon:SessionWithTimeControl/>
+			<FacetedWorlds_MyCon:SessionWithTimeControl Width="456"/>
 		</DataTemplate>
 		<DataTemplate x:Key="ScheduleDayViewModelTemplate">
 			<StackPanel>
 				<TextBlock Text="{Binding Day}"/>
-				<ItemsControl ItemTemplate="{StaticResource ScheduleSlotViewModelTemplate}" ItemsSource="{Binding Slots}"/>
+				<ListBox ItemTemplate="{StaticResource ScheduleSlotViewModelTemplate}" ItemsSource="{Binding Slots}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectedItem="{Binding SelectedSlot, Mode=TwoWay}"/>
 			</StackPanel>
 		</DataTemplate>
 	</phone:PhoneApplicationPage.Resources>

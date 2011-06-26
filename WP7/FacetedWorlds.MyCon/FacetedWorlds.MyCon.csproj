@@ -160,6 +160,9 @@
     <DesignData Include="SampleData\ScheduleViewModelSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>
+    <DesignData Include="SampleData\SessionDetailsViewModelSampleData.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+    </DesignData>
     <DesignData Include="SampleData\TracksViewModelSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>

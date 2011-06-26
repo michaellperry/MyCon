@@ -14,6 +14,7 @@ namespace FacetedWorlds.MyCon.ImageUtilities
         private static Regex NonAlphaNumeric = new Regex("[^a-zA-Z0-9]");
         private static object SingleLock = new object();
         public const string DefaultSmallImageUrl = "/Images/appbar.feature.search.rest.png";
+        public const string DefaultLargeImageUrl = "/Images/appbar.feature.search.rest.png";
 
         private readonly string _sourceImageUrl;
 
@@ -32,18 +33,30 @@ namespace FacetedWorlds.MyCon.ImageUtilities
             {
                 lock (this)
                 {
-                    if (!_beganLoading)
-                    {
-                        BeginLoading();
-                        _beganLoading = true;
-                    }
+                    BeginLoading();
                     return _smallImageUrl.Value ?? DefaultSmallImageUrl;
+                }
+            }
+        }
+
+        public string LargeImageUrl
+        {
+            get
+            {
+                lock (this)
+                {
+                    BeginLoading();
+                    return _largeImageUrl.Value ?? DefaultLargeImageUrl;
                 }
             }
         }
 
         private void BeginLoading()
         {
+            if (_beganLoading)
+                return;
+
+            _beganLoading = true;
             try
             {
                 string localFileNameSmall = CreateLocalFileName("small");
@@ -79,7 +92,7 @@ namespace FacetedWorlds.MyCon.ImageUtilities
                 {
                     responseStream.Read(buffer, 0, (int)response.ContentLength);
                 }
-                Deployment.Current.Dispatcher.BeginInvoke(() => ScaleBitmap(localFileNameSmall, buffer));
+                Deployment.Current.Dispatcher.BeginInvoke(() => ScaleBitmap(localFileNameSmall, localFileNameLarge, buffer));
             }
             catch (Exception ex)
             {
@@ -87,7 +100,7 @@ namespace FacetedWorlds.MyCon.ImageUtilities
             }
         }
 
-        private void ScaleBitmap(string localFileNameSmall, byte[] buffer)
+        private void ScaleBitmap(string localFileNameSmall, string localFileNameLarge, byte[] buffer)
         {
             try
             {
@@ -98,6 +111,7 @@ namespace FacetedWorlds.MyCon.ImageUtilities
                     using (IsolatedStorageFile isoStore = IsolatedStorageFile.GetUserStoreForApplication())
                     {
                         SaveScaledBitmap(bitmap, localFileNameSmall, isoStore, 80.0, 80.0);
+                        SaveScaledBitmap(bitmap, localFileNameLarge, isoStore, 115.0, 115.0);
                     }
                 }
 
@@ -127,7 +141,7 @@ namespace FacetedWorlds.MyCon.ImageUtilities
 
         private string CreateLocalFileName(string suffix)
         {
-            return String.Format("{0}_{1}", NonAlphaNumeric.Replace(_sourceImageUrl, ""), suffix);
+            return String.Format("{0}_{1}", NonAlphaNumeric.Replace(_sourceImageUrl, String.Empty), suffix);
         }
     }
 }

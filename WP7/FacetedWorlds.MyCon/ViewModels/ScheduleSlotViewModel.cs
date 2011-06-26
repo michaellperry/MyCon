@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
 using FacetedWorlds.MyCon.ImageUtilities;
 using FacetedWorlds.MyCon.Model;
+using Microsoft.Phone.Controls;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {
@@ -89,6 +92,17 @@ namespace FacetedWorlds.MyCon.ViewModels
                     }
                 }
                 return null;
+            }
+        }
+
+        public void Select()
+        {
+            SessionPlace sessionPlace = SessionPlace;
+            if (sessionPlace != null)
+            {
+                // TODO: Nasty hack.
+                string url = String.Format("/Views/SessionDetailsView.xaml?SessionId={0}", sessionPlace.Session.Id);
+                ((PhoneApplicationFrame)(Application.Current.RootVisual)).Navigate(new Uri(url, UriKind.Relative));
             }
         }
     }

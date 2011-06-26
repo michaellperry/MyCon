@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FacetedWorlds.MyCon.ImageUtilities;
 using FacetedWorlds.MyCon.Model;
+using UpdateControls;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {
@@ -11,6 +12,8 @@ namespace FacetedWorlds.MyCon.ViewModels
         private readonly Day _day;
         private readonly Attendee _attendee;
         private readonly ImageCache _imageCache;
+
+        private Independent _indSelectedSlot = new Independent();
 
         public ScheduleDayViewModel(Day day, Attendee attendee, ImageCache imageCache)
         {
@@ -32,6 +35,21 @@ namespace FacetedWorlds.MyCon.ViewModels
                     from time in _day.Times
                     orderby time.Start
                     select new ScheduleSlotViewModel(_attendee.NewSlot(time), null, _imageCache);
+            }
+        }
+
+        public ScheduleSlotViewModel SelectedSlot
+        {
+            get
+            {
+                _indSelectedSlot.OnGet();
+                return null;
+            }
+            set
+            {
+                _indSelectedSlot.OnSet();
+                if (value != null)
+                    value.Select();
             }
         }
     }

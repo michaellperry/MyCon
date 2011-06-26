@@ -108,12 +108,19 @@ key:
 
 mutable:
 	string imageUrl;
+	string contact;
+	string bio;
 }
 
 fact Place {
 key:
     Time placeTime;
     Room room;
+}
+
+fact Level {
+key:
+	string name;
 }
 
 fact Session {
@@ -125,6 +132,14 @@ key:
 
 mutable:
     string name;
+	string description;
+	Level level;
+
+query:
+	SessionPlace* currentSessionPlaces {
+		SessionPlace sp : sp.session = this
+			where sp.isCurrent
+	}
 }
 
 fact SessionPlace {
