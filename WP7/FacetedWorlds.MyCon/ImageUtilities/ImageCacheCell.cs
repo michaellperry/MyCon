@@ -12,7 +12,6 @@ namespace FacetedWorlds.MyCon.ImageUtilities
     public class ImageCacheCell
     {
         private static Regex NonAlphaNumeric = new Regex("[^a-zA-Z0-9]");
-        private static object SingleLock = new object();
         public const string DefaultSmallImageUrl = "/Images/appbar.feature.search.rest.png";
         public const string DefaultLargeImageUrl = "/Images/appbar.feature.search.rest.png";
 

@@ -17,16 +17,17 @@
 	</phone:PhoneApplicationPage.Resources>
  
     <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
+    <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.add.rest.png" Text="add" Click="Add_Click"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.close.rest.png" Text="remove" Click="Remove_Click"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.share.rest.png" Text="evaluation" Click="Evaluation_Click"/>
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
+                <shell:ApplicationBarMenuItem Text="Other sessions by speaker" Click="SessionsBySpeaker_Click"/>
+                <shell:ApplicationBarMenuItem Text="Other sessions in track" Click="SessionsByTrack_Click"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
+    </phone:PhoneApplicationPage.ApplicationBar>
 
 	<phone:PhoneApplicationPage.FontFamily>
 		<StaticResource ResourceKey="PhoneFontFamilyNormal"/>

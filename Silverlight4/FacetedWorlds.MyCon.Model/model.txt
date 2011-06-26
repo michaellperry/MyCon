@@ -14,6 +14,13 @@ digraph "FacetedWorlds.MyCon.Model"
     Room -> Conference
     Track -> Conference
     Speaker -> Conference
+    SpeakerImageUrl -> Speaker
+    SpeakerImageUrl -> SpeakerImageUrl [label="  *"]
+    SpeakerContact -> Speaker
+    SpeakerContact -> SpeakerContact [label="  *"]
+    SpeakerBio -> Speaker
+    SpeakerBio -> SpeakerBio [label="  *"]
+    SpeakerBio -> DocumentSegment [label="  *"]
     Place -> Time
     Place -> Room
     Session -> Conference
@@ -21,11 +28,18 @@ digraph "FacetedWorlds.MyCon.Model"
     Session -> Track [label="  ?"]
     SessionName -> Session
     SessionName -> SessionName [label="  *"]
+    SessionDescription -> Session
+    SessionDescription -> SessionDescription [label="  *"]
+    SessionDescription -> DocumentSegment [label="  *"]
+    SessionLevel -> Session
+    SessionLevel -> SessionLevel [label="  *"]
+    SessionLevel -> Level
     SessionPlace -> Session
     SessionPlace -> Place
     SessionPlace -> SessionPlace [label="  *"]
     Schedule -> Slot
     Schedule -> SessionPlace
-    Schedule -> Schedule [label="  *"]
+    ScheduleRemove -> Schedule
     Evaluation -> Schedule
 }
+

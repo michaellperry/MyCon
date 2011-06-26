@@ -81,6 +81,12 @@ fact Slot {
 key:
     Attendee attendee;
     Time slotTime;
+
+query:
+	Schedule* currentSchedules {
+		Schedule s : s.slot = this
+			where s.isCurrent
+	}
 }
 
 fact Room {
@@ -156,9 +162,19 @@ query:
 
 fact Schedule {
 key:
+	unique;
     Slot slot;
     SessionPlace sessionPlace;
-    Schedule* prior;
+
+query:
+	bool isCurrent {
+		not exists ScheduleRemove r : r.schedule = this
+	}
+}
+
+fact ScheduleRemove {
+key:
+	Schedule schedule;
 }
 
 fact Evaluation {

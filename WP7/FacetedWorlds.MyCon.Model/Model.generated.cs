@@ -49,7 +49,7 @@ digraph "FacetedWorlds.MyCon.Model"
     SessionPlace -> SessionPlace [label="  *"]
     Schedule -> Slot
     Schedule -> SessionPlace
-    Schedule -> Schedule [label="  *"]
+    ScheduleRemove -> Schedule
     Evaluation -> Schedule
 }
 **/
@@ -1003,6 +1003,10 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
+        public static Query QueryCurrentSchedules = new Query()
+            .JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.QueryIsCurrent)
+            )
+            ;
 
         // Predicates
 
@@ -1013,6 +1017,7 @@ namespace FacetedWorlds.MyCon.Model
         // Fields
 
         // Results
+        private Result<Schedule> _currentSchedules;
 
         // Business constructor
         public Slot(
@@ -1036,6 +1041,7 @@ namespace FacetedWorlds.MyCon.Model
         // Result initializer
         private void InitializeResults()
         {
+            _currentSchedules = new Result<Schedule>(this, QueryCurrentSchedules);
         }
 
         // Predecessor access
@@ -1051,6 +1057,10 @@ namespace FacetedWorlds.MyCon.Model
         // Field access
 
         // Query result access
+        public IEnumerable<Schedule> CurrentSchedules
+        {
+            get { return _currentSchedules; }
+        }
 
         // Mutable property access
 
@@ -2686,6 +2696,7 @@ namespace FacetedWorlds.MyCon.Model
 				{
 					using (BinaryReader output = new BinaryReader(data))
 					{
+						newFact._unique = (Guid)_fieldSerializerByType[typeof(Guid)].ReadData(output);
 					}
 				}
 
@@ -2695,6 +2706,7 @@ namespace FacetedWorlds.MyCon.Model
 			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
 			{
 				Schedule fact = (Schedule)obj;
+				_fieldSerializerByType[typeof(Guid)].WriteData(output, fact._unique);
 			}
 		}
 
@@ -2718,20 +2730,21 @@ namespace FacetedWorlds.MyCon.Model
 			"sessionPlace",
 			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionPlace", 1),
 			false));
-        public static Role RolePrior = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"prior",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Schedule", 1),
-			false));
 
         // Queries
+        public static Query QueryIsCurrent = new Query()
+            .JoinSuccessors(ScheduleRemove.RoleSchedule)
+            ;
 
         // Predicates
+        public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
 
         // Predecessors
         private PredecessorObj<Slot> _slot;
         private PredecessorObj<SessionPlace> _sessionPlace;
-        private PredecessorList<Schedule> _prior;
+
+        // Unique
+        private Guid _unique;
 
         // Fields
 
@@ -2741,13 +2754,12 @@ namespace FacetedWorlds.MyCon.Model
         public Schedule(
             Slot slot
             ,SessionPlace sessionPlace
-            ,IEnumerable<Schedule> prior
             )
         {
+            _unique = Guid.NewGuid();
             InitializeResults();
             _slot = new PredecessorObj<Slot>(this, RoleSlot, slot);
             _sessionPlace = new PredecessorObj<SessionPlace>(this, RoleSessionPlace, sessionPlace);
-            _prior = new PredecessorList<Schedule>(this, RolePrior, prior);
         }
 
         // Hydration constructor
@@ -2756,7 +2768,6 @@ namespace FacetedWorlds.MyCon.Model
             InitializeResults();
             _slot = new PredecessorObj<Slot>(this, RoleSlot, memento);
             _sessionPlace = new PredecessorObj<SessionPlace>(this, RoleSessionPlace, memento);
-            _prior = new PredecessorList<Schedule>(this, RolePrior, memento);
         }
 
         // Result initializer
@@ -2773,11 +2784,104 @@ namespace FacetedWorlds.MyCon.Model
         {
             get { return _sessionPlace.Fact; }
         }
-        public IEnumerable<Schedule> Prior
+
+        // Field access
+		public Guid Unique { get { return _unique; } }
+
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
+    public partial class ScheduleRemove : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				ScheduleRemove newFact = new ScheduleRemove(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				ScheduleRemove fact = (ScheduleRemove)obj;
+			}
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.ScheduleRemove", 1);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Roles
+        public static Role RoleSchedule = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"schedule",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Schedule", 1),
+			false));
+
+        // Queries
+
+        // Predicates
+
+        // Predecessors
+        private PredecessorObj<Schedule> _schedule;
+
+        // Fields
+
+        // Results
+
+        // Business constructor
+        public ScheduleRemove(
+            Schedule schedule
+            )
         {
-            get { return _prior; }
+            InitializeResults();
+            _schedule = new PredecessorObj<Schedule>(this, RoleSchedule, schedule);
         }
-     
+
+        // Hydration constructor
+        private ScheduleRemove(FactMemento memento)
+        {
+            InitializeResults();
+            _schedule = new PredecessorObj<Schedule>(this, RoleSchedule, memento);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+        public Schedule Schedule
+        {
+            get { return _schedule.Fact; }
+        }
+
         // Field access
 
         // Query result access
@@ -3040,6 +3144,9 @@ namespace FacetedWorlds.MyCon.Model
 				Slot._correspondenceFactType,
 				new Slot.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Slot._correspondenceFactType }));
+			community.AddQuery(
+				Slot._correspondenceFactType,
+				Slot.QueryCurrentSchedules.QueryDefinition);
 			community.AddType(
 				Room._correspondenceFactType,
 				new Room.CorrespondenceFactFactory(fieldSerializerByType),
@@ -3141,6 +3248,13 @@ namespace FacetedWorlds.MyCon.Model
 				Schedule._correspondenceFactType,
 				new Schedule.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Schedule._correspondenceFactType }));
+			community.AddQuery(
+				Schedule._correspondenceFactType,
+				Schedule.QueryIsCurrent.QueryDefinition);
+			community.AddType(
+				ScheduleRemove._correspondenceFactType,
+				new ScheduleRemove.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { ScheduleRemove._correspondenceFactType }));
 			community.AddType(
 				Evaluation._correspondenceFactType,
 				new Evaluation.CorrespondenceFactFactory(fieldSerializerByType),

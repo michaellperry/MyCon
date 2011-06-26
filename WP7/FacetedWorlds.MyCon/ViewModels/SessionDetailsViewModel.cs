@@ -83,6 +83,21 @@ namespace FacetedWorlds.MyCon.ViewModels
             get { return JoinSegments(_sessionPlace.Session.Speaker.Bio.Value); }
         }
 
+        public bool IsScheduled
+        {
+            get { return _slot.IsScheduled(_sessionPlace); }
+        }
+
+        public void Add()
+        {
+            _slot.AddSchedule(_sessionPlace);
+        }
+
+        public void Remove()
+        {
+            _slot.RemoveSchedule(_sessionPlace);
+        }
+
         private static string JoinSegments(IEnumerable<DocumentSegment> segments)
         {
             if (segments == null)
