@@ -6,7 +6,8 @@
 	xmlns:FacetedWorlds_MyCon_Converters="clr-namespace:FacetedWorlds.MyCon.Converters"
 	mc:Ignorable="d"
 	x:Class="FacetedWorlds.MyCon.SessionWithTimeControl"
-	d:DesignWidth="456" d:DesignHeight="97">
+	d:DesignWidth="456" d:DesignHeight="97"
+    ManipulationCompleted="UserControl_ManipulationCompleted">
 
 	<UserControl.Resources>
 		<FacetedWorlds_MyCon_Converters:CachedImageUrlValueConverter x:Key="CachedImageUrlValueConverter"/>

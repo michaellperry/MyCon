@@ -24,16 +24,13 @@ namespace FacetedWorlds.MyCon.ImageUtilities
 
         private ImageCacheCell GetCell(string sourceImageUrl)
         {
-            lock (this)
+            ImageCacheCell cell;
+            if (!_cellBySourceImageUrl.TryGetValue(sourceImageUrl, out cell))
             {
-                ImageCacheCell cell;
-                if (!_cellBySourceImageUrl.TryGetValue(sourceImageUrl, out cell))
-                {
-                    cell = new ImageCacheCell(sourceImageUrl);
-                    _cellBySourceImageUrl.Add(sourceImageUrl, cell);
-                }
-                return cell;
+                cell = new ImageCacheCell(sourceImageUrl);
+                _cellBySourceImageUrl.Add(sourceImageUrl, cell);
             }
+            return cell;
         }
     }
 }

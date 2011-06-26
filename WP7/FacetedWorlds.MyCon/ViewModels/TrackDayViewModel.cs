@@ -33,6 +33,7 @@ namespace FacetedWorlds.MyCon.ViewModels
                 return
                     from sessionPlace in _track.CurrentSessionPlaces
                     where sessionPlace.Place.PlaceTime.Day == _day
+                    orderby sessionPlace.Place.PlaceTime.Start
                     select new TrackSessionViewModel(_attendee.NewSlot(sessionPlace.Place.PlaceTime), sessionPlace, _imageCache);
             }
         }

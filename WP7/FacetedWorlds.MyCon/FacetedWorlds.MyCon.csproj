@@ -89,6 +89,7 @@
     <Compile Include="ViewModels\ScheduleSlotViewModel.cs" />
     <Compile Include="ViewModels\ScheduleViewModel.cs" />
     <Compile Include="ViewModels\SessionDetailsViewModel.cs" />
+    <Compile Include="ViewModels\SessionViewModelBase.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\TrackDayViewModel.cs" />
     <Compile Include="ViewModels\TrackSessionViewModel.cs" />

@@ -9,7 +9,7 @@ using Microsoft.Phone.Controls;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {
-    public class ScheduleSlotViewModel
+    public class ScheduleSlotViewModel : SessionViewModelBase
     {
         private readonly Slot _slot;
         private readonly Schedule _schedule;
@@ -95,14 +95,15 @@ namespace FacetedWorlds.MyCon.ViewModels
             }
         }
 
-        public void Select()
+        public override string TargetUri
         {
-            SessionPlace sessionPlace = SessionPlace;
-            if (sessionPlace != null)
+            get
             {
-                // TODO: Nasty hack.
-                string url = String.Format("/Views/SessionDetailsView.xaml?SessionId={0}", sessionPlace.Session.Id);
-                ((PhoneApplicationFrame)(Application.Current.RootVisual)).Navigate(new Uri(url, UriKind.Relative));
+                SessionPlace sessionPlace = SessionPlace;
+                if (sessionPlace != null)
+                    return String.Format("/Views/SessionDetailsView.xaml?SessionId={0}", sessionPlace.Session.Id);
+                else
+                    return null;
             }
         }
     }

@@ -30,6 +30,7 @@ digraph "FacetedWorlds.MyCon.Model"
     SpeakerContact -> SpeakerContact [label="  *"]
     SpeakerBio -> Speaker
     SpeakerBio -> SpeakerBio [label="  *"]
+    SpeakerBio -> DocumentSegment [label="  *"]
     Place -> Time
     Place -> Room
     Session -> Conference
@@ -39,6 +40,7 @@ digraph "FacetedWorlds.MyCon.Model"
     SessionName -> SessionName [label="  *"]
     SessionDescription -> Session
     SessionDescription -> SessionDescription [label="  *"]
+    SessionDescription -> DocumentSegment [label="  *"]
     SessionLevel -> Session
     SessionLevel -> SessionLevel [label="  *"]
     SessionLevel -> Level
@@ -1408,7 +1410,8 @@ namespace FacetedWorlds.MyCon.Model
 				Community.AddFact(new SpeakerContact(this, _contact, value.Value));
 			}
         }
-        public Disputable<string> Bio
+
+        public Disputable<IEnumerable<DocumentSegment>> Bio
         {
             get { return _bio.Select(fact => fact.Value).AsDisputable(); }
 			set
@@ -1416,7 +1419,6 @@ namespace FacetedWorlds.MyCon.Model
 				Community.AddFact(new SpeakerBio(this, _bio, value.Value));
 			}
         }
-
     }
     
     public partial class SpeakerImageUrl : CorrespondenceFact
@@ -1682,7 +1684,6 @@ namespace FacetedWorlds.MyCon.Model
 				{
 					using (BinaryReader output = new BinaryReader(data))
 					{
-						newFact._value = (string)_fieldSerializerByType[typeof(string)].ReadData(output);
 					}
 				}
 
@@ -1692,7 +1693,6 @@ namespace FacetedWorlds.MyCon.Model
 			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
 			{
 				SpeakerBio fact = (SpeakerBio)obj;
-				_fieldSerializerByType[typeof(string)].WriteData(output, fact._value);
 			}
 		}
 
@@ -1716,6 +1716,11 @@ namespace FacetedWorlds.MyCon.Model
 			"prior",
 			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SpeakerBio", 1),
 			false));
+        public static Role RoleValue = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"value",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.DocumentSegment", 1),
+			false));
 
         // Queries
         public static Query QueryIsCurrent = new Query()
@@ -1728,9 +1733,9 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessors
         private PredecessorObj<Speaker> _speaker;
         private PredecessorList<SpeakerBio> _prior;
+        private PredecessorList<DocumentSegment> _value;
 
         // Fields
-        private string _value;
 
         // Results
 
@@ -1738,13 +1743,13 @@ namespace FacetedWorlds.MyCon.Model
         public SpeakerBio(
             Speaker speaker
             ,IEnumerable<SpeakerBio> prior
-            ,string value
+            ,IEnumerable<DocumentSegment> value
             )
         {
             InitializeResults();
             _speaker = new PredecessorObj<Speaker>(this, RoleSpeaker, speaker);
             _prior = new PredecessorList<SpeakerBio>(this, RolePrior, prior);
-            _value = value;
+            _value = new PredecessorList<DocumentSegment>(this, RoleValue, value);
         }
 
         // Hydration constructor
@@ -1753,6 +1758,7 @@ namespace FacetedWorlds.MyCon.Model
             InitializeResults();
             _speaker = new PredecessorObj<Speaker>(this, RoleSpeaker, memento);
             _prior = new PredecessorList<SpeakerBio>(this, RolePrior, memento);
+            _value = new PredecessorList<DocumentSegment>(this, RoleValue, memento);
         }
 
         // Result initializer
@@ -1769,12 +1775,12 @@ namespace FacetedWorlds.MyCon.Model
         {
             get { return _prior; }
         }
-     
-        // Field access
-        public string Value
+             public IEnumerable<DocumentSegment> Value
         {
             get { return _value; }
         }
+     
+        // Field access
 
         // Query result access
 
@@ -2144,7 +2150,8 @@ namespace FacetedWorlds.MyCon.Model
 				Community.AddFact(new SessionName(this, _name, value.Value));
 			}
         }
-        public Disputable<string> Description
+
+        public Disputable<IEnumerable<DocumentSegment>> Description
         {
             get { return _description.Select(fact => fact.Value).AsDisputable(); }
 			set
@@ -2152,7 +2159,6 @@ namespace FacetedWorlds.MyCon.Model
 				Community.AddFact(new SessionDescription(this, _description, value.Value));
 			}
         }
-
         public Disputable<Level> Level
         {
             get { return _level.Select(fact => fact.Value).AsDisputable(); }
@@ -2305,7 +2311,6 @@ namespace FacetedWorlds.MyCon.Model
 				{
 					using (BinaryReader output = new BinaryReader(data))
 					{
-						newFact._value = (string)_fieldSerializerByType[typeof(string)].ReadData(output);
 					}
 				}
 
@@ -2315,7 +2320,6 @@ namespace FacetedWorlds.MyCon.Model
 			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
 			{
 				SessionDescription fact = (SessionDescription)obj;
-				_fieldSerializerByType[typeof(string)].WriteData(output, fact._value);
 			}
 		}
 
@@ -2339,6 +2343,11 @@ namespace FacetedWorlds.MyCon.Model
 			"prior",
 			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionDescription", 1),
 			false));
+        public static Role RoleValue = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"value",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.DocumentSegment", 1),
+			false));
 
         // Queries
         public static Query QueryIsCurrent = new Query()
@@ -2351,9 +2360,9 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessors
         private PredecessorObj<Session> _session;
         private PredecessorList<SessionDescription> _prior;
+        private PredecessorList<DocumentSegment> _value;
 
         // Fields
-        private string _value;
 
         // Results
 
@@ -2361,13 +2370,13 @@ namespace FacetedWorlds.MyCon.Model
         public SessionDescription(
             Session session
             ,IEnumerable<SessionDescription> prior
-            ,string value
+            ,IEnumerable<DocumentSegment> value
             )
         {
             InitializeResults();
             _session = new PredecessorObj<Session>(this, RoleSession, session);
             _prior = new PredecessorList<SessionDescription>(this, RolePrior, prior);
-            _value = value;
+            _value = new PredecessorList<DocumentSegment>(this, RoleValue, value);
         }
 
         // Hydration constructor
@@ -2376,6 +2385,7 @@ namespace FacetedWorlds.MyCon.Model
             InitializeResults();
             _session = new PredecessorObj<Session>(this, RoleSession, memento);
             _prior = new PredecessorList<SessionDescription>(this, RolePrior, memento);
+            _value = new PredecessorList<DocumentSegment>(this, RoleValue, memento);
         }
 
         // Result initializer
@@ -2392,12 +2402,12 @@ namespace FacetedWorlds.MyCon.Model
         {
             get { return _prior; }
         }
-     
-        // Field access
-        public string Value
+             public IEnumerable<DocumentSegment> Value
         {
             get { return _value; }
         }
+     
+        // Field access
 
         // Query result access
 
@@ -2871,6 +2881,97 @@ namespace FacetedWorlds.MyCon.Model
 
     }
     
+    public partial class DocumentSegment : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				DocumentSegment newFact = new DocumentSegment(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+						newFact._text = (string)_fieldSerializerByType[typeof(string)].ReadData(output);
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				DocumentSegment fact = (DocumentSegment)obj;
+				_fieldSerializerByType[typeof(string)].WriteData(output, fact._text);
+			}
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.DocumentSegment", 1);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Roles
+
+        // Queries
+
+        // Predicates
+
+        // Predecessors
+
+        // Fields
+        private string _text;
+
+        // Results
+
+        // Business constructor
+        public DocumentSegment(
+            string text
+            )
+        {
+            InitializeResults();
+            _text = text;
+        }
+
+        // Hydration constructor
+        private DocumentSegment(FactMemento memento)
+        {
+            InitializeResults();
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+
+        // Field access
+        public string Text
+        {
+            get { return _text; }
+        }
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
 
 	public class CorrespondenceModel : ICorrespondenceModel
 	{
@@ -3044,6 +3145,10 @@ namespace FacetedWorlds.MyCon.Model
 				Evaluation._correspondenceFactType,
 				new Evaluation.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Evaluation._correspondenceFactType }));
+			community.AddType(
+				DocumentSegment._correspondenceFactType,
+				new DocumentSegment.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { DocumentSegment._correspondenceFactType }));
 		}
 	}
 }

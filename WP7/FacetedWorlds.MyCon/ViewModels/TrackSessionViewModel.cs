@@ -4,7 +4,7 @@ using FacetedWorlds.MyCon.Model;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {
-    public class TrackSessionViewModel
+    public class TrackSessionViewModel : SessionViewModelBase
     {
         private readonly Slot _slot;
         private readonly SessionPlace _sessionPlace;
@@ -40,6 +40,11 @@ namespace FacetedWorlds.MyCon.ViewModels
         public string Room
         {
             get { return _sessionPlace.Place.Room.RoomNumber; }
+        }
+
+        public override string TargetUri
+        {
+            get { return String.Format("/Views/SessionDetailsView.xaml?SessionId={0}", _sessionPlace.Session.Id); }
         }
     }
 }

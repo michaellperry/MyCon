@@ -60,19 +60,25 @@ namespace FacetedWorlds.MyCon.ViewModels
 
             // General sessions
             conference.NewSessionPlace(
-                "lunch",
-                "Lunch",
-                "",
-                null,
-                null,
-                new DateTime(2009, 11, 6, 12, 0, 0),
+                "lunch", 
+                "Lunch", 
+                "Vegetarian options available",
+                String.Empty, 
+                String.Empty,
+                String.Empty,
+                null, 
+                null, 
+                new DateTime(2009, 11, 6, 12, 0, 0), 
                 "Dining Hall");
 
             // Cloud
             conference.NewSessionPlace(
                 "cloud1",
                 "Developing Your First Azure Service",
+                "In this session we take a tour of the capabilities of the Microsoft cloud platform by building and running a simple service using the platform SDK. The sample service highlights some of the features of the platform including service management, storage, and an integrated developer experience. This is a demo-heavy session.",
                 "Jennifer Marsman",
+                "@jmarsman",
+                "Jennifer Marsman is a Developer Evangelist in Microsoft’s Developer and Platform Evangelism group, where she educates developers on Microsoft’s new technologies.  Prior to becoming a Developer Evangelist, Jennifer was a software developer in Microsoft’s Natural Interactive Services division.  In this role, she filed two patents for her work in search and data mining algorithms.  Jennifer has also held positions with Ford Motor Company, National Instruments, and Soar Technology.\nJennifer earned a Bachelor’s Degree in Computer Engineering and Master’s Degree in Computer Science and Engineering from the University of Michigan in Ann Arbor.  Her graduate work specialized in artificial intelligence and computational theory.",
                 "http://techfests.com/Tulsa/2009/SiteImages/Speakers/Jennifer_Marsman.jpg",
                 "Cloud",
                 new DateTime(2009, 11, 6, 9, 0, 0),
@@ -80,7 +86,10 @@ namespace FacetedWorlds.MyCon.ViewModels
             conference.NewSessionPlace(
                 "cloud2",
                 "Developer's Overview of SQL Azure",
+                "",
                 "Chris Koenig",
+                "@chriskoenig",
+                "Chris Koenig is a Developer Evangelist with Microsoft, based in Dallas, TX. Prior to joining Microsoft, Chris worked as a Senior Architect on the Architecture Strategy Team for The Capital Group in San Antonio, and as an Architect, Developer and Development Team Lead for the global solution provider Avanade. As a consultant, Chris worked with a variety of clients from many vertical markets, ISVs and other solution providers on enterprise-class Windows and web-based applications. Today, Chris focuses on building, growing, and enhancing the developer communities in Texas, Oklahoma, Louisiana and Arkansas. Chris is a devoted husband and father of four awesome children who keep him very busy.  In his spare time, Chris serves as Scoutmaster for his oldest son's Troop, and Committee Chair for his youngest sons' Pack.  Chris also enjoys traveling, cooking, camping and playing guitar.  You can contact Chris through his blog at http://blogs.msdn.com/chkoenig, via email at chris.koenig@microsoft.com, or via Windows Live Messenger at chris@koenigweb.com.",
                 "http://techfests.com/Tulsa/2009/SiteImages/Speakers/Chris_Koenig.jpg",
                 "Cloud",
                 new DateTime(2009, 11, 6, 10, 30, 0),
@@ -88,7 +97,10 @@ namespace FacetedWorlds.MyCon.ViewModels
             conference.NewSessionPlace(
                 "cloud3",
                 "Salesforce.com / Force.com Cloud Platform",
+                "",
                 "Fadi Shami",
+                "",
+                "",
                 "http://techfests.com/Tulsa/2009/SiteImages/Speakers/Fadi_Shami.jpg",
                 "Cloud",
                 new DateTime(2009, 11, 6, 13, 0, 0),
@@ -96,7 +108,10 @@ namespace FacetedWorlds.MyCon.ViewModels
             conference.NewSessionPlace(
                 "cloud4",
                 "Azure storage for the relational database minded developer",
+                "",
                 "Dennis Palmer",
+                "",
+                "",
                 "http://techfests.com/Tulsa/2009/SiteImages/Speakers/Dennis_Palmer.jpg",
                 "Cloud",
                 new DateTime(2009, 11, 6, 14, 30, 0),
@@ -104,7 +119,10 @@ namespace FacetedWorlds.MyCon.ViewModels
             conference.NewSessionPlace(
                 "cloud5",
                 "Business Value from the Cloud",
+                "",
                 "David Walker",
+                "",
+                "",
                 "http://techfests.com/Tulsa/2009/SiteImages/Speakers/David_Walker.jpg",
                 "Cloud",
                 new DateTime(2009, 11, 6, 16, 0, 0),
@@ -114,7 +132,10 @@ namespace FacetedWorlds.MyCon.ViewModels
             conference.NewSessionPlace(
                 "xaml1",
                 "What's new in Silverlight 3.0?",
+                "",
                 "Todd Anglin",
+                "",
+                "",
                 "http://techfests.com/Tulsa/2009/SiteImages/Speakers/Todd_Anglin.jpg",
                 "Silverlight & WPF",
                 new DateTime(2009, 11, 6, 9, 0, 0),
@@ -122,7 +143,10 @@ namespace FacetedWorlds.MyCon.ViewModels
             conference.NewSessionPlace(
                 "xaml2",
                 "XAML Data Bound for Greatness!",
+                "",
                 "Michael Benkovich",
+                "",
+                "",
                 "http://techfests.com/Tulsa/2009/SiteImages/Speakers/Michael_Benkovich.jpg",
                 "Silverlight & WPF",
                 new DateTime(2009, 11, 6, 10, 30, 0),
@@ -130,7 +154,10 @@ namespace FacetedWorlds.MyCon.ViewModels
             conference.NewSessionPlace(
                 "xaml3",
                 "Rich Islands of Functionality: Silverlight in ASP.NET",
+                "",
                 "Todd Anglin",
+                "",
+                "",
                 "http://techfests.com/Tulsa/2009/SiteImages/Speakers/Todd_Anglin.jpg",
                 "Silverlight & WPF",
                 new DateTime(2009, 11, 6, 13, 0, 0),
@@ -138,7 +165,10 @@ namespace FacetedWorlds.MyCon.ViewModels
             conference.NewSessionPlace(
                 "xaml4",
                 "Expression Blend 3.0 and Sketchflow",
+                "",
                 "Michael Benkovich",
+                "",
+                "",
                 "http://techfests.com/Tulsa/2009/SiteImages/Speakers/Michael_Benkovich.jpg",
                 "Silverlight & WPF",
                 new DateTime(2009, 11, 6, 14, 30, 0),
@@ -146,7 +176,10 @@ namespace FacetedWorlds.MyCon.ViewModels
             conference.NewSessionPlace(
                 "xaml5",
                 "Building LOB Applications in Silverlight",
+                "",
                 "Chris Koenig",
+                "@chriskoenig",
+                "Chris Koenig is a Developer Evangelist with Microsoft, based in Dallas, TX. Prior to joining Microsoft, Chris worked as a Senior Architect on the Architecture Strategy Team for The Capital Group in San Antonio, and as an Architect, Developer and Development Team Lead for the global solution provider Avanade. As a consultant, Chris worked with a variety of clients from many vertical markets, ISVs and other solution providers on enterprise-class Windows and web-based applications. Today, Chris focuses on building, growing, and enhancing the developer communities in Texas, Oklahoma, Louisiana and Arkansas. Chris is a devoted husband and father of four awesome children who keep him very busy.  In his spare time, Chris serves as Scoutmaster for his oldest son's Troop, and Committee Chair for his youngest sons' Pack.  Chris also enjoys traveling, cooking, camping and playing guitar.  You can contact Chris through his blog at http://blogs.msdn.com/chkoenig, via email at chris.koenig@microsoft.com, or via Windows Live Messenger at chris@koenigweb.com.",
                 "http://techfests.com/Tulsa/2009/SiteImages/Speakers/Chris_Koenig.jpg",
                 "Silverlight & WPF",
                 new DateTime(2009, 11, 6, 16, 0, 0),

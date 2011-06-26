@@ -1,6 +1,8 @@
 ﻿using System;
 using FacetedWorlds.MyCon.ImageUtilities;
 using FacetedWorlds.MyCon.Model;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {
@@ -68,7 +70,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public string Description
         {
-            get { return _sessionPlace.Session.Description; }
+            get { return JoinSegments(_sessionPlace.Session.Description.Value); }
         }
 
         public string Contact
@@ -78,7 +80,16 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public string Bio
         {
-            get { return _sessionPlace.Session.Speaker.Bio; }
+            get { return JoinSegments(_sessionPlace.Session.Speaker.Bio.Value); }
+        }
+
+        private static string JoinSegments(IEnumerable<DocumentSegment> segments)
+        {
+            if (segments == null)
+                return null;
+            return String.Join("", segments
+                .Select(segment => segment.Text)
+                .ToArray());
         }
     }
 }

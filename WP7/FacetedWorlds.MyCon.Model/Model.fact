@@ -109,7 +109,7 @@ key:
 mutable:
 	string imageUrl;
 	string contact;
-	string bio;
+	DocumentSegment* bio;
 }
 
 fact Place {
@@ -132,7 +132,7 @@ key:
 
 mutable:
     string name;
-	string description;
+	DocumentSegment* description;
 	Level level;
 
 query:
@@ -164,4 +164,9 @@ key:
 fact Evaluation {
 key:
     Schedule schedule;
+}
+
+fact DocumentSegment {
+key:
+	string text;
 }

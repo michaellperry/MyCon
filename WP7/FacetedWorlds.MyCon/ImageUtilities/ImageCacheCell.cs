@@ -92,7 +92,8 @@ namespace FacetedWorlds.MyCon.ImageUtilities
                 {
                     responseStream.Read(buffer, 0, (int)response.ContentLength);
                 }
-                Deployment.Current.Dispatcher.BeginInvoke(() => ScaleBitmap(localFileNameSmall, localFileNameLarge, buffer));
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                    ScaleBitmap(localFileNameSmall, localFileNameLarge, buffer));
             }
             catch (Exception ex)
             {
@@ -116,6 +117,7 @@ namespace FacetedWorlds.MyCon.ImageUtilities
                 }
 
                 _smallImageUrl.Value = String.Format("storage:{0}", localFileNameSmall);
+                _largeImageUrl.Value = String.Format("storage:{0}", localFileNameLarge);
             }
             catch (Exception ex)
             {

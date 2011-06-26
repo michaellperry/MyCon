@@ -13,8 +13,6 @@ namespace FacetedWorlds.MyCon.ViewModels
         private readonly Attendee _attendee;
         private readonly ImageCache _imageCache;
 
-        private Independent _indSelectedSlot = new Independent();
-
         public ScheduleDayViewModel(Day day, Attendee attendee, ImageCache imageCache)
         {
             _day = day;
@@ -35,21 +33,6 @@ namespace FacetedWorlds.MyCon.ViewModels
                     from time in _day.Times
                     orderby time.Start
                     select new ScheduleSlotViewModel(_attendee.NewSlot(time), null, _imageCache);
-            }
-        }
-
-        public ScheduleSlotViewModel SelectedSlot
-        {
-            get
-            {
-                _indSelectedSlot.OnGet();
-                return null;
-            }
-            set
-            {
-                _indSelectedSlot.OnSet();
-                if (value != null)
-                    value.Select();
             }
         }
     }
