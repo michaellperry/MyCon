@@ -3,9 +3,14 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:FacetedWorlds_MyCon_Converters="clr-namespace:FacetedWorlds.MyCon.Converters"
 	mc:Ignorable="d"
 	x:Class="FacetedWorlds.MyCon.SessionWithTimeControl"
 	d:DesignWidth="456" d:DesignHeight="97">
+
+	<UserControl.Resources>
+		<FacetedWorlds_MyCon_Converters:CachedImageUrlValueConverter x:Key="CachedImageUrlValueConverter"/>
+	</UserControl.Resources>
 
 	<Grid x:Name="LayoutRoot" Background="Transparent" d:DataContext="{d:DesignData /SampleData/ScheduleSlotViewModelSampleData.xaml}">
 		<Grid.ColumnDefinitions>
@@ -30,6 +35,6 @@
 			<TextBlock Text="{Binding Speaker}" Margin="4,0,4,4" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneSubtleBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" TextWrapping="Wrap" Grid.Row="1"/>
 			<TextBlock Text="{Binding Title}" Margin="4,4,8,4" TextWrapping="Wrap" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Grid.ColumnSpan="2"/>
 		</Grid>
-		<Image Grid.Column="1" Margin="8,4" Source="{Binding ImageUrl}" VerticalAlignment="Center" Height="80" Width="80" HorizontalAlignment="Center"/>
+		<Image Grid.Column="1" Margin="8,4" Source="{Binding ImageUrl, Converter={StaticResource CachedImageUrlValueConverter}}" VerticalAlignment="Center" Height="80" Width="80" HorizontalAlignment="Center" Stretch="None"/>
 	</Grid>
 </UserControl>

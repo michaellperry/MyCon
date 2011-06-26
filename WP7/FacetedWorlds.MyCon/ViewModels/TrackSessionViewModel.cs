@@ -1,4 +1,5 @@
 using System;
+using FacetedWorlds.MyCon.ImageUtilities;
 using FacetedWorlds.MyCon.Model;
 
 namespace FacetedWorlds.MyCon.ViewModels
@@ -7,11 +8,13 @@ namespace FacetedWorlds.MyCon.ViewModels
     {
         private readonly Slot _slot;
         private readonly SessionPlace _sessionPlace;
+        private readonly ImageCache _imageCache;
 
-        public TrackSessionViewModel(Slot slot, SessionPlace sessionPlace)
+        public TrackSessionViewModel(Slot slot, SessionPlace sessionPlace, ImageCache imageCache)
         {
             _slot = slot;
             _sessionPlace = sessionPlace;
+            _imageCache = imageCache;
         }
 
         public string Time
@@ -21,7 +24,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public string ImageUrl
         {
-            get { return "http://a3.twimg.com/profile_images/105305569/IMG_0147.jpg"; }
+            get { return _imageCache.SmallImageUrl(_sessionPlace.Session.Speaker.ImageUrl); }
         }
 
         public string Title

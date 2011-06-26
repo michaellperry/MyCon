@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using FacetedWorlds.MyCon.ImageUtilities;
 using FacetedWorlds.MyCon.Model;
 
 namespace FacetedWorlds.MyCon.ViewModels
@@ -8,11 +9,13 @@ namespace FacetedWorlds.MyCon.ViewModels
     {
         private readonly Attendee _attendee;
         private readonly Track _track;
+        private readonly ImageCache _imageCache;
 
-        public TrackViewModel(Attendee attendee, Track track)
+        public TrackViewModel(Attendee attendee, Track track, ImageCache imageCache)
         {
             _attendee = attendee;
             _track = track;
+            _imageCache = imageCache;
         }
 
         public string Name
@@ -27,7 +30,7 @@ namespace FacetedWorlds.MyCon.ViewModels
                 return
                     from day in _attendee.Conference.Days
                     orderby day.ConferenceDate
-                    select new TrackDayViewModel(_attendee, _track, day);
+                    select new TrackDayViewModel(_attendee, _track, day, _imageCache);
             }
         }
 

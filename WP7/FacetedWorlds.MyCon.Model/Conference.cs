@@ -6,9 +6,11 @@ namespace FacetedWorlds.MyCon.Model
 {
     public partial class Conference
     {
-        public void NewSessionPlace(string sessionName, string speakerName, string trackName, DateTime startTime, string roomNumber)
+        public void NewSessionPlace(string sessionName, string speakerName, string imageUrl, string trackName, DateTime startTime, string roomNumber)
         {
             Speaker speaker = Community.AddFact(new Speaker(this, speakerName));
+            if (speaker.ImageUrl.Value != imageUrl)
+                speaker.ImageUrl = imageUrl;
             Track track = trackName == null ? null : Community.AddFact(new Track(this, trackName));
             Session session = Sessions.FirstOrDefault(s => s.Name == sessionName && s.Speaker == speaker && s.Track == track);
             if (session == null)

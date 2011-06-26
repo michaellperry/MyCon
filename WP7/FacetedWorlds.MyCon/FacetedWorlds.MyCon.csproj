@@ -78,6 +78,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\CachedImageUrlValueConverter.cs" />
+    <Compile Include="ImageUtilities\ImageCache.cs" />
+    <Compile Include="ImageUtilities\ImageCacheCell.cs" />
     <Compile Include="POXConfigurationProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SynchronizationService.cs" />

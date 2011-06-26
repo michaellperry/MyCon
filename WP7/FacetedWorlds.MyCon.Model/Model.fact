@@ -105,6 +105,9 @@ fact Speaker {
 key:
     Conference conference;
     string name;
+
+mutable:
+	string imageUrl;
 }
 
 fact Place {

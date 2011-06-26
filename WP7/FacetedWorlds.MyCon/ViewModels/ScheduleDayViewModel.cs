@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FacetedWorlds.MyCon.ImageUtilities;
 using FacetedWorlds.MyCon.Model;
 
 namespace FacetedWorlds.MyCon.ViewModels
@@ -9,11 +10,13 @@ namespace FacetedWorlds.MyCon.ViewModels
     {
         private readonly Day _day;
         private readonly Attendee _attendee;
+        private readonly ImageCache _imageCache;
 
-        public ScheduleDayViewModel(Day day, Attendee attendee)
+        public ScheduleDayViewModel(Day day, Attendee attendee, ImageCache imageCache)
         {
             _day = day;
             _attendee = attendee;
+            _imageCache = imageCache;
         }
 
         public string Day
@@ -28,7 +31,7 @@ namespace FacetedWorlds.MyCon.ViewModels
                 return
                     from time in _day.Times
                     orderby time.Start
-                    select new ScheduleSlotViewModel(_attendee.NewSlot(time), null);
+                    select new ScheduleSlotViewModel(_attendee.NewSlot(time), null, _imageCache);
             }
         }
     }
