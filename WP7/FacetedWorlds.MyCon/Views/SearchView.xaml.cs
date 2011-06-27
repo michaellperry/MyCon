@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using Microsoft.Phone.Controls;
+using System.Windows.Input;
 
 namespace FacetedWorlds.MyCon.Views
 {
@@ -18,6 +9,17 @@ namespace FacetedWorlds.MyCon.Views
         public SearchView()
         {
             InitializeComponent();
+        }
+
+        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            SearchTermTextBox.Focus();
+        }
+
+        private void SearchTermTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                Focus();
         }
     }
 }
