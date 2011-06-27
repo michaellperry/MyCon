@@ -1,14 +1,14 @@
-﻿<UserControl
+﻿<views:SessionUserControl
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:FacetedWorlds_MyCon_Converters="clr-namespace:FacetedWorlds.MyCon.Converters"
 	xmlns:Itzben="clr-namespace:Itzben;assembly=Itzben"
+    xmlns:views="clr-namespace:FacetedWorlds.MyCon.Views"
 	mc:Ignorable="d"
-	x:Class="FacetedWorlds.MyCon.SessionWithTimeControl"
-	d:DesignWidth="456" d:DesignHeight="97"
-    ManipulationCompleted="UserControl_ManipulationCompleted">
+	x:Class="FacetedWorlds.MyCon.Views.SessionWithTimeControl"
+	d:DesignWidth="456" d:DesignHeight="97">
 
 	<UserControl.Resources>
 		<Itzben:VisibleWhenTrueConverter x:Key="VisibleWhenTrueConverter"/>
@@ -44,4 +44,4 @@
 			<Image Grid.Column="1" Margin="3" Source="{Binding ImageUrl, Converter={StaticResource CachedImageUrlValueConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="None"/>
 		</Grid>
 	</Grid>
-</UserControl>
+</views:SessionUserControl>

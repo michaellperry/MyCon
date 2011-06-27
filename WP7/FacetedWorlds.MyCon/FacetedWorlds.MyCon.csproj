@@ -113,6 +113,7 @@
     <Compile Include="Views\SessionDetailsView.xaml.cs">
       <DependentUpon>SessionDetailsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SessionUserControl.cs" />
     <Compile Include="Views\SessionWithTimeControl.xaml.cs">
       <DependentUpon>SessionWithTimeControl.xaml</DependentUpon>
     </Compile>
@@ -156,7 +157,9 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
-    <None Include="Properties\WMAppManifest.xml" />
+    <None Include="Properties\WMAppManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationIcon.png">

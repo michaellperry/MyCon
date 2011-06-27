@@ -64,6 +64,7 @@ namespace FacetedWorlds.MyCon
             catch (Exception ex)
             {
                 // TODO: Ignore for now.
+                System.Diagnostics.Debug.WriteLine(ex.Message);
             }
         }
 

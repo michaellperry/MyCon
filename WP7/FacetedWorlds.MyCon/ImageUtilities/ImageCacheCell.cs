@@ -78,6 +78,7 @@ namespace FacetedWorlds.MyCon.ImageUtilities
             catch (Exception ex)
             {
                 // Failed to initiate HTTP request for image. Just continue to show the default.
+                System.Diagnostics.Debug.WriteLine(ex.Message);
             }
         }
 
@@ -97,6 +98,7 @@ namespace FacetedWorlds.MyCon.ImageUtilities
             catch (Exception ex)
             {
                 // Failed to read the HTTP response. Just continue to show the default.
+                System.Diagnostics.Debug.WriteLine(ex.Message);
             }
         }
 
@@ -121,6 +123,7 @@ namespace FacetedWorlds.MyCon.ImageUtilities
             catch (Exception ex)
             {
                 // Failed to save the scaled image. Just continue to show the default.
+                System.Diagnostics.Debug.WriteLine(ex.Message);
             }
         }
 
