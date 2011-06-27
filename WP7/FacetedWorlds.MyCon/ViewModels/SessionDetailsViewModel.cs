@@ -3,6 +3,7 @@ using FacetedWorlds.MyCon.ImageUtilities;
 using FacetedWorlds.MyCon.Model;
 using System.Linq;
 using System.Collections.Generic;
+using FacetedWorlds.MyCon.Models;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {
@@ -11,12 +12,14 @@ namespace FacetedWorlds.MyCon.ViewModels
         private readonly Slot _slot;
         private readonly SessionPlace _sessionPlace;
         private readonly ImageCache _imageCache;
+        private readonly SearchModel _searchModel;
 
-        public SessionDetailsViewModel(Slot slot, SessionPlace sessionPlace, ImageCache imageCache)
+        public SessionDetailsViewModel(Slot slot, SessionPlace sessionPlace, ImageCache imageCache, SearchModel searchModel)
         {
             _slot = slot;
             _sessionPlace = sessionPlace;
             _imageCache = imageCache;
+            _searchModel = searchModel;
         }
 
         public string Time
@@ -96,6 +99,16 @@ namespace FacetedWorlds.MyCon.ViewModels
         public void Remove()
         {
             _slot.RemoveSchedule(_sessionPlace);
+        }
+
+        public string SearchBySpeakerText
+        {
+            get { return String.Format("Other sessions by {0}", _sessionPlace.Session.Speaker.Name); }
+        }
+
+        public void SearchBySpeaker()
+        {
+            _searchModel.SearchTerm = _sessionPlace.Session.Speaker.Name;
         }
 
         private static string JoinSegments(IEnumerable<DocumentSegment> segments)

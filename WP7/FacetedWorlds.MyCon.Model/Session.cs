@@ -5,9 +5,10 @@ namespace FacetedWorlds.MyCon.Model
     {
         public bool Matches(string searchTerm)
         {
-            return Name.Value.AnyPartMatches(searchTerm)
-                || Speaker.Name.AnyPartMatches(searchTerm)
-                || (Track != null && Track.Name.AnyPartMatches(searchTerm));
+            string[] terms = searchTerm.Split(' ');
+            return Name.Value.AnyPartMatches(terms)
+                || Speaker.Name.AnyPartMatches(terms)
+                || (Track != null && Track.Name.AnyPartMatches(terms));
         }
     }
 }

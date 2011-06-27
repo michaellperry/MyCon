@@ -1,12 +1,14 @@
+using System.Collections.Generic;
 using System.Linq;
 
 namespace FacetedWorlds.MyCon.Model
 {
     public static class SearchExtensions
     {
-        public static bool AnyPartMatches(this string value, string searchTerm)
+        public static bool AnyPartMatches(this string value, IEnumerable<string> terms)
         {
-            return value.ToLower().Split(' ').Any(part => part.StartsWith(searchTerm));
+            string[] values = value.ToLower().Split(' ');
+            return terms.All(term => values.Any(part => part.StartsWith(term)));
         }
     }
 }

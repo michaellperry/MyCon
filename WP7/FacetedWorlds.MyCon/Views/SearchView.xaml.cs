@@ -1,6 +1,7 @@
-﻿using System.Windows;
-using Microsoft.Phone.Controls;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
+using Microsoft.Phone.Controls;
 
 namespace FacetedWorlds.MyCon.Views
 {
@@ -13,7 +14,8 @@ namespace FacetedWorlds.MyCon.Views
 
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
-            SearchTermTextBox.Focus();
+            if (String.IsNullOrEmpty(SearchTermTextBox.Text))
+                SearchTermTextBox.Focus();
         }
 
         private void SearchTermTextBox_KeyDown(object sender, KeyEventArgs e)

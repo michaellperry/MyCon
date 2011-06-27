@@ -53,7 +53,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
             SessionPlace sessionPlace = session.CurrentSessionPlaces.Single();
             Slot slot = attendee.NewSlot(sessionPlace.Place.PlaceTime);
-            return ForView.Wrap(new SessionDetailsViewModel(slot, sessionPlace, _imageCache));
+            return ForView.Wrap(new SessionDetailsViewModel(slot, sessionPlace, _imageCache, _searchModel));
         }
 
         public object GetSlotViewModel(string startTime)

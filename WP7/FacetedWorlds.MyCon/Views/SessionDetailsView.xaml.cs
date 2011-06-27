@@ -12,6 +12,7 @@ namespace FacetedWorlds.MyCon.Views
     {
         private Dependent _depAddButtonEnabled;
         private Dependent _depRemoveButtonEnabled;
+        private Dependent _depSearchBySpeakerText;
 
         public SessionDetailsView()
         {
@@ -25,8 +26,9 @@ namespace FacetedWorlds.MyCon.Views
             if (locator != null)
                 DataContext = locator.GetSessionDetailsViewModel(sessionId);
 
-            _depAddButtonEnabled = UpdateWhenNecessary(() => ApplicationBarButton(0).IsEnabled = CanAdd);
-            _depRemoveButtonEnabled = UpdateWhenNecessary(() => ApplicationBarButton(1).IsEnabled = CanRemove);
+            _depAddButtonEnabled = UpdateWhenNecessary(() => Button(0).IsEnabled = CanAdd);
+            _depRemoveButtonEnabled = UpdateWhenNecessary(() => Button(1).IsEnabled = CanRemove);
+            _depSearchBySpeakerText = UpdateWhenNecessary(() => MenuItem(0).Text = SearchBySpeakerText);
         }
 
 
@@ -71,9 +73,26 @@ namespace FacetedWorlds.MyCon.Views
 
         }
 
+        private string SearchBySpeakerText
+        {
+            get
+            {
+                SessionDetailsViewModel viewModel = ForView.Unwrap<SessionDetailsViewModel>(DataContext);
+                if (viewModel != null)
+                    return viewModel.SearchBySpeakerText;
+                else
+                    return "Other sessions by speaker";
+            }
+        }
+
         private void SessionsBySpeaker_Click(object sender, EventArgs e)
         {
-
+            SessionDetailsViewModel viewModel = ForView.Unwrap<SessionDetailsViewModel>(DataContext);
+            if (viewModel != null)
+            {
+                viewModel.SearchBySpeaker();
+                NavigationService.Navigate(new Uri("/Views/SearchView.xaml", UriKind.Relative));
+            }
         }
 
         private void SessionsByTrack_Click(object sender, EventArgs e)
@@ -91,9 +110,14 @@ namespace FacetedWorlds.MyCon.Views
             return dependent;
         }
 
-        private ApplicationBarIconButton ApplicationBarButton(int index)
+        private ApplicationBarIconButton Button(int index)
         {
             return (ApplicationBarIconButton)ApplicationBar.Buttons[index];
+        }
+
+        private ApplicationBarMenuItem MenuItem(int index)
+        {
+            return (ApplicationBarMenuItem)ApplicationBar.MenuItems[index];
         }
     }
 }
