@@ -170,6 +170,10 @@
     <Content Include="Images\appbar.favs.rest.png" />
     <Content Include="Images\appbar.feature.search.rest.png" />
     <Content Include="Images\appbar.share.rest.png" />
+    <Content Include="Images\default.big.png" />
+    <Content Include="Images\default.small.png" />
+    <Content Include="Images\unknown.big.png" />
+    <Content Include="Images\unknown.small.png" />
     <Content Include="Readme.txt" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>

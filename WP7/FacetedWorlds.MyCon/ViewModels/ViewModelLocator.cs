@@ -89,7 +89,7 @@ namespace FacetedWorlds.MyCon.ViewModels
                 String.Empty, 
                 String.Empty,
                 String.Empty,
-                null, 
+                "http://qedcode.com/images/lunch.png", 
                 null, 
                 new DateTime(2009, 11, 6, 12, 0, 0), 
                 "Dining Hall");

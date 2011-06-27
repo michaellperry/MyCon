@@ -32,7 +32,7 @@ namespace FacetedWorlds.MyCon.ViewModels
                 if (sessionPlace != null)
                     return _imageCache.SmallImageUrl(sessionPlace.Session.Speaker.ImageUrl);
                 else
-                    return "/Images/appbar.favs.rest.png";
+                    return "/Images/unknown.small.png";
             }
         }
 
