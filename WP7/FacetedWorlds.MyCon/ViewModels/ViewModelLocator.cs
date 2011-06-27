@@ -30,6 +30,11 @@ namespace FacetedWorlds.MyCon.ViewModels
                 CreateSampleData();
         }
 
+        public SearchModel SearchModel
+        {
+            get { return _searchModel; }
+        }
+
         public object Main
         {
             get { return ForView.Wrap(_main); }
