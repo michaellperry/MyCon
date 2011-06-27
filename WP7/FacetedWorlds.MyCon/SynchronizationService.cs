@@ -56,8 +56,15 @@ namespace FacetedWorlds.MyCon
 
         public void Synchronize()
         {
-            _community.BeginSending();
-            _community.BeginReceiving();
+            try
+            {
+                _community.BeginSending();
+                _community.BeginReceiving();
+            }
+            catch (Exception ex)
+            {
+                // TODO: Ignore for now.
+            }
         }
 
         public bool Synchronizing
