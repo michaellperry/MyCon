@@ -66,9 +66,8 @@ namespace FacetedWorlds.MyCon
             ViewModelLocator locator = Resources["Locator"] as ViewModelLocator;
             if (locator != null)
             {
-                object searchTerm;
-                if (PhoneApplicationService.Current.State.TryGetValue("SearchTerm", out searchTerm))
-                    locator.SearchModel.SearchTerm = searchTerm as string;
+                locator.SearchModel.SearchTerm = GetProperty("SearchTerm");
+                locator.SearchModel.SelectedTrack = GetProperty("SelectedTrack");
             }
         }
 
@@ -78,7 +77,10 @@ namespace FacetedWorlds.MyCon
         {
             ViewModelLocator locator = Resources["Locator"] as ViewModelLocator;
             if (locator != null)
-                PhoneApplicationService.Current.State["SearchTerm"] = locator.SearchModel.SearchTerm;
+            {
+                SetProperty("SearchTerm", locator.SearchModel.SearchTerm);
+                SetProperty("SelectedTrack", locator.SearchModel.SelectedTrack);
+            }
         }
 
         // Code to execute when the application is closing (eg, user hit Back)
@@ -142,5 +144,18 @@ namespace FacetedWorlds.MyCon
         }
 
         #endregion
+
+        private static string GetProperty(string propertyName)
+        {
+            object value;
+            if (PhoneApplicationService.Current.State.TryGetValue(propertyName, out value))
+                return value as string;
+            return null;
+        }
+
+        private static void SetProperty(string propertyName, string value)
+        {
+            PhoneApplicationService.Current.State[propertyName] = value;
+        }
     }
 }
