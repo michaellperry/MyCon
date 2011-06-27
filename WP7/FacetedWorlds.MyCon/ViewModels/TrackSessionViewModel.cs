@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using FacetedWorlds.MyCon.ImageUtilities;
 using FacetedWorlds.MyCon.Model;
 
@@ -40,6 +41,16 @@ namespace FacetedWorlds.MyCon.ViewModels
         public string Room
         {
             get { return _sessionPlace.Place.Room.RoomNumber; }
+        }
+
+        public bool Scheduled
+        {
+            get { return _slot.IsScheduled(_sessionPlace); }
+        }
+
+        public bool Overbooked
+        {
+            get { return _slot.CurrentSchedules.Count() > 1; }
         }
 
         public override string TargetUri

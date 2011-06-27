@@ -71,6 +71,16 @@ namespace FacetedWorlds.MyCon.ViewModels
             }
         }
 
+        public bool Scheduled
+        {
+            get { return _slot.IsScheduled(_sessionPlace); }
+        }
+
+        public bool Overbooked
+        {
+            get { return _slot.CurrentSchedules.Count() > 1; }
+        }
+
         public string Description
         {
             get { return JoinSegments(_sessionPlace.Session.Description.Value); }

@@ -9,6 +9,8 @@
     <!--Application Resources-->
     <Application.Resources>
         <vm:ViewModelLocator x:Key="Locator"/>
+        <Color x:Key="OverbookedColor">#FFE21B1B</Color>
+        <SolidColorBrush x:Key="OverbookedBrush" Color="{StaticResource OverbookedColor}"/>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

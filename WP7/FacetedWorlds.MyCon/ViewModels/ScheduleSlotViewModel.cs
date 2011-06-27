@@ -77,6 +77,28 @@ namespace FacetedWorlds.MyCon.ViewModels
             }
         }
 
+        public bool Scheduled
+        {
+            get { return false; }
+        }
+
+        public bool Overbooked
+        {
+            get { return _slot.CurrentSchedules.Count() > 1; }
+        }
+
+        public override string TargetUri
+        {
+            get
+            {
+                SessionPlace sessionPlace = SessionPlace;
+                if (sessionPlace != null)
+                    return String.Format("/Views/SessionDetailsView.xaml?SessionId={0}", sessionPlace.Session.Id);
+                else
+                    return String.Format("/Views/SlotView.xaml?StartTime={0}", _slot.SlotTime.Start);
+            }
+        }
+
         private SessionPlace SessionPlace
         {
             get
@@ -96,18 +118,6 @@ namespace FacetedWorlds.MyCon.ViewModels
                     }
                 }
                 return null;
-            }
-        }
-
-        public override string TargetUri
-        {
-            get
-            {
-                SessionPlace sessionPlace = SessionPlace;
-                if (sessionPlace != null)
-                    return String.Format("/Views/SessionDetailsView.xaml?SessionId={0}", sessionPlace.Session.Id);
-                else
-                    return String.Format("/Views/SlotView.xaml?StartTime={0}", _slot.SlotTime.Start);
             }
         }
     }
