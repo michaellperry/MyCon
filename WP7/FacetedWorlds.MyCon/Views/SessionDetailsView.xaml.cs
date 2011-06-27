@@ -12,6 +12,7 @@ namespace FacetedWorlds.MyCon.Views
     {
         private Dependent _depAddButtonEnabled;
         private Dependent _depRemoveButtonEnabled;
+        private Dependent _depEvaluationButtonEnabled;
         private Dependent _depSearchBySpeakerText;
         private Dependent _depSearchBySpeakerEnabled;
         private Dependent _depSearchByTrackText;
@@ -31,6 +32,7 @@ namespace FacetedWorlds.MyCon.Views
 
             _depAddButtonEnabled = UpdateWhenNecessary(() => Button(0).IsEnabled = CanAdd);
             _depRemoveButtonEnabled = UpdateWhenNecessary(() => Button(1).IsEnabled = CanRemove);
+            _depEvaluationButtonEnabled = UpdateWhenNecessary(() => Button(2).IsEnabled = CanEvaluate);
             _depSearchBySpeakerText = UpdateWhenNecessary(() => MenuItem(0).Text = SearchBySpeakerText);
             _depSearchBySpeakerEnabled = UpdateWhenNecessary(() => MenuItem(0).IsEnabled = CanSearchBySpeaker);
             _depSearchByTrackText = UpdateWhenNecessary(() => MenuItem(1).Text = SearchByTrackText);
@@ -44,7 +46,7 @@ namespace FacetedWorlds.MyCon.Views
             {
                 SessionDetailsViewModel viewModel = ForView.Unwrap<SessionDetailsViewModel>(DataContext);
                 if (viewModel != null)
-                    return !viewModel.IsScheduled;
+                    return viewModel.CanAdd;
                 return false;
             }
         }
@@ -62,7 +64,7 @@ namespace FacetedWorlds.MyCon.Views
             {
                 SessionDetailsViewModel viewModel = ForView.Unwrap<SessionDetailsViewModel>(DataContext);
                 if (viewModel != null)
-                    return viewModel.IsScheduled;
+                    return viewModel.CanRemove;
                 return false;
             }
         }
@@ -72,6 +74,17 @@ namespace FacetedWorlds.MyCon.Views
             SessionDetailsViewModel viewModel = ForView.Unwrap<SessionDetailsViewModel>(DataContext);
             if (viewModel != null)
                 viewModel.Remove();
+        }
+
+        public bool CanEvaluate
+        {
+            get
+            {
+                SessionDetailsViewModel viewModel = ForView.Unwrap<SessionDetailsViewModel>(DataContext);
+                if (viewModel != null)
+                    return viewModel.CanEvaluate;
+                return false;
+            }
         }
 
         private void Evaluation_Click(object sender, EventArgs e)

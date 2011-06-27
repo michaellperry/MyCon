@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FacetedWorlds.MyCon.ImageUtilities;
 using FacetedWorlds.MyCon.Model;
+using UpdateControls.Fields;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {
@@ -12,11 +13,15 @@ namespace FacetedWorlds.MyCon.ViewModels
         private readonly Schedule _schedule;
         private readonly ImageCache _imageCache;
 
+        private Dependent<SessionPlace> _sessionPlace;
+
         public ScheduleSlotViewModel(Slot slot, Schedule schedule, ImageCache imageCache)
         {
             _slot = slot;
             _schedule = schedule;
             _imageCache = imageCache;
+
+            _sessionPlace = new Dependent<SessionPlace>(() => SessionPlace);
         }
 
         public string Time
@@ -28,7 +33,7 @@ namespace FacetedWorlds.MyCon.ViewModels
         {
             get
             {
-                SessionPlace sessionPlace = SessionPlace;
+                SessionPlace sessionPlace = _sessionPlace;
                 if (sessionPlace != null)
                     return _imageCache.SmallImageUrl(sessionPlace.Session.Speaker.ImageUrl);
                 else
@@ -40,7 +45,7 @@ namespace FacetedWorlds.MyCon.ViewModels
         {
             get
             {
-                SessionPlace sessionPlace = SessionPlace;
+                SessionPlace sessionPlace = _sessionPlace;
                 if (sessionPlace != null)
                     return sessionPlace.Session.Name;
                 else
@@ -52,7 +57,7 @@ namespace FacetedWorlds.MyCon.ViewModels
         {
             get
             {
-                SessionPlace sessionPlace = SessionPlace;
+                SessionPlace sessionPlace = _sessionPlace;
                 if (sessionPlace != null)
                     return sessionPlace.Session.Speaker.Name;
                 else
@@ -64,7 +69,7 @@ namespace FacetedWorlds.MyCon.ViewModels
         {
             get
             {
-                SessionPlace sessionPlace = SessionPlace;
+                SessionPlace sessionPlace = _sessionPlace;
                 if (sessionPlace != null)
                     return sessionPlace.Place.Room.RoomNumber;
                 else
@@ -85,7 +90,9 @@ namespace FacetedWorlds.MyCon.ViewModels
                     List<SessionPlace> availableSessions = _slot.SlotTime.AvailableSessions.ToList();
                     if (availableSessions.Count == 1)
                     {
-                        return availableSessions.Single();
+                        SessionPlace sessionPlace = availableSessions[0];
+                        if (sessionPlace.Session.Track == null)
+                            return sessionPlace;
                     }
                 }
                 return null;

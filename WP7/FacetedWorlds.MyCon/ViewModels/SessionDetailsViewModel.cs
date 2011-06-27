@@ -86,9 +86,9 @@ namespace FacetedWorlds.MyCon.ViewModels
             get { return JoinSegments(_sessionPlace.Session.Speaker.Bio.Value); }
         }
 
-        public bool IsScheduled
+        public bool CanAdd
         {
-            get { return _slot.IsScheduled(_sessionPlace); }
+            get { return _sessionPlace.Session.Track != null && !_slot.IsScheduled(_sessionPlace); }
         }
 
         public void Add()
@@ -96,9 +96,19 @@ namespace FacetedWorlds.MyCon.ViewModels
             _slot.AddSchedule(_sessionPlace);
         }
 
+        public bool CanRemove
+        {
+            get { return _slot.IsScheduled(_sessionPlace); }
+        }
+
         public void Remove()
         {
             _slot.RemoveSchedule(_sessionPlace);
+        }
+
+        public bool CanEvaluate
+        {
+            get { return _slot.IsScheduled(_sessionPlace); }
         }
 
         public string SearchBySpeakerText
