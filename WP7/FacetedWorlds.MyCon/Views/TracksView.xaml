@@ -44,7 +44,7 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent" d:DataContext="{d:DesignData /SampleData/TracksViewModelSampleData.xaml}">
         <!--Pivot Control-->
-        <controls:Pivot Title="tracks" ItemsSource="{Binding Tracks}" ItemTemplate="{StaticResource TrackViewModelTemplate}"/>
+        <controls:Pivot Title="tracks" ItemsSource="{Binding Tracks}" ItemTemplate="{StaticResource TrackViewModelTemplate}" SelectedIndex="{Binding SelectedTrackIndex, Mode=TwoWay}"/>
     </Grid>
     
 </phone:PhoneApplicationPage>

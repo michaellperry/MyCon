@@ -103,12 +103,44 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public string SearchBySpeakerText
         {
-            get { return String.Format("Other sessions by {0}", _sessionPlace.Session.Speaker.Name); }
+            get
+            {
+                string speakerName = _sessionPlace.Session.Speaker.Name;
+                return String.IsNullOrEmpty(speakerName)
+                    ? "Other sessions by speaker"
+                    : String.Format("Other sessions by {0}", speakerName);
+            }
+        }
+
+        public bool CanSearchBySpeaker
+        {
+            get { return !String.IsNullOrEmpty(_sessionPlace.Session.Speaker.Name); }
         }
 
         public void SearchBySpeaker()
         {
             _searchModel.SearchTerm = _sessionPlace.Session.Speaker.Name;
+        }
+
+        public string SearchByTrackText
+        {
+            get
+            {
+                return _sessionPlace.Session.Track == null
+                    ? "Other sessions in track"
+                    : String.Format("Other sessions in {0}", _sessionPlace.Session.Track.Name);
+            }
+        }
+
+        public bool CanSearchByTrack
+        {
+            get { return _sessionPlace.Session.Track != null; }
+        }
+
+        public void SearchByTrack()
+        {
+            if (_sessionPlace.Session.Track != null)
+                _searchModel.SelectedTrack = _sessionPlace.Session.Track.Name;
         }
 
         private static string JoinSegments(IEnumerable<DocumentSegment> segments)

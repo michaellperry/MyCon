@@ -32,7 +32,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public TracksViewModel Tracks
         {
-            get { return new TracksViewModel(Attendee, _imageCache); }
+            get { return new TracksViewModel(Attendee, _imageCache, _searchModel); }
         }
 
         public SearchViewModel Search

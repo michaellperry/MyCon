@@ -13,6 +13,9 @@ namespace FacetedWorlds.MyCon.Views
         private Dependent _depAddButtonEnabled;
         private Dependent _depRemoveButtonEnabled;
         private Dependent _depSearchBySpeakerText;
+        private Dependent _depSearchBySpeakerEnabled;
+        private Dependent _depSearchByTrackText;
+        private Dependent _depSearchByTrackEnabled;
 
         public SessionDetailsView()
         {
@@ -29,6 +32,9 @@ namespace FacetedWorlds.MyCon.Views
             _depAddButtonEnabled = UpdateWhenNecessary(() => Button(0).IsEnabled = CanAdd);
             _depRemoveButtonEnabled = UpdateWhenNecessary(() => Button(1).IsEnabled = CanRemove);
             _depSearchBySpeakerText = UpdateWhenNecessary(() => MenuItem(0).Text = SearchBySpeakerText);
+            _depSearchBySpeakerEnabled = UpdateWhenNecessary(() => MenuItem(0).IsEnabled = CanSearchBySpeaker);
+            _depSearchByTrackText = UpdateWhenNecessary(() => MenuItem(1).Text = SearchByTrackText);
+            _depSearchByTrackEnabled = UpdateWhenNecessary(() => MenuItem(1).IsEnabled = CanSearchByTrack);
         }
 
 
@@ -85,6 +91,18 @@ namespace FacetedWorlds.MyCon.Views
             }
         }
 
+        public bool CanSearchBySpeaker
+        {
+            get
+            {
+                SessionDetailsViewModel viewModel = ForView.Unwrap<SessionDetailsViewModel>(DataContext);
+                if (viewModel != null)
+                    return viewModel.CanSearchBySpeaker;
+                else
+                    return false;
+            }
+        }
+
         private void SessionsBySpeaker_Click(object sender, EventArgs e)
         {
             SessionDetailsViewModel viewModel = ForView.Unwrap<SessionDetailsViewModel>(DataContext);
@@ -95,9 +113,35 @@ namespace FacetedWorlds.MyCon.Views
             }
         }
 
+        private string SearchByTrackText
+        {
+            get
+            {
+                SessionDetailsViewModel viewModel = ForView.Unwrap<SessionDetailsViewModel>(DataContext);
+                if (viewModel != null)
+                    return viewModel.SearchByTrackText;
+                else
+                    return "Other sessions in track";
+            }
+        }
+
+        public bool CanSearchByTrack
+        {
+            get
+            {
+                SessionDetailsViewModel viewModel = ForView.Unwrap<SessionDetailsViewModel>(DataContext);
+                if (viewModel != null)
+                    return viewModel.CanSearchByTrack;
+                return false;
+            }
+        }
+
         private void SessionsByTrack_Click(object sender, EventArgs e)
         {
-
+            SessionDetailsViewModel viewModel = ForView.Unwrap<SessionDetailsViewModel>(DataContext);
+            if (viewModel != null)
+                viewModel.SearchByTrack();
+            NavigationService.Navigate(new Uri("/Views/TracksView.xaml", UriKind.Relative));
         }
 
         private Dependent UpdateWhenNecessary(Action update)
