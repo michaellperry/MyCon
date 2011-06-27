@@ -1,0 +1,94 @@
+<FacetedWorlds_MyCon_ViewModels:SearchViewModel xmlns:FacetedWorlds_MyCon_ViewModels="clr-namespace:FacetedWorlds.MyCon.ViewModels" SearchTerm="Elit vehicula enim">
+	<FacetedWorlds_MyCon_ViewModels:SearchViewModel.Days>
+		<FacetedWorlds_MyCon_ViewModels:SearchDayViewModel DayVisible="Collapsed" Day="Nam curabitur cras">
+			<FacetedWorlds_MyCon_ViewModels:SearchDayViewModel.Results>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Sed dis vestibulum" Room="Aliquam adipiscing phasellus" Speaker="Aenean consequat mauris duis" Time="Est congue integer maecenas quisque" TargetUri="Nullam aptent auctor" Title="Nunc hac"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Class leo praesent convallis accumsan" Room="Parturient dignissim elementum bibendum" Speaker="Curae donec" Time="Mus ante cursus" TargetUri="Facilisis amet vestibulum vivamus dictumst" Title="Dictum fermentum"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Aliquam fringilla" Room="Etiam habitasse lectus" Speaker="Hendrerit aliquet" Time="Imperdiet adipiscing" TargetUri="Eleifend blandit himenaeos fusce vestibulum" Title="Nec lorem arcu malesuada parturient"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Vestibulum commodo diam" Room="Non penatibus conubia" Speaker="Morbi libero" Time="Faucibus elit habitant enim luctus" TargetUri="Ligula facilisi litora cubilia eget" Title="Vestibulum nulla"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Erat eros per sed" Room="Magnis sem" Speaker="Adipiscing mattis sit dapibus mauris" Time="Montes inceptos" TargetUri="Parturient proin mollis egestas augue" Title="Nostra nibh"/>
+			</FacetedWorlds_MyCon_ViewModels:SearchDayViewModel.Results>
+		</FacetedWorlds_MyCon_ViewModels:SearchDayViewModel>
+		<FacetedWorlds_MyCon_ViewModels:SearchDayViewModel DayVisible="Collapsed" Day="Vel dolor nam vestibulum nisi">
+			<FacetedWorlds_MyCon_ViewModels:SearchDayViewModel.Results>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Nisl sed nunc" Room="Euismod odio" Speaker="Porttitor tincidunt orci" Time="Lobortis ultricies" TargetUri="Ornare tristique interdum platea dis" Title="Nascetur vestibulum primis adipiscing fames"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Feugiat felis" Room="Venenatis pede parturient quam rutrum" Speaker="Est vulputate quis" Time="Cras vestibulum ipsum vestibulum pharetra" TargetUri="Curabitur urna" Title="Adipiscing phasellus placerat gravida pulvinar"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Consequat iaculis convallis dignissim" Room="Sapien hac" Speaker="Lacinia laoreet" Time="Natoque vestibulum justo mus" TargetUri="Duis parturient leo sagittis" Title="Posuere vestibulum semper elementum sociis"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Lacus nec potenti lorem non" Room="Magna adipiscing parturient vestibulum pretium" Speaker="Massa senectus facilisis" Time="Fermentum morbi" TargetUri="Taciti nunc metus amet" Title="Tellus neque per"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Vestibulum sed tempor" Room="Netus nulla sociosqu" Speaker="Suscipit porta fringilla" Time="Sodales ante viverra velit" TargetUri="Purus habitasse risus rhoncus" Title="Hendrerit torquent aliquam"/>
+			</FacetedWorlds_MyCon_ViewModels:SearchDayViewModel.Results>
+		</FacetedWorlds_MyCon_ViewModels:SearchDayViewModel>
+		<FacetedWorlds_MyCon_ViewModels:SearchDayViewModel DayVisible="Visible" Day="Arcu tempus">
+			<FacetedWorlds_MyCon_ViewModels:SearchDayViewModel.Results>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Himenaeos adipiscing ultrices" Room="Tortor sem" Speaker="Vehicula turpis" Time="Vitae eget class elit integer" TargetUri="Diam sit" Title="Imperdiet volutpat parturient curae"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Donec quisque maecenas vel" Room="Vestibulum vivamus vestibulum aliquam nam" Speaker="Praesent varius" Time="Enim blandit" TargetUri="Aliquet malesuada accumsan penatibus aenean" Title="Commodo porttitor conubia sed adipiscing"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Bibendum erat cubilia" Room="Eros etiam" Speaker="Mauris dictumst eleifend dapibus tincidunt" Time="Egestas facilisi tristique dis nibh" TargetUri="Fusce lorem" Title="Euismod nullam feugiat faucibus"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Habitant gravida aptent auctor" Room="Iaculis inceptos" Speaker="Morbi nulla" Time="Ultricies proin" TargetUri="Nisi est" Title="Interdum parturient venenatis congue"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Cursus lacinia nisl dictum hac" Room="Vulputate lobortis lectus libero nunc" Speaker="Nascetur ligula" Time="Magnis odio vestibulum pharetra" TargetUri="Litora luctus augue leo" Title="Mus curabitur phasellus"/>
+			</FacetedWorlds_MyCon_ViewModels:SearchDayViewModel.Results>
+		</FacetedWorlds_MyCon_ViewModels:SearchDayViewModel>
+		<FacetedWorlds_MyCon_ViewModels:SearchDayViewModel DayVisible="Visible" Day="Consequat mattis dolor">
+			<FacetedWorlds_MyCon_ViewModels:SearchDayViewModel.Results>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Mauris placerat" Room="Laoreet vestibulum adipiscing pulvinar parturient" Speaker="Natoque convallis" Time="Sagittis dignissim elementum vestibulum vestibulum" TargetUri="Nec fames orci" Title="Felis adipiscing facilisis"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Fermentum senectus" Room="Fringilla sociosqu" Speaker="Habitasse mollis non pede ipsum" Time="Justo parturient torquent montes per" TargetUri="Suscipit hendrerit" Title="Himenaeos posuere quam vestibulum nostra"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Vestibulum ultrices" Room="Quis vehicula" Speaker="Lacus ornare sed imperdiet" Time="Primis penatibus" TargetUri="Urna malesuada platea adipiscing potenti" Title="Parturient vestibulum cras"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Pretium volutpat" Room="Maecenas lorem sem" Speaker="Duis sit" Time="Sapien amet" TargetUri="Nunc vel rutrum porttitor nam" Title="Vestibulum magna adipiscing sed rhoncus"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Dis sodales parturient" Room="Vestibulum semper" Speaker="Ante tincidunt sociis taciti" Time="Arcu vestibulum" TargetUri="Massa metus praesent" Title="Tellus viverra morbi tristique"/>
+			</FacetedWorlds_MyCon_ViewModels:SearchDayViewModel.Results>
+		</FacetedWorlds_MyCon_ViewModels:SearchDayViewModel>
+		<FacetedWorlds_MyCon_ViewModels:SearchDayViewModel DayVisible="Visible" Day="Accumsan aliquam est bibendum hac">
+			<FacetedWorlds_MyCon_ViewModels:SearchDayViewModel.Results>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Tempor dictumst leo" Room="Mus tempus diam adipiscing eget" Speaker="Tortor eleifend neque" Time="Nec nulla faucibus quisque venenatis" TargetUri="Parturient integer facilisi ultricies netus" Title="Habitant vulputate inceptos"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Non per vivamus interdum" Room="Aliquam porta" Speaker="Aliquet blandit purus commodo turpis" Time="Conubia elit curabitur vestibulum" TargetUri="Risus velit sed vitae class" Title="Phasellus sem consequat vestibulum varius"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Cubilia dapibus" Room="Enim curae" Speaker="Erat eros lobortis" Time="Donec nascetur sit" TargetUri="Adipiscing aenean parturient mauris egestas" Title="Nibh convallis"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Euismod vel" Room="Nisi feugiat vestibulum nam vestibulum" Speaker="Nullam sed" Time="Elementum dis nisl placerat nunc" TargetUri="Pharetra adipiscing dignissim" Title="Est facilisis etiam"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Odio orci" Room="Fusce pulvinar aptent parturient hac" Speaker="Vestibulum sagittis" Time="Senectus fermentum leo iaculis" TargetUri="Pede gravida" Title="Fringilla habitasse vestibulum lacinia"/>
+			</FacetedWorlds_MyCon_ViewModels:SearchDayViewModel.Results>
+		</FacetedWorlds_MyCon_ViewModels:SearchDayViewModel>
+		<FacetedWorlds_MyCon_ViewModels:SearchDayViewModel DayVisible="Collapsed" Day="Auctor lorem adipiscing mus laoreet">
+			<FacetedWorlds_MyCon_ViewModels:SearchDayViewModel.Results>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Hendrerit nec" Room="Sociosqu parturient morbi" Speaker="Himenaeos quam" Time="Congue suscipit cursus quis vestibulum" TargetUri="Natoque nulla vestibulum posuere" Title="Adipiscing non torquent imperdiet"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Urna cras per" Room="Ultrices dictum lectus parturient" Speaker="Duis libero proin sed" Time="Augue dolor" TargetUri="Nunc sem malesuada vestibulum" Title="Sit vehicula penatibus"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Vel vestibulum ligula porttitor" Room="Litora nam sed" Speaker="Fames tincidunt" Time="Amet felis ante ipsum maecenas" TargetUri="Volutpat luctus" Title="Adipiscing parturient"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Magnis tristique" Room="Vestibulum vestibulum arcu" Speaker="Adipiscing parturient" Time="Praesent vestibulum mauris venenatis" TargetUri="Mattis justo vestibulum potenti ultricies" Title="Vulputate diam accumsan eget elit"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Mollis lacus pretium lorem curabitur" Room="Phasellus consequat adipiscing convallis montes" Speaker="Enim magna nostra rhoncus dignissim" Time="Est bibendum" TargetUri="Parturient dis elementum ornare vestibulum" Title="Erat facilisis"/>
+			</FacetedWorlds_MyCon_ViewModels:SearchDayViewModel.Results>
+		</FacetedWorlds_MyCon_ViewModels:SearchDayViewModel>
+		<FacetedWorlds_MyCon_ViewModels:SearchDayViewModel DayVisible="Visible" Day="Hac vestibulum sodales">
+			<FacetedWorlds_MyCon_ViewModels:SearchDayViewModel.Results>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Fermentum platea primis leo" Room="Mus dictumst" Speaker="Eleifend nec rutrum sapien facilisi" Time="Aliquam semper metus sociis" TargetUri="Massa non per viverra" Title="Morbi neque integer adipiscing faucibus"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Taciti eros netus nibh" Room="Habitant nisi inceptos" Speaker="Nulla fringilla porta" Time="Quisque interdum tempor velit" TargetUri="Sed tellus purus risus nisl" Title="Tempus tortor turpis varius"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Parturient aenean nunc" Room="Lobortis mauris vivamus nascetur vitae" Speaker="Odio aliquam" Time="Nullam aliquet" TargetUri="Habitasse pharetra hendrerit" Title="Aptent class himenaeos curae blandit"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Imperdiet sem orci pede" Room="Sit quam malesuada" Speaker="Commodo penatibus" Time="Porttitor congue" TargetUri="Donec auctor quis vel" Title="Placerat cursus conubia urna pulvinar"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Nam sed" Room="Tincidunt tristique cubilia sagittis" Speaker="Dictum cras dis" Time="Dapibus vestibulum" TargetUri="Est hac senectus duis vestibulum" Title="Etiam leo egestas fusce"/>
+			</FacetedWorlds_MyCon_ViewModels:SearchDayViewModel.Results>
+		</FacetedWorlds_MyCon_ViewModels:SearchDayViewModel>
+		<FacetedWorlds_MyCon_ViewModels:SearchDayViewModel DayVisible="Collapsed" Day="Sociosqu nunc lectus adipiscing">
+			<FacetedWorlds_MyCon_ViewModels:SearchDayViewModel.Results>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Mus suscipit euismod parturient" Room="Nec ultricies vestibulum" Speaker="Venenatis feugiat" Time="Lorem ultrices" TargetUri="Torquent libero vulputate amet" Title="Ligula curabitur vehicula litora"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Volutpat ante phasellus non arcu" Room="Diam gravida morbi luctus" Speaker="Vestibulum adipiscing parturient" Time="Maecenas convallis per magnis sed" TargetUri="Vestibulum iaculis consequat" Title="Nulla eget proin sem"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Mattis mauris dignissim" Room="Praesent sit augue elit" Speaker="Lacinia vel accumsan" Time="Dolor laoreet" TargetUri="Bibendum elementum" Title="Mollis facilisis natoque montes nostra"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Fermentum dictumst eleifend posuere" Room="Enim fames potenti fringilla felis" Speaker="Ipsum pretium erat rhoncus vestibulum" Time="Habitasse justo eros habitant platea" TargetUri="Facilisi sodales faucibus ornare" Title="Adipiscing lacus hendrerit"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Nam primis lorem viverra inceptos" Room="Aliquam himenaeos" Speaker="Interdum rutrum" Time="Integer magna semper quisque vestibulum" TargetUri="Sapien imperdiet parturient" Title="Nibh sociis taciti sed"/>
+			</FacetedWorlds_MyCon_ViewModels:SearchDayViewModel.Results>
+		</FacetedWorlds_MyCon_ViewModels:SearchDayViewModel>
+		<FacetedWorlds_MyCon_ViewModels:SearchDayViewModel DayVisible="Collapsed" Day="Malesuada vivamus dis penatibus tellus">
+			<FacetedWorlds_MyCon_ViewModels:SearchDayViewModel.Results>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Lobortis nisi" Room="Massa nisl nunc nascetur" Speaker="Odio metus orci" Time="Pharetra placerat" TargetUri="Pede aliquam" Title="Est tempor vestibulum"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Tempus quam" Room="Pulvinar porttitor tincidunt aliquet adipiscing" Speaker="Sagittis tristique quis tortor" Time="Morbi vulputate urna" TargetUri="Ultricies venenatis" Title="Curabitur cras"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Phasellus senectus neque netus duis" Room="Hac sociosqu nunc" Speaker="Leo amet parturient ante turpis" Time="Porta nec blandit" TargetUri="Varius mus arcu aenean nulla" Title="Diam eget suscipit purus"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Vestibulum elit risus" Room="Commodo vestibulum velit" Speaker="Vitae consequat mauris enim torquent" Time="Cubilia non dapibus nullam ultrices" TargetUri="Conubia erat adipiscing" Title="Vehicula volutpat convallis per"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Dignissim maecenas elementum egestas parturient" Room="Facilisis praesent euismod" Speaker="Aptent accumsan vestibulum class" Time="Dictumst curae" TargetUri="Vestibulum auctor bibendum sed adipiscing" Title="Parturient eros donec"/>
+			</FacetedWorlds_MyCon_ViewModels:SearchDayViewModel.Results>
+		</FacetedWorlds_MyCon_ViewModels:SearchDayViewModel>
+		<FacetedWorlds_MyCon_ViewModels:SearchDayViewModel DayVisible="Collapsed" Day="Feugiat nibh etiam">
+			<FacetedWorlds_MyCon_ViewModels:SearchDayViewModel.Results>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Eleifend sem vestibulum fermentum gravida" Room="Sit facilisi nisi nisl iaculis" Speaker="Vestibulum vel fringilla congue" Time="Adipiscing nunc" TargetUri="Nam habitasse lacinia fusce" Title="Faucibus habitant"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Laoreet parturient lorem hendrerit" Room="Sed morbi" Speaker="Vestibulum himenaeos cursus odio inceptos" Time="Vestibulum natoque nulla dis lobortis" TargetUri="Orci pede imperdiet interdum malesuada" Title="Penatibus nascetur est hac quam"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Proin leo posuere mus" Room="Potenti nec pharetra non" Speaker="Dictum adipiscing pretium" Time="Sed tincidunt" TargetUri="Porttitor per augue dolor fames" Title="Lectus placerat felis quis urna"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Tristique libero" Room="Ipsum ultricies pulvinar sem sagittis" Speaker="Justo lacus senectus venenatis" Time="Ligula rhoncus sodales" TargetUri="Sit vulputate cras" Title="Viverra duis litora sociosqu lorem"/>
+				<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Nunc aliquam vel curabitur" Room="Magna phasellus parturient integer luctus" Speaker="Vestibulum nam vestibulum consequat suscipit" Time="Adipiscing parturient torquent ultrices arcu" TargetUri="Amet ante" Title="Sed diam eget magnis"/>
+			</FacetedWorlds_MyCon_ViewModels:SearchDayViewModel.Results>
+		</FacetedWorlds_MyCon_ViewModels:SearchDayViewModel>
+	</FacetedWorlds_MyCon_ViewModels:SearchViewModel.Days>
+</FacetedWorlds_MyCon_ViewModels:SearchViewModel>

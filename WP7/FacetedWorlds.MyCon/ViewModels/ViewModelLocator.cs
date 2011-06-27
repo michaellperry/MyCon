@@ -1,9 +1,10 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-using FacetedWorlds.MyCon.Model;
-using UpdateControls.XAML;
 using FacetedWorlds.MyCon.ImageUtilities;
+using FacetedWorlds.MyCon.Model;
+using FacetedWorlds.MyCon.Models;
+using UpdateControls.XAML;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {
@@ -14,6 +15,7 @@ namespace FacetedWorlds.MyCon.ViewModels
         private readonly MainViewModel _main;
         private readonly SettingsViewModel _settings;
         private readonly ImageCache _imageCache;
+        private readonly SearchModel _searchModel;
 
         public ViewModelLocator()
         {
@@ -21,7 +23,8 @@ namespace FacetedWorlds.MyCon.ViewModels
             if (!DesignerProperties.IsInDesignTool)
                 _synchronizationService.Initialize();
             _imageCache = new ImageCache();
-            _main = new MainViewModel(_synchronizationService.Identity, _synchronizationService, _imageCache);
+            _searchModel = new SearchModel();
+            _main = new MainViewModel(_synchronizationService.Identity, _synchronizationService, _imageCache, _searchModel);
             _settings = new SettingsViewModel(_synchronizationService.Identity);
             if (!DesignerProperties.IsInDesignTool)
                 CreateSampleData();

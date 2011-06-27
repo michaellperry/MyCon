@@ -14,5 +14,10 @@ namespace FacetedWorlds.MyCon.Views
         {
             NavigationService.Navigate(new Uri("/Views/TracksView.xaml", UriKind.Relative));
         }
+
+        private void Search_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Views/SearchView.xaml", UriKind.Relative));
+        }
     }
 }
