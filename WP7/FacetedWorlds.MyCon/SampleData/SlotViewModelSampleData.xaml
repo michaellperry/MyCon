@@ -1,4 +1,4 @@
-﻿<FacetedWorlds_MyCon_ViewModels:SlotViewModel xmlns:FacetedWorlds_MyCon_ViewModels="clr-namespace:FacetedWorlds.MyCon.ViewModels" Time="November 5, 2003">
+﻿<FacetedWorlds_MyCon_ViewModels:SlotViewModel xmlns:FacetedWorlds_MyCon_ViewModels="clr-namespace:FacetedWorlds.MyCon.ViewModels" Time="November 5, 2003" Instructions="Tap for session details">
 	<FacetedWorlds_MyCon_ViewModels:SlotViewModel.Sessions>
 		<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Aenean cras aliquam maecenas integer" Room="Quisque vestibulum adipiscing parturient" Speaker="Vestibulum class vivamus aliquam" Time="Mauris nam praesent" TargetUri="Duis vestibulum adipiscing" Title="Curae donec"/>
 		<FacetedWorlds_MyCon_ViewModels:TrackSessionViewModel ImageUrl="Accumsan nullam" Room="Bibendum parturient curabitur dictumst aliquet" Speaker="Aptent sed vestibulum" Time="Dis commodo" TargetUri="Blandit vestibulum" Title="Adipiscing auctor conubia est"/>

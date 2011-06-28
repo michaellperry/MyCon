@@ -8,7 +8,7 @@
     xmlns:views="clr-namespace:FacetedWorlds.MyCon.Views"
 	mc:Ignorable="d"
 	x:Class="FacetedWorlds.MyCon.Views.ScheduleSessionUserControl"
-	d:DesignWidth="456" d:DesignHeight="217">
+	d:DesignWidth="456" d:DesignHeight="116">
 
 	<UserControl.Resources>
 		<Itzben:VisibleWhenTrueConverter x:Key="VisibleWhenTrueConverter"/>
@@ -32,8 +32,8 @@
 				<RowDefinition Height="Auto"/>
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="0.569*"/>
-				<ColumnDefinition Width="0.431*"/>
+				<ColumnDefinition/>
+				<ColumnDefinition Width="116"/>
 			</Grid.ColumnDefinitions>
 			<TextBlock Text="{Binding Title}" Margin="4,4,4,0" TextWrapping="Wrap" FontSize="{StaticResource PhoneFontSizeMediumLarge}" Foreground="{StaticResource PhoneForegroundBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Grid.ColumnSpan="2" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment"/>
 			<TextBlock Text="{Binding Room}" Margin="4" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneSubtleBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Grid.Row="1" Grid.Column="1"/>

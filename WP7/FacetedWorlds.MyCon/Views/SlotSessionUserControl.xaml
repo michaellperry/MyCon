@@ -8,37 +8,35 @@
     xmlns:views="clr-namespace:FacetedWorlds.MyCon.Views"
 	mc:Ignorable="d"
 	x:Class="FacetedWorlds.MyCon.Views.SlotSessionUserControl"
-	d:DesignWidth="456" d:DesignHeight="97">
+	d:DesignWidth="456" d:DesignHeight="122">
 
 	<UserControl.Resources>
 		<Itzben:VisibleWhenTrueConverter x:Key="VisibleWhenTrueConverter"/>
 		<FacetedWorlds_MyCon_Converters:CachedImageUrlValueConverter x:Key="CachedImageUrlValueConverter"/>
 	</UserControl.Resources>
 
-	<Grid x:Name="LayoutRoot" Background="Transparent" d:DataContext="{d:DesignData /SampleData/ScheduleSlotViewModelSampleData.xaml}">
+	<Grid x:Name="LayoutRoot" Background="Transparent" d:DataContext="{d:DesignData /SampleData/TrackSessionViewModelSampleData.xaml}">
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="Auto"/>
 			<ColumnDefinition Width="96"/>
 			<ColumnDefinition/>
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
-		<TextBlock Text="{Binding Time}" Margin="0,4" VerticalAlignment="Center" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" d:LayoutOverrides="GridBox" Width="98" Visibility="{Binding TimeVisible, ElementName=userControl}" TextAlignment="Center"/>
-		<Grid Grid.Column="2">
+		<Grid Grid.Column="1">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto"/>
 				<RowDefinition Height="Auto"/>
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition/>
-				<ColumnDefinition Width="116"/>
+				<ColumnDefinition Width="164"/>
 			</Grid.ColumnDefinitions>
-			<TextBlock Text="{Binding Room}" Margin="4,0,8,4" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneSubtleBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Grid.Column="1" Grid.Row="1"/>
+			<TextBlock Text="{Binding Track}" Margin="4,0,4,4" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneSubtleBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Grid.Column="1" Grid.Row="1"/>
 			<TextBlock Text="{Binding Speaker}" Margin="4,0,4,4" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneSubtleBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" TextWrapping="Wrap" Grid.Row="1"/>
-			<TextBlock Text="{Binding Title}" Margin="4,4,8,4" TextWrapping="Wrap" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneForegroundBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Grid.ColumnSpan="2"/>
+			<TextBlock Text="{Binding Title}" Margin="4" TextWrapping="Wrap" FontSize="{StaticResource PhoneFontSizeMediumLarge}" Foreground="{StaticResource PhoneForegroundBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Grid.ColumnSpan="2"/>
 		</Grid>
-		<Grid Grid.Column="1" Margin="5,1" HorizontalAlignment="Center" VerticalAlignment="Center">
+		<Grid Margin="5" HorizontalAlignment="Center" VerticalAlignment="Top">
 			<Rectangle Fill="{StaticResource PhoneAccentBrush}" Visibility="{Binding Scheduled, Converter={StaticResource VisibleWhenTrueConverter}}"/>
 			<Rectangle Visibility="{Binding Overbooked, Converter={StaticResource VisibleWhenTrueConverter}}" Fill="{StaticResource OverbookedBrush}"/>
 			<Image Grid.Column="1" Margin="3" Source="{Binding ImageUrl, Converter={StaticResource CachedImageUrlValueConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="None"/>

@@ -20,7 +20,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public string Time
         {
-            get { return String.Format("{0:h:mm tt}", _slot.SlotTime.Start); }
+            get { return String.Format("{0:h:mm}", _slot.SlotTime.Start); }
         }
 
         public string ImageUrl
@@ -41,6 +41,16 @@ namespace FacetedWorlds.MyCon.ViewModels
         public string Room
         {
             get { return _sessionPlace.Place.Room.RoomNumber; }
+        }
+
+        public string Track
+        {
+            get
+            {
+                return _sessionPlace.Session.Track == null
+                    ? String.Empty
+                    : _sessionPlace.Session.Track.Name;
+            }
         }
 
         public bool Scheduled

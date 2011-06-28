@@ -28,6 +28,20 @@ namespace FacetedWorlds.MyCon.ViewModels
             }
         }
 
+        public string Instructions
+        {
+            get
+            {
+                List<Schedule> schedules = _slot.CurrentSchedules.ToList();
+                return
+                    schedules.Count == 0 ?
+                        "Tap for session details" :
+                    schedules.Count == 1 ?
+                        String.Format("You are scheduled for {0}", schedules[0].SessionPlace.Session.Name.Value) :
+                        "You are overbooked";
+            }
+        }
+
         public IEnumerable<TrackSessionViewModel> Sessions
         {
             get
