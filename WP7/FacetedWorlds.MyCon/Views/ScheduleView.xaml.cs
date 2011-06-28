@@ -1,5 +1,7 @@
 ﻿using System;
 using Microsoft.Phone.Controls;
+using UpdateControls.XAML;
+using FacetedWorlds.MyCon.ViewModels;
 
 namespace FacetedWorlds.MyCon.Views
 {
@@ -17,6 +19,9 @@ namespace FacetedWorlds.MyCon.Views
 
         private void Search_Click(object sender, EventArgs e)
         {
+            ScheduleViewModel viewModel = ForView.Unwrap<ScheduleViewModel>(DataContext);
+            if (viewModel != null)
+                viewModel.ClearSearch();
             NavigationService.Navigate(new Uri("/Views/SearchView.xaml", UriKind.Relative));
         }
     }

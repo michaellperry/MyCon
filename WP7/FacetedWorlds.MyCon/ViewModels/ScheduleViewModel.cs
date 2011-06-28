@@ -2,6 +2,7 @@
 using System.Linq;
 using FacetedWorlds.MyCon.ImageUtilities;
 using FacetedWorlds.MyCon.Model;
+using FacetedWorlds.MyCon.Models;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {
@@ -9,11 +10,13 @@ namespace FacetedWorlds.MyCon.ViewModels
     {
         private readonly Attendee _attendee;
         private readonly ImageCache _imageCache;
+        private readonly SearchModel _searchModel;
 
-        public ScheduleViewModel(Attendee attendee, ImageCache imageCache)
+        public ScheduleViewModel(Attendee attendee, ImageCache imageCache, SearchModel searchModel)
         {
             _attendee = attendee;
             _imageCache = imageCache;
+            _searchModel = searchModel;
         }
 
         public string ConferenceName
@@ -30,6 +33,11 @@ namespace FacetedWorlds.MyCon.ViewModels
                     orderby day.ConferenceDate
                     select new ScheduleDayViewModel(day, _attendee, _imageCache);
             }
+        }
+
+        public void ClearSearch()
+        {
+            _searchModel.SearchTerm = string.Empty;
         }
     }
 }

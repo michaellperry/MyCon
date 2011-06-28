@@ -27,7 +27,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public ScheduleViewModel Schedule
         {
-            get { return new ScheduleViewModel(Attendee, _imageCache); }
+            get { return new ScheduleViewModel(Attendee, _imageCache, _searchModel); }
         }
 
         public TracksViewModel Tracks
