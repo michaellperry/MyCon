@@ -43,6 +43,27 @@ namespace FacetedWorlds.MyCon.ViewModels
             get { return _sessionPlace.Session.Name; }
         }
 
+        public string Instructions
+        {
+            get
+            {
+                if (_slot.IsScheduled(_sessionPlace))
+                {
+                    if (_slot.CurrentSchedules.Count() > 1)
+                        return "You are overbooked for this time. Tap X to remove.";
+                    else
+                        return "You are scheduled for this session. Tap X to remove.";
+                }
+                else
+                {
+                    if (_slot.CurrentSchedules.Any())
+                        return "You already have a session scheduled for this time.";
+                    else
+                        return "Tap the plus to add this session to your schedule.";
+                }
+            }
+        }
+
         public string Speaker
         {
             get { return _sessionPlace.Session.Speaker.Name; }
