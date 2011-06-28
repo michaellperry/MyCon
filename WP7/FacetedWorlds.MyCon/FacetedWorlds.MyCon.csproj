@@ -104,6 +104,15 @@
     <Compile Include="ViewModels\TracksViewModel.cs" />
     <Compile Include="ViewModels\TrackViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\SearchSessionUserControl.xaml.cs">
+      <DependentUpon>SearchSessionUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TrackSessionUserControl.xaml.cs">
+      <DependentUpon>TrackSessionUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SlotSessionUserControl.xaml.cs">
+      <DependentUpon>SlotSessionUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ScheduleView.xaml.cs">
       <DependentUpon>ScheduleView.xaml</DependentUpon>
     </Compile>
@@ -114,8 +123,8 @@
       <DependentUpon>SessionDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SessionUserControl.cs" />
-    <Compile Include="Views\SessionWithTimeControl.xaml.cs">
-      <DependentUpon>SessionWithTimeControl.xaml</DependentUpon>
+    <Compile Include="Views\ScheduleSessionUserControl.xaml.cs">
+      <DependentUpon>ScheduleSessionUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SlotView.xaml.cs">
       <DependentUpon>SlotView.xaml</DependentUpon>
@@ -129,6 +138,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="Views\SearchSessionUserControl.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TrackSessionUserControl.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SlotSessionUserControl.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\ScheduleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -141,7 +162,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SessionWithTimeControl.xaml">
+    <Page Include="Views\ScheduleSessionUserControl.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>
     </Page>

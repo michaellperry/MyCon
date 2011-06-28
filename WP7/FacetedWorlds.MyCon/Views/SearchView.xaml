@@ -16,7 +16,7 @@
     >
 	<phone:PhoneApplicationPage.Resources>
 		<DataTemplate x:Key="TrackSessionViewModelTemplate">
-			<FacetedWorlds_MyCon:SessionWithTimeControl/>
+			<FacetedWorlds_MyCon:ScheduleSessionUserControl/>
 		</DataTemplate>
 		<DataTemplate x:Key="SearchDayViewModelTemplate">
 			<Grid>

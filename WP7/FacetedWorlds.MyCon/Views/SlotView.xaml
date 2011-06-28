@@ -14,7 +14,7 @@
 	<phone:PhoneApplicationPage.Resources>
 		<DataTemplate x:Key="TrackSessionViewModelTemplate">
 			<StackPanel>
-				<FacetedWorlds_MyCon:SessionWithTimeControl/>
+				<FacetedWorlds_MyCon:ScheduleSessionUserControl/>
 			</StackPanel>
 		</DataTemplate>
 	</phone:PhoneApplicationPage.Resources>

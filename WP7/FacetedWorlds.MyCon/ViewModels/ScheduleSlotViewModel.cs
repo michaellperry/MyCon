@@ -26,7 +26,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public string Time
         {
-            get { return String.Format("{0:h:mm tt}", _slot.SlotTime.Start); }
+            get { return String.Format("{0:h:mm}", _slot.SlotTime.Start); }
         }
 
         public string ImageUrl
