@@ -61,7 +61,7 @@ namespace FacetedWorlds.MyCon.ViewModels
                 if (sessionPlace != null)
                     return sessionPlace.Session.Speaker.Name;
                 else
-                    return String.Empty;
+                    return "Tap for choices";
             }
         }
 

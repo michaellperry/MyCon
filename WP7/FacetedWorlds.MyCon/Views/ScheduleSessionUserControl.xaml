@@ -29,15 +29,15 @@
 		<Grid Grid.Column="2" Grid.Row="1">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" MinHeight="25.226"/>
-				<RowDefinition Height="35"/>
+				<RowDefinition Height="Auto"/>
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="0.569*"/>
 				<ColumnDefinition Width="0.431*"/>
 			</Grid.ColumnDefinitions>
 			<TextBlock Text="{Binding Title}" Margin="4,4,4,0" TextWrapping="Wrap" FontSize="{StaticResource PhoneFontSizeMediumLarge}" Foreground="{StaticResource PhoneForegroundBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Grid.ColumnSpan="2" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment"/>
-			<TextBlock Text="{Binding Room}" Margin="4,3.774,4,4.226" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneSubtleBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Grid.Row="1" Grid.Column="1"/>
-			<TextBlock Text="{Binding Speaker}" Margin="4,3.774,4,4.226" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneSubtleBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" TextWrapping="Wrap" Grid.Row="1"/>
+			<TextBlock Text="{Binding Room}" Margin="4" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneSubtleBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Grid.Row="1" Grid.Column="1"/>
+			<TextBlock Text="{Binding Speaker}" Margin="4" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneSubtleBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" TextWrapping="Wrap" Grid.Row="1"/>
 		</Grid>
 		<Grid Grid.Column="1" Margin="5" HorizontalAlignment="Center" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Top">
 			<Rectangle Fill="{StaticResource PhoneAccentBrush}" Visibility="{Binding Scheduled, Converter={StaticResource VisibleWhenTrueConverter}}"/>
