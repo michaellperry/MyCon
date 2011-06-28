@@ -18,9 +18,9 @@ namespace FacetedWorlds.MyCon.ViewModels
             _imageCache = imageCache;
         }
 
-        public string Time
+        public DateTime Time
         {
-            get { return String.Format("{0:h:mm}", _slot.SlotTime.Start); }
+            get { return _slot.SlotTime.Start; }
         }
 
         public string ImageUrl
