@@ -56,6 +56,7 @@ namespace FacetedWorlds.MyCon.Views
             SessionDetailsViewModel viewModel = ForView.Unwrap<SessionDetailsViewModel>(DataContext);
             if (viewModel != null)
                 viewModel.Add();
+            NavigationService.GoBack();
         }
 
         private bool CanRemove
@@ -74,6 +75,7 @@ namespace FacetedWorlds.MyCon.Views
             SessionDetailsViewModel viewModel = ForView.Unwrap<SessionDetailsViewModel>(DataContext);
             if (viewModel != null)
                 viewModel.Remove();
+            NavigationService.GoBack();
         }
 
         public bool CanEvaluate
