@@ -123,8 +123,7 @@ namespace FacetedWorlds.MyCon.Views
             SessionDetailsViewModel viewModel = ForView.Unwrap<SessionDetailsViewModel>(DataContext);
             if (viewModel != null)
             {
-                viewModel.SearchBySpeaker();
-                NavigationService.Navigate(new Uri("/Views/SearchView.xaml", UriKind.Relative));
+                NavigationService.Navigate(new Uri(String.Format("/Views/SpeakerView.xaml?SpeakerId={0}", Uri.EscapeUriString(viewModel.SpeakerId)), UriKind.Relative));
             }
         }
 

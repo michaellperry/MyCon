@@ -81,6 +81,17 @@ namespace FacetedWorlds.MyCon.ViewModels
             return ForView.Wrap(new SlotViewModel(slot, _imageCache));
         }
 
+        public object GetSpeakerViewModel(string speakerId)
+        {
+            Conference conference = _synchronizationService.Community.AddFact(new Conference("Conference ID"));
+            Attendee attendee = _synchronizationService.Community.AddFact(new Attendee(_synchronizationService.Identity, conference));
+            Speaker speaker = conference.Speakers.FirstOrDefault(s => s.Name == speakerId);
+            if (speaker == null)
+                return null;
+
+            return ForView.Wrap(new SpeakerViewModel(attendee, speaker, _imageCache));
+        }
+
         private void CreateSampleData()
         {
             Conference conference = _synchronizationService.Community.AddFact(new Conference("Conference ID"));

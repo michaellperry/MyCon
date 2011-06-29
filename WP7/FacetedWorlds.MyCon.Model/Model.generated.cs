@@ -419,6 +419,9 @@ namespace FacetedWorlds.MyCon.Model
         public static Query QuerySessions = new Query()
             .JoinSuccessors(Session.RoleConference)
             ;
+        public static Query QuerySpeakers = new Query()
+            .JoinSuccessors(Speaker.RoleConference)
+            ;
 
         // Predicates
 
@@ -432,6 +435,7 @@ namespace FacetedWorlds.MyCon.Model
         private Result<Day> _days;
         private Result<Track> _tracks;
         private Result<Session> _sessions;
+        private Result<Speaker> _speakers;
 
         // Business constructor
         public Conference(
@@ -455,6 +459,7 @@ namespace FacetedWorlds.MyCon.Model
             _days = new Result<Day>(this, QueryDays);
             _tracks = new Result<Track>(this, QueryTracks);
             _sessions = new Result<Session>(this, QuerySessions);
+            _speakers = new Result<Speaker>(this, QuerySpeakers);
         }
 
         // Predecessor access
@@ -477,6 +482,10 @@ namespace FacetedWorlds.MyCon.Model
         public IEnumerable<Session> Sessions
         {
             get { return _sessions; }
+        }
+        public IEnumerable<Speaker> Speakers
+        {
+            get { return _speakers; }
         }
 
         // Mutable property access
@@ -1349,6 +1358,11 @@ namespace FacetedWorlds.MyCon.Model
             .JoinSuccessors(SpeakerBio.RoleSpeaker, Condition.WhereIsEmpty(SpeakerBio.QueryIsCurrent)
             )
             ;
+        public static Query QueryAvailableSessions = new Query()
+            .JoinSuccessors(Session.RoleSpeaker)
+            .JoinSuccessors(SessionPlace.RoleSession, Condition.WhereIsEmpty(SessionPlace.QueryIsCurrent)
+            )
+            ;
 
         // Predicates
 
@@ -1362,6 +1376,7 @@ namespace FacetedWorlds.MyCon.Model
         private Result<SpeakerImageUrl> _imageUrl;
         private Result<SpeakerContact> _contact;
         private Result<SpeakerBio> _bio;
+        private Result<SessionPlace> _availableSessions;
 
         // Business constructor
         public Speaker(
@@ -1387,6 +1402,7 @@ namespace FacetedWorlds.MyCon.Model
             _imageUrl = new Result<SpeakerImageUrl>(this, QueryImageUrl);
             _contact = new Result<SpeakerContact>(this, QueryContact);
             _bio = new Result<SpeakerBio>(this, QueryBio);
+            _availableSessions = new Result<SessionPlace>(this, QueryAvailableSessions);
         }
 
         // Predecessor access
@@ -1402,6 +1418,10 @@ namespace FacetedWorlds.MyCon.Model
         }
 
         // Query result access
+        public IEnumerable<SessionPlace> AvailableSessions
+        {
+            get { return _availableSessions; }
+        }
 
         // Mutable property access
         public Disputable<string> ImageUrl
@@ -3115,6 +3135,9 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				Conference._correspondenceFactType,
 				Conference.QuerySessions.QueryDefinition);
+			community.AddQuery(
+				Conference._correspondenceFactType,
+				Conference.QuerySpeakers.QueryDefinition);
 			community.AddType(
 				ConferenceName._correspondenceFactType,
 				new ConferenceName.CorrespondenceFactFactory(fieldSerializerByType),
@@ -3171,6 +3194,9 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				Speaker._correspondenceFactType,
 				Speaker.QueryBio.QueryDefinition);
+			community.AddQuery(
+				Speaker._correspondenceFactType,
+				Speaker.QueryAvailableSessions.QueryDefinition);
 			community.AddType(
 				SpeakerImageUrl._correspondenceFactType,
 				new SpeakerImageUrl.CorrespondenceFactFactory(fieldSerializerByType),

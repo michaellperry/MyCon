@@ -17,7 +17,7 @@
 		</DataTemplate>
 		<DataTemplate x:Key="ScheduleDayViewModelTemplate">
 			<StackPanel>
-				<TextBlock Text="{Binding Day}"/>
+				<TextBlock Text="{Binding Day}" FontSize="{StaticResource PhoneFontSizeMedium}"/>
 				<ItemsControl ItemTemplate="{StaticResource ScheduleSlotViewModelTemplate}" ItemsSource="{Binding Slots}" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch"/>
 			</StackPanel>
 		</DataTemplate>

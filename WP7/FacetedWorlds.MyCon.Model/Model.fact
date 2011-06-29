@@ -46,6 +46,10 @@ query:
 	Session* sessions {
 		Session s : s.conference = this
 	}
+
+	Speaker* speakers {
+		Speaker s : s.conference = this
+	}
 }
 
 fact Attendee {
@@ -116,6 +120,12 @@ mutable:
 	string imageUrl;
 	string contact;
 	DocumentSegment* bio;
+
+query:
+	SessionPlace* availableSessions {
+		SessionPlace sp : sp.session.speaker = this
+			where sp.isCurrent
+	}
 }
 
 fact Place {

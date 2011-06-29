@@ -95,17 +95,26 @@
     <Compile Include="ViewModels\ScheduleViewModel.cs" />
     <Compile Include="ViewModels\SearchDayViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel.cs" />
+    <Compile Include="ViewModels\SegmentExtensions.cs" />
     <Compile Include="ViewModels\SessionDetailsViewModel.cs" />
     <Compile Include="ViewModels\SessionViewModelBase.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\SlotViewModel.cs" />
+    <Compile Include="ViewModels\SpeakerDayViewModel.cs" />
+    <Compile Include="ViewModels\SpeakerViewModel.cs" />
     <Compile Include="ViewModels\TrackDayViewModel.cs" />
     <Compile Include="ViewModels\TrackSessionViewModel.cs" />
     <Compile Include="ViewModels\TracksViewModel.cs" />
     <Compile Include="ViewModels\TrackViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\SpeakerSessionUserControl.xaml.cs">
+      <DependentUpon>SpeakerSessionUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SearchSessionUserControl.xaml.cs">
       <DependentUpon>SearchSessionUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SpeakerView.xaml.cs">
+      <DependentUpon>SpeakerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TrackSessionUserControl.xaml.cs">
       <DependentUpon>TrackSessionUserControl.xaml</DependentUpon>
@@ -138,9 +147,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="Views\SpeakerSessionUserControl.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\SearchSessionUserControl.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SpeakerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TrackSessionUserControl.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
@@ -222,6 +239,9 @@
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>
     <DesignData Include="SampleData\SlotViewModelSampleData.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+    </DesignData>
+    <DesignData Include="SampleData\SpeakerViewModelSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>
     <DesignData Include="SampleData\TrackSessionViewModelSampleData.xaml">

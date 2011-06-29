@@ -1,8 +1,7 @@
 ﻿using System;
+using System.Linq;
 using FacetedWorlds.MyCon.ImageUtilities;
 using FacetedWorlds.MyCon.Model;
-using System.Linq;
-using System.Collections.Generic;
 using FacetedWorlds.MyCon.Models;
 
 namespace FacetedWorlds.MyCon.ViewModels
@@ -104,7 +103,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public string Description
         {
-            get { return JoinSegments(_sessionPlace.Session.Description.Value); }
+            get { return _sessionPlace.Session.Description.Value.JoinSegments(); }
         }
 
         public string Contact
@@ -114,7 +113,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public string Bio
         {
-            get { return JoinSegments(_sessionPlace.Session.Speaker.Bio.Value); }
+            get { return _sessionPlace.Session.Speaker.Bio.Value.JoinSegments(); }
         }
 
         public bool CanAdd
@@ -158,9 +157,9 @@ namespace FacetedWorlds.MyCon.ViewModels
             get { return !String.IsNullOrEmpty(_sessionPlace.Session.Speaker.Name); }
         }
 
-        public void SearchBySpeaker()
+        public string SpeakerId
         {
-            _searchModel.SearchTerm = _sessionPlace.Session.Speaker.Name;
+            get { return _sessionPlace.Session.Speaker.Name; }
         }
 
         public string SearchByTrackText
@@ -182,15 +181,6 @@ namespace FacetedWorlds.MyCon.ViewModels
         {
             if (_sessionPlace.Session.Track != null)
                 _searchModel.SelectedTrack = _sessionPlace.Session.Track.Name;
-        }
-
-        private static string JoinSegments(IEnumerable<DocumentSegment> segments)
-        {
-            if (segments == null)
-                return null;
-            return String.Join("", segments
-                .Select(segment => segment.Text)
-                .ToArray());
         }
     }
 }
