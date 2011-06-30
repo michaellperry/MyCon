@@ -28,7 +28,7 @@
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.favs.rest.png" Text="tracks" Click="Tracks_Click"/>
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.feature.search.rest.png" Text="search" Click="Search_Click"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/map.png" Text="map"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/map.png" Text="map" Click="Map_Click"/>
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="Settings"/>
             </shell:ApplicationBar.MenuItems>

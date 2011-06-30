@@ -56,6 +56,9 @@
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Interop" />
+    <Reference Include="MultiTouch.Behaviors.WP7">
+      <HintPath>..\..\ExternalLibs\MultiTouch.Behaviors.WP7.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
@@ -107,6 +110,9 @@
     <Compile Include="ViewModels\TracksViewModel.cs" />
     <Compile Include="ViewModels\TrackViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\MapView.xaml.cs">
+      <DependentUpon>MapView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SpeakerSessionUserControl.xaml.cs">
       <DependentUpon>SpeakerSessionUserControl.xaml</DependentUpon>
     </Compile>
@@ -147,6 +153,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="Views\MapView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SpeakerSessionUserControl.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>
@@ -214,6 +224,7 @@
     <Content Include="Images\default.big.png" />
     <Content Include="Images\default.small.png" />
     <Content Include="Images\map.png" />
+    <Resource Include="Images\Star_trek_map2.jpg" />
     <Content Include="Images\unknown.big.png" />
     <Content Include="Images\unknown.small.png" />
     <Content Include="Readme.txt" />

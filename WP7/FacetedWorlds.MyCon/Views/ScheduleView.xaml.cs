@@ -24,5 +24,10 @@ namespace FacetedWorlds.MyCon.Views
                 viewModel.ClearSearch();
             NavigationService.Navigate(new Uri("/Views/SearchView.xaml", UriKind.Relative));
         }
+
+        private void Map_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Views/MapView.xaml", UriKind.Relative));
+        }
     }
 }
