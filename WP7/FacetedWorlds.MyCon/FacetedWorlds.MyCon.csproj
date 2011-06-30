@@ -224,7 +224,7 @@
     <Content Include="Images\default.big.png" />
     <Content Include="Images\default.small.png" />
     <Content Include="Images\map.png" />
-    <Resource Include="Images\Star_trek_map2.jpg" />
+    <Content Include="Images\Star_trek_map2.png" />
     <Content Include="Images\unknown.big.png" />
     <Content Include="Images\unknown.small.png" />
     <Content Include="Readme.txt" />
