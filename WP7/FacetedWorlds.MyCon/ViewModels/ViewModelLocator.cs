@@ -96,13 +96,6 @@ namespace FacetedWorlds.MyCon.ViewModels
         public object GetSessionEvaluationViewModel(string sessionId)
         {
             Conference conference = _synchronizationService.Community.AddFact(new Conference("Conference ID"));
-            if (conference.SessionSurvey.InConflict)
-                return null;
-
-            Survey survey = conference.SessionSurvey;
-            if (survey == null)
-                return null;
-
             List<Session> sessions = conference.Sessions.Where(s => s.Id == sessionId).ToList();
             if (sessions.Count != 1)
                 return null;
@@ -117,7 +110,11 @@ namespace FacetedWorlds.MyCon.ViewModels
                 return null;
 
             Schedule schedule = schedules[0];
-            return ForView.Wrap(new SessionEvaluationViewModel(schedule, survey, _imageCache));
+            SessionEvaluation sessionEvaluation = schedule.CreateEvaluation();
+            if (sessionEvaluation == null)
+                return null;
+
+            return ForView.Wrap(new SessionEvaluationViewModel(sessionEvaluation, _imageCache));
         }
 
         private void CreateSampleData()
@@ -251,6 +248,18 @@ namespace FacetedWorlds.MyCon.ViewModels
                 "Silverlight & WPF",
                 new DateTime(2009, 11, 6, 16, 0, 0),
                 "B120");
+
+            // Add a session survey.
+            conference.NewSurvey(new List<string>
+            {
+                "The speaker was well prepared",
+                "The speaker was entertaining",
+                "The topic was interesting",
+                "The materials were helpful"
+            }, new List<string>
+            {
+                "Comments"
+            });
         }
     }
 }

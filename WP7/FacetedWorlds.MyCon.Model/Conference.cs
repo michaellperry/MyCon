@@ -64,5 +64,20 @@ namespace FacetedWorlds.MyCon.Model
                 return false;
             return true;
         }
+
+        public void NewSurvey(List<string> ratingQuestionsText, List<string> essayQuestionsText)
+        {
+            List<RatingQuestion> ratingQuestions = ratingQuestionsText
+                .Select(text => Community.AddFact(new RatingQuestion(text)))
+                .ToList();
+            List<EssayQuestion> essayQuestions = essayQuestionsText
+                .Select(text => Community.AddFact(new EssayQuestion(text)))
+                .ToList();
+            Survey survey = Community.AddFact(new Survey(ratingQuestions, essayQuestions));
+            if (SessionSurvey.Value != survey)
+            {
+                SessionSurvey = survey;
+            }
+        }
     }
 }

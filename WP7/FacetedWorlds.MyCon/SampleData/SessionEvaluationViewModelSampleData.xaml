@@ -1,0 +1,26 @@
+﻿<FacetedWorlds_MyCon_ViewModels:SessionEvaluationViewModel xmlns:FacetedWorlds_MyCon_ViewModels="clr-namespace:FacetedWorlds.MyCon.ViewModels" ImageUrl="http://qedcode.com/images/lunch.png" Speaker="Aaberg, Jesper" Title="Donec interdum etiam congue">
+	<FacetedWorlds_MyCon_ViewModels:SessionEvaluationViewModel.Essays>
+		<FacetedWorlds_MyCon_ViewModels:EssayViewModel/>
+		<FacetedWorlds_MyCon_ViewModels:EssayViewModel/>
+		<FacetedWorlds_MyCon_ViewModels:EssayViewModel/>
+		<FacetedWorlds_MyCon_ViewModels:EssayViewModel/>
+		<FacetedWorlds_MyCon_ViewModels:EssayViewModel/>
+		<FacetedWorlds_MyCon_ViewModels:EssayViewModel/>
+		<FacetedWorlds_MyCon_ViewModels:EssayViewModel/>
+		<FacetedWorlds_MyCon_ViewModels:EssayViewModel/>
+		<FacetedWorlds_MyCon_ViewModels:EssayViewModel/>
+		<FacetedWorlds_MyCon_ViewModels:EssayViewModel/>
+	</FacetedWorlds_MyCon_ViewModels:SessionEvaluationViewModel.Essays>
+	<FacetedWorlds_MyCon_ViewModels:SessionEvaluationViewModel.Ratings>
+		<FacetedWorlds_MyCon_ViewModels:RatingViewModel FourStar="False" FiveStar="True" OneStar="True" Question="Cras aliquam nam" ThreeStar="False" TwoStars="True"/>
+		<FacetedWorlds_MyCon_ViewModels:RatingViewModel FourStar="True" FiveStar="False" OneStar="False" Question="Vestibulum sed" ThreeStar="True" TwoStars="False"/>
+		<FacetedWorlds_MyCon_ViewModels:RatingViewModel FourStar="False" FiveStar="True" OneStar="True" Question="Phasellus maecenas aenean dis praesent" ThreeStar="False" TwoStars="True"/>
+		<FacetedWorlds_MyCon_ViewModels:RatingViewModel FourStar="True" FiveStar="False" OneStar="False" Question="Accumsan consequat duis mauris" ThreeStar="True" TwoStars="False"/>
+		<FacetedWorlds_MyCon_ViewModels:RatingViewModel FourStar="False" FiveStar="True" OneStar="True" Question="Bibendum dictumst nullam" ThreeStar="False" TwoStars="True"/>
+		<FacetedWorlds_MyCon_ViewModels:RatingViewModel FourStar="True" FiveStar="False" OneStar="False" Question="Aptent adipiscing integer nunc" ThreeStar="True" TwoStars="False"/>
+		<FacetedWorlds_MyCon_ViewModels:RatingViewModel FourStar="False" FiveStar="True" OneStar="True" Question="Quisque eleifend parturient" ThreeStar="False" TwoStars="True"/>
+		<FacetedWorlds_MyCon_ViewModels:RatingViewModel FourStar="True" FiveStar="False" OneStar="False" Question="Vestibulum est amet" ThreeStar="True" TwoStars="False"/>
+		<FacetedWorlds_MyCon_ViewModels:RatingViewModel FourStar="False" FiveStar="True" OneStar="True" Question="Ante facilisi convallis" ThreeStar="False" TwoStars="True"/>
+		<FacetedWorlds_MyCon_ViewModels:RatingViewModel FourStar="True" FiveStar="False" OneStar="False" Question="Auctor arcu hac faucibus habitant" ThreeStar="True" TwoStars="False"/>
+	</FacetedWorlds_MyCon_ViewModels:SessionEvaluationViewModel.Ratings>
+</FacetedWorlds_MyCon_ViewModels:SessionEvaluationViewModel>

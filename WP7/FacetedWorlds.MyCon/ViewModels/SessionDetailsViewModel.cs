@@ -182,5 +182,9 @@ namespace FacetedWorlds.MyCon.ViewModels
             if (_sessionPlace.Session.Track != null)
                 _searchModel.SelectedTrack = _sessionPlace.Session.Track.Name;
         }
+        public string SessionEvaluationUri
+        {
+            get { return String.Format("/Views/SessionEvaluationView.xaml?SessionId={0}", _sessionPlace.Session.Id); }
+        }
     }
 }

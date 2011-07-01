@@ -8,15 +8,48 @@ namespace FacetedWorlds.MyCon.ViewModels
 {
     public class SessionEvaluationViewModel
     {
-        private readonly Schedule _schedule;
-        private readonly Survey _survey;
+        private readonly SessionEvaluation _sessionEvaluation;
         private readonly ImageCache _imageCache;
-
-        public SessionEvaluationViewModel(Schedule schedule, Survey survey, ImageCache imageCache)
+        
+        public SessionEvaluationViewModel(SessionEvaluation sessionEvaluation, ImageCache imageCache)
         {
-            _schedule = schedule;
-            _survey = survey;
+            _sessionEvaluation = sessionEvaluation;
             _imageCache = imageCache;
+        }
+
+        public string ImageUrl
+        {
+            get { return _imageCache.LargeImageUrl(_sessionEvaluation.Schedule.SessionPlace.Session.Speaker.ImageUrl); }
+        }
+
+        public string Title
+        {
+            get { return _sessionEvaluation.Schedule.SessionPlace.Session.Name; }
+        }
+
+        public string Speaker
+        {
+            get { return _sessionEvaluation.Schedule.SessionPlace.Session.Speaker.Name; }
+        }
+
+        public IEnumerable<RatingViewModel> Ratings
+        {
+            get
+            {
+                return
+                    from ratingQuestion in _sessionEvaluation.Survey.RatingQuestions
+                    select new RatingViewModel(_sessionEvaluation.Rating(ratingQuestion));
+            }
+        }
+
+        public IEnumerable<EssayViewModel> Essays
+        {
+            get
+            {
+                return
+                    from essayQuestion in _sessionEvaluation.Survey.EssayQuestions
+                    select new EssayViewModel(_sessionEvaluation.Essay(essayQuestion));
+            }
         }
     }
 }

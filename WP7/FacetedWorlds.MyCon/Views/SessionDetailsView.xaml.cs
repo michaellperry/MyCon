@@ -91,7 +91,9 @@ namespace FacetedWorlds.MyCon.Views
 
         private void Evaluation_Click(object sender, EventArgs e)
         {
-
+            SessionDetailsViewModel viewModel = ForView.Unwrap<SessionDetailsViewModel>(DataContext);
+            if (viewModel != null)
+                NavigationService.Navigate(new Uri(viewModel.SessionEvaluationUri, UriKind.Relative));
         }
 
         private string SearchBySpeakerText

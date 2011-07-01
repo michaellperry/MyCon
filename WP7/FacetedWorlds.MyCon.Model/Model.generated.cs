@@ -60,6 +60,7 @@ digraph "FacetedWorlds.MyCon.Model"
     Survey -> EssayQuestion [label="  *"]
     SessionEvaluation -> Schedule
     SessionEvaluation -> Survey
+    SessionEvaluationCompleted -> SessionEvaluation
     SessionEvaluationRating -> SessionEvaluation
     SessionEvaluationRating -> RatingQuestion
     SessionEvaluationRatingAnswer -> SessionEvaluationRating
@@ -3614,6 +3615,101 @@ namespace FacetedWorlds.MyCon.Model
 
     }
     
+    public partial class SessionEvaluationCompleted : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				SessionEvaluationCompleted newFact = new SessionEvaluationCompleted(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				SessionEvaluationCompleted fact = (SessionEvaluationCompleted)obj;
+			}
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.SessionEvaluationCompleted", 1);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Roles
+        public static Role RoleSessionEvaluation = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"sessionEvaluation",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluation", 1),
+			false));
+
+        // Queries
+
+        // Predicates
+
+        // Predecessors
+        private PredecessorObj<SessionEvaluation> _sessionEvaluation;
+
+        // Fields
+
+        // Results
+
+        // Business constructor
+        public SessionEvaluationCompleted(
+            SessionEvaluation sessionEvaluation
+            )
+        {
+            InitializeResults();
+            _sessionEvaluation = new PredecessorObj<SessionEvaluation>(this, RoleSessionEvaluation, sessionEvaluation);
+        }
+
+        // Hydration constructor
+        private SessionEvaluationCompleted(FactMemento memento)
+        {
+            InitializeResults();
+            _sessionEvaluation = new PredecessorObj<SessionEvaluation>(this, RoleSessionEvaluation, memento);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+        public SessionEvaluation SessionEvaluation
+        {
+            get { return _sessionEvaluation.Fact; }
+        }
+
+        // Field access
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
     public partial class SessionEvaluationRating : CorrespondenceFact
     {
 		// Factory
@@ -4415,6 +4511,10 @@ namespace FacetedWorlds.MyCon.Model
 				SessionEvaluation._correspondenceFactType,
 				new SessionEvaluation.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { SessionEvaluation._correspondenceFactType }));
+			community.AddType(
+				SessionEvaluationCompleted._correspondenceFactType,
+				new SessionEvaluationCompleted.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { SessionEvaluationCompleted._correspondenceFactType }));
 			community.AddType(
 				SessionEvaluationRating._correspondenceFactType,
 				new SessionEvaluationRating.CorrespondenceFactFactory(fieldSerializerByType),

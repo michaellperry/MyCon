@@ -217,6 +217,11 @@ key:
 	Survey survey;
 }
 
+fact SessionEvaluationCompleted {
+key:
+	SessionEvaluation sessionEvaluation;
+}
+
 fact SessionEvaluationRating {
 key:
 	SessionEvaluation evaluation;
