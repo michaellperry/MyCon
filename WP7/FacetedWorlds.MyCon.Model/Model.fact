@@ -33,6 +33,8 @@ key:
 
 mutable:
     string name;
+	Survey sessionSurvey;
+	Survey conferenceSurvey;
 
 query:
 	Day* days {
@@ -56,6 +58,12 @@ fact Attendee {
 key:
     Identity identity;
     Conference conference;
+
+query:
+	Schedule* currentSchedules {
+		Schedule s : s.slot.attendee = this
+			where s.isCurrent
+	}
 }
 
 fact Day {
@@ -187,9 +195,44 @@ key:
 	Schedule schedule;
 }
 
-fact Evaluation {
+fact RatingQuestion {
+key:
+	string text;
+}
+
+fact EssayQuestion {
+key:
+	string text;
+}
+
+fact Survey {
+key:
+	RatingQuestion *ratingQuestions;
+	EssayQuestion *essayQuestions;
+}
+
+fact SessionEvaluation {
 key:
     Schedule schedule;
+	Survey survey;
+}
+
+fact SessionEvaluationRating {
+key:
+	SessionEvaluation evaluation;
+	RatingQuestion question;
+
+mutable:
+	int answer;
+}
+
+fact SessionEvaluationEssay {
+key:
+	SessionEvaluation evaluation;
+	EssayQuestion question;
+
+mutable:
+	string answer;
 }
 
 fact DocumentSegment {

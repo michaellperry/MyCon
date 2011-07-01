@@ -15,6 +15,12 @@ digraph "FacetedWorlds.MyCon.Model"
     EnableToastNotification -> DisableToastNotification [label="  *"]
     ConferenceName -> Conference
     ConferenceName -> ConferenceName [label="  *"]
+    ConferenceSessionSurvey -> Conference
+    ConferenceSessionSurvey -> ConferenceSessionSurvey [label="  *"]
+    ConferenceSessionSurvey -> Survey
+    ConferenceConferenceSurvey -> Conference
+    ConferenceConferenceSurvey -> ConferenceConferenceSurvey [label="  *"]
+    ConferenceConferenceSurvey -> Survey
     Attendee -> Identity
     Attendee -> Conference
     Day -> Conference
@@ -50,7 +56,18 @@ digraph "FacetedWorlds.MyCon.Model"
     Schedule -> Slot
     Schedule -> SessionPlace
     ScheduleRemove -> Schedule
-    Evaluation -> Schedule
+    Survey -> RatingQuestion [label="  *"]
+    Survey -> EssayQuestion [label="  *"]
+    SessionEvaluation -> Schedule
+    SessionEvaluation -> Survey
+    SessionEvaluationRating -> SessionEvaluation
+    SessionEvaluationRating -> RatingQuestion
+    SessionEvaluationRatingAnswer -> SessionEvaluationRating
+    SessionEvaluationRatingAnswer -> SessionEvaluationRatingAnswer [label="  *"]
+    SessionEvaluationEssay -> SessionEvaluation
+    SessionEvaluationEssay -> EssayQuestion
+    SessionEvaluationEssayAnswer -> SessionEvaluationEssay
+    SessionEvaluationEssayAnswer -> SessionEvaluationEssayAnswer [label="  *"]
 }
 **/
 
@@ -410,6 +427,14 @@ namespace FacetedWorlds.MyCon.Model
             .JoinSuccessors(ConferenceName.RoleConference, Condition.WhereIsEmpty(ConferenceName.QueryIsCurrent)
             )
             ;
+        public static Query QuerySessionSurvey = new Query()
+            .JoinSuccessors(ConferenceSessionSurvey.RoleConference, Condition.WhereIsEmpty(ConferenceSessionSurvey.QueryIsCurrent)
+            )
+            ;
+        public static Query QueryConferenceSurvey = new Query()
+            .JoinSuccessors(ConferenceConferenceSurvey.RoleConference, Condition.WhereIsEmpty(ConferenceConferenceSurvey.QueryIsCurrent)
+            )
+            ;
         public static Query QueryDays = new Query()
             .JoinSuccessors(Day.RoleConference)
             ;
@@ -432,6 +457,8 @@ namespace FacetedWorlds.MyCon.Model
 
         // Results
         private Result<ConferenceName> _name;
+        private Result<ConferenceSessionSurvey> _sessionSurvey;
+        private Result<ConferenceConferenceSurvey> _conferenceSurvey;
         private Result<Day> _days;
         private Result<Track> _tracks;
         private Result<Session> _sessions;
@@ -456,6 +483,8 @@ namespace FacetedWorlds.MyCon.Model
         private void InitializeResults()
         {
             _name = new Result<ConferenceName>(this, QueryName);
+            _sessionSurvey = new Result<ConferenceSessionSurvey>(this, QuerySessionSurvey);
+            _conferenceSurvey = new Result<ConferenceConferenceSurvey>(this, QueryConferenceSurvey);
             _days = new Result<Day>(this, QueryDays);
             _tracks = new Result<Track>(this, QueryTracks);
             _sessions = new Result<Session>(this, QuerySessions);
@@ -498,6 +527,22 @@ namespace FacetedWorlds.MyCon.Model
 			}
         }
 
+        public Disputable<Survey> SessionSurvey
+        {
+            get { return _sessionSurvey.Select(fact => fact.Value).AsDisputable(); }
+			set
+			{
+				Community.AddFact(new ConferenceSessionSurvey(this, _sessionSurvey, value.Value));
+			}
+        }
+        public Disputable<Survey> ConferenceSurvey
+        {
+            get { return _conferenceSurvey.Select(fact => fact.Value).AsDisputable(); }
+			set
+			{
+				Community.AddFact(new ConferenceConferenceSurvey(this, _conferenceSurvey, value.Value));
+			}
+        }
     }
     
     public partial class ConferenceName : CorrespondenceFact
@@ -621,6 +666,256 @@ namespace FacetedWorlds.MyCon.Model
 
     }
     
+    public partial class ConferenceSessionSurvey : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				ConferenceSessionSurvey newFact = new ConferenceSessionSurvey(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				ConferenceSessionSurvey fact = (ConferenceSessionSurvey)obj;
+			}
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.ConferenceSessionSurvey", 1);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Roles
+        public static Role RoleConference = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"conference",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			false));
+        public static Role RolePrior = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"prior",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.ConferenceSessionSurvey", 1),
+			false));
+        public static Role RoleValue = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"value",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Survey", 1),
+			false));
+
+        // Queries
+        public static Query QueryIsCurrent = new Query()
+            .JoinSuccessors(ConferenceSessionSurvey.RolePrior)
+            ;
+
+        // Predicates
+        public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
+
+        // Predecessors
+        private PredecessorObj<Conference> _conference;
+        private PredecessorList<ConferenceSessionSurvey> _prior;
+        private PredecessorObj<Survey> _value;
+
+        // Fields
+
+        // Results
+
+        // Business constructor
+        public ConferenceSessionSurvey(
+            Conference conference
+            ,IEnumerable<ConferenceSessionSurvey> prior
+            ,Survey value
+            )
+        {
+            InitializeResults();
+            _conference = new PredecessorObj<Conference>(this, RoleConference, conference);
+            _prior = new PredecessorList<ConferenceSessionSurvey>(this, RolePrior, prior);
+            _value = new PredecessorObj<Survey>(this, RoleValue, value);
+        }
+
+        // Hydration constructor
+        private ConferenceSessionSurvey(FactMemento memento)
+        {
+            InitializeResults();
+            _conference = new PredecessorObj<Conference>(this, RoleConference, memento);
+            _prior = new PredecessorList<ConferenceSessionSurvey>(this, RolePrior, memento);
+            _value = new PredecessorObj<Survey>(this, RoleValue, memento);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+        public Conference Conference
+        {
+            get { return _conference.Fact; }
+        }
+        public IEnumerable<ConferenceSessionSurvey> Prior
+        {
+            get { return _prior; }
+        }
+             public Survey Value
+        {
+            get { return _value.Fact; }
+        }
+
+        // Field access
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
+    public partial class ConferenceConferenceSurvey : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				ConferenceConferenceSurvey newFact = new ConferenceConferenceSurvey(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				ConferenceConferenceSurvey fact = (ConferenceConferenceSurvey)obj;
+			}
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.ConferenceConferenceSurvey", 1);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Roles
+        public static Role RoleConference = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"conference",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			false));
+        public static Role RolePrior = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"prior",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.ConferenceConferenceSurvey", 1),
+			false));
+        public static Role RoleValue = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"value",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Survey", 1),
+			false));
+
+        // Queries
+        public static Query QueryIsCurrent = new Query()
+            .JoinSuccessors(ConferenceConferenceSurvey.RolePrior)
+            ;
+
+        // Predicates
+        public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
+
+        // Predecessors
+        private PredecessorObj<Conference> _conference;
+        private PredecessorList<ConferenceConferenceSurvey> _prior;
+        private PredecessorObj<Survey> _value;
+
+        // Fields
+
+        // Results
+
+        // Business constructor
+        public ConferenceConferenceSurvey(
+            Conference conference
+            ,IEnumerable<ConferenceConferenceSurvey> prior
+            ,Survey value
+            )
+        {
+            InitializeResults();
+            _conference = new PredecessorObj<Conference>(this, RoleConference, conference);
+            _prior = new PredecessorList<ConferenceConferenceSurvey>(this, RolePrior, prior);
+            _value = new PredecessorObj<Survey>(this, RoleValue, value);
+        }
+
+        // Hydration constructor
+        private ConferenceConferenceSurvey(FactMemento memento)
+        {
+            InitializeResults();
+            _conference = new PredecessorObj<Conference>(this, RoleConference, memento);
+            _prior = new PredecessorList<ConferenceConferenceSurvey>(this, RolePrior, memento);
+            _value = new PredecessorObj<Survey>(this, RoleValue, memento);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+        public Conference Conference
+        {
+            get { return _conference.Fact; }
+        }
+        public IEnumerable<ConferenceConferenceSurvey> Prior
+        {
+            get { return _prior; }
+        }
+             public Survey Value
+        {
+            get { return _value.Fact; }
+        }
+
+        // Field access
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
     public partial class Attendee : CorrespondenceFact
     {
 		// Factory
@@ -676,6 +971,11 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
+        public static Query QueryCurrentSchedules = new Query()
+            .JoinSuccessors(Slot.RoleAttendee)
+            .JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.QueryIsCurrent)
+            )
+            ;
 
         // Predicates
 
@@ -686,6 +986,7 @@ namespace FacetedWorlds.MyCon.Model
         // Fields
 
         // Results
+        private Result<Schedule> _currentSchedules;
 
         // Business constructor
         public Attendee(
@@ -709,6 +1010,7 @@ namespace FacetedWorlds.MyCon.Model
         // Result initializer
         private void InitializeResults()
         {
+            _currentSchedules = new Result<Schedule>(this, QueryCurrentSchedules);
         }
 
         // Predecessor access
@@ -724,6 +1026,10 @@ namespace FacetedWorlds.MyCon.Model
         // Field access
 
         // Query result access
+        public IEnumerable<Schedule> CurrentSchedules
+        {
+            get { return _currentSchedules; }
+        }
 
         // Mutable property access
 
@@ -2910,7 +3216,7 @@ namespace FacetedWorlds.MyCon.Model
 
     }
     
-    public partial class Evaluation : CorrespondenceFact
+    public partial class RatingQuestion : CorrespondenceFact
     {
 		// Factory
 		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
@@ -2924,7 +3230,189 @@ namespace FacetedWorlds.MyCon.Model
 
 			public CorrespondenceFact CreateFact(FactMemento memento)
 			{
-				Evaluation newFact = new Evaluation(memento);
+				RatingQuestion newFact = new RatingQuestion(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+						newFact._text = (string)_fieldSerializerByType[typeof(string)].ReadData(output);
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				RatingQuestion fact = (RatingQuestion)obj;
+				_fieldSerializerByType[typeof(string)].WriteData(output, fact._text);
+			}
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.RatingQuestion", 1);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Roles
+
+        // Queries
+
+        // Predicates
+
+        // Predecessors
+
+        // Fields
+        private string _text;
+
+        // Results
+
+        // Business constructor
+        public RatingQuestion(
+            string text
+            )
+        {
+            InitializeResults();
+            _text = text;
+        }
+
+        // Hydration constructor
+        private RatingQuestion(FactMemento memento)
+        {
+            InitializeResults();
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+
+        // Field access
+        public string Text
+        {
+            get { return _text; }
+        }
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
+    public partial class EssayQuestion : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				EssayQuestion newFact = new EssayQuestion(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+						newFact._text = (string)_fieldSerializerByType[typeof(string)].ReadData(output);
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				EssayQuestion fact = (EssayQuestion)obj;
+				_fieldSerializerByType[typeof(string)].WriteData(output, fact._text);
+			}
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.EssayQuestion", 1);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Roles
+
+        // Queries
+
+        // Predicates
+
+        // Predecessors
+
+        // Fields
+        private string _text;
+
+        // Results
+
+        // Business constructor
+        public EssayQuestion(
+            string text
+            )
+        {
+            InitializeResults();
+            _text = text;
+        }
+
+        // Hydration constructor
+        private EssayQuestion(FactMemento memento)
+        {
+            InitializeResults();
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+
+        // Field access
+        public string Text
+        {
+            get { return _text; }
+        }
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
+    public partial class Survey : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				Survey newFact = new Survey(memento);
 
 				// Create a memory stream from the memento data.
 				using (MemoryStream data = new MemoryStream(memento.Data))
@@ -2939,13 +3427,121 @@ namespace FacetedWorlds.MyCon.Model
 
 			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
 			{
-				Evaluation fact = (Evaluation)obj;
+				Survey fact = (Survey)obj;
 			}
 		}
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Evaluation", 1);
+			"FacetedWorlds.MyCon.Model.Survey", 1);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Roles
+        public static Role RoleRatingQuestions = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"ratingQuestions",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.RatingQuestion", 1),
+			false));
+        public static Role RoleEssayQuestions = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"essayQuestions",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.EssayQuestion", 1),
+			false));
+
+        // Queries
+
+        // Predicates
+
+        // Predecessors
+        private PredecessorList<RatingQuestion> _ratingQuestions;
+        private PredecessorList<EssayQuestion> _essayQuestions;
+
+        // Fields
+
+        // Results
+
+        // Business constructor
+        public Survey(
+            IEnumerable<RatingQuestion> ratingQuestions
+            ,IEnumerable<EssayQuestion> essayQuestions
+            )
+        {
+            InitializeResults();
+            _ratingQuestions = new PredecessorList<RatingQuestion>(this, RoleRatingQuestions, ratingQuestions);
+            _essayQuestions = new PredecessorList<EssayQuestion>(this, RoleEssayQuestions, essayQuestions);
+        }
+
+        // Hydration constructor
+        private Survey(FactMemento memento)
+        {
+            InitializeResults();
+            _ratingQuestions = new PredecessorList<RatingQuestion>(this, RoleRatingQuestions, memento);
+            _essayQuestions = new PredecessorList<EssayQuestion>(this, RoleEssayQuestions, memento);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+        public IEnumerable<RatingQuestion> RatingQuestions
+        {
+            get { return _ratingQuestions; }
+        }
+             public IEnumerable<EssayQuestion> EssayQuestions
+        {
+            get { return _essayQuestions; }
+        }
+     
+        // Field access
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
+    public partial class SessionEvaluation : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				SessionEvaluation newFact = new SessionEvaluation(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				SessionEvaluation fact = (SessionEvaluation)obj;
+			}
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.SessionEvaluation", 1);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -2958,6 +3554,11 @@ namespace FacetedWorlds.MyCon.Model
 			"schedule",
 			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Schedule", 1),
 			false));
+        public static Role RoleSurvey = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"survey",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Survey", 1),
+			false));
 
         // Queries
 
@@ -2965,25 +3566,29 @@ namespace FacetedWorlds.MyCon.Model
 
         // Predecessors
         private PredecessorObj<Schedule> _schedule;
+        private PredecessorObj<Survey> _survey;
 
         // Fields
 
         // Results
 
         // Business constructor
-        public Evaluation(
+        public SessionEvaluation(
             Schedule schedule
+            ,Survey survey
             )
         {
             InitializeResults();
             _schedule = new PredecessorObj<Schedule>(this, RoleSchedule, schedule);
+            _survey = new PredecessorObj<Survey>(this, RoleSurvey, survey);
         }
 
         // Hydration constructor
-        private Evaluation(FactMemento memento)
+        private SessionEvaluation(FactMemento memento)
         {
             InitializeResults();
             _schedule = new PredecessorObj<Schedule>(this, RoleSchedule, memento);
+            _survey = new PredecessorObj<Survey>(this, RoleSurvey, memento);
         }
 
         // Result initializer
@@ -2996,8 +3601,498 @@ namespace FacetedWorlds.MyCon.Model
         {
             get { return _schedule.Fact; }
         }
+        public Survey Survey
+        {
+            get { return _survey.Fact; }
+        }
 
         // Field access
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
+    public partial class SessionEvaluationRating : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				SessionEvaluationRating newFact = new SessionEvaluationRating(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				SessionEvaluationRating fact = (SessionEvaluationRating)obj;
+			}
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.SessionEvaluationRating", 1);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Roles
+        public static Role RoleEvaluation = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"evaluation",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluation", 1),
+			false));
+        public static Role RoleQuestion = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"question",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.RatingQuestion", 1),
+			false));
+
+        // Queries
+        public static Query QueryAnswer = new Query()
+            .JoinSuccessors(SessionEvaluationRatingAnswer.RoleSessionEvaluationRating, Condition.WhereIsEmpty(SessionEvaluationRatingAnswer.QueryIsCurrent)
+            )
+            ;
+
+        // Predicates
+
+        // Predecessors
+        private PredecessorObj<SessionEvaluation> _evaluation;
+        private PredecessorObj<RatingQuestion> _question;
+
+        // Fields
+
+        // Results
+        private Result<SessionEvaluationRatingAnswer> _answer;
+
+        // Business constructor
+        public SessionEvaluationRating(
+            SessionEvaluation evaluation
+            ,RatingQuestion question
+            )
+        {
+            InitializeResults();
+            _evaluation = new PredecessorObj<SessionEvaluation>(this, RoleEvaluation, evaluation);
+            _question = new PredecessorObj<RatingQuestion>(this, RoleQuestion, question);
+        }
+
+        // Hydration constructor
+        private SessionEvaluationRating(FactMemento memento)
+        {
+            InitializeResults();
+            _evaluation = new PredecessorObj<SessionEvaluation>(this, RoleEvaluation, memento);
+            _question = new PredecessorObj<RatingQuestion>(this, RoleQuestion, memento);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+            _answer = new Result<SessionEvaluationRatingAnswer>(this, QueryAnswer);
+        }
+
+        // Predecessor access
+        public SessionEvaluation Evaluation
+        {
+            get { return _evaluation.Fact; }
+        }
+        public RatingQuestion Question
+        {
+            get { return _question.Fact; }
+        }
+
+        // Field access
+
+        // Query result access
+
+        // Mutable property access
+        public Disputable<int> Answer
+        {
+            get { return _answer.Select(fact => fact.Value).AsDisputable(); }
+			set
+			{
+				Community.AddFact(new SessionEvaluationRatingAnswer(this, _answer, value.Value));
+			}
+        }
+
+    }
+    
+    public partial class SessionEvaluationRatingAnswer : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				SessionEvaluationRatingAnswer newFact = new SessionEvaluationRatingAnswer(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+						newFact._value = (int)_fieldSerializerByType[typeof(int)].ReadData(output);
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				SessionEvaluationRatingAnswer fact = (SessionEvaluationRatingAnswer)obj;
+				_fieldSerializerByType[typeof(int)].WriteData(output, fact._value);
+			}
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.SessionEvaluationRatingAnswer", 1);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Roles
+        public static Role RoleSessionEvaluationRating = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"sessionEvaluationRating",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationRating", 1),
+			false));
+        public static Role RolePrior = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"prior",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationRatingAnswer", 1),
+			false));
+
+        // Queries
+        public static Query QueryIsCurrent = new Query()
+            .JoinSuccessors(SessionEvaluationRatingAnswer.RolePrior)
+            ;
+
+        // Predicates
+        public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
+
+        // Predecessors
+        private PredecessorObj<SessionEvaluationRating> _sessionEvaluationRating;
+        private PredecessorList<SessionEvaluationRatingAnswer> _prior;
+
+        // Fields
+        private int _value;
+
+        // Results
+
+        // Business constructor
+        public SessionEvaluationRatingAnswer(
+            SessionEvaluationRating sessionEvaluationRating
+            ,IEnumerable<SessionEvaluationRatingAnswer> prior
+            ,int value
+            )
+        {
+            InitializeResults();
+            _sessionEvaluationRating = new PredecessorObj<SessionEvaluationRating>(this, RoleSessionEvaluationRating, sessionEvaluationRating);
+            _prior = new PredecessorList<SessionEvaluationRatingAnswer>(this, RolePrior, prior);
+            _value = value;
+        }
+
+        // Hydration constructor
+        private SessionEvaluationRatingAnswer(FactMemento memento)
+        {
+            InitializeResults();
+            _sessionEvaluationRating = new PredecessorObj<SessionEvaluationRating>(this, RoleSessionEvaluationRating, memento);
+            _prior = new PredecessorList<SessionEvaluationRatingAnswer>(this, RolePrior, memento);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+        public SessionEvaluationRating SessionEvaluationRating
+        {
+            get { return _sessionEvaluationRating.Fact; }
+        }
+        public IEnumerable<SessionEvaluationRatingAnswer> Prior
+        {
+            get { return _prior; }
+        }
+     
+        // Field access
+        public int Value
+        {
+            get { return _value; }
+        }
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
+    public partial class SessionEvaluationEssay : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				SessionEvaluationEssay newFact = new SessionEvaluationEssay(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				SessionEvaluationEssay fact = (SessionEvaluationEssay)obj;
+			}
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.SessionEvaluationEssay", 1);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Roles
+        public static Role RoleEvaluation = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"evaluation",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluation", 1),
+			false));
+        public static Role RoleQuestion = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"question",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.EssayQuestion", 1),
+			false));
+
+        // Queries
+        public static Query QueryAnswer = new Query()
+            .JoinSuccessors(SessionEvaluationEssayAnswer.RoleSessionEvaluationEssay, Condition.WhereIsEmpty(SessionEvaluationEssayAnswer.QueryIsCurrent)
+            )
+            ;
+
+        // Predicates
+
+        // Predecessors
+        private PredecessorObj<SessionEvaluation> _evaluation;
+        private PredecessorObj<EssayQuestion> _question;
+
+        // Fields
+
+        // Results
+        private Result<SessionEvaluationEssayAnswer> _answer;
+
+        // Business constructor
+        public SessionEvaluationEssay(
+            SessionEvaluation evaluation
+            ,EssayQuestion question
+            )
+        {
+            InitializeResults();
+            _evaluation = new PredecessorObj<SessionEvaluation>(this, RoleEvaluation, evaluation);
+            _question = new PredecessorObj<EssayQuestion>(this, RoleQuestion, question);
+        }
+
+        // Hydration constructor
+        private SessionEvaluationEssay(FactMemento memento)
+        {
+            InitializeResults();
+            _evaluation = new PredecessorObj<SessionEvaluation>(this, RoleEvaluation, memento);
+            _question = new PredecessorObj<EssayQuestion>(this, RoleQuestion, memento);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+            _answer = new Result<SessionEvaluationEssayAnswer>(this, QueryAnswer);
+        }
+
+        // Predecessor access
+        public SessionEvaluation Evaluation
+        {
+            get { return _evaluation.Fact; }
+        }
+        public EssayQuestion Question
+        {
+            get { return _question.Fact; }
+        }
+
+        // Field access
+
+        // Query result access
+
+        // Mutable property access
+        public Disputable<string> Answer
+        {
+            get { return _answer.Select(fact => fact.Value).AsDisputable(); }
+			set
+			{
+				Community.AddFact(new SessionEvaluationEssayAnswer(this, _answer, value.Value));
+			}
+        }
+
+    }
+    
+    public partial class SessionEvaluationEssayAnswer : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				SessionEvaluationEssayAnswer newFact = new SessionEvaluationEssayAnswer(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+						newFact._value = (string)_fieldSerializerByType[typeof(string)].ReadData(output);
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				SessionEvaluationEssayAnswer fact = (SessionEvaluationEssayAnswer)obj;
+				_fieldSerializerByType[typeof(string)].WriteData(output, fact._value);
+			}
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.SessionEvaluationEssayAnswer", 1);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Roles
+        public static Role RoleSessionEvaluationEssay = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"sessionEvaluationEssay",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationEssay", 1),
+			false));
+        public static Role RolePrior = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"prior",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationEssayAnswer", 1),
+			false));
+
+        // Queries
+        public static Query QueryIsCurrent = new Query()
+            .JoinSuccessors(SessionEvaluationEssayAnswer.RolePrior)
+            ;
+
+        // Predicates
+        public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
+
+        // Predecessors
+        private PredecessorObj<SessionEvaluationEssay> _sessionEvaluationEssay;
+        private PredecessorList<SessionEvaluationEssayAnswer> _prior;
+
+        // Fields
+        private string _value;
+
+        // Results
+
+        // Business constructor
+        public SessionEvaluationEssayAnswer(
+            SessionEvaluationEssay sessionEvaluationEssay
+            ,IEnumerable<SessionEvaluationEssayAnswer> prior
+            ,string value
+            )
+        {
+            InitializeResults();
+            _sessionEvaluationEssay = new PredecessorObj<SessionEvaluationEssay>(this, RoleSessionEvaluationEssay, sessionEvaluationEssay);
+            _prior = new PredecessorList<SessionEvaluationEssayAnswer>(this, RolePrior, prior);
+            _value = value;
+        }
+
+        // Hydration constructor
+        private SessionEvaluationEssayAnswer(FactMemento memento)
+        {
+            InitializeResults();
+            _sessionEvaluationEssay = new PredecessorObj<SessionEvaluationEssay>(this, RoleSessionEvaluationEssay, memento);
+            _prior = new PredecessorList<SessionEvaluationEssayAnswer>(this, RolePrior, memento);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+        public SessionEvaluationEssay SessionEvaluationEssay
+        {
+            get { return _sessionEvaluationEssay.Fact; }
+        }
+        public IEnumerable<SessionEvaluationEssayAnswer> Prior
+        {
+            get { return _prior; }
+        }
+     
+        // Field access
+        public string Value
+        {
+            get { return _value; }
+        }
 
         // Query result access
 
@@ -3128,6 +4223,12 @@ namespace FacetedWorlds.MyCon.Model
 				Conference.QueryName.QueryDefinition);
 			community.AddQuery(
 				Conference._correspondenceFactType,
+				Conference.QuerySessionSurvey.QueryDefinition);
+			community.AddQuery(
+				Conference._correspondenceFactType,
+				Conference.QueryConferenceSurvey.QueryDefinition);
+			community.AddQuery(
+				Conference._correspondenceFactType,
 				Conference.QueryDays.QueryDefinition);
 			community.AddQuery(
 				Conference._correspondenceFactType,
@@ -3146,9 +4247,26 @@ namespace FacetedWorlds.MyCon.Model
 				ConferenceName._correspondenceFactType,
 				ConferenceName.QueryIsCurrent.QueryDefinition);
 			community.AddType(
+				ConferenceSessionSurvey._correspondenceFactType,
+				new ConferenceSessionSurvey.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { ConferenceSessionSurvey._correspondenceFactType }));
+			community.AddQuery(
+				ConferenceSessionSurvey._correspondenceFactType,
+				ConferenceSessionSurvey.QueryIsCurrent.QueryDefinition);
+			community.AddType(
+				ConferenceConferenceSurvey._correspondenceFactType,
+				new ConferenceConferenceSurvey.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { ConferenceConferenceSurvey._correspondenceFactType }));
+			community.AddQuery(
+				ConferenceConferenceSurvey._correspondenceFactType,
+				ConferenceConferenceSurvey.QueryIsCurrent.QueryDefinition);
+			community.AddType(
 				Attendee._correspondenceFactType,
 				new Attendee.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Attendee._correspondenceFactType }));
+			community.AddQuery(
+				Attendee._correspondenceFactType,
+				Attendee.QueryCurrentSchedules.QueryDefinition);
 			community.AddType(
 				Day._correspondenceFactType,
 				new Day.CorrespondenceFactFactory(fieldSerializerByType),
@@ -3282,9 +4400,49 @@ namespace FacetedWorlds.MyCon.Model
 				new ScheduleRemove.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { ScheduleRemove._correspondenceFactType }));
 			community.AddType(
-				Evaluation._correspondenceFactType,
-				new Evaluation.CorrespondenceFactFactory(fieldSerializerByType),
-				new FactMetadata(new List<CorrespondenceFactType> { Evaluation._correspondenceFactType }));
+				RatingQuestion._correspondenceFactType,
+				new RatingQuestion.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { RatingQuestion._correspondenceFactType }));
+			community.AddType(
+				EssayQuestion._correspondenceFactType,
+				new EssayQuestion.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { EssayQuestion._correspondenceFactType }));
+			community.AddType(
+				Survey._correspondenceFactType,
+				new Survey.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { Survey._correspondenceFactType }));
+			community.AddType(
+				SessionEvaluation._correspondenceFactType,
+				new SessionEvaluation.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { SessionEvaluation._correspondenceFactType }));
+			community.AddType(
+				SessionEvaluationRating._correspondenceFactType,
+				new SessionEvaluationRating.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { SessionEvaluationRating._correspondenceFactType }));
+			community.AddQuery(
+				SessionEvaluationRating._correspondenceFactType,
+				SessionEvaluationRating.QueryAnswer.QueryDefinition);
+			community.AddType(
+				SessionEvaluationRatingAnswer._correspondenceFactType,
+				new SessionEvaluationRatingAnswer.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { SessionEvaluationRatingAnswer._correspondenceFactType }));
+			community.AddQuery(
+				SessionEvaluationRatingAnswer._correspondenceFactType,
+				SessionEvaluationRatingAnswer.QueryIsCurrent.QueryDefinition);
+			community.AddType(
+				SessionEvaluationEssay._correspondenceFactType,
+				new SessionEvaluationEssay.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { SessionEvaluationEssay._correspondenceFactType }));
+			community.AddQuery(
+				SessionEvaluationEssay._correspondenceFactType,
+				SessionEvaluationEssay.QueryAnswer.QueryDefinition);
+			community.AddType(
+				SessionEvaluationEssayAnswer._correspondenceFactType,
+				new SessionEvaluationEssayAnswer.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { SessionEvaluationEssayAnswer._correspondenceFactType }));
+			community.AddQuery(
+				SessionEvaluationEssayAnswer._correspondenceFactType,
+				SessionEvaluationEssayAnswer.QueryIsCurrent.QueryDefinition);
 			community.AddType(
 				DocumentSegment._correspondenceFactType,
 				new DocumentSegment.CorrespondenceFactFactory(fieldSerializerByType),

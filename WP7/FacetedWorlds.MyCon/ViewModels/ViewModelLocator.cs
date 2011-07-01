@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using FacetedWorlds.MyCon.ImageUtilities;
@@ -90,6 +91,33 @@ namespace FacetedWorlds.MyCon.ViewModels
                 return null;
 
             return ForView.Wrap(new SpeakerViewModel(attendee, speaker, _imageCache));
+        }
+
+        public object GetSessionEvaluationViewModel(string sessionId)
+        {
+            Conference conference = _synchronizationService.Community.AddFact(new Conference("Conference ID"));
+            if (conference.SessionSurvey.InConflict)
+                return null;
+
+            Survey survey = conference.SessionSurvey;
+            if (survey == null)
+                return null;
+
+            List<Session> sessions = conference.Sessions.Where(s => s.Id == sessionId).ToList();
+            if (sessions.Count != 1)
+                return null;
+
+            Session session = sessions[0];
+            Attendee attendee = _synchronizationService.Community.AddFact(new Attendee(_synchronizationService.Identity, conference));
+            if (session.CurrentSessionPlaces.Count() != 1)
+                return null;
+
+            List<Schedule> schedules = attendee.CurrentSchedules.Where(s => s.SessionPlace.Session.Id == sessionId).ToList();
+            if (schedules.Count != 1)
+                return null;
+
+            Schedule schedule = schedules[0];
+            return ForView.Wrap(new SessionEvaluationViewModel(schedule, survey, _imageCache));
         }
 
         private void CreateSampleData()

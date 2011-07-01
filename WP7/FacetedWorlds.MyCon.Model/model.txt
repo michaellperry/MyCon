@@ -1,0 +1,62 @@
+digraph "FacetedWorlds.MyCon.Model"
+{
+    rankdir=BT
+    DisableToastNotification -> Identity
+    EnableToastNotification -> DisableToastNotification [label="  *"]
+    ConferenceName -> Conference
+    ConferenceName -> ConferenceName [label="  *"]
+    ConferenceSessionSurvey -> Conference
+    ConferenceSessionSurvey -> ConferenceSessionSurvey [label="  *"]
+    ConferenceSessionSurvey -> Survey
+    ConferenceConferenceSurvey -> Conference
+    ConferenceConferenceSurvey -> ConferenceConferenceSurvey [label="  *"]
+    ConferenceConferenceSurvey -> Survey
+    Attendee -> Identity
+    Attendee -> Conference
+    Day -> Conference
+    Time -> Day
+    Slot -> Attendee
+    Slot -> Time
+    Room -> Conference
+    Track -> Conference
+    Speaker -> Conference
+    SpeakerImageUrl -> Speaker
+    SpeakerImageUrl -> SpeakerImageUrl [label="  *"]
+    SpeakerContact -> Speaker
+    SpeakerContact -> SpeakerContact [label="  *"]
+    SpeakerBio -> Speaker
+    SpeakerBio -> SpeakerBio [label="  *"]
+    SpeakerBio -> DocumentSegment [label="  *"]
+    Place -> Time
+    Place -> Room
+    Session -> Conference
+    Session -> Speaker
+    Session -> Track [label="  ?"]
+    SessionName -> Session
+    SessionName -> SessionName [label="  *"]
+    SessionDescription -> Session
+    SessionDescription -> SessionDescription [label="  *"]
+    SessionDescription -> DocumentSegment [label="  *"]
+    SessionLevel -> Session
+    SessionLevel -> SessionLevel [label="  *"]
+    SessionLevel -> Level
+    SessionPlace -> Session
+    SessionPlace -> Place
+    SessionPlace -> SessionPlace [label="  *"]
+    Schedule -> Slot
+    Schedule -> SessionPlace
+    ScheduleRemove -> Schedule
+    Survey -> RatingQuestion [label="  *"]
+    Survey -> EssayQuestion [label="  *"]
+    SessionEvaluation -> Schedule
+    SessionEvaluation -> Survey
+    SessionEvaluationRating -> SessionEvaluation
+    SessionEvaluationRating -> RatingQuestion
+    SessionEvaluationRatingAnswer -> SessionEvaluationRating
+    SessionEvaluationRatingAnswer -> SessionEvaluationRatingAnswer [label="  *"]
+    SessionEvaluationEssay -> SessionEvaluation
+    SessionEvaluationEssay -> EssayQuestion
+    SessionEvaluationEssayAnswer -> SessionEvaluationEssay
+    SessionEvaluationEssayAnswer -> SessionEvaluationEssayAnswer [label="  *"]
+}
+
