@@ -17,29 +17,25 @@ namespace FacetedWorlds.MyCon.ViewModels
             get { return _sessionEvaluationRating.Question.Text; }
         }
 
-        public bool OneStar
+        public int Rating
         {
-            get { return _sessionEvaluationRating.Answer >= 1; }
+            get { return _sessionEvaluationRating.Answer; }
+            set { _sessionEvaluationRating.Answer = value; }
         }
 
-        public bool TwoStars
+        public override bool Equals(object obj)
         {
-            get { return _sessionEvaluationRating.Answer >= 2; }
+            if (this == obj)
+                return true;
+            RatingViewModel that = obj as RatingViewModel;
+            if (that == null)
+                return false;
+            return _sessionEvaluationRating == that._sessionEvaluationRating;
         }
 
-        public bool ThreeStars
+        public override int GetHashCode()
         {
-            get { return _sessionEvaluationRating.Answer >= 3; }
-        }
-
-        public bool FourStars
-        {
-            get { return _sessionEvaluationRating.Answer >= 4; }
-        }
-
-        public bool FiveStars
-        {
-            get { return _sessionEvaluationRating.Answer >= 5; }
+            return _sessionEvaluationRating.GetHashCode();
         }
     }
 }

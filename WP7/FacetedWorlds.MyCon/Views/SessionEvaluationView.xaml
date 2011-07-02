@@ -6,6 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:FacetedWorlds_MyCon_Converters="clr-namespace:FacetedWorlds.MyCon.Converters" 
+    xmlns:FacetedWorlds_MyCon_Controls="clr-namespace:FacetedWorlds.MyCon.Controls" 
+    xmlns:Custom="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:Itzben="clr-namespace:Itzben;assembly=Itzben" 
     x:Class="FacetedWorlds.MyCon.Views.SessionEvaluationView"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
@@ -22,18 +24,22 @@
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition/>
-					<ColumnDefinition Width="Auto"/>
-					<ColumnDefinition Width="Auto"/>
-					<ColumnDefinition Width="Auto"/>
-					<ColumnDefinition Width="Auto"/>
-					<ColumnDefinition Width="Auto"/>
 				</Grid.ColumnDefinitions>
-				<TextBlock Text="{Binding Question}" Grid.Row="0" Grid.ColumnSpan="6" Margin="8,8,8,0" TextWrapping="Wrap"/>
-				<CheckBox IsChecked="{Binding OneStar, Mode=OneWay}" Grid.Column="1" Grid.Row="1"/>
-				<CheckBox IsChecked="{Binding TwoStars, Mode=OneWay}" Grid.Column="2" Grid.Row="1"/>
-				<CheckBox IsChecked="{Binding ThreeStars, Mode=OneWay}" Grid.Column="3" Grid.Row="1"/>
-				<CheckBox IsChecked="{Binding FourStars, Mode=OneWay}" Grid.Column="4" Grid.Row="1"/>
-				<CheckBox IsChecked="{Binding FiveStars, Mode=OneWay}" Grid.Column="5" Grid.Row="1"/>
+				<TextBlock Text="{Binding Question}" Grid.Row="0" Margin="8,8,8,0" TextWrapping="Wrap"/>
+				<FacetedWorlds_MyCon_Controls:RatingControl Margin="8,0" d:LayoutOverrides="Width, Height" Grid.Row="1" Height="78" Value="{Binding Rating, Mode=TwoWay}" VerticalAlignment="Top"/>
+			</Grid>
+		</DataTemplate>
+		<DataTemplate x:Key="EssayViewModelTemplate">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+				<TextBlock Text="{Binding Question}" Grid.Row="0" Margin="8,8,8,0" TextWrapping="Wrap"/>
+				<TextBox TextWrapping="Wrap" Text="{Binding Answer, Mode=TwoWay}" Grid.Row="1" Margin="8,0,8,8" Height="200" d:LayoutOverrides="Height"/>
 			</Grid>
 		</DataTemplate>
 	</phone:PhoneApplicationPage.Resources>
@@ -87,8 +93,18 @@
     		<TextBlock Text="{Binding Speaker}" HorizontalAlignment="Left" Grid.Column="1" Margin="8" Grid.Row="1" VerticalAlignment="Top" FontSize="{StaticResource PhoneFontSizeMediumLarge}" Foreground="{StaticResource PhoneSubtleBrush}"/>
     	        </Grid>
 <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Margin="12,231,12,0" Height="460" VerticalAlignment="Top" Grid.Row="1"/>
-        <ItemsControl ItemTemplate="{StaticResource RatingViewModelTemplate}" ItemsSource="{Binding Ratings}" Grid.Row="1"/>
+        <Grid x:Name="ContentPanel" Margin="12,0" VerticalAlignment="Top" Grid.Row="1">
+        	<ScrollViewer>
+        		<Grid>
+        			<Grid.RowDefinitions>
+        				<RowDefinition Height="Auto"/>
+        				<RowDefinition Height="Auto"/>
+        			</Grid.RowDefinitions>
+        			<ItemsControl ItemTemplate="{StaticResource RatingViewModelTemplate}" ItemsSource="{Binding Ratings}" d:LayoutOverrides="Width"/>
+        			<ItemsControl ItemTemplate="{StaticResource EssayViewModelTemplate}" ItemsSource="{Binding Essays}" Grid.Row="1"/>
+        		</Grid>
+        	</ScrollViewer>
+        </Grid>
     </Grid>
 
 </phone:PhoneApplicationPage>
