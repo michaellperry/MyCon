@@ -8,8 +8,8 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    Loaded="UserControl_Loaded"
-    d:DesignHeight="78" d:DesignWidth="400">
+    d:DesignHeight="78" d:DesignWidth="400"
+    Loaded="UserControl_Loaded">
     
     <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}">
     	<Grid.ColumnDefinitions>

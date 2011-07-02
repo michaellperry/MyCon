@@ -8,6 +8,7 @@ namespace FacetedWorlds.MyCon.Controls
     public partial class RatingControl : UserControl
     {
         private const int StarSize = 78;
+        private const int VerticalScrollStart = 10;
 
         public static DependencyProperty ValueProperty = DependencyProperty.Register(
             "Value",
@@ -40,8 +41,11 @@ namespace FacetedWorlds.MyCon.Controls
             if (_editing)
             {
                 Point position = e.GetPosition(this);
-                if (Math.Abs(position.Y - _startY) > 10)
-                    Reset();
+                if (Math.Abs(position.Y - _startY) > VerticalScrollStart)
+                {
+                    _editing = false;
+                    Value = _oldValue;
+                }
                 else
                     HandleMouseEvent(position);
             }
@@ -52,12 +56,6 @@ namespace FacetedWorlds.MyCon.Controls
         {
             _editing = false;
             base.OnMouseLeftButtonUp(e);
-        }
-
-        private void Reset()
-        {
-            _editing = false;
-            Value = _oldValue;
         }
 
         private void HandleMouseEvent(Point position)

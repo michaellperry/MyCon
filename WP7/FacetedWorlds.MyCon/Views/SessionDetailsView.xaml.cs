@@ -30,13 +30,13 @@ namespace FacetedWorlds.MyCon.Views
             if (locator != null)
                 DataContext = locator.GetSessionDetailsViewModel(sessionId);
 
-            _depAddButtonEnabled = UpdateWhenNecessary(() => Button(0).IsEnabled = CanAdd);
-            _depRemoveButtonEnabled = UpdateWhenNecessary(() => Button(1).IsEnabled = CanRemove);
-            _depEvaluationButtonEnabled = UpdateWhenNecessary(() => Button(2).IsEnabled = CanEvaluate);
-            _depSearchBySpeakerText = UpdateWhenNecessary(() => MenuItem(0).Text = SearchBySpeakerText);
-            _depSearchBySpeakerEnabled = UpdateWhenNecessary(() => MenuItem(0).IsEnabled = CanSearchBySpeaker);
-            _depSearchByTrackText = UpdateWhenNecessary(() => MenuItem(1).Text = SearchByTrackText);
-            _depSearchByTrackEnabled = UpdateWhenNecessary(() => MenuItem(1).IsEnabled = CanSearchByTrack);
+            _depAddButtonEnabled = this.UpdateWhenNecessary(() => this.Button(0).IsEnabled = CanAdd);
+            _depRemoveButtonEnabled = this.UpdateWhenNecessary(() => this.Button(1).IsEnabled = CanRemove);
+            _depEvaluationButtonEnabled = this.UpdateWhenNecessary(() => this.Button(2).IsEnabled = CanEvaluate);
+            _depSearchBySpeakerText = this.UpdateWhenNecessary(() => this.MenuItem(0).Text = SearchBySpeakerText);
+            _depSearchBySpeakerEnabled = this.UpdateWhenNecessary(() => this.MenuItem(0).IsEnabled = CanSearchBySpeaker);
+            _depSearchByTrackText = this.UpdateWhenNecessary(() => this.MenuItem(1).Text = SearchByTrackText);
+            _depSearchByTrackEnabled = this.UpdateWhenNecessary(() => this.MenuItem(1).IsEnabled = CanSearchByTrack);
         }
 
 
@@ -158,26 +158,6 @@ namespace FacetedWorlds.MyCon.Views
             if (viewModel != null)
                 viewModel.SearchByTrack();
             NavigationService.Navigate(new Uri("/Views/TracksView.xaml", UriKind.Relative));
-        }
-
-        private Dependent UpdateWhenNecessary(Action update)
-        {
-            Dependent dependent = new Dependent(update);
-            dependent.Invalidated +=
-                () => Dispatcher.BeginInvoke(
-                    () => dependent.OnGet());
-            dependent.OnGet();
-            return dependent;
-        }
-
-        private ApplicationBarIconButton Button(int index)
-        {
-            return (ApplicationBarIconButton)ApplicationBar.Buttons[index];
-        }
-
-        private ApplicationBarMenuItem MenuItem(int index)
-        {
-            return (ApplicationBarMenuItem)ApplicationBar.MenuItems[index];
         }
     }
 }

@@ -46,16 +46,30 @@ namespace FacetedWorlds.MyCon.ViewModels
         {
             get
             {
-                if (_slot.IsScheduled(_sessionPlace))
+                if (IsGeneralSession)
                 {
-                    if (_slot.CurrentSchedules.Count() > 1)
-                        return "You are overbooked for this time. Tap X to remove.";
+                    return "This is a general session.";
+                }
+                else if (SessionIsScheduled)
+                {
+                    if (SessionHasStarted)
+                    {
+                        if (EvalIsCompleted)
+                            return "Thank you for evaluating this session.";
+                        else
+                            return "Please fill out your session evaluation.";
+                    }
                     else
-                        return "You are scheduled for this session. Tap X to remove.";
+                    {
+                        if (Overbooked)
+                            return "You are overbooked for this time. Tap X to remove.";
+                        else
+                            return "You are scheduled for this session. Tap X to remove.";
+                    }
                 }
                 else
                 {
-                    if (_slot.CurrentSchedules.Any())
+                    if (Booked)
                         return "You already have a session scheduled for this time.";
                     else
                         return "Tap the plus to add this session to your schedule.";
@@ -96,6 +110,11 @@ namespace FacetedWorlds.MyCon.ViewModels
             get { return _slot.IsScheduled(_sessionPlace); }
         }
 
+        private bool Booked
+        {
+            get { return _slot.CurrentSchedules.Any(); }
+        }
+
         public bool Overbooked
         {
             get { return _slot.CurrentSchedules.Count() > 1; }
@@ -128,7 +147,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public bool CanRemove
         {
-            get { return _slot.IsScheduled(_sessionPlace); }
+            get { return SessionIsScheduled && !SessionHasStarted; }
         }
 
         public void Remove()
@@ -138,7 +157,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public bool CanEvaluate
         {
-            get { return _slot.IsScheduled(_sessionPlace); }
+            get { return !IsGeneralSession && SessionIsScheduled && !EvalIsCompleted; }
         }
 
         public string SearchBySpeakerText
@@ -182,9 +201,38 @@ namespace FacetedWorlds.MyCon.ViewModels
             if (_sessionPlace.Session.Track != null)
                 _searchModel.SelectedTrack = _sessionPlace.Session.Track.Name;
         }
+
         public string SessionEvaluationUri
         {
             get { return String.Format("/Views/SessionEvaluationView.xaml?SessionId={0}", _sessionPlace.Session.Id); }
+        }
+
+        private bool IsGeneralSession
+        {
+            get { return _sessionPlace.Session.Track == null; }
+        }
+
+        private bool SessionIsScheduled
+        {
+            get { return _slot.IsScheduled(_sessionPlace); }
+        }
+
+        private bool SessionHasStarted
+        {
+            get { return _sessionPlace.Place.PlaceTime.Start.AddMinutes(30.0) < DateTime.Now; }
+        }
+
+        private bool EvalIsCompleted
+        {
+            get
+            {
+                var evals =
+                    from currentSchedule in _slot.CurrentSchedules
+                    where currentSchedule.SessionPlace == _sessionPlace
+                    from eval in currentSchedule.CompletedEvaluations
+                    select eval;
+                return evals.Any();
+            }
         }
     }
 }

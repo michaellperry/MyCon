@@ -12,5 +12,10 @@ namespace FacetedWorlds.MyCon.Model
         {
             return Community.AddFact(new SessionEvaluationEssay(this, question));
         }
+
+        public void Submit()
+        {
+            Community.AddFact(new SessionEvaluationCompleted(this));
+        }
     }
 }

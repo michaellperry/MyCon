@@ -3062,6 +3062,10 @@ namespace FacetedWorlds.MyCon.Model
         public static Query QueryIsCurrent = new Query()
             .JoinSuccessors(ScheduleRemove.RoleSchedule)
             ;
+        public static Query QueryCompletedEvaluations = new Query()
+            .JoinSuccessors(SessionEvaluation.RoleSchedule, Condition.WhereIsNotEmpty(SessionEvaluation.QueryIsCompleted)
+            )
+            ;
 
         // Predicates
         public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
@@ -3076,6 +3080,7 @@ namespace FacetedWorlds.MyCon.Model
         // Fields
 
         // Results
+        private Result<SessionEvaluation> _completedEvaluations;
 
         // Business constructor
         public Schedule(
@@ -3100,6 +3105,7 @@ namespace FacetedWorlds.MyCon.Model
         // Result initializer
         private void InitializeResults()
         {
+            _completedEvaluations = new Result<SessionEvaluation>(this, QueryCompletedEvaluations);
         }
 
         // Predecessor access
@@ -3117,6 +3123,10 @@ namespace FacetedWorlds.MyCon.Model
 
 
         // Query result access
+        public IEnumerable<SessionEvaluation> CompletedEvaluations
+        {
+            get { return _completedEvaluations; }
+        }
 
         // Mutable property access
 
@@ -3562,8 +3572,15 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
+        public static Query QueryIsCompleted = new Query()
+            .JoinSuccessors(SessionEvaluationCompleted.RoleSessionEvaluation)
+            ;
+        public static Query QueryCompleted = new Query()
+            .JoinSuccessors(SessionEvaluationCompleted.RoleSessionEvaluation)
+            ;
 
         // Predicates
+        public static Condition IsCompleted = Condition.WhereIsNotEmpty(QueryIsCompleted);
 
         // Predecessors
         private PredecessorObj<Schedule> _schedule;
@@ -3572,6 +3589,7 @@ namespace FacetedWorlds.MyCon.Model
         // Fields
 
         // Results
+        private Result<SessionEvaluationCompleted> _Completed;
 
         // Business constructor
         public SessionEvaluation(
@@ -3595,6 +3613,7 @@ namespace FacetedWorlds.MyCon.Model
         // Result initializer
         private void InitializeResults()
         {
+            _Completed = new Result<SessionEvaluationCompleted>(this, QueryCompleted);
         }
 
         // Predecessor access
@@ -3610,6 +3629,10 @@ namespace FacetedWorlds.MyCon.Model
         // Field access
 
         // Query result access
+        public IEnumerable<SessionEvaluationCompleted> Completed
+        {
+            get { return _Completed; }
+        }
 
         // Mutable property access
 
@@ -4491,6 +4514,9 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				Schedule._correspondenceFactType,
 				Schedule.QueryIsCurrent.QueryDefinition);
+			community.AddQuery(
+				Schedule._correspondenceFactType,
+				Schedule.QueryCompletedEvaluations.QueryDefinition);
 			community.AddType(
 				ScheduleRemove._correspondenceFactType,
 				new ScheduleRemove.CorrespondenceFactFactory(fieldSerializerByType),
@@ -4511,6 +4537,12 @@ namespace FacetedWorlds.MyCon.Model
 				SessionEvaluation._correspondenceFactType,
 				new SessionEvaluation.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { SessionEvaluation._correspondenceFactType }));
+			community.AddQuery(
+				SessionEvaluation._correspondenceFactType,
+				SessionEvaluation.QueryIsCompleted.QueryDefinition);
+			community.AddQuery(
+				SessionEvaluation._correspondenceFactType,
+				SessionEvaluation.QueryCompleted.QueryDefinition);
 			community.AddType(
 				SessionEvaluationCompleted._correspondenceFactType,
 				new SessionEvaluationCompleted.CorrespondenceFactFactory(fieldSerializerByType),

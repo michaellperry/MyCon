@@ -188,6 +188,11 @@ query:
 	bool isCurrent {
 		not exists ScheduleRemove r : r.schedule = this
 	}
+
+	SessionEvaluation* completedEvaluations {
+		SessionEvaluation e : e.schedule = this
+			where e.isCompleted
+	}
 }
 
 fact ScheduleRemove {
@@ -215,6 +220,11 @@ fact SessionEvaluation {
 key:
     Schedule schedule;
 	Survey survey;
+
+query:
+	bool isCompleted {
+		exists SessionEvaluationCompleted c : c.sessionEvaluation = this
+	}
 }
 
 fact SessionEvaluationCompleted {

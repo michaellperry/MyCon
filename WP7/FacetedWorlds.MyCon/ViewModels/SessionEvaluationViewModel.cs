@@ -1,8 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using FacetedWorlds.MyCon.ImageUtilities;
 using FacetedWorlds.MyCon.Model;
+using System;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {
@@ -50,6 +50,21 @@ namespace FacetedWorlds.MyCon.ViewModels
                     from essayQuestion in _sessionEvaluation.Survey.EssayQuestions
                     select new EssayViewModel(_sessionEvaluation.Essay(essayQuestion));
             }
+        }
+
+        public bool CanSubmit
+        {
+            get
+            {
+                bool unfinished = _sessionEvaluation.Survey.RatingQuestions
+                    .Any(ratingQuestion => _sessionEvaluation.Rating(ratingQuestion).Answer.Value == 0);
+                return !unfinished;
+            }
+        }
+
+        public void Submit()
+        {
+            _sessionEvaluation.Submit();
         }
     }
 }
