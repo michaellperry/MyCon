@@ -40,6 +40,11 @@ namespace FacetedWorlds.MyCon.ViewModels
             get { return new SearchViewModel(Attendee, _imageCache, _searchModel); }
         }
 
+        public MapViewModel Map
+        {
+            get { return new MapViewModel(Attendee, _imageCache); }
+        }
+
         private Attendee Attendee
         {
             get { return _identity.NewAttendee("Conference ID"); }

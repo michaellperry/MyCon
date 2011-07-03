@@ -22,6 +22,13 @@ namespace FacetedWorlds.MyCon.ImageUtilities
             return GetCell(sourceImageUrl).LargeImageUrl;
         }
 
+        public string OriginalImageUrl(string sourceImageUrl)
+        {
+            if (String.IsNullOrEmpty(sourceImageUrl))
+                return null;
+            return GetCell(sourceImageUrl).OriginalImageUrl;
+        }
+
         private ImageCacheCell GetCell(string sourceImageUrl)
         {
             ImageCacheCell cell;

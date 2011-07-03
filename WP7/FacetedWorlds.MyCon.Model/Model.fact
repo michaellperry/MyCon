@@ -35,6 +35,7 @@ mutable:
     string name;
 	Survey sessionSurvey;
 	Survey conferenceSurvey;
+	string mapUrl;
 
 query:
 	Day* days {

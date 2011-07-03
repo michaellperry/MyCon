@@ -260,6 +260,10 @@ namespace FacetedWorlds.MyCon.ViewModels
             {
                 "Comments"
             });
+
+            string mapUrl = "http://www.otakon.com/images_content/location_map.jpg";
+            if (conference.MapUrl != mapUrl)
+                conference.MapUrl = mapUrl;
         }
     }
 }

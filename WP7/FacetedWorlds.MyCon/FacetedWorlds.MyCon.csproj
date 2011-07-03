@@ -101,6 +101,7 @@
     <Compile Include="SynchronizationService.cs" />
     <Compile Include="ViewModels\EssayViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\MapViewModel.cs" />
     <Compile Include="ViewModels\RatingViewModel.cs" />
     <Compile Include="ViewModels\ScheduleDayViewModel.cs" />
     <Compile Include="ViewModels\ScheduleSlotViewModel.cs" />
@@ -258,7 +259,6 @@
     <Content Include="Images\default.big.png" />
     <Content Include="Images\default.small.png" />
     <Content Include="Images\map.png" />
-    <Content Include="Images\Star_trek_map2.png" />
     <Content Include="Images\unknown.big.png" />
     <Content Include="Images\unknown.small.png" />
     <Content Include="Readme.txt" />
@@ -271,6 +271,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <DesignData Include="SampleData\MapViewModelSampleData.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+    </DesignData>
     <DesignData Include="SampleData\ScheduleSlotViewModelSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>

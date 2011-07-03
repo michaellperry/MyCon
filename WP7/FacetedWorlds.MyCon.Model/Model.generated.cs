@@ -21,6 +21,8 @@ digraph "FacetedWorlds.MyCon.Model"
     ConferenceConferenceSurvey -> Conference
     ConferenceConferenceSurvey -> ConferenceConferenceSurvey [label="  *"]
     ConferenceConferenceSurvey -> Survey
+    ConferenceMapUrl -> Conference
+    ConferenceMapUrl -> ConferenceMapUrl [label="  *"]
     Attendee -> Identity
     Attendee -> Conference
     Day -> Conference
@@ -436,6 +438,10 @@ namespace FacetedWorlds.MyCon.Model
             .JoinSuccessors(ConferenceConferenceSurvey.RoleConference, Condition.WhereIsEmpty(ConferenceConferenceSurvey.QueryIsCurrent)
             )
             ;
+        public static Query QueryMapUrl = new Query()
+            .JoinSuccessors(ConferenceMapUrl.RoleConference, Condition.WhereIsEmpty(ConferenceMapUrl.QueryIsCurrent)
+            )
+            ;
         public static Query QueryDays = new Query()
             .JoinSuccessors(Day.RoleConference)
             ;
@@ -460,6 +466,7 @@ namespace FacetedWorlds.MyCon.Model
         private Result<ConferenceName> _name;
         private Result<ConferenceSessionSurvey> _sessionSurvey;
         private Result<ConferenceConferenceSurvey> _conferenceSurvey;
+        private Result<ConferenceMapUrl> _mapUrl;
         private Result<Day> _days;
         private Result<Track> _tracks;
         private Result<Session> _sessions;
@@ -486,6 +493,7 @@ namespace FacetedWorlds.MyCon.Model
             _name = new Result<ConferenceName>(this, QueryName);
             _sessionSurvey = new Result<ConferenceSessionSurvey>(this, QuerySessionSurvey);
             _conferenceSurvey = new Result<ConferenceConferenceSurvey>(this, QueryConferenceSurvey);
+            _mapUrl = new Result<ConferenceMapUrl>(this, QueryMapUrl);
             _days = new Result<Day>(this, QueryDays);
             _tracks = new Result<Track>(this, QueryTracks);
             _sessions = new Result<Session>(this, QuerySessions);
@@ -525,6 +533,14 @@ namespace FacetedWorlds.MyCon.Model
 			set
 			{
 				Community.AddFact(new ConferenceName(this, _name, value.Value));
+			}
+        }
+        public Disputable<string> MapUrl
+        {
+            get { return _mapUrl.Select(fact => fact.Value).AsDisputable(); }
+			set
+			{
+				Community.AddFact(new ConferenceMapUrl(this, _mapUrl, value.Value));
 			}
         }
 
@@ -910,6 +926,127 @@ namespace FacetedWorlds.MyCon.Model
         }
 
         // Field access
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
+    public partial class ConferenceMapUrl : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				ConferenceMapUrl newFact = new ConferenceMapUrl(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+						newFact._value = (string)_fieldSerializerByType[typeof(string)].ReadData(output);
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				ConferenceMapUrl fact = (ConferenceMapUrl)obj;
+				_fieldSerializerByType[typeof(string)].WriteData(output, fact._value);
+			}
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.ConferenceMapUrl", 1);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Roles
+        public static Role RoleConference = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"conference",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			false));
+        public static Role RolePrior = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"prior",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.ConferenceMapUrl", 1),
+			false));
+
+        // Queries
+        public static Query QueryIsCurrent = new Query()
+            .JoinSuccessors(ConferenceMapUrl.RolePrior)
+            ;
+
+        // Predicates
+        public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
+
+        // Predecessors
+        private PredecessorObj<Conference> _conference;
+        private PredecessorList<ConferenceMapUrl> _prior;
+
+        // Fields
+        private string _value;
+
+        // Results
+
+        // Business constructor
+        public ConferenceMapUrl(
+            Conference conference
+            ,IEnumerable<ConferenceMapUrl> prior
+            ,string value
+            )
+        {
+            InitializeResults();
+            _conference = new PredecessorObj<Conference>(this, RoleConference, conference);
+            _prior = new PredecessorList<ConferenceMapUrl>(this, RolePrior, prior);
+            _value = value;
+        }
+
+        // Hydration constructor
+        private ConferenceMapUrl(FactMemento memento)
+        {
+            InitializeResults();
+            _conference = new PredecessorObj<Conference>(this, RoleConference, memento);
+            _prior = new PredecessorList<ConferenceMapUrl>(this, RolePrior, memento);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+        public Conference Conference
+        {
+            get { return _conference.Fact; }
+        }
+        public IEnumerable<ConferenceMapUrl> Prior
+        {
+            get { return _prior; }
+        }
+     
+        // Field access
+        public string Value
+        {
+            get { return _value; }
+        }
 
         // Query result access
 
@@ -3575,9 +3712,6 @@ namespace FacetedWorlds.MyCon.Model
         public static Query QueryIsCompleted = new Query()
             .JoinSuccessors(SessionEvaluationCompleted.RoleSessionEvaluation)
             ;
-        public static Query QueryCompleted = new Query()
-            .JoinSuccessors(SessionEvaluationCompleted.RoleSessionEvaluation)
-            ;
 
         // Predicates
         public static Condition IsCompleted = Condition.WhereIsNotEmpty(QueryIsCompleted);
@@ -3589,7 +3723,6 @@ namespace FacetedWorlds.MyCon.Model
         // Fields
 
         // Results
-        private Result<SessionEvaluationCompleted> _Completed;
 
         // Business constructor
         public SessionEvaluation(
@@ -3613,7 +3746,6 @@ namespace FacetedWorlds.MyCon.Model
         // Result initializer
         private void InitializeResults()
         {
-            _Completed = new Result<SessionEvaluationCompleted>(this, QueryCompleted);
         }
 
         // Predecessor access
@@ -3629,10 +3761,6 @@ namespace FacetedWorlds.MyCon.Model
         // Field access
 
         // Query result access
-        public IEnumerable<SessionEvaluationCompleted> Completed
-        {
-            get { return _Completed; }
-        }
 
         // Mutable property access
 
@@ -4348,6 +4476,9 @@ namespace FacetedWorlds.MyCon.Model
 				Conference.QueryConferenceSurvey.QueryDefinition);
 			community.AddQuery(
 				Conference._correspondenceFactType,
+				Conference.QueryMapUrl.QueryDefinition);
+			community.AddQuery(
+				Conference._correspondenceFactType,
 				Conference.QueryDays.QueryDefinition);
 			community.AddQuery(
 				Conference._correspondenceFactType,
@@ -4379,6 +4510,13 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				ConferenceConferenceSurvey._correspondenceFactType,
 				ConferenceConferenceSurvey.QueryIsCurrent.QueryDefinition);
+			community.AddType(
+				ConferenceMapUrl._correspondenceFactType,
+				new ConferenceMapUrl.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { ConferenceMapUrl._correspondenceFactType }));
+			community.AddQuery(
+				ConferenceMapUrl._correspondenceFactType,
+				ConferenceMapUrl.QueryIsCurrent.QueryDefinition);
 			community.AddType(
 				Attendee._correspondenceFactType,
 				new Attendee.CorrespondenceFactFactory(fieldSerializerByType),
@@ -4540,9 +4678,6 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				SessionEvaluation._correspondenceFactType,
 				SessionEvaluation.QueryIsCompleted.QueryDefinition);
-			community.AddQuery(
-				SessionEvaluation._correspondenceFactType,
-				SessionEvaluation.QueryCompleted.QueryDefinition);
 			community.AddType(
 				SessionEvaluationCompleted._correspondenceFactType,
 				new SessionEvaluationCompleted.CorrespondenceFactFactory(fieldSerializerByType),

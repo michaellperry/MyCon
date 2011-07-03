@@ -20,6 +20,7 @@ namespace FacetedWorlds.MyCon.ImageUtilities
         private bool _beganLoading = false;
         private Independent<string> _smallImageUrl = new Independent<string>();
         private Independent<string> _largeImageUrl = new Independent<string>();
+        private Independent<string> _originalImageUrl = new Independent<string>();
 
         public ImageCacheCell(string sourceImageUrl)
         {
@@ -50,6 +51,18 @@ namespace FacetedWorlds.MyCon.ImageUtilities
             }
         }
 
+        public string OriginalImageUrl
+        {
+            get
+            {
+                lock (this)
+                {
+                    BeginLoading();
+                    return _originalImageUrl.Value;
+                }
+            }
+        }
+
         private void BeginLoading()
         {
             if (_beganLoading)
@@ -60,18 +73,22 @@ namespace FacetedWorlds.MyCon.ImageUtilities
             {
                 string localFileNameSmall = CreateLocalFileName("small");
                 string localFileNameLarge = CreateLocalFileName("large");
+                string localFileNameOriginal = CreateLocalFileName("original");
                 using (IsolatedStorageFile isoStore = IsolatedStorageFile.GetUserStoreForApplication())
                 {
                     bool fileExistsSmall = isoStore.FileExists(localFileNameSmall);
                     bool fileExistsLarge = isoStore.FileExists(localFileNameLarge);
+                    bool fileExistsOriginal = isoStore.FileExists(localFileNameOriginal);
                     if (fileExistsSmall)
                         _smallImageUrl.Value = String.Format("storage:{0}", localFileNameSmall);
                     if (fileExistsLarge)
                         _largeImageUrl.Value = String.Format("storage:{0}", localFileNameLarge);
-                    if (!fileExistsSmall || !fileExistsLarge)
+                    if (fileExistsOriginal)
+                        _originalImageUrl.Value = String.Format("storage:{0}", localFileNameOriginal);
+                    if (!fileExistsSmall || !fileExistsLarge || !fileExistsOriginal)
                     {
                         HttpWebRequest request = HttpWebRequest.CreateHttp(_sourceImageUrl);
-                        request.BeginGetResponse(result => EndLoading(request, result, localFileNameSmall, localFileNameLarge), null);
+                        request.BeginGetResponse(result => EndLoading(request, result, localFileNameSmall, localFileNameLarge, localFileNameOriginal), null);
                     }
                 }
             }
@@ -82,18 +99,27 @@ namespace FacetedWorlds.MyCon.ImageUtilities
             }
         }
 
-        private void EndLoading(HttpWebRequest request, IAsyncResult result, string localFileNameSmall, string localFileNameLarge)
+        private void EndLoading(HttpWebRequest request, IAsyncResult result, string localFileNameSmall, string localFileNameLarge, string localFileNameOriginal)
         {
             try
             {
                 WebResponse response = request.EndGetResponse(result);
-                byte[] buffer = new byte[response.ContentLength];
+                byte[] buffer;
                 using (Stream responseStream = response.GetResponseStream())
                 {
-                    responseStream.Read(buffer, 0, (int)response.ContentLength);
+                    using (MemoryStream responseMemory = new MemoryStream())
+                    {
+                        byte[] block = new byte[1024];
+                        int bytes;
+                        while ((bytes = responseStream.Read(block, 0, block.Length)) > 0)
+                            responseMemory.Write(block, 0, bytes);
+
+                        responseMemory.Flush();
+                        buffer = responseMemory.ToArray();
+                    }
                 }
                 Deployment.Current.Dispatcher.BeginInvoke(() =>
-                    ScaleBitmap(localFileNameSmall, localFileNameLarge, buffer));
+                    ScaleBitmap(localFileNameSmall, localFileNameLarge, localFileNameOriginal, buffer));
             }
             catch (Exception ex)
             {
@@ -102,7 +128,7 @@ namespace FacetedWorlds.MyCon.ImageUtilities
             }
         }
 
-        private void ScaleBitmap(string localFileNameSmall, string localFileNameLarge, byte[] buffer)
+        private void ScaleBitmap(string localFileNameSmall, string localFileNameLarge, string localFileNameOriginal, byte[] buffer)
         {
             try
             {
@@ -114,11 +140,13 @@ namespace FacetedWorlds.MyCon.ImageUtilities
                     {
                         SaveScaledBitmap(bitmap, localFileNameSmall, isoStore, 80.0, 80.0);
                         SaveScaledBitmap(bitmap, localFileNameLarge, isoStore, 115.0, 115.0);
+                        SaveScaledBitmap(bitmap, localFileNameOriginal, isoStore, bitmap.PixelWidth, bitmap.PixelHeight);
                     }
                 }
 
                 _smallImageUrl.Value = String.Format("storage:{0}", localFileNameSmall);
                 _largeImageUrl.Value = String.Format("storage:{0}", localFileNameLarge);
+                _originalImageUrl.Value = String.Format("storage:{0}", localFileNameOriginal);
             }
             catch (Exception ex)
             {
