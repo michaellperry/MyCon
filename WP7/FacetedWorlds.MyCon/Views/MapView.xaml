@@ -69,7 +69,7 @@
         		</Grid.RowDefinitions>
         		<Image x:Name="MapImage" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Stretch="None" Source="{Binding MapImageUrl, Converter={StaticResource CachedImageUrlValueConverter}}" SizeChanged="MapImage_SizeChanged" MouseLeftButtonDown="MapImage_MouseLeftButtonDown">
         			<Custom:Interaction.Behaviors>
-        				<MultiTouch_Behaviors_WP7:MultiTouchBehavior IsRotateEnabled="False" AreFingersVisible="True" IsMockActive="True" IsDebugModeActive="True"/>
+        				<MultiTouch_Behaviors_WP7:MultiTouchBehavior IsRotateEnabled="False"/>
         			</Custom:Interaction.Behaviors>
         		</Image>
         	</Grid>

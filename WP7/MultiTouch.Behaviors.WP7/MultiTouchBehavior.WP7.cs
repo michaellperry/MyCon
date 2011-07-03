@@ -43,7 +43,7 @@ namespace MultiTouch.Behaviors.WP7
             _processor.MinimumScale = MinimumScale;
             _processor.MaximumScale = MaximumScale;
 
-            AssociatedObject.SizeChanged += new SizeChangedEventHandler(AssociatedObject_SizeChanged);
+            AssociatedObject.SizeChanged += ImageSizeChanged;
 
 #if DEBUG
             if (_isMockActive)
@@ -68,7 +68,7 @@ namespace MultiTouch.Behaviors.WP7
 #endif
         }
 
-        void AssociatedObject_SizeChanged(object sender, SizeChangedEventArgs e)
+        void ImageSizeChanged(object sender, SizeChangedEventArgs e)
         {
             FrameworkElement parent = AssociatedObject.Parent as FrameworkElement;
             UIElement container = parent.Parent as UIElement;
