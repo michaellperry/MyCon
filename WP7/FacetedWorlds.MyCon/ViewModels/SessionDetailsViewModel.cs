@@ -159,7 +159,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public bool CanEvaluate
         {
-            get { return !IsGeneralSession && SessionIsScheduled && SessionHasStarted && !EvalIsCompleted; }
+            get { return !IsGeneralSession && SessionIsScheduled && !EvalIsCompleted; }
         }
 
         public string SearchBySpeakerText
