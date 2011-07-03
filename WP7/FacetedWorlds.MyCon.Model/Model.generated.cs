@@ -459,7 +459,7 @@ namespace FacetedWorlds.MyCon.Model
         public static Query QuerySpeakers = new Query()
             .JoinSuccessors(Speaker.RoleConference)
             ;
-        public static Query QueryNotifications = new Query()
+        public static Query QueryNotices = new Query()
             .JoinSuccessors(ConferenceNotice.RoleConference)
             ;
 
@@ -479,7 +479,7 @@ namespace FacetedWorlds.MyCon.Model
         private Result<Track> _tracks;
         private Result<Session> _sessions;
         private Result<Speaker> _speakers;
-        private Result<ConferenceNotice> _notifications;
+        private Result<ConferenceNotice> _notices;
 
         // Business constructor
         public Conference(
@@ -507,7 +507,7 @@ namespace FacetedWorlds.MyCon.Model
             _tracks = new Result<Track>(this, QueryTracks);
             _sessions = new Result<Session>(this, QuerySessions);
             _speakers = new Result<Speaker>(this, QuerySpeakers);
-            _notifications = new Result<ConferenceNotice>(this, QueryNotifications);
+            _notices = new Result<ConferenceNotice>(this, QueryNotices);
         }
 
         // Predecessor access
@@ -535,9 +535,9 @@ namespace FacetedWorlds.MyCon.Model
         {
             get { return _speakers; }
         }
-        public IEnumerable<ConferenceNotice> Notifications
+        public IEnumerable<ConferenceNotice> Notices
         {
-            get { return _notifications; }
+            get { return _notices; }
         }
 
         // Mutable property access
@@ -4793,7 +4793,7 @@ namespace FacetedWorlds.MyCon.Model
 				Conference.QuerySpeakers.QueryDefinition);
 			community.AddQuery(
 				Conference._correspondenceFactType,
-				Conference.QueryNotifications.QueryDefinition);
+				Conference.QueryNotices.QueryDefinition);
 			community.AddType(
 				ConferenceName._correspondenceFactType,
 				new ConferenceName.CorrespondenceFactFactory(fieldSerializerByType),

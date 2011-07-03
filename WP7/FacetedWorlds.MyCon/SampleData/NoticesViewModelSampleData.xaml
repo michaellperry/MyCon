@@ -1,0 +1,14 @@
+﻿<FacetedWorlds_MyCon_ViewModels:NoticesViewModel xmlns:FacetedWorlds_MyCon_ViewModels="clr-namespace:FacetedWorlds.MyCon.ViewModels" IsEmpty="False">
+	<FacetedWorlds_MyCon_ViewModels:NoticesViewModel.Notices>
+		<FacetedWorlds_MyCon_ViewModels:NoticeViewModel ImageUrl="http://www.adatum.com/" Text="Praesent sed vestibulum phasellus" Title="A. Datum Corporation" Age="8:20:14 AM"/>
+		<FacetedWorlds_MyCon_ViewModels:NoticeViewModel ImageUrl="http://www.adventure-works.com/" Text="Est accumsan aliquam cras auctor" Title="Adventure Works" Age="7:06:05 AM"/>
+		<FacetedWorlds_MyCon_ViewModels:NoticeViewModel ImageUrl="http://www.adventure-works.com/" Text="Duis nec non" Title="Adventure Works" Age="4:26:00 PM"/>
+		<FacetedWorlds_MyCon_ViewModels:NoticeViewModel ImageUrl="http://www.alpineskihouse.com/" Text="Sed quisque parturient eleifend" Title="Alpine Ski House" Age="7:13:04 AM"/>
+		<FacetedWorlds_MyCon_ViewModels:NoticeViewModel ImageUrl="http://www.baldwinmuseumofscience.com/" Text="Aliquam habitasse faucibus arcu" Title="Baldwin Museum of Science" Age="9:31:24 PM"/>
+		<FacetedWorlds_MyCon_ViewModels:NoticeViewModel ImageUrl="http://www.blueyonderairlines.com/" Text="Diam hendrerit fusce" Title="Blue Yonder Airlines" Age="5:44:29 PM"/>
+		<FacetedWorlds_MyCon_ViewModels:NoticeViewModel ImageUrl="http://www.cpandl.com/" Text="Dis adipiscing libero lorem" Title="City Power &amp; Light" Age="11:38:50 PM"/>
+		<FacetedWorlds_MyCon_ViewModels:NoticeViewModel ImageUrl="http://www.cohovineyard.com/" Text="Commodo nulla" Title="Coho Vineyard" Age="8:33:47 AM"/>
+		<FacetedWorlds_MyCon_ViewModels:NoticeViewModel ImageUrl="http://www.cohowinery.com/" Text="Malesuada nibh vestibulum" Title="Coho Winery" Age="7:13:20 AM"/>
+		<FacetedWorlds_MyCon_ViewModels:NoticeViewModel ImageUrl="http://www.contoso.com/" Text="Est cubilia" Title="Coho Vineyard &amp; Winery" Age="11:05:39 PM"/>
+	</FacetedWorlds_MyCon_ViewModels:NoticesViewModel.Notices>
+</FacetedWorlds_MyCon_ViewModels:NoticesViewModel>

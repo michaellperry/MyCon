@@ -2,8 +2,6 @@
 using System.Linq;
 using FacetedWorlds.MyCon.ImageUtilities;
 using FacetedWorlds.MyCon.Model;
-using UpdateControls;
-using System.Windows.Threading;
 using FacetedWorlds.MyCon.Models;
 
 namespace FacetedWorlds.MyCon.ViewModels
@@ -45,18 +43,33 @@ namespace FacetedWorlds.MyCon.ViewModels
                 var nextPlace = currentPlaces.FirstOrDefault();
                 if (nextPlace != null)
                 {
-                    int minutes = (nextPlace.PlaceTime.Start - now).Minutes;
-                    if (minutes > 0)
-                    {
-                        return String.Format("Your next session in {0} in {1} minutes",
-                            nextPlace.Room.RoomNumber,
-                            minutes);
-                    }
-                    else
+                    int minutes = (int)(nextPlace.PlaceTime.Start - now).TotalMinutes;
+                    if (minutes <= -2)
                     {
                         return String.Format("Your next session in {0} {1} minutes ago",
                             nextPlace.Room.RoomNumber,
                             -minutes);
+                    }
+                    else if (minutes <= -1)
+                    {
+                        return String.Format("Your next session in {0} a minute ago",
+                            nextPlace.Room.RoomNumber);
+                    }
+                    else if (minutes <= 0)
+                    {
+                        return String.Format("Your next session in {0} now",
+                            nextPlace.Room.RoomNumber);
+                    }
+                    else if (minutes <= 1)
+                    {
+                        return String.Format("Your next session in {0} a minute",
+                            nextPlace.Room.RoomNumber);
+                    }
+                    else
+                    {
+                        return String.Format("Your next session in {0} in {1} minutes",
+                            nextPlace.Room.RoomNumber,
+                            minutes);
                     }
                 }
 

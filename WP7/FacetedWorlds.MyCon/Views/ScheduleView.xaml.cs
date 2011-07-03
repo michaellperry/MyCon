@@ -34,5 +34,10 @@ namespace FacetedWorlds.MyCon.Views
         {
             NavigationService.Navigate(new Uri("/Views/SettingsView.xaml", UriKind.Relative));
         }
+
+        private void Notices_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Views/NoticesView.xaml", UriKind.Relative));
+        }
     }
 }

@@ -54,7 +54,7 @@ query:
 		Speaker s : s.conference = this
 	}
 
-	ConferenceNotice* notifications {
+	ConferenceNotice* notices {
 		ConferenceNotice n : n.conference = this
 	}
 }

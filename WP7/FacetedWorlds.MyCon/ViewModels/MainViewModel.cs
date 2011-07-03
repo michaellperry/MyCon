@@ -1,6 +1,5 @@
 using FacetedWorlds.MyCon.ImageUtilities;
 using FacetedWorlds.MyCon.Model;
-using System;
 using FacetedWorlds.MyCon.Models;
 
 namespace FacetedWorlds.MyCon.ViewModels
@@ -45,6 +44,11 @@ namespace FacetedWorlds.MyCon.ViewModels
         public MapViewModel Map
         {
             get { return new MapViewModel(Attendee, _imageCache, _clock); }
+        }
+
+        public NoticesViewModel Notices
+        {
+            get { return new NoticesViewModel(Attendee, _imageCache, _clock); }
         }
 
         private Attendee Attendee
