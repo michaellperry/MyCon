@@ -26,7 +26,7 @@ namespace FacetedWorlds.MyCon.Models
 
         private void UpdateTime()
         {
-            _time.Value = (new DateTime(2009, 11, 6) + DateTime.Now.TimeOfDay).AddHours(-12.0);
+            _time.Value = DateTime.Now;
         }
     }
 }
