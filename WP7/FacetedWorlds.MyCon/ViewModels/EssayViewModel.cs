@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using FacetedWorlds.MyCon.Model;
 
 namespace FacetedWorlds.MyCon.ViewModels

@@ -13,25 +13,25 @@ digraph "FacetedWorlds.MyCon.Model"
     rankdir=BT
     DisableToastNotification -> Identity
     EnableToastNotification -> DisableToastNotification [label="  *"]
-    ConferenceName -> Conference
+    ConferenceName -> Conference [color="red"]
     ConferenceName -> ConferenceName [label="  *"]
-    ConferenceSessionSurvey -> Conference
+    ConferenceSessionSurvey -> Conference [color="red"]
     ConferenceSessionSurvey -> ConferenceSessionSurvey [label="  *"]
     ConferenceSessionSurvey -> Survey
-    ConferenceConferenceSurvey -> Conference
+    ConferenceConferenceSurvey -> Conference [color="red"]
     ConferenceConferenceSurvey -> ConferenceConferenceSurvey [label="  *"]
     ConferenceConferenceSurvey -> Survey
-    ConferenceMapUrl -> Conference
+    ConferenceMapUrl -> Conference [color="red"]
     ConferenceMapUrl -> ConferenceMapUrl [label="  *"]
     Attendee -> Identity
     Attendee -> Conference
-    Day -> Conference
+    Day -> Conference [color="red"]
     Time -> Day
     Slot -> Attendee
     Slot -> Time
     Room -> Conference
     Track -> Conference
-    Speaker -> Conference
+    Speaker -> Conference [color="red"]
     SpeakerImageUrl -> Speaker
     SpeakerImageUrl -> SpeakerImageUrl [label="  *"]
     SpeakerContact -> Speaker
@@ -39,9 +39,10 @@ digraph "FacetedWorlds.MyCon.Model"
     SpeakerBio -> Speaker
     SpeakerBio -> SpeakerBio [label="  *"]
     SpeakerBio -> DocumentSegment [label="  *"]
+    ConferenceNotice -> Conference [color="red"]
     Place -> Time
     Place -> Room
-    Session -> Conference
+    Session -> Conference [color="red"]
     Session -> Speaker
     Session -> Track [label="  ?"]
     SessionName -> Session
@@ -52,6 +53,7 @@ digraph "FacetedWorlds.MyCon.Model"
     SessionLevel -> Session
     SessionLevel -> SessionLevel [label="  *"]
     SessionLevel -> Level
+    SessionNotice -> Session [color="red"]
     SessionPlace -> Session
     SessionPlace -> Place
     SessionPlace -> SessionPlace [label="  *"]
@@ -62,7 +64,10 @@ digraph "FacetedWorlds.MyCon.Model"
     Survey -> EssayQuestion [label="  *"]
     SessionEvaluation -> Schedule
     SessionEvaluation -> Survey
+    SessionEvaluationCompleted -> Conference [color="red"]
     SessionEvaluationCompleted -> SessionEvaluation
+    SessionEvaluationCompleted -> SessionEvaluationRatingAnswer [label="  *"]
+    SessionEvaluationCompleted -> SessionEvaluationEssayAnswer [label="  *"]
     SessionEvaluationRating -> SessionEvaluation
     SessionEvaluationRating -> RatingQuestion
     SessionEvaluationRatingAnswer -> SessionEvaluationRating
@@ -454,6 +459,9 @@ namespace FacetedWorlds.MyCon.Model
         public static Query QuerySpeakers = new Query()
             .JoinSuccessors(Speaker.RoleConference)
             ;
+        public static Query QueryNotifications = new Query()
+            .JoinSuccessors(ConferenceNotice.RoleConference)
+            ;
 
         // Predicates
 
@@ -471,6 +479,7 @@ namespace FacetedWorlds.MyCon.Model
         private Result<Track> _tracks;
         private Result<Session> _sessions;
         private Result<Speaker> _speakers;
+        private Result<ConferenceNotice> _notifications;
 
         // Business constructor
         public Conference(
@@ -498,6 +507,7 @@ namespace FacetedWorlds.MyCon.Model
             _tracks = new Result<Track>(this, QueryTracks);
             _sessions = new Result<Session>(this, QuerySessions);
             _speakers = new Result<Speaker>(this, QuerySpeakers);
+            _notifications = new Result<ConferenceNotice>(this, QueryNotifications);
         }
 
         // Predecessor access
@@ -524,6 +534,10 @@ namespace FacetedWorlds.MyCon.Model
         public IEnumerable<Speaker> Speakers
         {
             get { return _speakers; }
+        }
+        public IEnumerable<ConferenceNotice> Notifications
+        {
+            get { return _notifications; }
         }
 
         // Mutable property access
@@ -611,7 +625,7 @@ namespace FacetedWorlds.MyCon.Model
 			_correspondenceFactType,
 			"conference",
 			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
-			false));
+			true));
         public static Role RolePrior = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"prior",
@@ -730,7 +744,7 @@ namespace FacetedWorlds.MyCon.Model
 			_correspondenceFactType,
 			"conference",
 			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
-			false));
+			true));
         public static Role RolePrior = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"prior",
@@ -855,7 +869,7 @@ namespace FacetedWorlds.MyCon.Model
 			_correspondenceFactType,
 			"conference",
 			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
-			false));
+			true));
         public static Role RolePrior = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"prior",
@@ -982,7 +996,7 @@ namespace FacetedWorlds.MyCon.Model
 			_correspondenceFactType,
 			"conference",
 			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
-			false));
+			true));
         public static Role RolePrior = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"prior",
@@ -1222,7 +1236,7 @@ namespace FacetedWorlds.MyCon.Model
 			_correspondenceFactType,
 			"conference",
 			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
-			false));
+			true));
 
         // Queries
         public static Query QueryTimes = new Query()
@@ -1787,7 +1801,7 @@ namespace FacetedWorlds.MyCon.Model
 			_correspondenceFactType,
 			"conference",
 			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
-			false));
+			true));
 
         // Queries
         public static Query QueryImageUrl = new Query()
@@ -2262,6 +2276,119 @@ namespace FacetedWorlds.MyCon.Model
 
     }
     
+    public partial class ConferenceNotice : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				ConferenceNotice newFact = new ConferenceNotice(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+						newFact._timeSent = (DateTime)_fieldSerializerByType[typeof(DateTime)].ReadData(output);
+						newFact._text = (string)_fieldSerializerByType[typeof(string)].ReadData(output);
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				ConferenceNotice fact = (ConferenceNotice)obj;
+				_fieldSerializerByType[typeof(DateTime)].WriteData(output, fact._timeSent);
+				_fieldSerializerByType[typeof(string)].WriteData(output, fact._text);
+			}
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.ConferenceNotice", 1);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Roles
+        public static Role RoleConference = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"conference",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			true));
+
+        // Queries
+
+        // Predicates
+
+        // Predecessors
+        private PredecessorObj<Conference> _conference;
+
+        // Fields
+        private DateTime _timeSent;
+        private string _text;
+
+        // Results
+
+        // Business constructor
+        public ConferenceNotice(
+            Conference conference
+            ,DateTime timeSent
+            ,string text
+            )
+        {
+            InitializeResults();
+            _conference = new PredecessorObj<Conference>(this, RoleConference, conference);
+            _timeSent = timeSent;
+            _text = text;
+        }
+
+        // Hydration constructor
+        private ConferenceNotice(FactMemento memento)
+        {
+            InitializeResults();
+            _conference = new PredecessorObj<Conference>(this, RoleConference, memento);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+        public Conference Conference
+        {
+            get { return _conference.Fact; }
+        }
+
+        // Field access
+        public DateTime TimeSent
+        {
+            get { return _timeSent; }
+        }
+        public string Text
+        {
+            get { return _text; }
+        }
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
     public partial class Place : CorrespondenceFact
     {
 		// Factory
@@ -2510,7 +2637,7 @@ namespace FacetedWorlds.MyCon.Model
 			_correspondenceFactType,
 			"conference",
 			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
-			false));
+			true));
         public static Role RoleSpeaker = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"speaker",
@@ -2539,6 +2666,9 @@ namespace FacetedWorlds.MyCon.Model
             .JoinSuccessors(SessionPlace.RoleSession, Condition.WhereIsEmpty(SessionPlace.QueryIsCurrent)
             )
             ;
+        public static Query QueryNotices = new Query()
+            .JoinSuccessors(SessionNotice.RoleSession)
+            ;
 
         // Predicates
 
@@ -2555,6 +2685,7 @@ namespace FacetedWorlds.MyCon.Model
         private Result<SessionDescription> _description;
         private Result<SessionLevel> _level;
         private Result<SessionPlace> _currentSessionPlaces;
+        private Result<SessionNotice> _notices;
 
         // Business constructor
         public Session(
@@ -2587,6 +2718,7 @@ namespace FacetedWorlds.MyCon.Model
             _description = new Result<SessionDescription>(this, QueryDescription);
             _level = new Result<SessionLevel>(this, QueryLevel);
             _currentSessionPlaces = new Result<SessionPlace>(this, QueryCurrentSessionPlaces);
+            _notices = new Result<SessionNotice>(this, QueryNotices);
         }
 
         // Predecessor access
@@ -2613,6 +2745,10 @@ namespace FacetedWorlds.MyCon.Model
         public IEnumerable<SessionPlace> CurrentSessionPlaces
         {
             get { return _currentSessionPlaces; }
+        }
+        public IEnumerable<SessionNotice> Notices
+        {
+            get { return _notices; }
         }
 
         // Mutable property access
@@ -3007,6 +3143,119 @@ namespace FacetedWorlds.MyCon.Model
         }
 
         // Field access
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
+    public partial class SessionNotice : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				SessionNotice newFact = new SessionNotice(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+						newFact._timeSent = (DateTime)_fieldSerializerByType[typeof(DateTime)].ReadData(output);
+						newFact._text = (string)_fieldSerializerByType[typeof(string)].ReadData(output);
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				SessionNotice fact = (SessionNotice)obj;
+				_fieldSerializerByType[typeof(DateTime)].WriteData(output, fact._timeSent);
+				_fieldSerializerByType[typeof(string)].WriteData(output, fact._text);
+			}
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.SessionNotice", 1);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Roles
+        public static Role RoleSession = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"session",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
+			true));
+
+        // Queries
+
+        // Predicates
+
+        // Predecessors
+        private PredecessorObj<Session> _session;
+
+        // Fields
+        private DateTime _timeSent;
+        private string _text;
+
+        // Results
+
+        // Business constructor
+        public SessionNotice(
+            Session session
+            ,DateTime timeSent
+            ,string text
+            )
+        {
+            InitializeResults();
+            _session = new PredecessorObj<Session>(this, RoleSession, session);
+            _timeSent = timeSent;
+            _text = text;
+        }
+
+        // Hydration constructor
+        private SessionNotice(FactMemento memento)
+        {
+            InitializeResults();
+            _session = new PredecessorObj<Session>(this, RoleSession, memento);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+        public Session Session
+        {
+            get { return _session.Fact; }
+        }
+
+        // Field access
+        public DateTime TimeSent
+        {
+            get { return _timeSent; }
+        }
+        public string Text
+        {
+            get { return _text; }
+        }
 
         // Query result access
 
@@ -3709,6 +3958,16 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
+        public static Query QueryRatingAnswers = new Query()
+            .JoinSuccessors(SessionEvaluationRating.RoleEvaluation)
+            .JoinSuccessors(SessionEvaluationRatingAnswer.RoleRating, Condition.WhereIsEmpty(SessionEvaluationRatingAnswer.QueryIsCurrent)
+            )
+            ;
+        public static Query QueryEssayAnswers = new Query()
+            .JoinSuccessors(SessionEvaluationEssay.RoleEvaluation)
+            .JoinSuccessors(SessionEvaluationEssayAnswer.RoleEssay, Condition.WhereIsEmpty(SessionEvaluationEssayAnswer.QueryIsCurrent)
+            )
+            ;
         public static Query QueryIsCompleted = new Query()
             .JoinSuccessors(SessionEvaluationCompleted.RoleSessionEvaluation)
             ;
@@ -3723,6 +3982,8 @@ namespace FacetedWorlds.MyCon.Model
         // Fields
 
         // Results
+        private Result<SessionEvaluationRatingAnswer> _ratingAnswers;
+        private Result<SessionEvaluationEssayAnswer> _essayAnswers;
 
         // Business constructor
         public SessionEvaluation(
@@ -3746,6 +4007,8 @@ namespace FacetedWorlds.MyCon.Model
         // Result initializer
         private void InitializeResults()
         {
+            _ratingAnswers = new Result<SessionEvaluationRatingAnswer>(this, QueryRatingAnswers);
+            _essayAnswers = new Result<SessionEvaluationEssayAnswer>(this, QueryEssayAnswers);
         }
 
         // Predecessor access
@@ -3761,6 +4024,14 @@ namespace FacetedWorlds.MyCon.Model
         // Field access
 
         // Query result access
+        public IEnumerable<SessionEvaluationRatingAnswer> RatingAnswers
+        {
+            get { return _ratingAnswers; }
+        }
+        public IEnumerable<SessionEvaluationEssayAnswer> EssayAnswers
+        {
+            get { return _essayAnswers; }
+        }
 
         // Mutable property access
 
@@ -3809,10 +4080,25 @@ namespace FacetedWorlds.MyCon.Model
 		}
 
         // Roles
+        public static Role RoleConfernce = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"confernce",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			true));
         public static Role RoleSessionEvaluation = new Role(new RoleMemento(
 			_correspondenceFactType,
 			"sessionEvaluation",
 			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluation", 1),
+			false));
+        public static Role RoleRatingAnswers = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"ratingAnswers",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationRatingAnswer", 1),
+			false));
+        public static Role RoleEssayAnswers = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"essayAnswers",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationEssayAnswer", 1),
 			false));
 
         // Queries
@@ -3820,7 +4106,10 @@ namespace FacetedWorlds.MyCon.Model
         // Predicates
 
         // Predecessors
+        private PredecessorObj<Conference> _confernce;
         private PredecessorObj<SessionEvaluation> _sessionEvaluation;
+        private PredecessorList<SessionEvaluationRatingAnswer> _ratingAnswers;
+        private PredecessorList<SessionEvaluationEssayAnswer> _essayAnswers;
 
         // Fields
 
@@ -3828,18 +4117,27 @@ namespace FacetedWorlds.MyCon.Model
 
         // Business constructor
         public SessionEvaluationCompleted(
-            SessionEvaluation sessionEvaluation
+            Conference confernce
+            ,SessionEvaluation sessionEvaluation
+            ,IEnumerable<SessionEvaluationRatingAnswer> ratingAnswers
+            ,IEnumerable<SessionEvaluationEssayAnswer> essayAnswers
             )
         {
             InitializeResults();
+            _confernce = new PredecessorObj<Conference>(this, RoleConfernce, confernce);
             _sessionEvaluation = new PredecessorObj<SessionEvaluation>(this, RoleSessionEvaluation, sessionEvaluation);
+            _ratingAnswers = new PredecessorList<SessionEvaluationRatingAnswer>(this, RoleRatingAnswers, ratingAnswers);
+            _essayAnswers = new PredecessorList<SessionEvaluationEssayAnswer>(this, RoleEssayAnswers, essayAnswers);
         }
 
         // Hydration constructor
         private SessionEvaluationCompleted(FactMemento memento)
         {
             InitializeResults();
+            _confernce = new PredecessorObj<Conference>(this, RoleConfernce, memento);
             _sessionEvaluation = new PredecessorObj<SessionEvaluation>(this, RoleSessionEvaluation, memento);
+            _ratingAnswers = new PredecessorList<SessionEvaluationRatingAnswer>(this, RoleRatingAnswers, memento);
+            _essayAnswers = new PredecessorList<SessionEvaluationEssayAnswer>(this, RoleEssayAnswers, memento);
         }
 
         // Result initializer
@@ -3848,11 +4146,23 @@ namespace FacetedWorlds.MyCon.Model
         }
 
         // Predecessor access
+        public Conference Confernce
+        {
+            get { return _confernce.Fact; }
+        }
         public SessionEvaluation SessionEvaluation
         {
             get { return _sessionEvaluation.Fact; }
         }
-
+        public IEnumerable<SessionEvaluationRatingAnswer> RatingAnswers
+        {
+            get { return _ratingAnswers; }
+        }
+             public IEnumerable<SessionEvaluationEssayAnswer> EssayAnswers
+        {
+            get { return _essayAnswers; }
+        }
+     
         // Field access
 
         // Query result access
@@ -3916,8 +4226,8 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryAnswer = new Query()
-            .JoinSuccessors(SessionEvaluationRatingAnswer.RoleSessionEvaluationRating, Condition.WhereIsEmpty(SessionEvaluationRatingAnswer.QueryIsCurrent)
+        public static Query QueryCurrentAnswers = new Query()
+            .JoinSuccessors(SessionEvaluationRatingAnswer.RoleRating, Condition.WhereIsEmpty(SessionEvaluationRatingAnswer.QueryIsCurrent)
             )
             ;
 
@@ -3930,7 +4240,7 @@ namespace FacetedWorlds.MyCon.Model
         // Fields
 
         // Results
-        private Result<SessionEvaluationRatingAnswer> _answer;
+        private Result<SessionEvaluationRatingAnswer> _currentAnswers;
 
         // Business constructor
         public SessionEvaluationRating(
@@ -3954,7 +4264,7 @@ namespace FacetedWorlds.MyCon.Model
         // Result initializer
         private void InitializeResults()
         {
-            _answer = new Result<SessionEvaluationRatingAnswer>(this, QueryAnswer);
+            _currentAnswers = new Result<SessionEvaluationRatingAnswer>(this, QueryCurrentAnswers);
         }
 
         // Predecessor access
@@ -3970,16 +4280,12 @@ namespace FacetedWorlds.MyCon.Model
         // Field access
 
         // Query result access
+        public IEnumerable<SessionEvaluationRatingAnswer> CurrentAnswers
+        {
+            get { return _currentAnswers; }
+        }
 
         // Mutable property access
-        public Disputable<int> Answer
-        {
-            get { return _answer.Select(fact => fact.Value).AsDisputable(); }
-			set
-			{
-				Community.AddFact(new SessionEvaluationRatingAnswer(this, _answer, value.Value));
-			}
-        }
 
     }
     
@@ -4028,9 +4334,9 @@ namespace FacetedWorlds.MyCon.Model
 		}
 
         // Roles
-        public static Role RoleSessionEvaluationRating = new Role(new RoleMemento(
+        public static Role RoleRating = new Role(new RoleMemento(
 			_correspondenceFactType,
-			"sessionEvaluationRating",
+			"rating",
 			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationRating", 1),
 			false));
         public static Role RolePrior = new Role(new RoleMemento(
@@ -4048,7 +4354,7 @@ namespace FacetedWorlds.MyCon.Model
         public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
 
         // Predecessors
-        private PredecessorObj<SessionEvaluationRating> _sessionEvaluationRating;
+        private PredecessorObj<SessionEvaluationRating> _rating;
         private PredecessorList<SessionEvaluationRatingAnswer> _prior;
 
         // Fields
@@ -4058,13 +4364,13 @@ namespace FacetedWorlds.MyCon.Model
 
         // Business constructor
         public SessionEvaluationRatingAnswer(
-            SessionEvaluationRating sessionEvaluationRating
+            SessionEvaluationRating rating
             ,IEnumerable<SessionEvaluationRatingAnswer> prior
             ,int value
             )
         {
             InitializeResults();
-            _sessionEvaluationRating = new PredecessorObj<SessionEvaluationRating>(this, RoleSessionEvaluationRating, sessionEvaluationRating);
+            _rating = new PredecessorObj<SessionEvaluationRating>(this, RoleRating, rating);
             _prior = new PredecessorList<SessionEvaluationRatingAnswer>(this, RolePrior, prior);
             _value = value;
         }
@@ -4073,7 +4379,7 @@ namespace FacetedWorlds.MyCon.Model
         private SessionEvaluationRatingAnswer(FactMemento memento)
         {
             InitializeResults();
-            _sessionEvaluationRating = new PredecessorObj<SessionEvaluationRating>(this, RoleSessionEvaluationRating, memento);
+            _rating = new PredecessorObj<SessionEvaluationRating>(this, RoleRating, memento);
             _prior = new PredecessorList<SessionEvaluationRatingAnswer>(this, RolePrior, memento);
         }
 
@@ -4083,9 +4389,9 @@ namespace FacetedWorlds.MyCon.Model
         }
 
         // Predecessor access
-        public SessionEvaluationRating SessionEvaluationRating
+        public SessionEvaluationRating Rating
         {
-            get { return _sessionEvaluationRating.Fact; }
+            get { return _rating.Fact; }
         }
         public IEnumerable<SessionEvaluationRatingAnswer> Prior
         {
@@ -4159,8 +4465,8 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryAnswer = new Query()
-            .JoinSuccessors(SessionEvaluationEssayAnswer.RoleSessionEvaluationEssay, Condition.WhereIsEmpty(SessionEvaluationEssayAnswer.QueryIsCurrent)
+        public static Query QueryCurrentAnswers = new Query()
+            .JoinSuccessors(SessionEvaluationEssayAnswer.RoleEssay, Condition.WhereIsEmpty(SessionEvaluationEssayAnswer.QueryIsCurrent)
             )
             ;
 
@@ -4173,7 +4479,7 @@ namespace FacetedWorlds.MyCon.Model
         // Fields
 
         // Results
-        private Result<SessionEvaluationEssayAnswer> _answer;
+        private Result<SessionEvaluationEssayAnswer> _currentAnswers;
 
         // Business constructor
         public SessionEvaluationEssay(
@@ -4197,7 +4503,7 @@ namespace FacetedWorlds.MyCon.Model
         // Result initializer
         private void InitializeResults()
         {
-            _answer = new Result<SessionEvaluationEssayAnswer>(this, QueryAnswer);
+            _currentAnswers = new Result<SessionEvaluationEssayAnswer>(this, QueryCurrentAnswers);
         }
 
         // Predecessor access
@@ -4213,16 +4519,12 @@ namespace FacetedWorlds.MyCon.Model
         // Field access
 
         // Query result access
+        public IEnumerable<SessionEvaluationEssayAnswer> CurrentAnswers
+        {
+            get { return _currentAnswers; }
+        }
 
         // Mutable property access
-        public Disputable<string> Answer
-        {
-            get { return _answer.Select(fact => fact.Value).AsDisputable(); }
-			set
-			{
-				Community.AddFact(new SessionEvaluationEssayAnswer(this, _answer, value.Value));
-			}
-        }
 
     }
     
@@ -4271,9 +4573,9 @@ namespace FacetedWorlds.MyCon.Model
 		}
 
         // Roles
-        public static Role RoleSessionEvaluationEssay = new Role(new RoleMemento(
+        public static Role RoleEssay = new Role(new RoleMemento(
 			_correspondenceFactType,
-			"sessionEvaluationEssay",
+			"essay",
 			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationEssay", 1),
 			false));
         public static Role RolePrior = new Role(new RoleMemento(
@@ -4291,7 +4593,7 @@ namespace FacetedWorlds.MyCon.Model
         public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
 
         // Predecessors
-        private PredecessorObj<SessionEvaluationEssay> _sessionEvaluationEssay;
+        private PredecessorObj<SessionEvaluationEssay> _essay;
         private PredecessorList<SessionEvaluationEssayAnswer> _prior;
 
         // Fields
@@ -4301,13 +4603,13 @@ namespace FacetedWorlds.MyCon.Model
 
         // Business constructor
         public SessionEvaluationEssayAnswer(
-            SessionEvaluationEssay sessionEvaluationEssay
+            SessionEvaluationEssay essay
             ,IEnumerable<SessionEvaluationEssayAnswer> prior
             ,string value
             )
         {
             InitializeResults();
-            _sessionEvaluationEssay = new PredecessorObj<SessionEvaluationEssay>(this, RoleSessionEvaluationEssay, sessionEvaluationEssay);
+            _essay = new PredecessorObj<SessionEvaluationEssay>(this, RoleEssay, essay);
             _prior = new PredecessorList<SessionEvaluationEssayAnswer>(this, RolePrior, prior);
             _value = value;
         }
@@ -4316,7 +4618,7 @@ namespace FacetedWorlds.MyCon.Model
         private SessionEvaluationEssayAnswer(FactMemento memento)
         {
             InitializeResults();
-            _sessionEvaluationEssay = new PredecessorObj<SessionEvaluationEssay>(this, RoleSessionEvaluationEssay, memento);
+            _essay = new PredecessorObj<SessionEvaluationEssay>(this, RoleEssay, memento);
             _prior = new PredecessorList<SessionEvaluationEssayAnswer>(this, RolePrior, memento);
         }
 
@@ -4326,9 +4628,9 @@ namespace FacetedWorlds.MyCon.Model
         }
 
         // Predecessor access
-        public SessionEvaluationEssay SessionEvaluationEssay
+        public SessionEvaluationEssay Essay
         {
-            get { return _sessionEvaluationEssay.Fact; }
+            get { return _essay.Fact; }
         }
         public IEnumerable<SessionEvaluationEssayAnswer> Prior
         {
@@ -4489,6 +4791,9 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				Conference._correspondenceFactType,
 				Conference.QuerySpeakers.QueryDefinition);
+			community.AddQuery(
+				Conference._correspondenceFactType,
+				Conference.QueryNotifications.QueryDefinition);
 			community.AddType(
 				ConferenceName._correspondenceFactType,
 				new ConferenceName.CorrespondenceFactFactory(fieldSerializerByType),
@@ -4594,6 +4899,10 @@ namespace FacetedWorlds.MyCon.Model
 				SpeakerBio._correspondenceFactType,
 				SpeakerBio.QueryIsCurrent.QueryDefinition);
 			community.AddType(
+				ConferenceNotice._correspondenceFactType,
+				new ConferenceNotice.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { ConferenceNotice._correspondenceFactType }));
+			community.AddType(
 				Place._correspondenceFactType,
 				new Place.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Place._correspondenceFactType }));
@@ -4617,6 +4926,9 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				Session._correspondenceFactType,
 				Session.QueryCurrentSessionPlaces.QueryDefinition);
+			community.AddQuery(
+				Session._correspondenceFactType,
+				Session.QueryNotices.QueryDefinition);
 			community.AddType(
 				SessionName._correspondenceFactType,
 				new SessionName.CorrespondenceFactFactory(fieldSerializerByType),
@@ -4638,6 +4950,10 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				SessionLevel._correspondenceFactType,
 				SessionLevel.QueryIsCurrent.QueryDefinition);
+			community.AddType(
+				SessionNotice._correspondenceFactType,
+				new SessionNotice.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { SessionNotice._correspondenceFactType }));
 			community.AddType(
 				SessionPlace._correspondenceFactType,
 				new SessionPlace.CorrespondenceFactFactory(fieldSerializerByType),
@@ -4677,6 +4993,12 @@ namespace FacetedWorlds.MyCon.Model
 				new FactMetadata(new List<CorrespondenceFactType> { SessionEvaluation._correspondenceFactType }));
 			community.AddQuery(
 				SessionEvaluation._correspondenceFactType,
+				SessionEvaluation.QueryRatingAnswers.QueryDefinition);
+			community.AddQuery(
+				SessionEvaluation._correspondenceFactType,
+				SessionEvaluation.QueryEssayAnswers.QueryDefinition);
+			community.AddQuery(
+				SessionEvaluation._correspondenceFactType,
 				SessionEvaluation.QueryIsCompleted.QueryDefinition);
 			community.AddType(
 				SessionEvaluationCompleted._correspondenceFactType,
@@ -4688,7 +5010,7 @@ namespace FacetedWorlds.MyCon.Model
 				new FactMetadata(new List<CorrespondenceFactType> { SessionEvaluationRating._correspondenceFactType }));
 			community.AddQuery(
 				SessionEvaluationRating._correspondenceFactType,
-				SessionEvaluationRating.QueryAnswer.QueryDefinition);
+				SessionEvaluationRating.QueryCurrentAnswers.QueryDefinition);
 			community.AddType(
 				SessionEvaluationRatingAnswer._correspondenceFactType,
 				new SessionEvaluationRatingAnswer.CorrespondenceFactFactory(fieldSerializerByType),
@@ -4702,7 +5024,7 @@ namespace FacetedWorlds.MyCon.Model
 				new FactMetadata(new List<CorrespondenceFactType> { SessionEvaluationEssay._correspondenceFactType }));
 			community.AddQuery(
 				SessionEvaluationEssay._correspondenceFactType,
-				SessionEvaluationEssay.QueryAnswer.QueryDefinition);
+				SessionEvaluationEssay.QueryCurrentAnswers.QueryDefinition);
 			community.AddType(
 				SessionEvaluationEssayAnswer._correspondenceFactType,
 				new SessionEvaluationEssayAnswer.CorrespondenceFactFactory(fieldSerializerByType),

@@ -3,23 +3,25 @@ digraph "FacetedWorlds.MyCon.Model"
     rankdir=BT
     DisableToastNotification -> Identity
     EnableToastNotification -> DisableToastNotification [label="  *"]
-    ConferenceName -> Conference
+    ConferenceName -> Conference [color="red"]
     ConferenceName -> ConferenceName [label="  *"]
-    ConferenceSessionSurvey -> Conference
+    ConferenceSessionSurvey -> Conference [color="red"]
     ConferenceSessionSurvey -> ConferenceSessionSurvey [label="  *"]
     ConferenceSessionSurvey -> Survey
-    ConferenceConferenceSurvey -> Conference
+    ConferenceConferenceSurvey -> Conference [color="red"]
     ConferenceConferenceSurvey -> ConferenceConferenceSurvey [label="  *"]
     ConferenceConferenceSurvey -> Survey
+    ConferenceMapUrl -> Conference [color="red"]
+    ConferenceMapUrl -> ConferenceMapUrl [label="  *"]
     Attendee -> Identity
     Attendee -> Conference
-    Day -> Conference
+    Day -> Conference [color="red"]
     Time -> Day
     Slot -> Attendee
     Slot -> Time
     Room -> Conference
     Track -> Conference
-    Speaker -> Conference
+    Speaker -> Conference [color="red"]
     SpeakerImageUrl -> Speaker
     SpeakerImageUrl -> SpeakerImageUrl [label="  *"]
     SpeakerContact -> Speaker
@@ -27,9 +29,10 @@ digraph "FacetedWorlds.MyCon.Model"
     SpeakerBio -> Speaker
     SpeakerBio -> SpeakerBio [label="  *"]
     SpeakerBio -> DocumentSegment [label="  *"]
+    ConferenceNotice -> Conference [color="red"]
     Place -> Time
     Place -> Room
-    Session -> Conference
+    Session -> Conference [color="red"]
     Session -> Speaker
     Session -> Track [label="  ?"]
     SessionName -> Session
@@ -40,6 +43,7 @@ digraph "FacetedWorlds.MyCon.Model"
     SessionLevel -> Session
     SessionLevel -> SessionLevel [label="  *"]
     SessionLevel -> Level
+    SessionNotice -> Session [color="red"]
     SessionPlace -> Session
     SessionPlace -> Place
     SessionPlace -> SessionPlace [label="  *"]
@@ -50,6 +54,10 @@ digraph "FacetedWorlds.MyCon.Model"
     Survey -> EssayQuestion [label="  *"]
     SessionEvaluation -> Schedule
     SessionEvaluation -> Survey
+    SessionEvaluationCompleted -> Conference [color="red"]
+    SessionEvaluationCompleted -> SessionEvaluation
+    SessionEvaluationCompleted -> SessionEvaluationRatingAnswer [label="  *"]
+    SessionEvaluationCompleted -> SessionEvaluationEssayAnswer [label="  *"]
     SessionEvaluationRating -> SessionEvaluation
     SessionEvaluationRating -> RatingQuestion
     SessionEvaluationRatingAnswer -> SessionEvaluationRating

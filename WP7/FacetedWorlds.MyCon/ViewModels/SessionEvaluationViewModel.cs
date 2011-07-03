@@ -57,7 +57,7 @@ namespace FacetedWorlds.MyCon.ViewModels
             get
             {
                 bool unfinished = _sessionEvaluation.Survey.RatingQuestions
-                    .Any(ratingQuestion => _sessionEvaluation.Rating(ratingQuestion).Answer.Value == 0);
+                    .Any(ratingQuestion => _sessionEvaluation.Rating(ratingQuestion).Answer == 0);
                 return !unfinished;
             }
         }

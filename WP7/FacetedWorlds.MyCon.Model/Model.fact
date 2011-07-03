@@ -32,10 +32,10 @@ key:
 	string id;
 
 mutable:
-    string name;
-	Survey sessionSurvey;
-	Survey conferenceSurvey;
-	string mapUrl;
+    publish string name;
+	publish Survey sessionSurvey;
+	publish Survey conferenceSurvey;
+	publish string mapUrl;
 
 query:
 	Day* days {
@@ -53,6 +53,10 @@ query:
 	Speaker* speakers {
 		Speaker s : s.conference = this
 	}
+
+	ConferenceNotice* notifications {
+		ConferenceNotice n : n.conference = this
+	}
 }
 
 fact Attendee {
@@ -69,7 +73,7 @@ query:
 
 fact Day {
 key:
-	Conference conference;
+	publish Conference conference;
 	date conferenceDate;
 
 query:
@@ -122,7 +126,7 @@ query:
 
 fact Speaker {
 key:
-    Conference conference;
+    publish Conference conference;
     string name;
 
 mutable:
@@ -135,6 +139,13 @@ query:
 		SessionPlace sp : sp.session.speaker = this
 			where sp.isCurrent
 	}
+}
+
+fact ConferenceNotice {
+key:
+	publish Conference conference;
+	time timeSent;
+	string text;
 }
 
 fact Place {
@@ -151,7 +162,7 @@ key:
 fact Session {
 key:
     string id;
-    Conference conference;
+    publish Conference conference;
     Speaker speaker;
     Track? track;
 
@@ -165,6 +176,17 @@ query:
 		SessionPlace sp : sp.session = this
 			where sp.isCurrent
 	}
+
+	SessionNotice* notices {
+		SessionNotice n : n.session = this
+	}
+}
+
+fact SessionNotice {
+key:
+	publish Session session;
+	time timeSent;
+	string text;
 }
 
 fact SessionPlace {
@@ -223,6 +245,16 @@ key:
 	Survey survey;
 
 query:
+	SessionEvaluationRatingAnswer* ratingAnswers {
+		SessionEvaluationRatingAnswer a : a.rating.evaluation = this
+			where a.isCurrent
+	}
+
+	SessionEvaluationEssayAnswer* essayAnswers {
+		SessionEvaluationEssayAnswer a : a.essay.evaluation = this
+			where a.isCurrent
+	}
+
 	bool isCompleted {
 		exists SessionEvaluationCompleted c : c.sessionEvaluation = this
 	}
@@ -230,7 +262,10 @@ query:
 
 fact SessionEvaluationCompleted {
 key:
+	publish Conference confernce;
 	SessionEvaluation sessionEvaluation;
+	SessionEvaluationRatingAnswer* ratingAnswers;
+	SessionEvaluationEssayAnswer* essayAnswers;
 }
 
 fact SessionEvaluationRating {
@@ -238,8 +273,23 @@ key:
 	SessionEvaluation evaluation;
 	RatingQuestion question;
 
-mutable:
-	int answer;
+query:
+	SessionEvaluationRatingAnswer* currentAnswers {
+		SessionEvaluationRatingAnswer a : a.rating = this
+			where a.isCurrent
+	}
+}
+
+fact SessionEvaluationRatingAnswer {
+key:
+	SessionEvaluationRating rating;
+	int value;
+	SessionEvaluationRatingAnswer* prior;
+
+query:
+	bool isCurrent {
+		not exists SessionEvaluationRatingAnswer next : next.prior = this
+	}
 }
 
 fact SessionEvaluationEssay {
@@ -247,8 +297,23 @@ key:
 	SessionEvaluation evaluation;
 	EssayQuestion question;
 
-mutable:
-	string answer;
+query:
+	SessionEvaluationEssayAnswer* currentAnswers {
+		SessionEvaluationEssayAnswer a : a.essay = this
+			where a.isCurrent
+	}
+}
+
+fact SessionEvaluationEssayAnswer {
+key:
+	SessionEvaluationEssay essay;
+	string value;
+	SessionEvaluationEssayAnswer* prior;
+
+query:
+	bool isCurrent {
+		not exists SessionEvaluationEssayAnswer next : next.prior = this
+	}
 }
 
 fact DocumentSegment {

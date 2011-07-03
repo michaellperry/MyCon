@@ -67,6 +67,8 @@
     <Compile Include="SearchExtensions.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="SessionEvaluation.cs" />
+    <Compile Include="SessionEvaluationEssay.cs" />
+    <Compile Include="SessionEvaluationRating.cs" />
     <Compile Include="Slot.cs" />
   </ItemGroup>
   <ItemGroup>
