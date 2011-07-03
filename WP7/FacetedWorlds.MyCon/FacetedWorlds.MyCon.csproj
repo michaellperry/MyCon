@@ -57,9 +57,6 @@
     <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Interop" />
-    <Reference Include="MultiTouch.Behaviors.WP7">
-      <HintPath>..\..\ExternalLibs\MultiTouch.Behaviors.WP7.dll</HintPath>
-    </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
@@ -268,6 +265,10 @@
     <ProjectReference Include="..\FacetedWorlds.MyCon.Model\FacetedWorlds.MyCon.Model.csproj">
       <Project>{C2A15C3B-BA6E-4FE4-9E69-B3CDE6CD8B75}</Project>
       <Name>FacetedWorlds.MyCon.Model %28WP7\FacetedWorlds.MyCon.Model%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MultiTouch.Behaviors.WP7\MultiTouch.Behaviors.WP7.csproj">
+      <Project>{FADADBA6-1C7C-4790-B28A-742B003A5AC1}</Project>
+      <Name>MultiTouch.Behaviors.WP7</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
