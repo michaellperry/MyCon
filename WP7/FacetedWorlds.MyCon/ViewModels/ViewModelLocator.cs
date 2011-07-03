@@ -17,6 +17,7 @@ namespace FacetedWorlds.MyCon.ViewModels
         private readonly SettingsViewModel _settings;
         private readonly ImageCache _imageCache;
         private readonly SearchModel _searchModel;
+        private readonly Clock _clock;
 
         public ViewModelLocator()
         {
@@ -25,7 +26,9 @@ namespace FacetedWorlds.MyCon.ViewModels
                 _synchronizationService.Initialize();
             _imageCache = new ImageCache();
             _searchModel = new SearchModel();
-            _main = new MainViewModel(_synchronizationService.Identity, _synchronizationService, _imageCache, _searchModel);
+            _clock = new Clock();
+
+            _main = new MainViewModel(_synchronizationService.Identity, _synchronizationService, _imageCache, _searchModel, _clock);
             _settings = new SettingsViewModel(_synchronizationService.Identity);
             if (!DesignerProperties.IsInDesignTool)
                 CreateSampleData();
@@ -59,7 +62,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
             SessionPlace sessionPlace = session.CurrentSessionPlaces.Single();
             Slot slot = attendee.NewSlot(sessionPlace.Place.PlaceTime);
-            return ForView.Wrap(new SessionDetailsViewModel(slot, sessionPlace, _imageCache, _searchModel));
+            return ForView.Wrap(new SessionDetailsViewModel(slot, sessionPlace, _imageCache, _searchModel, _clock));
         }
 
         public object GetSlotViewModel(string startTime)

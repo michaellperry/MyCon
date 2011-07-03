@@ -11,13 +11,15 @@ namespace FacetedWorlds.MyCon.ViewModels
         private readonly SynchronizationService _synhronizationService;
         private readonly ImageCache _imageCache;
         private readonly SearchModel _searchModel;
+        private readonly Clock _clock;
 
-        public MainViewModel(Identity identity, SynchronizationService synhronizationService, ImageCache imageCache, SearchModel searchModel)
+        public MainViewModel(Identity identity, SynchronizationService synhronizationService, ImageCache imageCache, SearchModel searchModel, Clock clock)
         {
             _identity = identity;
             _synhronizationService = synhronizationService;
             _imageCache = imageCache;
             _searchModel = searchModel;
+            _clock = clock;
         }
 
         public bool Synchronizing
@@ -42,7 +44,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public MapViewModel Map
         {
-            get { return new MapViewModel(Attendee, _imageCache); }
+            get { return new MapViewModel(Attendee, _imageCache, _clock); }
         }
 
         private Attendee Attendee

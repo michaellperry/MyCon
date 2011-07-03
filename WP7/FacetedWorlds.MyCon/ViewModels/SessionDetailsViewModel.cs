@@ -12,13 +12,15 @@ namespace FacetedWorlds.MyCon.ViewModels
         private readonly SessionPlace _sessionPlace;
         private readonly ImageCache _imageCache;
         private readonly SearchModel _searchModel;
+        private readonly Clock _clock;
 
-        public SessionDetailsViewModel(Slot slot, SessionPlace sessionPlace, ImageCache imageCache, SearchModel searchModel)
+        public SessionDetailsViewModel(Slot slot, SessionPlace sessionPlace, ImageCache imageCache, SearchModel searchModel, Clock clock)
         {
             _slot = slot;
             _sessionPlace = sessionPlace;
             _imageCache = imageCache;
             _searchModel = searchModel;
+            _clock = clock;
         }
 
         public string Time
@@ -157,7 +159,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public bool CanEvaluate
         {
-            get { return !IsGeneralSession && SessionIsScheduled && !EvalIsCompleted; }
+            get { return !IsGeneralSession && SessionIsScheduled && SessionHasStarted && !EvalIsCompleted; }
         }
 
         public string SearchBySpeakerText
@@ -219,7 +221,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         private bool SessionHasStarted
         {
-            get { return _sessionPlace.Place.PlaceTime.Start.AddMinutes(30.0) < DateTime.Now; }
+            get { return _sessionPlace.Place.PlaceTime.Start.AddMinutes(30.0) < _clock.Time; }
         }
 
         private bool EvalIsCompleted
