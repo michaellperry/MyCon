@@ -6,15 +6,15 @@ namespace FacetedWorlds.MyCon.ViewModels
 {
     public class MainViewModel
     {
-        private readonly Identity _identity;
+        private readonly Attendee _attendee;
         private readonly SynchronizationService _synhronizationService;
         private readonly ImageCache _imageCache;
         private readonly SearchModel _searchModel;
         private readonly Clock _clock;
 
-        public MainViewModel(Identity identity, SynchronizationService synhronizationService, ImageCache imageCache, SearchModel searchModel, Clock clock)
+        public MainViewModel(Attendee attendee, SynchronizationService synhronizationService, ImageCache imageCache, SearchModel searchModel, Clock clock)
         {
-            _identity = identity;
+            _attendee = attendee;
             _synhronizationService = synhronizationService;
             _imageCache = imageCache;
             _searchModel = searchModel;
@@ -28,32 +28,27 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public ScheduleViewModel Schedule
         {
-            get { return new ScheduleViewModel(Attendee, _imageCache, _searchModel); }
+            get { return new ScheduleViewModel(_attendee, _imageCache, _searchModel); }
         }
 
         public TracksViewModel Tracks
         {
-            get { return new TracksViewModel(Attendee, _imageCache, _searchModel); }
+            get { return new TracksViewModel(_attendee, _imageCache, _searchModel); }
         }
 
         public SearchViewModel Search
         {
-            get { return new SearchViewModel(Attendee, _imageCache, _searchModel); }
+            get { return new SearchViewModel(_attendee, _imageCache, _searchModel); }
         }
 
         public MapViewModel Map
         {
-            get { return new MapViewModel(Attendee, _imageCache, _clock); }
+            get { return new MapViewModel(_attendee, _imageCache, _clock); }
         }
 
         public NoticesViewModel Notices
         {
-            get { return new NoticesViewModel(Attendee, _imageCache, _clock); }
-        }
-
-        private Attendee Attendee
-        {
-            get { return _identity.NewAttendee("Conference ID"); }
+            get { return new NoticesViewModel(_attendee, _imageCache, _clock); }
         }
     }
 }

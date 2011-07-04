@@ -1,19 +1,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FacetedWorlds.MyCon.Model;
 using Microsoft.Phone.Info;
 using Microsoft.Phone.Net.NetworkInformation;
 using UpdateControls.Correspondence;
 using UpdateControls.Correspondence.IsolatedStorage;
 using UpdateControls.Correspondence.POXClient;
-using FacetedWorlds.MyCon.Model;
 
 namespace FacetedWorlds.MyCon
 {
     public class SynchronizationService
     {
+        private const string ConferenceID = "Conference ID";
+
         private Community _community;
-        private Identity _identity;
+        private Attendee _attendee;
 
         public void Initialize()
         {
@@ -21,11 +23,14 @@ namespace FacetedWorlds.MyCon
             _community = new Community(IsolatedStorageStorageStrategy.Load())
                 .AddAsynchronousCommunicationStrategy(new POXAsynchronousCommunicationStrategy(configurationProvider))
                 .Register<CorrespondenceModel>()
-                .Subscribe(() => _identity)
+                .Subscribe(() => _attendee.Conference)
+                .Subscribe(() => _attendee.ScheduledSessions)
                 ;
 
-            _identity = _community.AddFact(new Identity(GetAnonymousUserId()));
-            configurationProvider.Identity = _identity;
+            Identity identity = _community.AddFact(new Identity(GetAnonymousUserId()));
+            Conference conference = _community.AddFact(new Conference(ConferenceID));
+            _attendee = _community.AddFact(new Attendee(identity, conference));
+            configurationProvider.Identity = identity;
 
             // Synchronize whenever the user has something to send.
             _community.FactAdded += delegate
@@ -49,9 +54,9 @@ namespace FacetedWorlds.MyCon
             get { return _community; }
         }
 
-        public Identity Identity
+        public Attendee Attendee
         {
-            get { return _identity; }
+            get { return _attendee; }
         }
 
         public void Synchronize()
