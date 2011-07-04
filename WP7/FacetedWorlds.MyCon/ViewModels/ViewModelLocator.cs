@@ -11,7 +11,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 {
     public class ViewModelLocator
     {
-        private const string ConferenceID = "Conference ID";
+        private const string ConferenceID = "20E5A19CD186483F89CC39C4D56FB4F1";
 
         private readonly SynchronizationService _synchronizationService;
 
