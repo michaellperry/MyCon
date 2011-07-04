@@ -12,7 +12,7 @@ namespace FacetedWorlds.MyCon
 {
     public class SynchronizationService
     {
-        private const string ConferenceID = "Conference ID";
+        private const string ConferenceID = "20E5A19CD186483F89CC39C4D56FB4F1";
 
         private NavigationModel _navigationModel;
         private Community _community;

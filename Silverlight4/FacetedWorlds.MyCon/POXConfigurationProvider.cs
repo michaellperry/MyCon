@@ -12,7 +12,7 @@ namespace FacetedWorlds.MyCon
             get
             {
                 string address = "https://api.facetedworlds.com/correspondence_server_web/pox";
-                string apiKey = "<<Your API key>>";
+                string apiKey = "A85666C6917C49528A5D608B82A0087E";
 				int timeoutSeconds = 30;
                 return new POXConfiguration(address, "FacetedWorlds.MyCon", apiKey, timeoutSeconds);
             }
