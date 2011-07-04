@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacetedWorlds.MyCon", "WP7\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiTouch.Behaviors.WP7", "WP7\MultiTouch.Behaviors.WP7\MultiTouch.Behaviors.WP7.csproj", "{FADADBA6-1C7C-4790-B28A-742B003A5AC1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacetedWorlds.MyCon", "Silverlight4\FacetedWorlds.MyCon\FacetedWorlds.MyCon.csproj", "{EFE864C3-6C11-4A06-9E9A-BD084AA82E96}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,12 +39,17 @@ Global
 		{FADADBA6-1C7C-4790-B28A-742B003A5AC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FADADBA6-1C7C-4790-B28A-742B003A5AC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FADADBA6-1C7C-4790-B28A-742B003A5AC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFE864C3-6C11-4A06-9E9A-BD084AA82E96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFE864C3-6C11-4A06-9E9A-BD084AA82E96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFE864C3-6C11-4A06-9E9A-BD084AA82E96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFE864C3-6C11-4A06-9E9A-BD084AA82E96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{835D447C-0578-49D3-8B9E-F4DA84CBED06} = {8DBA6D95-E81A-4D49-A3B7-DFB691415108}
+		{EFE864C3-6C11-4A06-9E9A-BD084AA82E96} = {8DBA6D95-E81A-4D49-A3B7-DFB691415108}
 		{C2A15C3B-BA6E-4FE4-9E69-B3CDE6CD8B75} = {31F5FDD7-C2CE-473F-9A4E-2209EE213A61}
 		{232FB19D-F176-4299-B196-B01F77B50D39} = {31F5FDD7-C2CE-473F-9A4E-2209EE213A61}
 		{FADADBA6-1C7C-4790-B28A-742B003A5AC1} = {31F5FDD7-C2CE-473F-9A4E-2209EE213A61}
