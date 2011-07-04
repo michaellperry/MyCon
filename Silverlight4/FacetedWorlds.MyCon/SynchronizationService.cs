@@ -78,6 +78,11 @@ namespace FacetedWorlds.MyCon
 
         private void InitializeData()
         {
+            string conferenceName = "Dallas TechFest 2011";
+
+            if (_conference.Name.Value != conferenceName)
+                _conference.Name = conferenceName;
+
             _conference.GetTime(new DateTime(2011, 8, 12, 9, 0, 0));
             _conference.GetTime(new DateTime(2011, 8, 12, 10, 30, 0));
             _conference.GetTime(new DateTime(2011, 8, 12, 12, 0, 0));
