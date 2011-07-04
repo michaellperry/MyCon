@@ -5,18 +5,32 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{835D447C-0578-49D3-8B9E-F4DA84CBED06}</ProjectGuid>
+    <ProjectGuid>{EFE864C3-6C11-4A06-9E9A-BD084AA82E96}</ProjectGuid>
     <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FacetedWorlds.MyCon.Model</RootNamespace>
-    <AssemblyName>FacetedWorlds.MyCon.Model</AssemblyName>
+    <RootNamespace>FacetedWorlds.MyCon</RootNamespace>
+    <AssemblyName>FacetedWorlds.MyCon</AssemblyName>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
-    <SilverlightApplication>false</SilverlightApplication>
+    <SilverlightApplication>true</SilverlightApplication>
+    <SupportedCultures>
+    </SupportedCultures>
+    <XapOutputs>true</XapOutputs>
+    <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
+    <XapFilename>FacetedWorlds.MyCon.xap</XapFilename>
+    <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
+    <SilverlightAppEntry>FacetedWorlds.MyCon.App</SilverlightAppEntry>
+    <TestPageFileName>FacetedWorlds.MyConTestPage.html</TestPageFileName>
+    <CreateTestPage>true</CreateTestPage>
     <ValidateXaml>true</ValidateXaml>
+    <EnableOutOfBrowser>false</EnableOutOfBrowser>
+    <OutOfBrowserSettingsFile>Properties\OutOfBrowserSettings.xml</OutOfBrowserSettingsFile>
+    <UsePlatformExtensions>false</UsePlatformExtensions>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <LinkedServerProject>
+    </LinkedServerProject>
   </PropertyGroup>
   <!-- This property group is only here to support building this project using the 
        MSBuild 3.5 toolset. In order to work correctly with this older toolset, it needs 
@@ -50,67 +64,63 @@
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml" />
     <Reference Include="System.Net" />
+    <Reference Include="System.Xml" />
     <Reference Include="System.Windows.Browser" />
-    <Reference Include="UpdateControls, Version=2.1.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="UpdateControls">
       <HintPath>..\..\packages\UpdateControls.2.1.3.0\lib\sl4\UpdateControls.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.Correspondence">
       <HintPath>..\..\packages\Correspondence.1.1.2.0\lib\SL4\UpdateControls.Correspondence.dll</HintPath>
     </Reference>
+    <Reference Include="UpdateControls.Correspondence.Data">
+      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.1.2.0\lib\SL4\UpdateControls.Correspondence.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="UpdateControls.Correspondence.IsolatedStorage">
+      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.1.2.0\lib\SL4\UpdateControls.Correspondence.IsolatedStorage.dll</HintPath>
+    </Reference>
+    <Reference Include="UpdateControls.Correspondence.POXClient">
+      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.1.2.0\lib\SL4\UpdateControls.Correspondence.POXClient.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Attendee.cs">
-      <Link>Attendee.cs</Link>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Conference.cs">
-      <Link>Conference.cs</Link>
+    <Compile Include="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Identity.cs">
-      <Link>Identity.cs</Link>
-    </Compile>
-    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Model.generated.cs">
-      <Link>Model.generated.cs</Link>
-    </Compile>
-    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Schedule.cs">
-      <Link>Schedule.cs</Link>
-    </Compile>
-    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\SearchExtensions.cs">
-      <Link>SearchExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Session.cs">
-      <Link>Session.cs</Link>
-    </Compile>
-    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\SessionEvaluation.cs">
-      <Link>SessionEvaluation.cs</Link>
-    </Compile>
-    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\SessionEvaluationEssay.cs">
-      <Link>SessionEvaluationEssay.cs</Link>
-    </Compile>
-    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\SessionEvaluationRating.cs">
-      <Link>SessionEvaluationRating.cs</Link>
-    </Compile>
-    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Slot.cs">
-      <Link>Slot.cs</Link>
-    </Compile>
+    <Compile Include="Models\NavigationModel.cs" />
+    <Compile Include="POXConfigurationProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SynchronizationService.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelLocator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </ApplicationDefinition>
+    <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Properties\AppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Content Include="Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FacetedWorlds.MyCon.Model\FacetedWorlds.MyCon.Model.csproj">
+      <Project>{835D447C-0578-49D3-8B9E-F4DA84CBED06}</Project>
+      <Name>FacetedWorlds.MyCon.Model %28Silverlight4\FacetedWorlds.MyCon.Model%29</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
-  <ProjectExtensions>
-    <VisualStudio>
-      <FlavorProperties GUID="{A1591282-1198-4647-A2B1-27E5FF5F6F3B}">
-        <SilverlightProjectProperties />
-      </FlavorProperties>
-    </VisualStudio>
-  </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -118,4 +128,11 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{A1591282-1198-4647-A2B1-27E5FF5F6F3B}">
+        <SilverlightProjectProperties />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>
