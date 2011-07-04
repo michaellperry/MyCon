@@ -6,6 +6,12 @@ namespace FacetedWorlds.MyCon.Model
 {
     public partial class Conference
     {
+        public Time GetTime(DateTime startTime)
+        {
+            Day day = Community.AddFact(new Day(this, startTime.Date));
+            return Community.AddFact(new Time(day, startTime));
+        }
+
         public void NewSessionPlace(string sessionId, string sessionName, string description, string speakerName, string contact, string bio, string imageUrl, string trackName, DateTime startTime, string roomNumber)
         {
             Speaker speaker = Community.AddFact(new Speaker(this, speakerName));
@@ -23,8 +29,7 @@ namespace FacetedWorlds.MyCon.Model
             var descriptionSegments = DocumentSegments(description);
             if (!SegmentsEqual(session.Description.Value, descriptionSegments))
                 session.Description = descriptionSegments;
-            Day day = Community.AddFact(new Day(this, startTime.Date));
-            Time time = Community.AddFact(new Time(day, startTime));
+            Time time = GetTime(startTime);
             Room room = Community.AddFact(new Room(this, roomNumber));
             Place place = Community.AddFact(new Place(time, room));
             Community.AddFact(new SessionPlace(session, place, new List<SessionPlace>()));
