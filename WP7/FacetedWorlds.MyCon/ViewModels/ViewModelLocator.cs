@@ -11,8 +11,6 @@ namespace FacetedWorlds.MyCon.ViewModels
 {
     public class ViewModelLocator
     {
-        private const string ConferenceID = "20E5A19CD186483F89CC39C4D56FB4F1";
-
         private readonly SynchronizationService _synchronizationService;
 
         private readonly MainViewModel _main;
@@ -30,8 +28,8 @@ namespace FacetedWorlds.MyCon.ViewModels
             _searchModel = new SearchModel();
             _clock = new Clock();
 
-            _main = new MainViewModel(_synchronizationService.Identity, _synchronizationService, _imageCache, _searchModel, _clock);
-            _settings = new SettingsViewModel(_synchronizationService.Identity);
+            _main = new MainViewModel(_synchronizationService.Attendee, _synchronizationService, _imageCache, _searchModel, _clock);
+            _settings = new SettingsViewModel(_synchronizationService.Attendee.Identity);
         }
 
         public SearchModel SearchModel
@@ -51,12 +49,10 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public object GetSessionDetailsViewModel(string sessionId)
         {
-            Conference conference = _synchronizationService.Community.AddFact(new Conference(ConferenceID));
-            Session session = conference.Sessions.FirstOrDefault(s => s.Id == sessionId);
+            Attendee attendee = _synchronizationService.Attendee;
+            Session session = attendee.Conference.Sessions.FirstOrDefault(s => s.Id == sessionId);
             if (session == null)
                 return null;
-
-            Attendee attendee = _synchronizationService.Community.AddFact(new Attendee(_synchronizationService.Identity, conference));
             if (session.CurrentSessionPlaces.Count() != 1)
                 return null;
 
@@ -67,13 +63,12 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public object GetSlotViewModel(string startTime)
         {
-            Conference conference = _synchronizationService.Community.AddFact(new Conference(ConferenceID));
-            Attendee attendee = _synchronizationService.Community.AddFact(new Attendee(_synchronizationService.Identity, conference));
+            Attendee attendee = _synchronizationService.Attendee;
             DateTime start;
             if (!DateTime.TryParse(startTime, out start))
                 return null;
 
-            Day day = conference.Days.FirstOrDefault(d => d.ConferenceDate == start.Date);
+            Day day = attendee.Conference.Days.FirstOrDefault(d => d.ConferenceDate == start.Date);
             if (day == null)
                 return null;
 
@@ -87,9 +82,8 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public object GetSpeakerViewModel(string speakerId)
         {
-            Conference conference = _synchronizationService.Community.AddFact(new Conference(ConferenceID));
-            Attendee attendee = _synchronizationService.Community.AddFact(new Attendee(_synchronizationService.Identity, conference));
-            Speaker speaker = conference.Speakers.FirstOrDefault(s => s.Name == speakerId);
+            Attendee attendee = _synchronizationService.Attendee;
+            Speaker speaker = attendee.Conference.Speakers.FirstOrDefault(s => s.Name == speakerId);
             if (speaker == null)
                 return null;
 
@@ -98,13 +92,12 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public object GetSessionEvaluationViewModel(string sessionId)
         {
-            Conference conference = _synchronizationService.Community.AddFact(new Conference(ConferenceID));
-            List<Session> sessions = conference.Sessions.Where(s => s.Id == sessionId).ToList();
+            Attendee attendee = _synchronizationService.Attendee;
+            List<Session> sessions = attendee.Conference.Sessions.Where(s => s.Id == sessionId).ToList();
             if (sessions.Count != 1)
                 return null;
 
             Session session = sessions[0];
-            Attendee attendee = _synchronizationService.Community.AddFact(new Attendee(_synchronizationService.Identity, conference));
             if (session.CurrentSessionPlaces.Count() != 1)
                 return null;
 

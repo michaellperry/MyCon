@@ -1128,6 +1128,13 @@ namespace FacetedWorlds.MyCon.Model
             .JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.QueryIsCurrent)
             )
             ;
+        public static Query QueryScheduledSessions = new Query()
+            .JoinSuccessors(Slot.RoleAttendee)
+            .JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.QueryIsCurrent)
+            )
+            .JoinPredecessors(Schedule.RoleSessionPlace)
+            .JoinPredecessors(SessionPlace.RoleSession)
+            ;
 
         // Predicates
 
@@ -1139,6 +1146,7 @@ namespace FacetedWorlds.MyCon.Model
 
         // Results
         private Result<Schedule> _currentSchedules;
+        private Result<Session> _scheduledSessions;
 
         // Business constructor
         public Attendee(
@@ -1163,6 +1171,7 @@ namespace FacetedWorlds.MyCon.Model
         private void InitializeResults()
         {
             _currentSchedules = new Result<Schedule>(this, QueryCurrentSchedules);
+            _scheduledSessions = new Result<Session>(this, QueryScheduledSessions);
         }
 
         // Predecessor access
@@ -1181,6 +1190,10 @@ namespace FacetedWorlds.MyCon.Model
         public IEnumerable<Schedule> CurrentSchedules
         {
             get { return _currentSchedules; }
+        }
+        public IEnumerable<Session> ScheduledSessions
+        {
+            get { return _scheduledSessions; }
         }
 
         // Mutable property access
@@ -4829,6 +4842,9 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				Attendee._correspondenceFactType,
 				Attendee.QueryCurrentSchedules.QueryDefinition);
+			community.AddQuery(
+				Attendee._correspondenceFactType,
+				Attendee.QueryScheduledSessions.QueryDefinition);
 			community.AddType(
 				Day._correspondenceFactType,
 				new Day.CorrespondenceFactFactory(fieldSerializerByType),
