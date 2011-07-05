@@ -40,14 +40,17 @@ mutable:
 query:
 	Day* days {
 		Day d : d.conference = this
+			where d.hasTimes
 	}
 
 	Track* tracks {
 		Track t : t.conference = this
+			where t.hasSessions
 	}
 
 	Session* sessions {
 		Session s : s.conference = this
+			where not s.isDeleted
 	}
 
 	Speaker* speakers {
@@ -86,6 +89,11 @@ query:
 	Time* times {
 		Time t : t.day = this
 	}
+
+	bool hasTimes {
+		exists Time t : t.day = this
+			where not t.isDeleted
+	}
 }
 
 fact Time {
@@ -97,7 +105,29 @@ query:
 	SessionPlace* availableSessions {
 		SessionPlace sp : sp.place.placeTime = this
 			where sp.isCurrent
+			and not sp.isDeleted
 	}
+
+	bool isDeleted {
+		exists TimeDelete d : d.deleted = this
+			where not d.isUndeleted
+	}
+}
+
+fact TimeDelete {
+key:
+	unique;
+	Time deleted;
+
+query:
+	bool isUndeleted {
+		exists TimeUndelete u : u.undeleted = this
+	}
+}
+
+fact TimeUndelete {
+key:
+	TimeDelete undeleted;
 }
 
 fact Slot {
@@ -125,8 +155,15 @@ key:
 
 query:
 	SessionPlace* currentSessionPlaces {
-		SessionPlace sp : sp.session.track = this
+		Session s : s.track = this
+			where not s.isDeleted
+		SessionPlace sp : sp.session = s
 			where sp.isCurrent
+	}
+
+	bool hasSessions {
+		exists Session s : s.track = this
+			where not s.isDeleted
 	}
 }
 
@@ -142,7 +179,9 @@ mutable:
 
 query:
 	SessionPlace* availableSessions {
-		SessionPlace sp : sp.session.speaker = this
+		Session s : s.speaker = this
+			where not s.isDeleted
+		SessionPlace sp : sp.session = s
 			where sp.isCurrent
 	}
 }
@@ -186,6 +225,27 @@ query:
 	SessionNotice* notices {
 		SessionNotice n : n.session = this
 	}
+
+	bool isDeleted {
+		exists SessionDelete d : d.deleted = this
+			where not d.isUndeleted
+	}
+}
+
+fact SessionDelete {
+key:
+	unique;
+	Session deleted;
+
+query:
+	bool isUndeleted {
+		exists SessionUndelete u : u.undeleted = this
+	}
+}
+
+fact SessionUndelete {
+key:
+	SessionDelete undeleted;
 }
 
 fact SessionNotice {
@@ -204,6 +264,11 @@ key:
 query:
 	bool isCurrent {
 		not exists SessionPlace next : next.prior = this
+	}
+
+	bool isDeleted {
+		exists SessionDelete d : d.deleted = this.session
+			where not d.isUndeleted
 	}
 }
 
