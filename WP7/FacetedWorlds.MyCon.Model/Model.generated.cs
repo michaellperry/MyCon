@@ -27,6 +27,8 @@ digraph "FacetedWorlds.MyCon.Model"
     Attendee -> Conference
     Day -> Conference [color="red"]
     Time -> Day
+    TimeDelete -> Time
+    TimeUndelete -> TimeDelete
     Slot -> Attendee
     Slot -> Time
     Room -> Conference
@@ -53,6 +55,8 @@ digraph "FacetedWorlds.MyCon.Model"
     SessionLevel -> Session
     SessionLevel -> SessionLevel [label="  *"]
     SessionLevel -> Level
+    SessionDelete -> Session
+    SessionUndelete -> SessionDelete
     SessionNotice -> Session [color="red"]
     SessionPlace -> Session
     SessionPlace -> Place
@@ -448,13 +452,16 @@ namespace FacetedWorlds.MyCon.Model
             )
             ;
         public static Query QueryDays = new Query()
-            .JoinSuccessors(Day.RoleConference)
+            .JoinSuccessors(Day.RoleConference, Condition.WhereIsNotEmpty(Day.QueryHasTimes)
+            )
             ;
         public static Query QueryTracks = new Query()
-            .JoinSuccessors(Track.RoleConference)
+            .JoinSuccessors(Track.RoleConference, Condition.WhereIsNotEmpty(Track.QueryHasSessions)
+            )
             ;
         public static Query QuerySessions = new Query()
-            .JoinSuccessors(Session.RoleConference)
+            .JoinSuccessors(Session.RoleConference, Condition.WhereIsEmpty(Session.QueryIsDeleted)
+            )
             ;
         public static Query QuerySpeakers = new Query()
             .JoinSuccessors(Speaker.RoleConference)
@@ -1255,8 +1262,13 @@ namespace FacetedWorlds.MyCon.Model
         public static Query QueryTimes = new Query()
             .JoinSuccessors(Time.RoleDay)
             ;
+        public static Query QueryHasTimes = new Query()
+            .JoinSuccessors(Time.RoleDay, Condition.WhereIsEmpty(Time.QueryIsDeleted)
+            )
+            ;
 
         // Predicates
+        public static Condition HasTimes = Condition.WhereIsNotEmpty(QueryHasTimes);
 
         // Predecessors
         private PredecessorObj<Conference> _conference;
@@ -1368,10 +1380,16 @@ namespace FacetedWorlds.MyCon.Model
         public static Query QueryAvailableSessions = new Query()
             .JoinSuccessors(Place.RolePlaceTime)
             .JoinSuccessors(SessionPlace.RolePlace, Condition.WhereIsEmpty(SessionPlace.QueryIsCurrent)
+                .And().IsEmpty(SessionPlace.QueryIsDeleted)
+            )
+            ;
+        public static Query QueryIsDeleted = new Query()
+            .JoinSuccessors(TimeDelete.RoleDeleted, Condition.WhereIsEmpty(TimeDelete.QueryIsUndeleted)
             )
             ;
 
         // Predicates
+        public static Condition IsDeleted = Condition.WhereIsNotEmpty(QueryIsDeleted);
 
         // Predecessors
         private PredecessorObj<Day> _day;
@@ -1423,6 +1441,208 @@ namespace FacetedWorlds.MyCon.Model
         {
             get { return _availableSessions; }
         }
+
+        // Mutable property access
+
+    }
+    
+    public partial class TimeDelete : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				TimeDelete newFact = new TimeDelete(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+						newFact._unique = (Guid)_fieldSerializerByType[typeof(Guid)].ReadData(output);
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				TimeDelete fact = (TimeDelete)obj;
+				_fieldSerializerByType[typeof(Guid)].WriteData(output, fact._unique);
+			}
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.TimeDelete", 1);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Roles
+        public static Role RoleDeleted = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"deleted",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Time", 1),
+			false));
+
+        // Queries
+        public static Query QueryIsUndeleted = new Query()
+            .JoinSuccessors(TimeUndelete.RoleUndeleted)
+            ;
+
+        // Predicates
+        public static Condition IsUndeleted = Condition.WhereIsNotEmpty(QueryIsUndeleted);
+
+        // Predecessors
+        private PredecessorObj<Time> _deleted;
+
+        // Unique
+        private Guid _unique;
+
+        // Fields
+
+        // Results
+
+        // Business constructor
+        public TimeDelete(
+            Time deleted
+            )
+        {
+            _unique = Guid.NewGuid();
+            InitializeResults();
+            _deleted = new PredecessorObj<Time>(this, RoleDeleted, deleted);
+        }
+
+        // Hydration constructor
+        private TimeDelete(FactMemento memento)
+        {
+            InitializeResults();
+            _deleted = new PredecessorObj<Time>(this, RoleDeleted, memento);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+        public Time Deleted
+        {
+            get { return _deleted.Fact; }
+        }
+
+        // Field access
+		public Guid Unique { get { return _unique; } }
+
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
+    public partial class TimeUndelete : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				TimeUndelete newFact = new TimeUndelete(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				TimeUndelete fact = (TimeUndelete)obj;
+			}
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.TimeUndelete", 1);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Roles
+        public static Role RoleUndeleted = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"undeleted",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.TimeDelete", 1),
+			false));
+
+        // Queries
+
+        // Predicates
+
+        // Predecessors
+        private PredecessorObj<TimeDelete> _undeleted;
+
+        // Fields
+
+        // Results
+
+        // Business constructor
+        public TimeUndelete(
+            TimeDelete undeleted
+            )
+        {
+            InitializeResults();
+            _undeleted = new PredecessorObj<TimeDelete>(this, RoleUndeleted, undeleted);
+        }
+
+        // Hydration constructor
+        private TimeUndelete(FactMemento memento)
+        {
+            InitializeResults();
+            _undeleted = new PredecessorObj<TimeDelete>(this, RoleUndeleted, memento);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+        public TimeDelete Undeleted
+        {
+            get { return _undeleted.Fact; }
+        }
+
+        // Field access
+
+        // Query result access
 
         // Mutable property access
 
@@ -1703,12 +1923,18 @@ namespace FacetedWorlds.MyCon.Model
 
         // Queries
         public static Query QueryCurrentSessionPlaces = new Query()
-            .JoinSuccessors(Session.RoleTrack)
+            .JoinSuccessors(Session.RoleTrack, Condition.WhereIsEmpty(Session.QueryIsDeleted)
+            )
             .JoinSuccessors(SessionPlace.RoleSession, Condition.WhereIsEmpty(SessionPlace.QueryIsCurrent)
+            )
+            ;
+        public static Query QueryHasSessions = new Query()
+            .JoinSuccessors(Session.RoleTrack, Condition.WhereIsEmpty(Session.QueryIsDeleted)
             )
             ;
 
         // Predicates
+        public static Condition HasSessions = Condition.WhereIsNotEmpty(QueryHasSessions);
 
         // Predecessors
         private PredecessorObj<Conference> _conference;
@@ -1830,7 +2056,8 @@ namespace FacetedWorlds.MyCon.Model
             )
             ;
         public static Query QueryAvailableSessions = new Query()
-            .JoinSuccessors(Session.RoleSpeaker)
+            .JoinSuccessors(Session.RoleSpeaker, Condition.WhereIsEmpty(Session.QueryIsDeleted)
+            )
             .JoinSuccessors(SessionPlace.RoleSession, Condition.WhereIsEmpty(SessionPlace.QueryIsCurrent)
             )
             ;
@@ -2682,8 +2909,13 @@ namespace FacetedWorlds.MyCon.Model
         public static Query QueryNotices = new Query()
             .JoinSuccessors(SessionNotice.RoleSession)
             ;
+        public static Query QueryIsDeleted = new Query()
+            .JoinSuccessors(SessionDelete.RoleDeleted, Condition.WhereIsEmpty(SessionDelete.QueryIsUndeleted)
+            )
+            ;
 
         // Predicates
+        public static Condition IsDeleted = Condition.WhereIsNotEmpty(QueryIsDeleted);
 
         // Predecessors
         private PredecessorObj<Conference> _conference;
@@ -3163,6 +3395,208 @@ namespace FacetedWorlds.MyCon.Model
 
     }
     
+    public partial class SessionDelete : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				SessionDelete newFact = new SessionDelete(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+						newFact._unique = (Guid)_fieldSerializerByType[typeof(Guid)].ReadData(output);
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				SessionDelete fact = (SessionDelete)obj;
+				_fieldSerializerByType[typeof(Guid)].WriteData(output, fact._unique);
+			}
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.SessionDelete", 1);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Roles
+        public static Role RoleDeleted = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"deleted",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
+			false));
+
+        // Queries
+        public static Query QueryIsUndeleted = new Query()
+            .JoinSuccessors(SessionUndelete.RoleUndeleted)
+            ;
+
+        // Predicates
+        public static Condition IsUndeleted = Condition.WhereIsNotEmpty(QueryIsUndeleted);
+
+        // Predecessors
+        private PredecessorObj<Session> _deleted;
+
+        // Unique
+        private Guid _unique;
+
+        // Fields
+
+        // Results
+
+        // Business constructor
+        public SessionDelete(
+            Session deleted
+            )
+        {
+            _unique = Guid.NewGuid();
+            InitializeResults();
+            _deleted = new PredecessorObj<Session>(this, RoleDeleted, deleted);
+        }
+
+        // Hydration constructor
+        private SessionDelete(FactMemento memento)
+        {
+            InitializeResults();
+            _deleted = new PredecessorObj<Session>(this, RoleDeleted, memento);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+        public Session Deleted
+        {
+            get { return _deleted.Fact; }
+        }
+
+        // Field access
+		public Guid Unique { get { return _unique; } }
+
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
+    public partial class SessionUndelete : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				SessionUndelete newFact = new SessionUndelete(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				SessionUndelete fact = (SessionUndelete)obj;
+			}
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.SessionUndelete", 1);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Roles
+        public static Role RoleUndeleted = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"undeleted",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionDelete", 1),
+			false));
+
+        // Queries
+
+        // Predicates
+
+        // Predecessors
+        private PredecessorObj<SessionDelete> _undeleted;
+
+        // Fields
+
+        // Results
+
+        // Business constructor
+        public SessionUndelete(
+            SessionDelete undeleted
+            )
+        {
+            InitializeResults();
+            _undeleted = new PredecessorObj<SessionDelete>(this, RoleUndeleted, undeleted);
+        }
+
+        // Hydration constructor
+        private SessionUndelete(FactMemento memento)
+        {
+            InitializeResults();
+            _undeleted = new PredecessorObj<SessionDelete>(this, RoleUndeleted, memento);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+        public SessionDelete Undeleted
+        {
+            get { return _undeleted.Fact; }
+        }
+
+        // Field access
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
     public partial class SessionNotice : CorrespondenceFact
     {
 		// Factory
@@ -3339,9 +3773,15 @@ namespace FacetedWorlds.MyCon.Model
         public static Query QueryIsCurrent = new Query()
             .JoinSuccessors(SessionPlace.RolePrior)
             ;
+        public static Query QueryIsDeleted = new Query()
+            .JoinPredecessors(SessionPlace.RoleSession)
+            .JoinSuccessors(SessionDelete.RoleDeleted, Condition.WhereIsEmpty(SessionDelete.QueryIsUndeleted)
+            )
+            ;
 
         // Predicates
         public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
+        public static Condition IsDeleted = Condition.WhereIsNotEmpty(QueryIsDeleted);
 
         // Predecessors
         private PredecessorObj<Session> _session;
@@ -4852,6 +5292,9 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				Day._correspondenceFactType,
 				Day.QueryTimes.QueryDefinition);
+			community.AddQuery(
+				Day._correspondenceFactType,
+				Day.QueryHasTimes.QueryDefinition);
 			community.AddType(
 				Time._correspondenceFactType,
 				new Time.CorrespondenceFactFactory(fieldSerializerByType),
@@ -4859,6 +5302,20 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				Time._correspondenceFactType,
 				Time.QueryAvailableSessions.QueryDefinition);
+			community.AddQuery(
+				Time._correspondenceFactType,
+				Time.QueryIsDeleted.QueryDefinition);
+			community.AddType(
+				TimeDelete._correspondenceFactType,
+				new TimeDelete.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { TimeDelete._correspondenceFactType }));
+			community.AddQuery(
+				TimeDelete._correspondenceFactType,
+				TimeDelete.QueryIsUndeleted.QueryDefinition);
+			community.AddType(
+				TimeUndelete._correspondenceFactType,
+				new TimeUndelete.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { TimeUndelete._correspondenceFactType }));
 			community.AddType(
 				Slot._correspondenceFactType,
 				new Slot.CorrespondenceFactFactory(fieldSerializerByType),
@@ -4877,6 +5334,9 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				Track._correspondenceFactType,
 				Track.QueryCurrentSessionPlaces.QueryDefinition);
+			community.AddQuery(
+				Track._correspondenceFactType,
+				Track.QueryHasSessions.QueryDefinition);
 			community.AddType(
 				Speaker._correspondenceFactType,
 				new Speaker.CorrespondenceFactFactory(fieldSerializerByType),
@@ -4945,6 +5405,9 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				Session._correspondenceFactType,
 				Session.QueryNotices.QueryDefinition);
+			community.AddQuery(
+				Session._correspondenceFactType,
+				Session.QueryIsDeleted.QueryDefinition);
 			community.AddType(
 				SessionName._correspondenceFactType,
 				new SessionName.CorrespondenceFactFactory(fieldSerializerByType),
@@ -4967,6 +5430,17 @@ namespace FacetedWorlds.MyCon.Model
 				SessionLevel._correspondenceFactType,
 				SessionLevel.QueryIsCurrent.QueryDefinition);
 			community.AddType(
+				SessionDelete._correspondenceFactType,
+				new SessionDelete.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { SessionDelete._correspondenceFactType }));
+			community.AddQuery(
+				SessionDelete._correspondenceFactType,
+				SessionDelete.QueryIsUndeleted.QueryDefinition);
+			community.AddType(
+				SessionUndelete._correspondenceFactType,
+				new SessionUndelete.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { SessionUndelete._correspondenceFactType }));
+			community.AddType(
 				SessionNotice._correspondenceFactType,
 				new SessionNotice.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { SessionNotice._correspondenceFactType }));
@@ -4977,6 +5451,9 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				SessionPlace._correspondenceFactType,
 				SessionPlace.QueryIsCurrent.QueryDefinition);
+			community.AddQuery(
+				SessionPlace._correspondenceFactType,
+				SessionPlace.QueryIsDeleted.QueryDefinition);
 			community.AddType(
 				Schedule._correspondenceFactType,
 				new Schedule.CorrespondenceFactFactory(fieldSerializerByType),
