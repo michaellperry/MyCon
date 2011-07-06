@@ -12,7 +12,7 @@ namespace FacetedWorlds.MyCon.Model
             return Community.AddFact(new Time(day, startTime));
         }
 
-        public void NewSessionPlace(string sessionId, string sessionName, string description, string speakerName, string contact, string bio, string imageUrl, string trackName, DateTime startTime, string roomNumber)
+        public Speaker NewSpeaker(string speakerName, string contact, string bio, string imageUrl)
         {
             Speaker speaker = Community.AddFact(new Speaker(this, speakerName));
             if (speaker.ImageUrl.Value != imageUrl)
@@ -20,8 +20,14 @@ namespace FacetedWorlds.MyCon.Model
             List<DocumentSegment> bioSegments = DocumentSegments(bio);
             if (!SegmentsEqual(speaker.Bio.Value, bioSegments))
                 speaker.Bio = bioSegments;
-            if (speaker.Contact != contact)
+            if (speaker.Contact != contact && !String.IsNullOrEmpty(contact))
                 speaker.Contact = contact;
+            return speaker;
+        }
+
+        public void NewSessionPlace(string sessionId, string sessionName, string description, string speakerName, string contact, string bio, string imageUrl, string trackName, DateTime startTime, string roomNumber)
+        {
+            Speaker speaker = NewSpeaker(speakerName, contact, bio, imageUrl);
             Track track = trackName == null ? null : Community.AddFact(new Track(this, trackName));
             Session session = Community.AddFact(new Session(this, speaker, track, sessionId));
             if (session.Name.Value != sessionName)
