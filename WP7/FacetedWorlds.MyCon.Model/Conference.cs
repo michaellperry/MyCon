@@ -12,9 +12,14 @@ namespace FacetedWorlds.MyCon.Model
             return Community.AddFact(new Time(day, startTime));
         }
 
+        public Speaker GetSpeaker(string speakerName)
+        {
+            return Community.AddFact(new Speaker(this, speakerName));
+        }
+
         public Speaker NewSpeaker(string speakerName, string contact, string bio, string imageUrl)
         {
-            Speaker speaker = Community.AddFact(new Speaker(this, speakerName));
+            Speaker speaker = GetSpeaker(speakerName);
             if (speaker.ImageUrl.Value != imageUrl)
                 speaker.ImageUrl = imageUrl;
             List<DocumentSegment> bioSegments = DocumentSegments(bio);
@@ -25,9 +30,8 @@ namespace FacetedWorlds.MyCon.Model
             return speaker;
         }
 
-        public void NewSessionPlace(string sessionId, string sessionName, string description, string speakerName, string contact, string bio, string imageUrl, string trackName, DateTime startTime, string roomNumber)
+        public Session NewSession(string sessionId, string sessionName, string trackName, Speaker speaker, string level, string description)
         {
-            Speaker speaker = NewSpeaker(speakerName, contact, bio, imageUrl);
             Track track = trackName == null ? null : Community.AddFact(new Track(this, trackName));
             Session session = Community.AddFact(new Session(this, speaker, track, sessionId));
             if (session.Name.Value != sessionName)
@@ -35,6 +39,19 @@ namespace FacetedWorlds.MyCon.Model
             var descriptionSegments = DocumentSegments(description);
             if (!SegmentsEqual(session.Description.Value, descriptionSegments))
                 session.Description = descriptionSegments;
+            if (!String.IsNullOrEmpty(level))
+            {
+                Level l = Community.AddFact(new Level(level));
+                if (session.Level.Value != l)
+                    session.Level = l;
+            }
+            return session;
+        }
+
+        public void NewSessionPlace(string sessionId, string sessionName, string description, string speakerName, string contact, string bio, string imageUrl, string trackName, DateTime startTime, string roomNumber)
+        {
+            Speaker speaker = NewSpeaker(speakerName, contact, bio, imageUrl);
+            Session session = NewSession(sessionId, sessionName, trackName, speaker, null, description);
             Time time = GetTime(startTime);
             Room room = Community.AddFact(new Room(this, roomNumber));
             Place place = Community.AddFact(new Place(time, room));
