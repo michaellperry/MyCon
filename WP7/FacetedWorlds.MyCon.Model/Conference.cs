@@ -35,6 +35,17 @@ namespace FacetedWorlds.MyCon.Model
             Community.AddFact(new SessionPlace(session, place, new List<SessionPlace>()));
         }
 
+        public void NewGeneralSessionPlace(string sessionId, string sessionName, Time time, string roomNumber)
+        {
+            Speaker speaker = Community.AddFact(new Speaker(this, string.Empty));
+            Session session = Community.AddFact(new Session(this, speaker, null, sessionId));
+            if (session.Name.Value != sessionName)
+                session.Name = sessionName;
+            Room room = Community.AddFact(new Room(this, roomNumber));
+            Place place = Community.AddFact(new Place(time, room));
+            Community.AddFact(new SessionPlace(session, place, new List<SessionPlace>()));
+        }
+
         public List<DocumentSegment> DocumentSegments(string text)
         {
             List<DocumentSegment> segments = new List<DocumentSegment>();
