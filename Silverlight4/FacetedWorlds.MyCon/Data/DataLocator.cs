@@ -13,6 +13,7 @@ using System.Reflection;
 using System.Xml.Linq;
 using FacetedWorlds.MyCon.Model;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace FacetedWorlds.MyCon.Data
 {
@@ -31,6 +32,7 @@ namespace FacetedWorlds.MyCon.Data
             {
                 LoadSpeakers(conference);
                 LoadSessions(conference);
+                AssignSessionPlaces(conference);
             }
             catch (Exception ex)
             {
@@ -112,6 +114,26 @@ namespace FacetedWorlds.MyCon.Data
                     return false;
                 return attribute.Value == value;
             };
+        }
+
+        private static void AssignSessionPlaces(Conference conference)
+        {
+            Time[] times = conference.Days.SelectMany(day => day.Times).ToArray();
+            Session[] sessions = conference.Sessions.ToArray();
+
+            int room = 0;
+            int sessionIndex = 0;
+            while (sessionIndex < sessions.Length)
+            {
+                for (int timeIndex = 0; timeIndex < times.Length && sessionIndex < sessions.Length; ++timeIndex, ++sessionIndex)
+                {
+                    Time time = times[timeIndex];
+                    Session session = sessions[sessionIndex];
+
+                    session.SetSessionPlace(time, (room + 101).ToString());
+                }
+                room++;
+            }
         }
     }
 }
