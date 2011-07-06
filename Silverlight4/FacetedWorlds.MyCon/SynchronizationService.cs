@@ -7,6 +7,11 @@ using UpdateControls.Correspondence.IsolatedStorage;
 using UpdateControls.Correspondence.POXClient;
 using FacetedWorlds.MyCon.Models;
 using FacetedWorlds.MyCon.Model;
+using System.Reflection;
+using System.IO;
+using System.Xml;
+using System.Xml.Linq;
+using FacetedWorlds.MyCon.Data;
 
 namespace FacetedWorlds.MyCon
 {
@@ -99,6 +104,8 @@ namespace FacetedWorlds.MyCon
             _conference.GetTime(new DateTime(2011, 8, 13, 13, 0, 0));
             _conference.GetTime(new DateTime(2011, 8, 13, 14, 30, 0));
             _conference.GetTime(new DateTime(2011, 8, 13, 16, 0, 0));
+
+            DataLocator.Load(_conference);
         }
     }
 }
