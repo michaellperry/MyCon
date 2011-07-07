@@ -86,7 +86,6 @@ namespace FacetedWorlds.MyCon
             DataLocator.Load(_conference);
 
             //string conferenceName = "Dallas TechFest 2011";
-
             //if (_conference.Name.Value != conferenceName)
             //    _conference.Name = conferenceName;
 
