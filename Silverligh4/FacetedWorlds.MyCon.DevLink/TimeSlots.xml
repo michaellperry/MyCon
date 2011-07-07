@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<feed xml:base="http://devlink.us/OData.svc/" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns="http://www.w3.org/2005/Atom">
+  <title type="text">timeslots</title>
+  <id>http://devlink.us/odata.svc/timeslots</id>
+  <updated>2011-07-06T18:12:52Z</updated>
+  <link rel="self" title="timeslots" href="timeslots" />
+  <entry>
+    <id>http://devlink.us/OData.svc/timeslots(1)</id>
+    <title type="text"></title>
+    <updated>2011-07-06T18:12:52Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="timeslot" href="timeslots(1)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="timeslots(1)/sessions" />
+    <category term="devlink2011Model.timeslot" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:timeslotid m:type="Edm.Int32">1</d:timeslotid>
+        <d:start m:type="Edm.DateTime">2011-08-17T11:30:00Z</d:start>
+        <d:end m:type="Edm.DateTime">2011-08-17T20:00:00Z</d:end>
+        <d:description>Registration / Exhibit Hall</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/timeslots(2)</id>
+    <title type="text"></title>
+    <updated>2011-07-06T18:12:52Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="timeslot" href="timeslots(2)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="timeslots(2)/sessions" />
+    <category term="devlink2011Model.timeslot" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:timeslotid m:type="Edm.Int32">2</d:timeslotid>
+        <d:start m:type="Edm.DateTime">2011-08-17T12:30:00Z</d:start>
+        <d:end m:type="Edm.DateTime">2011-08-17T14:00:00Z</d:end>
+        <d:description>Opening Keynote</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/timeslots(3)</id>
+    <title type="text"></title>
+    <updated>2011-07-06T18:12:52Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="timeslot" href="timeslots(3)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="timeslots(3)/sessions" />
+    <category term="devlink2011Model.timeslot" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:timeslotid m:type="Edm.Int32">3</d:timeslotid>
+        <d:start m:type="Edm.DateTime">2011-08-17T14:15:00Z</d:start>
+        <d:end m:type="Edm.DateTime">2011-08-17T15:30:00Z</d:end>
+        <d:description>Morning Sessions</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/timeslots(4)</id>
+    <title type="text"></title>
+    <updated>2011-07-06T18:12:52Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="timeslot" href="timeslots(4)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="timeslots(4)/sessions" />
+    <category term="devlink2011Model.timeslot" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:timeslotid m:type="Edm.Int32">4</d:timeslotid>
+        <d:start m:type="Edm.DateTime">2011-08-17T15:30:00Z</d:start>
+        <d:end m:type="Edm.DateTime">2011-08-17T17:00:00Z</d:end>
+        <d:description>Lunch</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/timeslots(5)</id>
+    <title type="text"></title>
+    <updated>2011-07-06T18:12:52Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="timeslot" href="timeslots(5)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="timeslots(5)/sessions" />
+    <category term="devlink2011Model.timeslot" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:timeslotid m:type="Edm.Int32">5</d:timeslotid>
+        <d:start m:type="Edm.DateTime">2011-08-17T17:00:00Z</d:start>
+        <d:end m:type="Edm.DateTime">2011-08-17T18:15:00Z</d:end>
+        <d:description>Afternoon Sessions</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/timeslots(6)</id>
+    <title type="text"></title>
+    <updated>2011-07-06T18:12:52Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="timeslot" href="timeslots(6)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="timeslots(6)/sessions" />
+    <category term="devlink2011Model.timeslot" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:timeslotid m:type="Edm.Int32">6</d:timeslotid>
+        <d:start m:type="Edm.DateTime">2011-08-17T18:30:00Z</d:start>
+        <d:end m:type="Edm.DateTime">2011-08-17T19:45:00Z</d:end>
+        <d:description>Afternoon Sessions</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/timeslots(7)</id>
+    <title type="text"></title>
+    <updated>2011-07-06T18:12:52Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="timeslot" href="timeslots(7)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="timeslots(7)/sessions" />
+    <category term="devlink2011Model.timeslot" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:timeslotid m:type="Edm.Int32">7</d:timeslotid>
+        <d:start m:type="Edm.DateTime">2011-08-17T20:00:00Z</d:start>
+        <d:end m:type="Edm.DateTime">2011-08-17T21:15:00Z</d:end>
+        <d:description>Afternoon Sessions</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/timeslots(8)</id>
+    <title type="text"></title>
+    <updated>2011-07-06T18:12:52Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="timeslot" href="timeslots(8)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="timeslots(8)/sessions" />
+    <category term="devlink2011Model.timeslot" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:timeslotid m:type="Edm.Int32">8</d:timeslotid>
+        <d:start m:type="Edm.DateTime">2011-08-17T23:00:00Z</d:start>
+        <d:end m:type="Edm.DateTime">2011-08-18T01:00:00Z</d:end>
+        <d:description>Networking Event</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/timeslots(9)</id>
+    <title type="text"></title>
+    <updated>2011-07-06T18:12:52Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="timeslot" href="timeslots(9)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="timeslots(9)/sessions" />
+    <category term="devlink2011Model.timeslot" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:timeslotid m:type="Edm.Int32">9</d:timeslotid>
+        <d:start m:type="Edm.DateTime">2011-08-18T12:00:00Z</d:start>
+        <d:end m:type="Edm.DateTime">2011-08-18T20:00:00Z</d:end>
+        <d:description>Registration / Exhibit Hall</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/timeslots(10)</id>
+    <title type="text"></title>
+    <updated>2011-07-06T18:12:52Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="timeslot" href="timeslots(10)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="timeslots(10)/sessions" />
+    <category term="devlink2011Model.timeslot" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:timeslotid m:type="Edm.Int32">10</d:timeslotid>
+        <d:start m:type="Edm.DateTime">2011-08-18T12:00:00Z</d:start>
+        <d:end m:type="Edm.DateTime">2011-08-18T13:15:00Z</d:end>
+        <d:description>Morning Sessions</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/timeslots(11)</id>
+    <title type="text"></title>
+    <updated>2011-07-06T18:12:52Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="timeslot" href="timeslots(11)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="timeslots(11)/sessions" />
+    <category term="devlink2011Model.timeslot" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:timeslotid m:type="Edm.Int32">11</d:timeslotid>
+        <d:start m:type="Edm.DateTime">2011-08-18T13:30:00Z</d:start>
+        <d:end m:type="Edm.DateTime">2011-08-18T14:45:00Z</d:end>
+        <d:description>Morning Sessions</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/timeslots(12)</id>
+    <title type="text"></title>
+    <updated>2011-07-06T18:12:52Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="timeslot" href="timeslots(12)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="timeslots(12)/sessions" />
+    <category term="devlink2011Model.timeslot" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:timeslotid m:type="Edm.Int32">12</d:timeslotid>
+        <d:start m:type="Edm.DateTime">2011-08-18T15:00:00Z</d:start>
+        <d:end m:type="Edm.DateTime">2011-08-18T17:00:00Z</d:end>
+        <d:description>Lunch</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/timeslots(13)</id>
+    <title type="text"></title>
+    <updated>2011-07-06T18:12:52Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="timeslot" href="timeslots(13)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="timeslots(13)/sessions" />
+    <category term="devlink2011Model.timeslot" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:timeslotid m:type="Edm.Int32">13</d:timeslotid>
+        <d:start m:type="Edm.DateTime">2011-08-18T17:00:00Z</d:start>
+        <d:end m:type="Edm.DateTime">2011-08-18T18:15:00Z</d:end>
+        <d:description>Afternoon Sessions</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/timeslots(14)</id>
+    <title type="text"></title>
+    <updated>2011-07-06T18:12:52Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="timeslot" href="timeslots(14)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="timeslots(14)/sessions" />
+    <category term="devlink2011Model.timeslot" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:timeslotid m:type="Edm.Int32">14</d:timeslotid>
+        <d:start m:type="Edm.DateTime">2011-08-18T18:30:00Z</d:start>
+        <d:end m:type="Edm.DateTime">2011-08-18T19:45:00Z</d:end>
+        <d:description>Afternoon Sessions</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/timeslots(15)</id>
+    <title type="text"></title>
+    <updated>2011-07-06T18:12:52Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="timeslot" href="timeslots(15)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="timeslots(15)/sessions" />
+    <category term="devlink2011Model.timeslot" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:timeslotid m:type="Edm.Int32">15</d:timeslotid>
+        <d:start m:type="Edm.DateTime">2011-08-18T20:00:00Z</d:start>
+        <d:end m:type="Edm.DateTime">2011-08-18T21:15:00Z</d:end>
+        <d:description>Afternoon Sessions</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/timeslots(16)</id>
+    <title type="text"></title>
+    <updated>2011-07-06T18:12:52Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="timeslot" href="timeslots(16)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="timeslots(16)/sessions" />
+    <category term="devlink2011Model.timeslot" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:timeslotid m:type="Edm.Int32">16</d:timeslotid>
+        <d:start m:type="Edm.DateTime">2011-08-18T22:45:00Z</d:start>
+        <d:end m:type="Edm.DateTime">2011-08-19T02:00:00Z</d:end>
+        <d:description>Networking Event</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/timeslots(17)</id>
+    <title type="text"></title>
+    <updated>2011-07-06T18:12:52Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="timeslot" href="timeslots(17)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="timeslots(17)/sessions" />
+    <category term="devlink2011Model.timeslot" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:timeslotid m:type="Edm.Int32">17</d:timeslotid>
+        <d:start m:type="Edm.DateTime">2011-08-19T12:00:00Z</d:start>
+        <d:end m:type="Edm.DateTime">2011-08-19T19:00:00Z</d:end>
+        <d:description>Registration / Exhibit Hall</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/timeslots(18)</id>
+    <title type="text"></title>
+    <updated>2011-07-06T18:12:52Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="timeslot" href="timeslots(18)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="timeslots(18)/sessions" />
+    <category term="devlink2011Model.timeslot" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:timeslotid m:type="Edm.Int32">18</d:timeslotid>
+        <d:start m:type="Edm.DateTime">2011-08-19T12:00:00Z</d:start>
+        <d:end m:type="Edm.DateTime">2011-08-19T13:15:00Z</d:end>
+        <d:description>Morning Sessions</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/timeslots(19)</id>
+    <title type="text"></title>
+    <updated>2011-07-06T18:12:52Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="timeslot" href="timeslots(19)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="timeslots(19)/sessions" />
+    <category term="devlink2011Model.timeslot" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:timeslotid m:type="Edm.Int32">19</d:timeslotid>
+        <d:start m:type="Edm.DateTime">2011-08-19T13:30:00Z</d:start>
+        <d:end m:type="Edm.DateTime">2011-08-19T14:45:00Z</d:end>
+        <d:description>Morning Sessions</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/timeslots(20)</id>
+    <title type="text"></title>
+    <updated>2011-07-06T18:12:52Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="timeslot" href="timeslots(20)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="timeslots(20)/sessions" />
+    <category term="devlink2011Model.timeslot" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:timeslotid m:type="Edm.Int32">20</d:timeslotid>
+        <d:start m:type="Edm.DateTime">2011-08-19T15:00:00Z</d:start>
+        <d:end m:type="Edm.DateTime">2011-08-19T17:00:00Z</d:end>
+        <d:description>Lunch</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/timeslots(21)</id>
+    <title type="text"></title>
+    <updated>2011-07-06T18:12:52Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="timeslot" href="timeslots(21)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="timeslots(21)/sessions" />
+    <category term="devlink2011Model.timeslot" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:timeslotid m:type="Edm.Int32">21</d:timeslotid>
+        <d:start m:type="Edm.DateTime">2011-08-19T17:00:00Z</d:start>
+        <d:end m:type="Edm.DateTime">2011-08-19T18:15:00Z</d:end>
+        <d:description>Afternoon Sessions</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/timeslots(22)</id>
+    <title type="text"></title>
+    <updated>2011-07-06T18:12:52Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="timeslot" href="timeslots(22)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="timeslots(22)/sessions" />
+    <category term="devlink2011Model.timeslot" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:timeslotid m:type="Edm.Int32">22</d:timeslotid>
+        <d:start m:type="Edm.DateTime">2011-08-19T18:30:00Z</d:start>
+        <d:end m:type="Edm.DateTime">2011-08-19T19:45:00Z</d:end>
+        <d:description>Afternoon Sessions</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/timeslots(23)</id>
+    <title type="text"></title>
+    <updated>2011-07-06T18:12:52Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="timeslot" href="timeslots(23)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="timeslots(23)/sessions" />
+    <category term="devlink2011Model.timeslot" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:timeslotid m:type="Edm.Int32">23</d:timeslotid>
+        <d:start m:type="Edm.DateTime">2011-08-19T20:00:00Z</d:start>
+        <d:end m:type="Edm.DateTime">2011-08-19T21:30:00Z</d:end>
+        <d:description>Closing Keynote &amp; Giveaways</d:description>
+      </m:properties>
+    </content>
+  </entry>
+</feed>

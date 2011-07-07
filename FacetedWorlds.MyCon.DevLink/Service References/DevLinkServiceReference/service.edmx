@@ -1,0 +1,246 @@
+﻿<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="1.0">
+    <Schema Namespace="devlink2011Model" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <EntityType Name="room">
+        <Key>
+          <PropertyRef Name="roomid" />
+        </Key>
+        <Property Name="roomid" Type="Edm.Int32" Nullable="false" />
+        <Property Name="building" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+        <Property Name="name" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+        <Property Name="sponsorid" Type="Edm.Int32" Nullable="true" />
+        <NavigationProperty Name="sponsor" Relationship="devlink2011Model.FK_room_0" FromRole="room" ToRole="sponsor" />
+        <NavigationProperty Name="sessions" Relationship="devlink2011Model.FK_session_3" FromRole="room" ToRole="session" />
+      </EntityType>
+      <EntityType Name="session">
+        <Key>
+          <PropertyRef Name="sessionid" />
+        </Key>
+        <Property Name="sessionid" Type="Edm.Int32" Nullable="false" />
+        <Property Name="trackid" Type="Edm.Int32" Nullable="true" />
+        <Property Name="sessionlevelid" Type="Edm.Int32" Nullable="true" />
+        <Property Name="title" Type="Edm.String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+        <Property Name="description" Type="Edm.String" Nullable="true" MaxLength="2147483647" Unicode="true" FixedLength="false" />
+        <Property Name="roomid" Type="Edm.Int32" Nullable="true" />
+        <Property Name="timeslotid" Type="Edm.Int32" Nullable="true" />
+        <Property Name="codepercent" Type="Edm.Int32" Nullable="true" />
+        <Property Name="slidepercent" Type="Edm.Int32" Nullable="true" />
+        <Property Name="sponsorid" Type="Edm.Int32" Nullable="true" />
+        <Property Name="speakerid" Type="Edm.Int32" Nullable="true" />
+        <NavigationProperty Name="room" Relationship="devlink2011Model.FK_session_3" FromRole="session" ToRole="room" />
+        <NavigationProperty Name="speaker" Relationship="devlink2011Model.FK_session_0" FromRole="session" ToRole="speaker" />
+        <NavigationProperty Name="sponsor" Relationship="devlink2011Model.FK_session_1" FromRole="session" ToRole="sponsor" />
+        <NavigationProperty Name="timeslot" Relationship="devlink2011Model.FK_session_2" FromRole="session" ToRole="timeslot" />
+        <NavigationProperty Name="sessionlevel" Relationship="devlink2011Model.FK_session_4" FromRole="session" ToRole="sessionlevel" />
+        <NavigationProperty Name="track" Relationship="devlink2011Model.FK_session_5" FromRole="session" ToRole="track" />
+      </EntityType>
+      <EntityType Name="sessionlevel">
+        <Key>
+          <PropertyRef Name="sessionlevelid" />
+        </Key>
+        <Property Name="sessionlevelid" Type="Edm.Int32" Nullable="false" />
+        <Property Name="name" Type="Edm.String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+        <Property Name="description" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+        <NavigationProperty Name="sessions" Relationship="devlink2011Model.FK_session_4" FromRole="sessionlevel" ToRole="session" />
+      </EntityType>
+      <EntityType Name="speaker">
+        <Key>
+          <PropertyRef Name="speakerid" />
+        </Key>
+        <Property Name="speakerid" Type="Edm.Int32" Nullable="false" />
+        <Property Name="firstname" Type="Edm.String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+        <Property Name="lastname" Type="Edm.String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+        <Property Name="company" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+        <Property Name="url" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+        <Property Name="imageurl" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+        <Property Name="bio" Type="Edm.String" Nullable="true" MaxLength="2147483647" Unicode="true" FixedLength="false" />
+        <Property Name="twitter" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+        <NavigationProperty Name="sessions" Relationship="devlink2011Model.FK_session_0" FromRole="speaker" ToRole="session" />
+      </EntityType>
+      <EntityType Name="sponsor">
+        <Key>
+          <PropertyRef Name="sponsorid" />
+        </Key>
+        <Property Name="sponsorid" Type="Edm.Int32" Nullable="false" />
+        <Property Name="name" Type="Edm.String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+        <Property Name="description" Type="Edm.String" Nullable="true" MaxLength="2147483647" Unicode="true" FixedLength="false" />
+        <Property Name="url" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+        <Property Name="imageurl" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+        <Property Name="twitter" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+        <Property Name="sponsorlevelid" Type="Edm.Int32" Nullable="true" />
+        <NavigationProperty Name="rooms" Relationship="devlink2011Model.FK_room_0" FromRole="sponsor" ToRole="room" />
+        <NavigationProperty Name="sessions" Relationship="devlink2011Model.FK_session_1" FromRole="sponsor" ToRole="session" />
+        <NavigationProperty Name="sponsorlevel" Relationship="devlink2011Model.FK_sponsor_0" FromRole="sponsor" ToRole="sponsorlevel" />
+      </EntityType>
+      <EntityType Name="sponsorlevel">
+        <Key>
+          <PropertyRef Name="sponsorlevelid" />
+        </Key>
+        <Property Name="sponsorlevelid" Type="Edm.Int32" Nullable="false" />
+        <Property Name="name" Type="Edm.String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+        <Property Name="sort" Type="Edm.Int32" Nullable="false" />
+        <NavigationProperty Name="sponsors" Relationship="devlink2011Model.FK_sponsor_0" FromRole="sponsorlevel" ToRole="sponsor" />
+      </EntityType>
+      <EntityType Name="timeslot">
+        <Key>
+          <PropertyRef Name="timeslotid" />
+        </Key>
+        <Property Name="timeslotid" Type="Edm.Int32" Nullable="false" />
+        <Property Name="start" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="end" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="description" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="true" FixedLength="false" />
+        <NavigationProperty Name="sessions" Relationship="devlink2011Model.FK_session_2" FromRole="timeslot" ToRole="session" />
+      </EntityType>
+      <EntityType Name="track">
+        <Key>
+          <PropertyRef Name="trackid" />
+        </Key>
+        <Property Name="trackid" Type="Edm.Int32" Nullable="false" />
+        <Property Name="name" Type="Edm.String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+        <Property Name="description" Type="Edm.String" Nullable="true" MaxLength="2147483647" Unicode="true" FixedLength="false" />
+        <NavigationProperty Name="sessions" Relationship="devlink2011Model.FK_session_5" FromRole="track" ToRole="session" />
+      </EntityType>
+      <Association Name="FK_room_0">
+        <End Role="sponsor" Type="devlink2011Model.sponsor" Multiplicity="0..1" />
+        <End Role="room" Type="devlink2011Model.room" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="sponsor">
+            <PropertyRef Name="sponsorid" />
+          </Principal>
+          <Dependent Role="room">
+            <PropertyRef Name="sponsorid" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="FK_session_3">
+        <End Role="room" Type="devlink2011Model.room" Multiplicity="0..1" />
+        <End Role="session" Type="devlink2011Model.session" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="room">
+            <PropertyRef Name="roomid" />
+          </Principal>
+          <Dependent Role="session">
+            <PropertyRef Name="roomid" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="FK_session_0">
+        <End Role="speaker" Type="devlink2011Model.speaker" Multiplicity="0..1" />
+        <End Role="session" Type="devlink2011Model.session" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="speaker">
+            <PropertyRef Name="speakerid" />
+          </Principal>
+          <Dependent Role="session">
+            <PropertyRef Name="speakerid" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="FK_session_1">
+        <End Role="sponsor" Type="devlink2011Model.sponsor" Multiplicity="0..1" />
+        <End Role="session" Type="devlink2011Model.session" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="sponsor">
+            <PropertyRef Name="sponsorid" />
+          </Principal>
+          <Dependent Role="session">
+            <PropertyRef Name="sponsorid" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="FK_session_2">
+        <End Role="timeslot" Type="devlink2011Model.timeslot" Multiplicity="0..1" />
+        <End Role="session" Type="devlink2011Model.session" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="timeslot">
+            <PropertyRef Name="timeslotid" />
+          </Principal>
+          <Dependent Role="session">
+            <PropertyRef Name="timeslotid" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="FK_session_4">
+        <End Role="sessionlevel" Type="devlink2011Model.sessionlevel" Multiplicity="0..1" />
+        <End Role="session" Type="devlink2011Model.session" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="sessionlevel">
+            <PropertyRef Name="sessionlevelid" />
+          </Principal>
+          <Dependent Role="session">
+            <PropertyRef Name="sessionlevelid" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="FK_session_5">
+        <End Role="track" Type="devlink2011Model.track" Multiplicity="0..1" />
+        <End Role="session" Type="devlink2011Model.session" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="track">
+            <PropertyRef Name="trackid" />
+          </Principal>
+          <Dependent Role="session">
+            <PropertyRef Name="trackid" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="FK_sponsor_0">
+        <End Role="sponsorlevel" Type="devlink2011Model.sponsorlevel" Multiplicity="0..1" />
+        <End Role="sponsor" Type="devlink2011Model.sponsor" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="sponsorlevel">
+            <PropertyRef Name="sponsorlevelid" />
+          </Principal>
+          <Dependent Role="sponsor">
+            <PropertyRef Name="sponsorlevelid" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+    </Schema>
+    <Schema Namespace="devlinkAPI" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <EntityContainer Name="devlink2011Entities" p7:LazyLoadingEnabled="true" m:IsDefaultEntityContainer="true" xmlns:p7="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <FunctionImport Name="dataversion" ReturnType="Edm.Int32" m:HttpMethod="GET" />
+        <EntitySet Name="rooms" EntityType="devlink2011Model.room" />
+        <EntitySet Name="sessions" EntityType="devlink2011Model.session" />
+        <EntitySet Name="sessionlevels" EntityType="devlink2011Model.sessionlevel" />
+        <EntitySet Name="speakers" EntityType="devlink2011Model.speaker" />
+        <EntitySet Name="sponsors" EntityType="devlink2011Model.sponsor" />
+        <EntitySet Name="sponsorlevels" EntityType="devlink2011Model.sponsorlevel" />
+        <EntitySet Name="timeslots" EntityType="devlink2011Model.timeslot" />
+        <EntitySet Name="tracks" EntityType="devlink2011Model.track" />
+        <AssociationSet Name="FK_room_0" Association="devlink2011Model.FK_room_0">
+          <End Role="sponsor" EntitySet="sponsors" />
+          <End Role="room" EntitySet="rooms" />
+        </AssociationSet>
+        <AssociationSet Name="FK_session_3" Association="devlink2011Model.FK_session_3">
+          <End Role="room" EntitySet="rooms" />
+          <End Role="session" EntitySet="sessions" />
+        </AssociationSet>
+        <AssociationSet Name="FK_session_0" Association="devlink2011Model.FK_session_0">
+          <End Role="speaker" EntitySet="speakers" />
+          <End Role="session" EntitySet="sessions" />
+        </AssociationSet>
+        <AssociationSet Name="FK_session_1" Association="devlink2011Model.FK_session_1">
+          <End Role="sponsor" EntitySet="sponsors" />
+          <End Role="session" EntitySet="sessions" />
+        </AssociationSet>
+        <AssociationSet Name="FK_session_2" Association="devlink2011Model.FK_session_2">
+          <End Role="timeslot" EntitySet="timeslots" />
+          <End Role="session" EntitySet="sessions" />
+        </AssociationSet>
+        <AssociationSet Name="FK_session_4" Association="devlink2011Model.FK_session_4">
+          <End Role="sessionlevel" EntitySet="sessionlevels" />
+          <End Role="session" EntitySet="sessions" />
+        </AssociationSet>
+        <AssociationSet Name="FK_session_5" Association="devlink2011Model.FK_session_5">
+          <End Role="track" EntitySet="tracks" />
+          <End Role="session" EntitySet="sessions" />
+        </AssociationSet>
+        <AssociationSet Name="FK_sponsor_0" Association="devlink2011Model.FK_sponsor_0">
+          <End Role="sponsorlevel" EntitySet="sponsorlevels" />
+          <End Role="sponsor" EntitySet="sponsors" />
+        </AssociationSet>
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>
