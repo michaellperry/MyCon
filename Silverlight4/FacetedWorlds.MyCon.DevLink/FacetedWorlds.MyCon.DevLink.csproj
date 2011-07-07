@@ -78,6 +78,9 @@
   <ItemGroup>
     <EmbeddedResource Include="TimeSlots.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Sessions.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

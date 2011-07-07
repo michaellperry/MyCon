@@ -84,8 +84,8 @@ namespace FacetedWorlds.MyCon
 
         private void InitializeData()
         {
-            DataLoader.GenerateCode();
-            //DataLocator.Load(_conference);
+            //DataLoader.GenerateCode();
+            new DataLoader().LoadData(_conference);
         }
     }
 }
