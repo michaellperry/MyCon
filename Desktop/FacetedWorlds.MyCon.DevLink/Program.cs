@@ -18,6 +18,9 @@ namespace FacetedWorlds.MyCon.DevLink
 
             GenerateTimeSlots();
             GenerateSpeakers();
+            GenerateTracks();
+            GenerateRooms();
+            GenerateSessions();
         }
 
         private static void GenerateTimeSlots()
@@ -28,10 +31,6 @@ namespace FacetedWorlds.MyCon.DevLink
             {
                 DateTime localStart = TimeZoneInfo.ConvertTimeFromUtc(time.start, est);
                 Console.WriteLine(String.Format("_timeById[\"{1}\"] = conference.GetTime(DateTime.Parse(\"{0}\"));", localStart, time.timeslotid));
-                if (time.description != "Morning Sessions" && time.description != "Afternoon Sessions")
-                {
-                    Console.WriteLine(String.Format("conference.NewGeneralSessionPlace(\"gen_{0}\", \"{1}\", _timeById[\"{2}\"], string.Empty);", time.timeslotid, time.description, time.timeslotid));
-                }
             }
         }
 
@@ -45,6 +44,32 @@ namespace FacetedWorlds.MyCon.DevLink
                 string speakerImageUrl = speaker.imageurl;
 
                 Console.WriteLine(String.Format("_speakerById[\"{4}\"] = conference.NewSpeaker(\"{0}\", \"{1}\", \"{2}\", \"{3}\");", speakerName, contact, speakerBio, speakerImageUrl, speaker.speakerid));
+            }
+        }
+
+        private static void GenerateTracks()
+        {
+            foreach (var track in _entities.tracks)
+            {
+                Console.WriteLine(String.Format("_trackById[\"{0}\"] = conference.NewTrack(\"{1}\");", track.trackid, track.name));
+            }
+        }
+
+        private static void GenerateRooms()
+        {
+            foreach (var room in _entities.rooms)
+            {
+                Console.WriteLine(String.Format("_roomById[\"{0}\"] = conference.NewRoom(\"{1}\");", room.roomid, room.name));
+            }
+        }
+
+        private static void GenerateSessions()
+        {
+            foreach (var session in _entities.sessions)
+            {
+                string title = StringEncode(session.title);
+                string description = StringEncode(session.description);
+                Console.WriteLine(String.Format("conference.NewSessionPlace(\"{0}\", \"{1}\", \"{2}\", _speakerById[\"{3}\"], _trackById[\"{4}\"], _timeById[\"{5}\"], _roomById[\"{6}\"]);", session.sessionid, title, description, session.speakerid, session.trackid, session.timeslotid, session.roomid));
             }
         }
 
