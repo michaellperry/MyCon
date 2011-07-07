@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<feed xml:base="http://devlink.us/OData.svc/" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns="http://www.w3.org/2005/Atom">
+  <title type="text">rooms</title>
+  <id>http://devlink.us/odata.svc/rooms</id>
+  <updated>2011-07-07T14:04:28Z</updated>
+  <link rel="self" title="rooms" href="rooms" />
+  <entry>
+    <id>http://devlink.us/OData.svc/rooms(1)</id>
+    <title type="text"></title>
+    <updated>2011-07-07T14:04:28Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="room" href="rooms(1)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sponsor" type="application/atom+xml;type=entry" title="sponsor" href="rooms(1)/sponsor" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="rooms(1)/sessions" />
+    <category term="devlink2011Model.room" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:roomid m:type="Edm.Int32">1</d:roomid>
+        <d:building>Convention Center</d:building>
+        <d:name>2</d:name>
+        <d:sponsorid m:type="Edm.Int32" m:null="true" />
+      </m:properties>
+    </content>
+  </entry>
+</feed>

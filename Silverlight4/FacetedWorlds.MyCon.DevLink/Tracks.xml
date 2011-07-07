@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<feed xml:base="http://devlink.us/OData.svc/" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns="http://www.w3.org/2005/Atom">
+  <title type="text">tracks</title>
+  <id>http://devlink.us/odata.svc/tracks</id>
+  <updated>2011-07-07T14:05:53Z</updated>
+  <link rel="self" title="tracks" href="tracks" />
+  <entry>
+    <id>http://devlink.us/OData.svc/tracks(4)</id>
+    <title type="text"></title>
+    <updated>2011-07-07T14:05:53Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="track" href="tracks(4)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="tracks(4)/sessions" />
+    <category term="devlink2011Model.track" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:trackid m:type="Edm.Int32">4</d:trackid>
+        <d:name>Architecture</d:name>
+        <d:description>Sessions focused on Architecture of technology and Architecture as a practice</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/tracks(5)</id>
+    <title type="text"></title>
+    <updated>2011-07-07T14:05:53Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="track" href="tracks(5)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="tracks(5)/sessions" />
+    <category term="devlink2011Model.track" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:trackid m:type="Edm.Int32">5</d:trackid>
+        <d:name>Developer Tools, Languages, and Frameworks</d:name>
+        <d:description>Sessions representing the entire spectrum of what is out there to help get the job done</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/tracks(6)</id>
+    <title type="text"></title>
+    <updated>2011-07-07T14:05:53Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="track" href="tracks(6)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="tracks(6)/sessions" />
+    <category term="devlink2011Model.track" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:trackid m:type="Edm.Int32">6</d:trackid>
+        <d:name>Project Management and Methodology</d:name>
+        <d:description>Sessions geared toward everything related to getting the project delivered: Requirements, Estimation, Managing multiple projects, etc…</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/tracks(7)</id>
+    <title type="text"></title>
+    <updated>2011-07-07T14:05:53Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="track" href="tracks(7)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="tracks(7)/sessions" />
+    <category term="devlink2011Model.track" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:trackid m:type="Edm.Int32">7</d:trackid>
+        <d:name>Database Platforms and Development</d:name>
+        <d:description>Sessions targeting everything database related: SQL, MySQL, SQL Server, Oracle, etc…</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/tracks(9)</id>
+    <title type="text"></title>
+    <updated>2011-07-07T14:05:53Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="track" href="tracks(9)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="tracks(9)/sessions" />
+    <category term="devlink2011Model.track" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:trackid m:type="Edm.Int32">9</d:trackid>
+        <d:name>Open</d:name>
+        <d:description>Can't find a track where your session fits, this is the one for you.</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/tracks(10)</id>
+    <title type="text"></title>
+    <updated>2011-07-07T14:05:53Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="track" href="tracks(10)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="tracks(10)/sessions" />
+    <category term="devlink2011Model.track" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:trackid m:type="Edm.Int32">10</d:trackid>
+        <d:name>Conference</d:name>
+        <d:description>Conference events.</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/tracks(11)</id>
+    <title type="text"></title>
+    <updated>2011-07-07T14:05:53Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="track" href="tracks(11)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="tracks(11)/sessions" />
+    <category term="devlink2011Model.track" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:trackid m:type="Edm.Int32">11</d:trackid>
+        <d:name>Mobile Development</d:name>
+        <d:description>Sessions focused on mobile technology platforms like iOS(iPhone/iPad), Android, Windows Phone 7</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/tracks(13)</id>
+    <title type="text"></title>
+    <updated>2011-07-07T14:05:53Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="track" href="tracks(13)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="tracks(13)/sessions" />
+    <category term="devlink2011Model.track" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:trackid m:type="Edm.Int32">13</d:trackid>
+        <d:name>Sharepoint</d:name>
+        <d:description>Sessions focused on the Sharepoint Platform</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/tracks(14)</id>
+    <title type="text"></title>
+    <updated>2011-07-07T14:05:53Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="track" href="tracks(14)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="tracks(14)/sessions" />
+    <category term="devlink2011Model.track" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:trackid m:type="Edm.Int32">14</d:trackid>
+        <d:name>Keynote</d:name>
+        <d:description>Keynote address to all DEVLINK attendees</d:description>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>http://devlink.us/OData.svc/tracks(16)</id>
+    <title type="text"></title>
+    <updated>2011-07-07T14:05:53Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit" title="track" href="tracks(16)" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/sessions" type="application/atom+xml;type=feed" title="sessions" href="tracks(16)/sessions" />
+    <category term="devlink2011Model.track" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/xml">
+      <m:properties>
+        <d:trackid m:type="Edm.Int32">16</d:trackid>
+        <d:name>Open Spaces</d:name>
+        <d:description>Attendee driven discussions intended to encourage knowledge sharing among peers.</d:description>
+      </m:properties>
+    </content>
+  </entry>
+</feed>
