@@ -7,12 +7,13 @@ using Microsoft.Phone.Net.NetworkInformation;
 using UpdateControls.Correspondence;
 using UpdateControls.Correspondence.IsolatedStorage;
 using UpdateControls.Correspondence.POXClient;
+using FacetedWorlds.MyCon.DallasTechFest;
 
 namespace FacetedWorlds.MyCon
 {
     public class SynchronizationService
     {
-        private const string ConferenceID = "20E5A19CD186483F89CC39C4D56FB4F1";
+        private const string ConferenceID = "09BD46B786CA49BAB443CC212F6DB5EA";
 
         private Community _community;
         private Attendee _attendee;
@@ -47,6 +48,8 @@ namespace FacetedWorlds.MyCon
 
             // And synchronize on startup or resume.
             Synchronize();
+
+            //DataLoader.Load(conference);
         }
 
         public Community Community
@@ -68,8 +71,7 @@ namespace FacetedWorlds.MyCon
             }
             catch (Exception ex)
             {
-                // TODO: Ignore for now.
-                System.Diagnostics.Debug.WriteLine(ex.Message);
+                // TODO: Ignore
             }
         }
 

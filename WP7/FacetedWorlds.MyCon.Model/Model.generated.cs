@@ -460,8 +460,7 @@ namespace FacetedWorlds.MyCon.Model
             )
             ;
         public static Query QuerySessions = new Query()
-            .JoinSuccessors(Session.RoleConference, Condition.WhereIsEmpty(Session.QueryIsDeleted)
-            )
+            .JoinSuccessors(Session.RoleConference)
             ;
         public static Query QuerySpeakers = new Query()
             .JoinSuccessors(Speaker.RoleConference)

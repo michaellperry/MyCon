@@ -17,7 +17,7 @@ namespace FacetedWorlds.MyCon.Model
             Room room = Community.AddFact(new Room(Conference, roomNumber));
             Place place = Community.AddFact(new Place(time, room));
             SessionPlace currentPlace = CurrentSessionPlaces.FirstOrDefault();
-            if (currentPlace != null && currentPlace.Place != place)
+            if (currentPlace == null || currentPlace.Place != place)
                 Community.AddFact(new SessionPlace(this, place, CurrentSessionPlaces));
         }
     }

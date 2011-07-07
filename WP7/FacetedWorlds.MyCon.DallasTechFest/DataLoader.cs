@@ -8,14 +8,13 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using System.IO;
-using System.Reflection;
+using System.Linq;
 using System.Xml.Linq;
 using FacetedWorlds.MyCon.Model;
-using System.Linq;
-using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 
-namespace FacetedWorlds.MyCon.Data
+namespace FacetedWorlds.MyCon.DallasTechFest
 {
     public static class XmlExtensions
     {
@@ -24,12 +23,13 @@ namespace FacetedWorlds.MyCon.Data
             return element.Descendants(name).Single();
         }
     }
-    public class DataLocator
+    public class DataLoader
     {
         public static void Load(Conference conference)
         {
             try
             {
+                LoadTimes(conference);
                 LoadSpeakers(conference);
                 LoadSessions(conference);
                 CreateLunchTimes(conference);
@@ -41,9 +41,34 @@ namespace FacetedWorlds.MyCon.Data
             }
         }
 
+        private static void LoadTimes(Conference conference)
+        {
+            string conferenceName = "Dallas TechFest 2011";
+            if (conference.Name.Value != conferenceName)
+                conference.Name = conferenceName;
+
+            string conferenceMap = "http://img.docstoccdn.com/thumb/orig/10507230.png";
+            if (conference.MapUrl != conferenceMap)
+                conference.MapUrl = conferenceMap;
+
+            conference.GetTime(new DateTime(2011, 8, 12, 9, 0, 0));
+            conference.GetTime(new DateTime(2011, 8, 12, 10, 30, 0));
+            conference.GetTime(new DateTime(2011, 8, 12, 12, 0, 0));
+            conference.GetTime(new DateTime(2011, 8, 12, 13, 0, 0));
+            conference.GetTime(new DateTime(2011, 8, 12, 14, 30, 0));
+            conference.GetTime(new DateTime(2011, 8, 12, 16, 0, 0));
+
+            conference.GetTime(new DateTime(2011, 8, 13, 9, 0, 0));
+            conference.GetTime(new DateTime(2011, 8, 13, 10, 30, 0));
+            conference.GetTime(new DateTime(2011, 8, 13, 12, 0, 0));
+            conference.GetTime(new DateTime(2011, 8, 13, 13, 0, 0));
+            conference.GetTime(new DateTime(2011, 8, 13, 14, 30, 0));
+            conference.GetTime(new DateTime(2011, 8, 13, 16, 0, 0));
+        }
+
         private static void LoadSpeakers(Conference conference)
         {
-            using (Stream speakerStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(typeof(DataLocator), "speakers.xml"))
+            using (Stream speakerStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(typeof(DataLoader), "speakers.xml"))
             {
                 XDocument document = XDocument.Load(speakerStream);
                 var posts =
@@ -69,7 +94,7 @@ namespace FacetedWorlds.MyCon.Data
 
         private static void LoadSessions(Conference conference)
         {
-            using (Stream sessionsStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(typeof(DataLocator), "sessions.xml"))
+            using (Stream sessionsStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(typeof(DataLoader), "sessions.xml"))
             {
                 XDocument document = XDocument.Load(sessionsStream);
                 var posts = document.Descendants("div").Where(AttributeEquals("class", "post"));
@@ -119,10 +144,9 @@ namespace FacetedWorlds.MyCon.Data
 
         private static void CreateLunchTimes(Conference conference)
         {
-            Time[] times = conference.Days
+            var times = conference.Days
                 .SelectMany(day => day.Times)
-                .Where(time => time.Start.Hour == 12)
-                .ToArray();
+                .Where(time => time.Start.Hour == 12);
 
             foreach (Time time in times)
             {
@@ -136,7 +160,9 @@ namespace FacetedWorlds.MyCon.Data
                 .SelectMany(day => day.Times)
                 .Where(time => time.Start.Hour != 12)
                 .ToArray();
-            Session[] sessions = conference.Sessions.ToArray();
+            Session[] sessions = conference.Sessions
+                .Where(s => s.Track != null)
+                .ToArray();
 
             int room = 0;
             int sessionIndex = 0;
