@@ -83,29 +83,30 @@ namespace FacetedWorlds.MyCon
 
         private void InitializeData()
         {
-            string conferenceName = "Dallas TechFest 2011";
-            if (_conference.Name.Value != conferenceName)
-                _conference.Name = conferenceName;
-
-            string conferenceMap = "http://img.docstoccdn.com/thumb/orig/10507230.png";
-            if (_conference.MapUrl != conferenceMap)
-                _conference.MapUrl = conferenceMap;
-
-            _conference.GetTime(new DateTime(2011, 8, 12, 9, 0, 0));
-            _conference.GetTime(new DateTime(2011, 8, 12, 10, 30, 0));
-            _conference.GetTime(new DateTime(2011, 8, 12, 12, 0, 0));
-            _conference.GetTime(new DateTime(2011, 8, 12, 13, 0, 0));
-            _conference.GetTime(new DateTime(2011, 8, 12, 14, 30, 0));
-            _conference.GetTime(new DateTime(2011, 8, 12, 16, 0, 0));
-
-            _conference.GetTime(new DateTime(2011, 8, 13, 9, 0, 0));
-            _conference.GetTime(new DateTime(2011, 8, 13, 10, 30, 0));
-            _conference.GetTime(new DateTime(2011, 8, 13, 12, 0, 0));
-            _conference.GetTime(new DateTime(2011, 8, 13, 13, 0, 0));
-            _conference.GetTime(new DateTime(2011, 8, 13, 14, 30, 0));
-            _conference.GetTime(new DateTime(2011, 8, 13, 16, 0, 0));
-
             DataLocator.Load(_conference);
+
+            //string conferenceName = "Dallas TechFest 2011";
+
+            //if (_conference.Name.Value != conferenceName)
+            //    _conference.Name = conferenceName;
+
+            //string conferenceMap = "http://img.docstoccdn.com/thumb/orig/10507230.png";
+            //if (_conference.MapUrl != conferenceMap)
+            //    _conference.MapUrl = conferenceMap;
+
+            //_conference.GetTime(new DateTime(2011, 8, 12, 9, 0, 0));
+            //_conference.GetTime(new DateTime(2011, 8, 12, 10, 30, 0));
+            //_conference.GetTime(new DateTime(2011, 8, 12, 12, 0, 0));
+            //_conference.GetTime(new DateTime(2011, 8, 12, 13, 0, 0));
+            //_conference.GetTime(new DateTime(2011, 8, 12, 14, 30, 0));
+            //_conference.GetTime(new DateTime(2011, 8, 12, 16, 0, 0));
+
+            //_conference.GetTime(new DateTime(2011, 8, 13, 9, 0, 0));
+            //_conference.GetTime(new DateTime(2011, 8, 13, 10, 30, 0));
+            //_conference.GetTime(new DateTime(2011, 8, 13, 12, 0, 0));
+            //_conference.GetTime(new DateTime(2011, 8, 13, 13, 0, 0));
+            //_conference.GetTime(new DateTime(2011, 8, 13, 14, 30, 0));
+            //_conference.GetTime(new DateTime(2011, 8, 13, 16, 0, 0));
         }
     }
 }
