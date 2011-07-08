@@ -28,11 +28,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public string ConferenceName
         {
-            get
-            {
-                var exception = _synchronizationService.LastException;
-                return exception != null ? exception.Message : _attendee.Conference.Name.Value;
-            }
+            get { return _attendee.Conference.Name.Value; }
         }
 
         public IEnumerable<ScheduleDayViewModel> Days
