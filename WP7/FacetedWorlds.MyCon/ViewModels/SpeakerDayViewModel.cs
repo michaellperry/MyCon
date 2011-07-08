@@ -26,7 +26,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
             _matchingSessionPlaces = new DependentList<SessionPlace>(() =>
                 from sessionPlace in _speaker.AvailableSessions
-                where sessionPlace.Session.Speaker == _speaker
+                where sessionPlace.Place.PlaceTime.Day == _day
                 select sessionPlace);
         }
 
