@@ -1,13 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.IsolatedStorage;
 using System.Linq;
+using System.Windows;
 using FacetedWorlds.MyCon.Model;
 using Microsoft.Phone.Info;
 using Microsoft.Phone.Net.NetworkInformation;
 using UpdateControls.Correspondence;
 using UpdateControls.Correspondence.IsolatedStorage;
 using UpdateControls.Correspondence.POXClient;
-using FacetedWorlds.MyCon.DallasTechFest;
+using System.Reflection;
 
 namespace FacetedWorlds.MyCon
 {
@@ -20,6 +23,8 @@ namespace FacetedWorlds.MyCon
 
         public void Initialize()
         {
+            InitializeData();
+
             POXConfigurationProvider configurationProvider = new POXConfigurationProvider();
             _community = new Community(IsolatedStorageStorageStrategy.Load())
                 .AddAsynchronousCommunicationStrategy(new POXAsynchronousCommunicationStrategy(configurationProvider))
@@ -103,6 +108,36 @@ namespace FacetedWorlds.MyCon
                 .Select(pair => pair[1])
                 .FirstOrDefault();
             return id;
+        }
+
+        private void InitializeData()
+        {
+            IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication();
+            ExtractFile(store, "FactTree.bin");
+            ExtractFile(store, "FactTypeTable.bin");
+            ExtractFile(store, "IncomingTimestampTable.bin");
+            ExtractFile(store, "Index.bin");
+            ExtractFile(store, "PeerTable.bin");
+            ExtractFile(store, "RoleTable.bin");
+        }
+
+        private static void ExtractFile(IsolatedStorageFile store, string baseFileName)
+        {
+            if (!store.FileExists(baseFileName))
+            {
+                using (Stream sourceStream = Application.GetResourceStream(new Uri("Data/" + baseFileName, UriKind.Relative)).Stream)
+                {
+                    using (IsolatedStorageFileStream targetStream = store.CreateFile(baseFileName))
+                    {
+                        byte[] buffer = new byte[1024];
+                        int length;
+                        while ((length = sourceStream.Read(buffer, 0, 1024)) > 0)
+                            targetStream.Write(buffer, 0, length);
+                        targetStream.Close();
+                    }
+                    sourceStream.Close();
+                }
+            }
         }
     }
 }

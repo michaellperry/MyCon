@@ -12,7 +12,6 @@ using System.IO;
 using System.Xml;
 using System.Xml.Linq;
 using FacetedWorlds.MyCon.Data;
-using FacetedWorlds.MyCon.DevLink;
 
 namespace FacetedWorlds.MyCon
 {
@@ -85,7 +84,6 @@ namespace FacetedWorlds.MyCon
         private void InitializeData()
         {
             //DataLoader.GenerateCode();
-            new DataLoader().LoadData(_conference);
         }
     }
 }
