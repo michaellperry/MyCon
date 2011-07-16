@@ -74,7 +74,7 @@ namespace FacetedWorlds.MyCon
                 _community.BeginSending();
                 _community.BeginReceiving();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // TODO: Ignore
             }
