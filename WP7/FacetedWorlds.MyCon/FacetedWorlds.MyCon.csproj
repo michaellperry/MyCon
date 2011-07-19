@@ -66,17 +66,17 @@
     <Reference Include="UpdateControls">
       <HintPath>..\..\packages\UpdateControls.2.1.3.0\lib\sl4-wp\UpdateControls.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence">
-      <HintPath>..\..\packages\Correspondence.1.1.2.0\lib\SL4-wp\UpdateControls.Correspondence.dll</HintPath>
+    <Reference Include="UpdateControls.Correspondence, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Correspondence.1.2.0.1\lib\SL4-wp\UpdateControls.Correspondence.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.Data">
-      <HintPath>..\..\packages\Correspondence.WindowsPhone.App.1.1.2.0\lib\SL4-wp\UpdateControls.Correspondence.Data.dll</HintPath>
+    <Reference Include="UpdateControls.Correspondence.Data, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Correspondence.WindowsPhone.App.1.2.0.1\lib\SL4-wp\UpdateControls.Correspondence.Data.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.IsolatedStorage">
-      <HintPath>..\..\packages\Correspondence.WindowsPhone.App.1.1.2.0\lib\SL4-wp\UpdateControls.Correspondence.IsolatedStorage.dll</HintPath>
+    <Reference Include="UpdateControls.Correspondence.IsolatedStorage, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Correspondence.WindowsPhone.App.1.2.0.1\lib\SL4-wp\UpdateControls.Correspondence.IsolatedStorage.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.POXClient">
-      <HintPath>..\..\packages\Correspondence.WindowsPhone.App.1.1.2.0\lib\SL4-wp\UpdateControls.Correspondence.POXClient.dll</HintPath>
+    <Reference Include="UpdateControls.Correspondence.POXClient, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Correspondence.WindowsPhone.App.1.2.0.1\lib\SL4-wp\UpdateControls.Correspondence.POXClient.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

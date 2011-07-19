@@ -72,17 +72,17 @@
     <Reference Include="UpdateControls">
       <HintPath>..\..\packages\UpdateControls.2.1.3.0\lib\sl4\UpdateControls.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence">
-      <HintPath>..\..\packages\Correspondence.1.1.2.0\lib\SL4\UpdateControls.Correspondence.dll</HintPath>
+    <Reference Include="UpdateControls.Correspondence, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Correspondence.1.2.0.1\lib\SL4\UpdateControls.Correspondence.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.Data">
-      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.1.2.0\lib\SL4\UpdateControls.Correspondence.Data.dll</HintPath>
+    <Reference Include="UpdateControls.Correspondence.Data, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.2.0.1\lib\SL4\UpdateControls.Correspondence.Data.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.IsolatedStorage">
-      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.1.2.0\lib\SL4\UpdateControls.Correspondence.IsolatedStorage.dll</HintPath>
+    <Reference Include="UpdateControls.Correspondence.IsolatedStorage, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.2.0.1\lib\SL4\UpdateControls.Correspondence.IsolatedStorage.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.POXClient">
-      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.1.2.0\lib\SL4\UpdateControls.Correspondence.POXClient.dll</HintPath>
+    <Reference Include="UpdateControls.Correspondence.POXClient, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.2.0.1\lib\SL4\UpdateControls.Correspondence.POXClient.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -117,13 +117,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Data\sessions.xml" />
     <EmbeddedResource Include="Data\speakers.xml" />
-    <Content Include="Readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FacetedWorlds.MyCon.Model\FacetedWorlds.MyCon.Model.csproj">
       <Project>{835D447C-0578-49D3-8B9E-F4DA84CBED06}</Project>
       <Name>FacetedWorlds.MyCon.Model %28Silverlight4\FacetedWorlds.MyCon.Model%29</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
