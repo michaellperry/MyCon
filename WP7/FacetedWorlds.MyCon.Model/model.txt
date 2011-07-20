@@ -5,20 +5,22 @@ digraph "FacetedWorlds.MyCon.Model"
     EnableToastNotification -> DisableToastNotification [label="  *"]
     ConferenceName -> Conference [color="red"]
     ConferenceName -> ConferenceName [label="  *"]
-    ConferenceSessionSurvey -> Conference [color="red"]
-    ConferenceSessionSurvey -> ConferenceSessionSurvey [label="  *"]
-    ConferenceSessionSurvey -> Survey
     ConferenceConferenceSurvey -> Conference [color="red"]
     ConferenceConferenceSurvey -> ConferenceConferenceSurvey [label="  *"]
     ConferenceConferenceSurvey -> Survey
     ConferenceMapUrl -> Conference [color="red"]
     ConferenceMapUrl -> ConferenceMapUrl [label="  *"]
+    ConferenceSessionSurvey -> Conference [color="red"]
+    ConferenceSessionSurvey -> Survey
+    ConferenceSessionSurvey -> ConferenceSessionSurvey [label="  *"]
     Attendee -> Identity
     Attendee -> Conference
     Day -> Conference [color="red"]
     Time -> Day
+    TimeDelete -> Time
+    TimeUndelete -> TimeDelete
     Slot -> Attendee
-    Slot -> Time
+    Slot -> Time [color="red"]
     Room -> Conference
     Track -> Conference
     Speaker -> Conference [color="red"]
@@ -43,18 +45,20 @@ digraph "FacetedWorlds.MyCon.Model"
     SessionLevel -> Session
     SessionLevel -> SessionLevel [label="  *"]
     SessionLevel -> Level
+    SessionDelete -> Session
+    SessionUndelete -> SessionDelete
     SessionNotice -> Session [color="red"]
     SessionPlace -> Session
     SessionPlace -> Place
     SessionPlace -> SessionPlace [label="  *"]
     Schedule -> Slot
-    Schedule -> SessionPlace
+    Schedule -> SessionPlace [color="red"]
     ScheduleRemove -> Schedule
     Survey -> RatingQuestion [label="  *"]
     Survey -> EssayQuestion [label="  *"]
     SessionEvaluation -> Schedule
     SessionEvaluation -> Survey
-    SessionEvaluationCompleted -> Conference [color="red"]
+    SessionEvaluationCompleted -> ConferenceSessionSurvey [color="red"]
     SessionEvaluationCompleted -> SessionEvaluation
     SessionEvaluationCompleted -> SessionEvaluationRatingAnswer [label="  *"]
     SessionEvaluationCompleted -> SessionEvaluationEssayAnswer [label="  *"]
@@ -67,4 +71,3 @@ digraph "FacetedWorlds.MyCon.Model"
     SessionEvaluationEssayAnswer -> SessionEvaluationEssay
     SessionEvaluationEssayAnswer -> SessionEvaluationEssayAnswer [label="  *"]
 }
-

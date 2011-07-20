@@ -113,9 +113,10 @@ namespace FacetedWorlds.MyCon.Model
                 .Select(text => Community.AddFact(new EssayQuestion(text)))
                 .ToList();
             Survey survey = Community.AddFact(new Survey(ratingQuestions, essayQuestions));
-            if (SessionSurvey.Value != survey)
+            List<ConferenceSessionSurvey> currentSessionSurveys = CurrentSessionSurveys.ToList();
+            if (currentSessionSurveys.Count == 1 && currentSessionSurveys.Single().SessionSurvey != survey)
             {
-                SessionSurvey = survey;
+                Community.AddFact(new ConferenceSessionSurvey(this, survey, currentSessionSurveys));
             }
         }
     }

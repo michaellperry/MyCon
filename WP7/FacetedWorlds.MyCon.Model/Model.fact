@@ -33,7 +33,6 @@ key:
 
 mutable:
     publish string name;
-	publish Survey sessionSurvey;
 	publish Survey conferenceSurvey;
 	publish string mapUrl;
 
@@ -59,6 +58,23 @@ query:
 
 	ConferenceNotice* notices {
 		ConferenceNotice n : n.conference = this
+	}
+
+	ConferenceSessionSurvey* currentSessionSurveys {
+		ConferenceSessionSurvey s : s.conference = this
+			where s.isCurrent
+	}
+}
+
+fact ConferenceSessionSurvey {
+key:
+	publish Conference conference;
+	Survey sessionSurvey;
+	ConferenceSessionSurvey* prior;
+
+query:
+	bool isCurrent {
+		not exists ConferenceSessionSurvey next : next.prior = this
 	}
 }
 
@@ -133,7 +149,7 @@ key:
 fact Slot {
 key:
     Attendee attendee;
-    Time slotTime;
+    publish Time slotTime;
 
 query:
 	Schedule* currentSchedules {
@@ -276,7 +292,7 @@ fact Schedule {
 key:
 	unique;
     Slot slot;
-    SessionPlace sessionPlace;
+    publish SessionPlace sessionPlace;
 
 query:
 	bool isCurrent {
@@ -333,7 +349,7 @@ query:
 
 fact SessionEvaluationCompleted {
 key:
-	publish Conference confernce;
+	publish ConferenceSessionSurvey sessionSurvey;
 	SessionEvaluation sessionEvaluation;
 	SessionEvaluationRatingAnswer* ratingAnswers;
 	SessionEvaluationEssayAnswer* essayAnswers;

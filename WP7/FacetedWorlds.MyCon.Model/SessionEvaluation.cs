@@ -1,4 +1,5 @@
 ﻿
+using System.Linq;
 namespace FacetedWorlds.MyCon.Model
 {
     public partial class SessionEvaluation
@@ -16,7 +17,7 @@ namespace FacetedWorlds.MyCon.Model
         public void Submit()
         {
             Community.AddFact(new SessionEvaluationCompleted(
-                Schedule.Slot.Attendee.Conference,
+                Schedule.Slot.Attendee.Conference.CurrentSessionSurveys.FirstOrDefault(),
                 this,
                 RatingAnswers,
                 EssayAnswers));

@@ -95,20 +95,9 @@
     <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Slot.cs">
       <Link>Slot.cs</Link>
     </Compile>
-    <Compile Include="Models\Identity.cs" />
-    <Compile Include="Models\Model.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Models\Model.fact" />
-    <None Include="Models\Model.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model.generated.cs</LastGenOutput>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
