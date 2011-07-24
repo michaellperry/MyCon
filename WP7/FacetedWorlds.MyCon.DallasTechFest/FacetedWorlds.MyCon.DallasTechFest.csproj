@@ -50,8 +50,9 @@
     <Reference Include="UpdateControls">
       <HintPath>..\..\packages\UpdateControls.2.1.3.0\lib\sl4-wp\UpdateControls.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Correspondence.1.2.0.1\lib\SL4-wp\UpdateControls.Correspondence.dll</HintPath>
+    <Reference Include="UpdateControls.Correspondence, Version=1.2.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Correspondence.1.2.0.2\lib\SL4-wp\UpdateControls.Correspondence.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
