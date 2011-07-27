@@ -58,8 +58,8 @@
     		</Grid.RowDefinitions>
     		<Grid.ColumnDefinitions>
     			<ColumnDefinition Width="0.273*"/>
-    			<ColumnDefinition Width="0.402*"/>
-    			<ColumnDefinition Width="0.325*"/>
+    			<ColumnDefinition Width="0.36*"/>
+    			<ColumnDefinition Width="0.367*"/>
     		</Grid.ColumnDefinitions>
             <Grid Grid.RowSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5">
     			<Rectangle Fill="{StaticResource PhoneAccentBrush}" Visibility="{Binding Scheduled, Converter={StaticResource VisibleWhenTrueConverter}}"/>
@@ -67,10 +67,10 @@
     			<Image Margin="3" Source="{Binding ImageUrl, Converter={StaticResource CachedImageUrlValueConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     		</Grid>
     		<TextBlock Text="{Binding Time}" Margin="8" Grid.Column="1" Grid.ColumnSpan="2"/>
-    		<TextBlock Text="{Binding Speaker}" Margin="8" Grid.Column="1" Grid.Row="1"/>
-    		<TextBlock Text="{Binding Room}" Margin="8" Grid.Column="2" Grid.Row="1"/>
-    		<TextBlock Text="{Binding Track}" Margin="8" Grid.Column="1" Grid.Row="2"/>
-    		<TextBlock Text="{Binding Level}" Margin="8" Grid.Column="2" Grid.Row="2"/>
+    		<TextBlock Text="{Binding Speaker}" Margin="8" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap"/>
+    		<TextBlock Text="{Binding Room}" Margin="8" Grid.Column="1" Grid.Row="2" TextWrapping="Wrap"/>
+    		<TextBlock Text="{Binding Track}" Margin="8" Grid.Column="2" Grid.Row="1" TextWrapping="Wrap"/>
+    		<TextBlock Text="{Binding Level}" Margin="8" Grid.Column="2" Grid.Row="2" TextWrapping="Wrap"/>
     	</Grid>
     	<ScrollViewer Grid.Row="3">
     		<Grid>
