@@ -25,30 +25,5 @@ namespace FacetedWorlds.MyCon.ViewModels
         {
             get { return _synhronizationService.Synchronizing; }
         }
-
-        public ScheduleViewModel Schedule
-        {
-            get { return new ScheduleViewModel(_synhronizationService, _attendee, _imageCache, _searchModel); }
-        }
-
-        public TracksViewModel Tracks
-        {
-            get { return new TracksViewModel(_attendee, _imageCache, _searchModel); }
-        }
-
-        public SearchViewModel Search
-        {
-            get { return new SearchViewModel(_attendee, _imageCache, _searchModel); }
-        }
-
-        public MapViewModel Map
-        {
-            get { return new MapViewModel(_attendee, _imageCache, _clock); }
-        }
-
-        public NoticesViewModel Notices
-        {
-            get { return new NoticesViewModel(_attendee, _imageCache, _clock); }
-        }
     }
 }

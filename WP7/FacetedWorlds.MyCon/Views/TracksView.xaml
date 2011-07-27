@@ -11,7 +11,7 @@
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="True"
-    DataContext="{Binding Main.Tracks, Source={StaticResource Locator}}">
+    DataContext="{Binding Tracks, Source={StaticResource Locator}}">
 	<phone:PhoneApplicationPage.Resources>
 		<DataTemplate x:Key="TrackSessionViewModelTemplate">
 			<FacetedWorlds_MyCon:TrackSessionUserControl/>

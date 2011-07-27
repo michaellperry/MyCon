@@ -52,7 +52,7 @@
 		<StaticResource ResourceKey="PhoneForegroundBrush"/>
 	</phone:PhoneApplicationPage.Foreground>
 	<phone:PhoneApplicationPage.DataContext>
-		<Binding Path="Main.Search" Source="{StaticResource Locator}"/>
+		<Binding Path="Search" Source="{StaticResource Locator}"/>
 	</phone:PhoneApplicationPage.DataContext>
 
     <!--LayoutRoot is the root grid where all page content is placed-->

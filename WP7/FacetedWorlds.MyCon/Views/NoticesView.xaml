@@ -10,7 +10,7 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True"
-    DataContext="{Binding Main.Notices, Source={StaticResource Locator}}">
+    DataContext="{Binding Notices, Source={StaticResource Locator}}">
 	<phone:PhoneApplicationPage.Resources>
 		<Itzben:VisibleWhenTrueConverter x:Key="VisibleWhenTrueConverter"/>
 		<FacetedWorlds_MyCon_Converters:CachedImageUrlValueConverter x:Key="CachedImageUrlValueConverter"/>

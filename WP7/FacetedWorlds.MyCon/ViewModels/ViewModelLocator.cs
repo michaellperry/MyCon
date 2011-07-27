@@ -14,7 +14,13 @@ namespace FacetedWorlds.MyCon.ViewModels
         private readonly SynchronizationService _synchronizationService;
 
         private readonly MainViewModel _main;
+        private readonly ScheduleViewModel _schedule;
+        private readonly TracksViewModel _tracks;
+        private readonly SearchViewModel _search;
+        private readonly MapViewModel _map;
+        private readonly NoticesViewModel _notices;
         private readonly SettingsViewModel _settings;
+
         private readonly ImageCache _imageCache;
         private readonly SearchModel _searchModel;
         private readonly Clock _clock;
@@ -29,6 +35,11 @@ namespace FacetedWorlds.MyCon.ViewModels
             _clock = new Clock();
 
             _main = new MainViewModel(_synchronizationService.Attendee, _synchronizationService, _imageCache, _searchModel, _clock);
+            _schedule = new ScheduleViewModel(_synchronizationService, _synchronizationService.Attendee, _imageCache, _searchModel);
+            _tracks = new TracksViewModel(_synchronizationService.Attendee, _imageCache, _searchModel);
+            _search = new SearchViewModel(_synchronizationService.Attendee, _imageCache, _searchModel);
+            _map = new MapViewModel(_synchronizationService.Attendee, _imageCache, _clock);
+            _notices = new NoticesViewModel(_synchronizationService.Attendee, _imageCache, _clock);
             _settings = new SettingsViewModel(_synchronizationService.Attendee);
         }
 
@@ -40,6 +51,31 @@ namespace FacetedWorlds.MyCon.ViewModels
         public object Main
         {
             get { return ForView.Wrap(_main); }
+        }
+
+        public object Schedule
+        {
+            get { return ForView.Wrap(_schedule); }
+        }
+
+        public object Tracks
+        {
+            get { return ForView.Wrap(_tracks); }
+        }
+
+        public object Search
+        {
+            get { return ForView.Wrap(_search); }
+        }
+
+        public object Map
+        {
+            get { return ForView.Wrap(_map); }
+        }
+
+        public object Notices
+        {
+            get { return ForView.Wrap(_notices); }
         }
 
         public object Settings

@@ -47,7 +47,7 @@
 		<StaticResource ResourceKey="PhoneForegroundBrush"/>
 	</phone:PhoneApplicationPage.Foreground>
 	<phone:PhoneApplicationPage.DataContext>
-		<Binding Path="Main.Schedule" Source="{StaticResource Locator}"/>
+		<Binding Path="Schedule" Source="{StaticResource Locator}"/>
 	</phone:PhoneApplicationPage.DataContext>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
