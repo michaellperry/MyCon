@@ -19,7 +19,7 @@
 		</DataTemplate>
 		<DataTemplate x:Key="SpeakerDayViewModelTemplate">
 			<StackPanel>
-				<TextBlock Text="{Binding Day}" FontSize="{StaticResource PhoneFontSizeMedium}"/>
+				<TextBlock Text="{Binding Day}" FontSize="{StaticResource PhoneFontSizeMedium}" Visibility="{Binding DayVisible}"/>
 				<ItemsControl ItemTemplate="{StaticResource TrackSessionViewModelTemplate}" ItemsSource="{Binding Sessions}"/>
 			</StackPanel>
 		</DataTemplate>
