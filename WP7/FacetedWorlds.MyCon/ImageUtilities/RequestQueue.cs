@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace FacetedWorlds.MyCon.ImageUtilities
 {
@@ -30,7 +31,10 @@ namespace FacetedWorlds.MyCon.ImageUtilities
                     nextRequest = _requests.Dequeue();
             }
             if (nextRequest != null)
+            {
+                Thread.Sleep(100);
                 nextRequest(InvokeNextRequest);
+            }
         }
     }
 }
