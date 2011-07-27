@@ -7,6 +7,7 @@ namespace FacetedWorlds.MyCon.ImageUtilities
     {
         private IDictionary<string, ImageCacheCell> _cellBySourceImageUrl =
             new Dictionary<string, ImageCacheCell>();
+        private RequestQueue _requestQueue = new RequestQueue();
 
         public string SmallImageUrl(string sourceImageUrl)
         {
@@ -34,7 +35,7 @@ namespace FacetedWorlds.MyCon.ImageUtilities
             ImageCacheCell cell;
             if (!_cellBySourceImageUrl.TryGetValue(sourceImageUrl, out cell))
             {
-                cell = new ImageCacheCell(sourceImageUrl);
+                cell = new ImageCacheCell(sourceImageUrl, _requestQueue);
                 _cellBySourceImageUrl.Add(sourceImageUrl, cell);
             }
             return cell;

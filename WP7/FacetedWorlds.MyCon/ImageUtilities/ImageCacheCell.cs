@@ -16,15 +16,17 @@ namespace FacetedWorlds.MyCon.ImageUtilities
         public const string DefaultLargeImageUrl = "/Images/default.big.png";
 
         private readonly string _sourceImageUrl;
+        private readonly RequestQueue _requestQueue;
 
         private bool _beganLoading = false;
         private Independent<string> _smallImageUrl = new Independent<string>();
         private Independent<string> _largeImageUrl = new Independent<string>();
         private Independent<string> _originalImageUrl = new Independent<string>();
 
-        public ImageCacheCell(string sourceImageUrl)
+        public ImageCacheCell(string sourceImageUrl, RequestQueue requestQueue)
         {
             _sourceImageUrl = sourceImageUrl;
+            _requestQueue = requestQueue;
         }
 
         public string SmallImageUrl
@@ -87,8 +89,15 @@ namespace FacetedWorlds.MyCon.ImageUtilities
                         _originalImageUrl.Value = String.Format("storage:{0}", localFileNameOriginal);
                     if (!fileExistsSmall || !fileExistsLarge || !fileExistsOriginal)
                     {
-                        HttpWebRequest request = HttpWebRequest.CreateHttp(_sourceImageUrl);
-                        request.BeginGetResponse(result => EndLoading(request, result, localFileNameSmall, localFileNameLarge, localFileNameOriginal), null);
+                        _requestQueue.QueueRequest(next =>
+                        {
+                            HttpWebRequest request = HttpWebRequest.CreateHttp(_sourceImageUrl);
+                            request.BeginGetResponse(delegate(IAsyncResult result)
+                            {
+                                EndLoading(request, result, localFileNameSmall, localFileNameLarge, localFileNameOriginal);
+                               next();
+                            }, null);
+                        });
                     }
                 }
             }

@@ -96,6 +96,7 @@
     <Compile Include="Converters\CachedImageUrlValueConverter.cs" />
     <Compile Include="ImageUtilities\ImageCache.cs" />
     <Compile Include="ImageUtilities\ImageCacheCell.cs" />
+    <Compile Include="ImageUtilities\RequestQueue.cs" />
     <Compile Include="Models\Clock.cs" />
     <Compile Include="Models\SearchModel.cs" />
     <Compile Include="POXConfigurationProvider.cs" />
