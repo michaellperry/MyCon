@@ -13,7 +13,7 @@ namespace FacetedWorlds.MyCon.ViewModels
         private readonly ImageCache _imageCache;
         private readonly SearchModel _searchModel;
 
-        private DependentList<string> _trackNames;
+        private DependentList<Track> _tracks;
 
         public TracksViewModel(Attendee attendee, ImageCache imageCache, SearchModel searchModel)
         {
@@ -21,24 +21,25 @@ namespace FacetedWorlds.MyCon.ViewModels
             _imageCache = imageCache;
             _searchModel = searchModel;
 
-            _trackNames = new DependentList<string>(() =>
+            _tracks = new DependentList<Track>(() =>
                 from track in _attendee.Conference.Tracks
                 orderby track.Name
-                select track.Name);
+                select track);
         }
 
         public int SelectedTrackIndex
         {
             get
             {
-                int index = _trackNames
+                int index = _tracks
+                    .Select(track => track.Name)
                     .ToList()
                     .IndexOf(_searchModel.SelectedTrack);
                 return index == -1 ? 0 : index;
             }
             set
             {
-                _searchModel.SelectedTrack = _trackNames.ElementAtOrDefault(value);
+                _searchModel.SelectedTrack = _tracks.Select(track => track.Name).ElementAtOrDefault(value);
             }
         }
 
@@ -47,7 +48,7 @@ namespace FacetedWorlds.MyCon.ViewModels
             get
             {
                 return
-                    from track in _attendee.Conference.Tracks
+                    from track in _tracks
                     orderby track.Name
                     select new TrackViewModel(_attendee, track, _imageCache);
             }

@@ -38,5 +38,20 @@ namespace FacetedWorlds.MyCon.ViewModels
         {
             return Name;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (this == obj)
+                return true;
+            TrackViewModel that = obj as TrackViewModel;
+            if (that == null)
+                return false;
+            return this._track == that._track;
+        }
+
+        public override int GetHashCode()
+        {
+            return _track.GetHashCode();
+        }
     }
 }
