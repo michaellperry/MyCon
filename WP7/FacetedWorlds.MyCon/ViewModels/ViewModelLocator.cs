@@ -29,7 +29,7 @@ namespace FacetedWorlds.MyCon.ViewModels
             _clock = new Clock();
 
             _main = new MainViewModel(_synchronizationService.Attendee, _synchronizationService, _imageCache, _searchModel, _clock);
-            _settings = new SettingsViewModel(_synchronizationService.Attendee.Identity);
+            _settings = new SettingsViewModel(_synchronizationService.Attendee);
         }
 
         public SearchModel SearchModel

@@ -5,26 +5,26 @@ key:
     string anonymousId;
 
 query:
-    DisableToastNotification* isToastNotificationDisabled {
-        DisableToastNotification d : d.identity = this
-            where not d.isReenabled
-    }
-}
-
-fact DisableToastNotification {
-key:
-    unique;
-    Identity identity;
-
-query:
-    bool isReenabled {
-        exists EnableToastNotification e : e.disable = this
+    EnableToastNotification* isToastNotificationEnabled {
+        EnableToastNotification d : d.identity = this
+            where not d.isDisabled
     }
 }
 
 fact EnableToastNotification {
 key:
-    DisableToastNotification* disable;
+    unique;
+    Identity identity;
+
+query:
+    bool isDisabled {
+        exists DisableToastNotification e : e.enable = this
+    }
+}
+
+fact DisableToastNotification {
+key:
+    EnableToastNotification* enable;
 }
 
 fact Conference {

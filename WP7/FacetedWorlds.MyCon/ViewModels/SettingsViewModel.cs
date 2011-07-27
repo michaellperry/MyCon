@@ -6,17 +6,22 @@ namespace FacetedWorlds.MyCon.ViewModels
 {
     public class SettingsViewModel
     {
-        private Identity _identity;
+        private Attendee _attendee;
 
-        public SettingsViewModel(Identity identity)
+        public SettingsViewModel(Attendee attendee)
         {
-            _identity = identity;
+            _attendee = attendee;
+        }
+
+        public string ConferenceName
+        {
+            get { return _attendee.Conference.Name; }
         }
 
         public bool EnableToastNotification
         {
-            get { return _identity.ToastNotificationEnabled; }
-            set { _identity.ToastNotificationEnabled = value; }
+            get { return _attendee.Identity.ToastNotificationEnabled; }
+            set { _attendee.Identity.ToastNotificationEnabled = value; }
         }
     }
 }

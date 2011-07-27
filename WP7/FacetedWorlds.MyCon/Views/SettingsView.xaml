@@ -24,13 +24,18 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="Dallas TechFest" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="ApplicationTitle" Text="{Binding ConferenceName}" Style="{StaticResource PhoneTextNormalStyle}"/>
             <TextBlock x:Name="PageTitle" Text="Settings" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-        	<toolkit:ToggleSwitch Header="Toast Notifications" VerticalAlignment="Top" IsChecked="{Binding EnableToastNotification, Mode=TwoWay}"/>
+        	<Grid.RowDefinitions>
+        		<RowDefinition Height="Auto"/>
+        		<RowDefinition Height="0.817*"/>
+        	</Grid.RowDefinitions>
+        	<toolkit:ToggleSwitch Header="Toast Notifications" IsChecked="{Binding EnableToastNotification, Mode=TwoWay}" d:LayoutOverrides="Height"/>
+        	<TextBlock Margin="8,8,8,0" Grid.Row="1" TextWrapping="Wrap" Text="Allows you to receive messages from conference organizers." VerticalAlignment="Top" Foreground="{StaticResource PhoneSubtleBrush}"/>
 </Grid>
     </Grid>
  

@@ -11,8 +11,8 @@ using System.IO;
 digraph "FacetedWorlds.MyCon.Model"
 {
     rankdir=BT
-    DisableToastNotification -> Identity
-    EnableToastNotification -> DisableToastNotification [label="  *"]
+    EnableToastNotification -> Identity
+    DisableToastNotification -> EnableToastNotification [label="  *"]
     ConferenceName -> Conference [color="red"]
     ConferenceName -> ConferenceName [label="  *"]
     ConferenceConferenceSurvey -> Conference [color="red"]
@@ -132,8 +132,8 @@ namespace FacetedWorlds.MyCon.Model
         // Roles
 
         // Queries
-        public static Query QueryIsToastNotificationDisabled = new Query()
-            .JoinSuccessors(DisableToastNotification.RoleIdentity, Condition.WhereIsEmpty(DisableToastNotification.QueryIsReenabled)
+        public static Query QueryIsToastNotificationEnabled = new Query()
+            .JoinSuccessors(EnableToastNotification.RoleIdentity, Condition.WhereIsEmpty(EnableToastNotification.QueryIsDisabled)
             )
             ;
 
@@ -145,7 +145,7 @@ namespace FacetedWorlds.MyCon.Model
         private string _anonymousId;
 
         // Results
-        private Result<DisableToastNotification> _isToastNotificationDisabled;
+        private Result<EnableToastNotification> _isToastNotificationEnabled;
 
         // Business constructor
         public Identity(
@@ -165,7 +165,7 @@ namespace FacetedWorlds.MyCon.Model
         // Result initializer
         private void InitializeResults()
         {
-            _isToastNotificationDisabled = new Result<DisableToastNotification>(this, QueryIsToastNotificationDisabled);
+            _isToastNotificationEnabled = new Result<EnableToastNotification>(this, QueryIsToastNotificationEnabled);
         }
 
         // Predecessor access
@@ -177,117 +177,10 @@ namespace FacetedWorlds.MyCon.Model
         }
 
         // Query result access
-        public IEnumerable<DisableToastNotification> IsToastNotificationDisabled
+        public IEnumerable<EnableToastNotification> IsToastNotificationEnabled
         {
-            get { return _isToastNotificationDisabled; }
+            get { return _isToastNotificationEnabled; }
         }
-
-        // Mutable property access
-
-    }
-    
-    public partial class DisableToastNotification : CorrespondenceFact
-    {
-		// Factory
-		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
-		{
-			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
-
-			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
-			{
-				_fieldSerializerByType = fieldSerializerByType;
-			}
-
-			public CorrespondenceFact CreateFact(FactMemento memento)
-			{
-				DisableToastNotification newFact = new DisableToastNotification(memento);
-
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-						newFact._unique = (Guid)_fieldSerializerByType[typeof(Guid)].ReadData(output);
-					}
-				}
-
-				return newFact;
-			}
-
-			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
-			{
-				DisableToastNotification fact = (DisableToastNotification)obj;
-				_fieldSerializerByType[typeof(Guid)].WriteData(output, fact._unique);
-			}
-		}
-
-		// Type
-		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.DisableToastNotification", 1);
-
-		protected override CorrespondenceFactType GetCorrespondenceFactType()
-		{
-			return _correspondenceFactType;
-		}
-
-        // Roles
-        public static Role RoleIdentity = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"identity",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Identity", 1),
-			false));
-
-        // Queries
-        public static Query QueryIsReenabled = new Query()
-            .JoinSuccessors(EnableToastNotification.RoleDisable)
-            ;
-
-        // Predicates
-        public static Condition IsReenabled = Condition.WhereIsNotEmpty(QueryIsReenabled);
-
-        // Predecessors
-        private PredecessorObj<Identity> _identity;
-
-        // Unique
-        private Guid _unique;
-
-        // Fields
-
-        // Results
-
-        // Business constructor
-        public DisableToastNotification(
-            Identity identity
-            )
-        {
-            _unique = Guid.NewGuid();
-            InitializeResults();
-            _identity = new PredecessorObj<Identity>(this, RoleIdentity, identity);
-        }
-
-        // Hydration constructor
-        private DisableToastNotification(FactMemento memento)
-        {
-            InitializeResults();
-            _identity = new PredecessorObj<Identity>(this, RoleIdentity, memento);
-        }
-
-        // Result initializer
-        private void InitializeResults()
-        {
-        }
-
-        // Predecessor access
-        public Identity Identity
-        {
-            get { return _identity.Fact; }
-        }
-
-        // Field access
-		public Guid Unique { get { return _unique; } }
-
-
-        // Query result access
 
         // Mutable property access
 
@@ -314,6 +207,7 @@ namespace FacetedWorlds.MyCon.Model
 				{
 					using (BinaryReader output = new BinaryReader(data))
 					{
+						newFact._unique = (Guid)_fieldSerializerByType[typeof(Guid)].ReadData(output);
 					}
 				}
 
@@ -323,6 +217,7 @@ namespace FacetedWorlds.MyCon.Model
 			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
 			{
 				EnableToastNotification fact = (EnableToastNotification)obj;
+				_fieldSerializerByType[typeof(Guid)].WriteData(output, fact._unique);
 			}
 		}
 
@@ -336,18 +231,25 @@ namespace FacetedWorlds.MyCon.Model
 		}
 
         // Roles
-        public static Role RoleDisable = new Role(new RoleMemento(
+        public static Role RoleIdentity = new Role(new RoleMemento(
 			_correspondenceFactType,
-			"disable",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.DisableToastNotification", 1),
+			"identity",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Identity", 1),
 			false));
 
         // Queries
+        public static Query QueryIsDisabled = new Query()
+            .JoinSuccessors(DisableToastNotification.RoleEnable)
+            ;
 
         // Predicates
+        public static Condition IsDisabled = Condition.WhereIsNotEmpty(QueryIsDisabled);
 
         // Predecessors
-        private PredecessorList<DisableToastNotification> _disable;
+        private PredecessorObj<Identity> _identity;
+
+        // Unique
+        private Guid _unique;
 
         // Fields
 
@@ -355,18 +257,19 @@ namespace FacetedWorlds.MyCon.Model
 
         // Business constructor
         public EnableToastNotification(
-            IEnumerable<DisableToastNotification> disable
+            Identity identity
             )
         {
+            _unique = Guid.NewGuid();
             InitializeResults();
-            _disable = new PredecessorList<DisableToastNotification>(this, RoleDisable, disable);
+            _identity = new PredecessorObj<Identity>(this, RoleIdentity, identity);
         }
 
         // Hydration constructor
         private EnableToastNotification(FactMemento memento)
         {
             InitializeResults();
-            _disable = new PredecessorList<DisableToastNotification>(this, RoleDisable, memento);
+            _identity = new PredecessorObj<Identity>(this, RoleIdentity, memento);
         }
 
         // Result initializer
@@ -375,9 +278,106 @@ namespace FacetedWorlds.MyCon.Model
         }
 
         // Predecessor access
-        public IEnumerable<DisableToastNotification> Disable
+        public Identity Identity
         {
-            get { return _disable; }
+            get { return _identity.Fact; }
+        }
+
+        // Field access
+		public Guid Unique { get { return _unique; } }
+
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
+    public partial class DisableToastNotification : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				DisableToastNotification newFact = new DisableToastNotification(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				DisableToastNotification fact = (DisableToastNotification)obj;
+			}
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.DisableToastNotification", 1);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Roles
+        public static Role RoleEnable = new Role(new RoleMemento(
+			_correspondenceFactType,
+			"enable",
+			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.EnableToastNotification", 1),
+			false));
+
+        // Queries
+
+        // Predicates
+
+        // Predecessors
+        private PredecessorList<EnableToastNotification> _enable;
+
+        // Fields
+
+        // Results
+
+        // Business constructor
+        public DisableToastNotification(
+            IEnumerable<EnableToastNotification> enable
+            )
+        {
+            InitializeResults();
+            _enable = new PredecessorList<EnableToastNotification>(this, RoleEnable, enable);
+        }
+
+        // Hydration constructor
+        private DisableToastNotification(FactMemento memento)
+        {
+            InitializeResults();
+            _enable = new PredecessorList<EnableToastNotification>(this, RoleEnable, memento);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+        public IEnumerable<EnableToastNotification> Enable
+        {
+            get { return _enable; }
         }
      
         // Field access
@@ -5200,18 +5200,18 @@ namespace FacetedWorlds.MyCon.Model
 				new FactMetadata(new List<CorrespondenceFactType> { Identity._correspondenceFactType }));
 			community.AddQuery(
 				Identity._correspondenceFactType,
-				Identity.QueryIsToastNotificationDisabled.QueryDefinition);
-			community.AddType(
-				DisableToastNotification._correspondenceFactType,
-				new DisableToastNotification.CorrespondenceFactFactory(fieldSerializerByType),
-				new FactMetadata(new List<CorrespondenceFactType> { DisableToastNotification._correspondenceFactType }));
-			community.AddQuery(
-				DisableToastNotification._correspondenceFactType,
-				DisableToastNotification.QueryIsReenabled.QueryDefinition);
+				Identity.QueryIsToastNotificationEnabled.QueryDefinition);
 			community.AddType(
 				EnableToastNotification._correspondenceFactType,
 				new EnableToastNotification.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { EnableToastNotification._correspondenceFactType }));
+			community.AddQuery(
+				EnableToastNotification._correspondenceFactType,
+				EnableToastNotification.QueryIsDisabled.QueryDefinition);
+			community.AddType(
+				DisableToastNotification._correspondenceFactType,
+				new DisableToastNotification.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { DisableToastNotification._correspondenceFactType }));
 			community.AddType(
 				Conference._correspondenceFactType,
 				new Conference.CorrespondenceFactFactory(fieldSerializerByType),

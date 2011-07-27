@@ -8,16 +8,16 @@ namespace FacetedWorlds.MyCon.Model
     {
         public bool ToastNotificationEnabled
         {
-            get { return !IsToastNotificationDisabled.Any(); }
+            get { return IsToastNotificationEnabled.Any(); }
             set
             {
-                if (IsToastNotificationDisabled.Any() && value)
+                if (ToastNotificationEnabled && !value)
                 {
-                    Community.AddFact(new EnableToastNotification(IsToastNotificationDisabled));
+                    Community.AddFact(new DisableToastNotification(IsToastNotificationEnabled));
                 }
-                else if (!IsToastNotificationDisabled.Any() && !value)
+                else if (!ToastNotificationEnabled && value)
                 {
-                    Community.AddFact(new DisableToastNotification(this));
+                    Community.AddFact(new EnableToastNotification(this));
                 }
             }
         }

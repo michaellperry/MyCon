@@ -27,7 +27,7 @@ namespace FacetedWorlds.MyCon
 
         public bool IsToastEnabled
         {
-            get { return Identity == null ? false : !Identity.IsToastNotificationDisabled.Any(); }
+            get { return Identity == null ? false : Identity.ToastNotificationEnabled; }
         }
     }
 }
