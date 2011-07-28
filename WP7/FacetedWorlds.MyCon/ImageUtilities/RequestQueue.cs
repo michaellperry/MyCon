@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Windows;
 
 namespace FacetedWorlds.MyCon.ImageUtilities
 {
@@ -18,7 +19,7 @@ namespace FacetedWorlds.MyCon.ImageUtilities
             }
             if (wasEmpty)
             {
-                request(InvokeNextRequest);
+                Deployment.Current.Dispatcher.BeginInvoke(() => request(InvokeNextRequest));
             }
         }
 
@@ -32,8 +33,7 @@ namespace FacetedWorlds.MyCon.ImageUtilities
             }
             if (nextRequest != null)
             {
-                Thread.Sleep(100);
-                nextRequest(InvokeNextRequest);
+                Deployment.Current.Dispatcher.BeginInvoke(() => nextRequest(InvokeNextRequest));
             }
         }
     }
