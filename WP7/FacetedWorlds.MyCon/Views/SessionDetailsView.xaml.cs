@@ -57,6 +57,15 @@ namespace FacetedWorlds.MyCon.Views
             if (viewModel != null)
                 viewModel.Add();
             NavigationService.GoBack();
+            if (viewModel != null && viewModel.ShouldPromptForPushNotification())
+            {
+                MessageBoxResult result = MessageBox.Show(
+                    "Enable push to be notified of schedule changes.", 
+                    viewModel.GetConferenceName(), 
+                    MessageBoxButton.OKCancel);
+                if (result == MessageBoxResult.OK)
+                    NavigationService.Navigate(new Uri("/Views/SettingsView.xaml", UriKind.Relative));
+            }
         }
 
         private bool CanRemove

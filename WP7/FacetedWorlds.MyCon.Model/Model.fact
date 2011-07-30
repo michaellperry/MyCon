@@ -89,6 +89,10 @@ query:
 			where s.isCurrent
 	}
 
+	Schedule* allSchedules {
+		Schedule s : s.slot.attendee = this
+	}
+
 	Session* scheduledSessions {
 		Schedule s : s.slot.attendee = this
 			where s.isCurrent

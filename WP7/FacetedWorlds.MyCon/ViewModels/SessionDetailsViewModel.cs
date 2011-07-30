@@ -147,6 +147,16 @@ namespace FacetedWorlds.MyCon.ViewModels
             _slot.AddSchedule(_sessionPlace);
         }
 
+        public bool ShouldPromptForPushNotification()
+        {
+            return _slot.Attendee.AllSchedules.Count() == 3;
+        }
+
+        public string GetConferenceName()
+        {
+            return _sessionPlace.Session.Conference.Name;
+        }
+
         public bool CanRemove
         {
             get { return SessionIsScheduled && !SessionHasStarted; }
