@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{77E412D7-6A89-4991-BA92-555A628A7966}</ProjectGuid>
+    <ProjectGuid>{A4AA5EE1-C717-4D27-B6C9-713D2D42220E}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FacetedWorlds.MyCon.DevLink</RootNamespace>
-    <AssemblyName>FacetedWorlds.MyCon.DevLink</AssemblyName>
+    <RootNamespace>FacetedWorlds.MyCon.Capture</RootNamespace>
+    <AssemblyName>FacetedWorlds.MyCon.Capture</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -36,40 +36,44 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Services.Client" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="UpdateControls">
+      <HintPath>..\..\packages\UpdateControls.2.1.3.0\lib\Net35\UpdateControls.dll</HintPath>
+    </Reference>
+    <Reference Include="UpdateControls.Correspondence">
+      <HintPath>..\..\ExternalLibs\UpdateControls.Correspondence.dll</HintPath>
+    </Reference>
+    <Reference Include="UpdateControls.Correspondence.Data">
+      <HintPath>..\..\ExternalLibs\UpdateControls.Correspondence.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="UpdateControls.Correspondence.FileStream">
+      <HintPath>..\..\ExternalLibs\UpdateControls.Correspondence.FileStream.dll</HintPath>
+    </Reference>
+    <Reference Include="UpdateControls.Correspondence.POXClient">
+      <HintPath>..\..\ExternalLibs\UpdateControls.Correspondence.POXClient.dll</HintPath>
+    </Reference>
+    <Reference Include="UpdateControls.XAML">
+      <HintPath>..\..\packages\UpdateControls.2.1.3.0\lib\Net35\UpdateControls.XAML.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataLoader.cs" />
+    <Compile Include="POXConfigurationProvider.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\DevLinkServiceReference\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.datasvcmap</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ServiceReferenceMetadataStorage Include="Service References\DevLinkServiceReference\">
-      <Type>datasvcmap</Type>
-    </ServiceReferenceMetadataStorage>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\DevLinkServiceReference\service.edmx" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\DevLinkServiceReference\Reference.datasvcmap">
-      <Generator>DataServiceClientGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
+    <ProjectReference Include="..\FacetedWorlds.MyCon.Model\FacetedWorlds.MyCon.Model.csproj">
+      <Project>{D2108D96-F5AB-4E8A-AA79-986006EB4393}</Project>
+      <Name>FacetedWorlds.MyCon.Model %28Desktop\FacetedWorlds.MyCon.Model%29</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

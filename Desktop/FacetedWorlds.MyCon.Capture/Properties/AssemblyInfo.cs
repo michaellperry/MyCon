@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FacetedWorlds.MyCon.DevLink")]
+[assembly: AssemblyTitle("FacetedWorlds.MyCon.Capture")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("ABSG")]
-[assembly: AssemblyProduct("FacetedWorlds.MyCon.DevLink")]
-[assembly: AssemblyCopyright("Copyright © ABSG 2011")]
+[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyProduct("FacetedWorlds.MyCon.Capture")]
+[assembly: AssemblyCopyright("Copyright © Microsoft 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a1a8af08-a0cb-4058-a6e7-b730502d53b6")]
+[assembly: Guid("80cc7faf-95fd-446a-9c86-255250fcd877")]
 
 // Version information for an assembly consists of the following four values:
 //
