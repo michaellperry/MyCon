@@ -5,6 +5,7 @@ using System.IO.IsolatedStorage;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using FacetedWorlds.MyCon.ImageUtilities;
 
 namespace FacetedWorlds.MyCon.Converters
 {
@@ -18,7 +19,10 @@ namespace FacetedWorlds.MyCon.Converters
             if (value == null)
                 return value;
 
-            string url = (string)value;
+            CachedImage cachedImage = (CachedImage)value;
+            if (cachedImage.Access != null)
+                cachedImage.Access();
+            string url = cachedImage.ImageUrl;
             if (!url.StartsWith("storage:"))
                 return new BitmapImage(new Uri(url, UriKind.RelativeOrAbsolute));
 

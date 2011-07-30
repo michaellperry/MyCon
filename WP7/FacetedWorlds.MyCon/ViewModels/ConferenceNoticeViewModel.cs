@@ -1,6 +1,7 @@
 using FacetedWorlds.MyCon.Model;
 using FacetedWorlds.MyCon.Models;
 using System;
+using FacetedWorlds.MyCon.ImageUtilities;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {
@@ -15,9 +16,9 @@ namespace FacetedWorlds.MyCon.ViewModels
             _clock = clock;
         }
 
-        public override string ImageUrl
+        public override CachedImage ImageUrl
         {
-            get { return "/Images/logo.small.png"; }
+            get { return new CachedImage { ImageUrl = "/Images/logo.small.png" }; }
         }
 
         public override string Title

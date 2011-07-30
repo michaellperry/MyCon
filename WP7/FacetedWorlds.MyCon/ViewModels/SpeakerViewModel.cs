@@ -28,7 +28,7 @@ namespace FacetedWorlds.MyCon.ViewModels
             get { return _speaker.Contact; }
         }
 
-        public string ImageUrl
+        public CachedImage ImageUrl
         {
             get { return _imageCache.LargeImageUrl(_speaker.ImageUrl); }
         }

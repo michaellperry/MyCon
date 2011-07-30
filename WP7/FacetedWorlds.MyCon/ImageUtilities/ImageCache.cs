@@ -9,24 +9,24 @@ namespace FacetedWorlds.MyCon.ImageUtilities
             new Dictionary<string, ImageCacheCell>();
         private RequestQueue _requestQueue = new RequestQueue();
 
-        public string SmallImageUrl(string sourceImageUrl)
+        public CachedImage SmallImageUrl(string sourceImageUrl)
         {
             if (String.IsNullOrEmpty(sourceImageUrl))
-                return ImageCacheCell.DefaultSmallImageUrl;
+                return new CachedImage { ImageUrl = ImageCacheCell.DefaultSmallImageUrl };
             return GetCell(sourceImageUrl).SmallImageUrl;
         }
 
-        public string LargeImageUrl(string sourceImageUrl)
+        public CachedImage LargeImageUrl(string sourceImageUrl)
         {
             if (String.IsNullOrEmpty(sourceImageUrl))
-                return ImageCacheCell.DefaultSmallImageUrl;
+                return new CachedImage { ImageUrl = ImageCacheCell.DefaultSmallImageUrl };
             return GetCell(sourceImageUrl).LargeImageUrl;
         }
 
-        public string OriginalImageUrl(string sourceImageUrl)
+        public CachedImage OriginalImageUrl(string sourceImageUrl)
         {
             if (String.IsNullOrEmpty(sourceImageUrl))
-                return null;
+                return new CachedImage();
             return GetCell(sourceImageUrl).OriginalImageUrl;
         }
 

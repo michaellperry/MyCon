@@ -29,38 +29,47 @@ namespace FacetedWorlds.MyCon.ImageUtilities
             _requestQueue = requestQueue;
         }
 
-        public string SmallImageUrl
+        public CachedImage SmallImageUrl
         {
             get
             {
                 lock (this)
                 {
-                    BeginLoading();
-                    return _smallImageUrl.Value ?? DefaultSmallImageUrl;
+                    return new CachedImage
+                    {
+                        ImageUrl = _smallImageUrl.Value ?? DefaultSmallImageUrl,
+                        Access = BeginLoading
+                    };
                 }
             }
         }
 
-        public string LargeImageUrl
+        public CachedImage LargeImageUrl
         {
             get
             {
                 lock (this)
                 {
-                    BeginLoading();
-                    return _largeImageUrl.Value ?? DefaultLargeImageUrl;
+                    return new CachedImage
+                    {
+                        ImageUrl = _largeImageUrl.Value ?? DefaultLargeImageUrl,
+                        Access = BeginLoading
+                    };
                 }
             }
         }
 
-        public string OriginalImageUrl
+        public CachedImage OriginalImageUrl
         {
             get
             {
                 lock (this)
                 {
-                    BeginLoading();
-                    return _originalImageUrl.Value;
+                    return new CachedImage
+                    {
+                        ImageUrl = _originalImageUrl.Value,
+                        Access = BeginLoading
+                    };
                 }
             }
         }

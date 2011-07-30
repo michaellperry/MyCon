@@ -94,6 +94,7 @@
       <DependentUpon>RatingItemControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\CachedImageUrlValueConverter.cs" />
+    <Compile Include="ImageUtilities\CachedImage.cs" />
     <Compile Include="ImageUtilities\ImageCache.cs" />
     <Compile Include="ImageUtilities\ImageCacheCell.cs" />
     <Compile Include="ImageUtilities\RequestQueue.cs" />

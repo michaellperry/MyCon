@@ -29,7 +29,7 @@ namespace FacetedWorlds.MyCon.ViewModels
             get { return String.Format("{0:h:mm}", _slot.SlotTime.Start); }
         }
 
-        public string ImageUrl
+        public CachedImage ImageUrl
         {
             get
             {
@@ -37,7 +37,7 @@ namespace FacetedWorlds.MyCon.ViewModels
                 if (sessionPlace != null)
                     return _imageCache.SmallImageUrl(sessionPlace.Session.Speaker.ImageUrl);
                 else
-                    return "/Images/unknown.small.png";
+                    return new CachedImage { ImageUrl = "/Images/unknown.small.png" };
             }
         }
 

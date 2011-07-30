@@ -1,10 +1,11 @@
 using System;
+using FacetedWorlds.MyCon.ImageUtilities;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {
     public abstract class NoticeViewModel
     {
-        public abstract string ImageUrl { get; }
+        public abstract CachedImage ImageUrl { get; }
         public abstract string Title { get; }
         public abstract string Text { get; }
         public abstract string Age { get; }

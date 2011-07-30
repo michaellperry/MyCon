@@ -77,7 +77,7 @@ namespace FacetedWorlds.MyCon.ViewModels
             }
         }
 
-        public string MapImageUrl
+        public CachedImage MapImageUrl
         {
             get { return _imageCache.OriginalImageUrl(_attendee.Conference.MapUrl.Value); }
         }

@@ -18,7 +18,7 @@ namespace FacetedWorlds.MyCon.ViewModels
             _clock = clock;
         }
 
-        public override string ImageUrl
+        public override CachedImage ImageUrl
         {
             get { return _imageCache.SmallImageUrl(_notice.Session.Speaker.ImageUrl); }
         }

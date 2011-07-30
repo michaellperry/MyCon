@@ -23,7 +23,7 @@ namespace FacetedWorlds.MyCon.ViewModels
             get { return _slot.SlotTime.Start; }
         }
 
-        public string ImageUrl
+        public CachedImage ImageUrl
         {
             get { return _imageCache.SmallImageUrl(_sessionPlace.Session.Speaker.ImageUrl); }
         }

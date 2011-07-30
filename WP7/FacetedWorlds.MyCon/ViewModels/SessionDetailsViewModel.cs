@@ -34,7 +34,7 @@ namespace FacetedWorlds.MyCon.ViewModels
             }
         }
 
-        public string ImageUrl
+        public CachedImage ImageUrl
         {
             get { return _imageCache.LargeImageUrl(_sessionPlace.Session.Speaker.ImageUrl); }
         }
