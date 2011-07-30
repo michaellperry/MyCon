@@ -23,6 +23,8 @@ namespace FacetedWorlds.MyCon.Converters
             if (cachedImage.Access != null)
                 cachedImage.Access();
             string url = cachedImage.ImageUrl;
+            if (url == null)
+                return null;
             if (!url.StartsWith("storage:"))
                 return new BitmapImage(new Uri(url, UriKind.RelativeOrAbsolute));
 
