@@ -56,16 +56,10 @@ namespace FacetedWorlds.MyCon.Views
             SessionDetailsViewModel viewModel = ForView.Unwrap<SessionDetailsViewModel>(DataContext);
             if (viewModel != null)
                 viewModel.Add();
-            NavigationService.GoBack();
-            if (viewModel != null && viewModel.ShouldPromptForPushNotification())
-            {
-                MessageBoxResult result = MessageBox.Show(
-                    "Enable push to be notified of schedule changes.", 
-                    viewModel.GetConferenceName(), 
-                    MessageBoxButton.OKCancel);
-                if (result == MessageBoxResult.OK)
-                    NavigationService.Navigate(new Uri("/Views/SettingsView.xaml", UriKind.Relative));
-            }
+            if (ShouldGoToSettings(viewModel))
+                NavigationService.Navigate(new Uri("/Views/SettingsView.xaml", UriKind.Relative));
+            else
+                NavigationService.GoBack();
         }
 
         private bool CanRemove
@@ -167,6 +161,19 @@ namespace FacetedWorlds.MyCon.Views
             if (viewModel != null)
                 viewModel.SearchByTrack();
             NavigationService.Navigate(new Uri("/Views/TracksView.xaml", UriKind.Relative));
+        }
+
+        private static bool ShouldGoToSettings(SessionDetailsViewModel viewModel)
+        {
+            if (viewModel != null && viewModel.ShouldPromptForPushNotification())
+            {
+                MessageBoxResult result = MessageBox.Show(
+                    "Enable push to be notified of schedule changes.",
+                    viewModel.GetConferenceName(),
+                    MessageBoxButton.OKCancel);
+                return result == MessageBoxResult.OK;
+            }
+            return false;
         }
     }
 }
