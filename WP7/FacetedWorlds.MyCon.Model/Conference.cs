@@ -52,18 +52,25 @@ namespace FacetedWorlds.MyCon.Model
         {
             Speaker speaker = NewSpeaker(speakerName, contact, bio, imageUrl);
             Session session = NewSession(sessionId, sessionName, trackName, speaker, null, description);
-            Time time = GetTime(startTime);
+            NewSessionPlace(session, startTime, roomNumber);
+        }
+
+        public void NewGeneralSessionPlace(string sessionId, string sessionName, Time time, string roomNumber, string imageUrl)
+        {
+            Speaker speaker = Community.AddFact(new Speaker(this, string.Empty));
+            if (speaker.ImageUrl.Value != imageUrl)
+                speaker.ImageUrl = imageUrl;
+            Session session = Community.AddFact(new Session(this, speaker, null, sessionId));
+            if (session.Name.Value != sessionName)
+                session.Name = sessionName;
             Room room = Community.AddFact(new Room(this, roomNumber));
             Place place = Community.AddFact(new Place(time, room));
             Community.AddFact(new SessionPlace(session, place, new List<SessionPlace>()));
         }
 
-        public void NewGeneralSessionPlace(string sessionId, string sessionName, Time time, string roomNumber)
+        public void NewSessionPlace(Session session, DateTime startTime, string roomNumber)
         {
-            Speaker speaker = Community.AddFact(new Speaker(this, string.Empty));
-            Session session = Community.AddFact(new Session(this, speaker, null, sessionId));
-            if (session.Name.Value != sessionName)
-                session.Name = sessionName;
+            Time time = GetTime(startTime);
             Room room = Community.AddFact(new Room(this, roomNumber));
             Place place = Community.AddFact(new Place(time, room));
             Community.AddFact(new SessionPlace(session, place, new List<SessionPlace>()));

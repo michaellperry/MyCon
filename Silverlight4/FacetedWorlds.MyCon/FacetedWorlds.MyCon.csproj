@@ -93,7 +93,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Data\DataLocator.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -117,10 +116,6 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Data\sessions.xml" />
-    <EmbeddedResource Include="Data\speakers.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FacetedWorlds.MyCon.Model\FacetedWorlds.MyCon.Model.csproj">

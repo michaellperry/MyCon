@@ -11,7 +11,6 @@ using System.Reflection;
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
-using FacetedWorlds.MyCon.Data;
 
 namespace FacetedWorlds.MyCon
 {

@@ -144,14 +144,6 @@ namespace FacetedWorlds.MyCon.DallasTechFest
 
         private static void CreateLunchTimes(Conference conference)
         {
-            var times = conference.Days
-                .SelectMany(day => day.Times)
-                .Where(time => time.Start.Hour == 12);
-
-            foreach (Time time in times)
-            {
-                conference.NewGeneralSessionPlace(String.Format("Lunch_{0:yyyyMMdd}", time.Day.ConferenceDate), "Lunch", time, "Dining Area");
-            }
         }
 
         private static void AssignSessionPlaces(Conference conference)

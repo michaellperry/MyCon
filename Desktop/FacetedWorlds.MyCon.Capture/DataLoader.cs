@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FacetedWorlds.MyCon.Model;
 using System.IO;
-using System.Reflection;
-using System.Xml.Linq;
+using System.Linq;
 using System.Net;
-using System.Diagnostics;
+using System.Web;
+using System.Xml.Linq;
+using FacetedWorlds.MyCon.Model;
 using HtmlAgilityPack;
 
 namespace FacetedWorlds.MyCon.Capture
@@ -18,13 +16,14 @@ namespace FacetedWorlds.MyCon.Capture
         private Dictionary<string, Speaker> _speakerById = new Dictionary<string, Speaker>();
         private Dictionary<string, Track> _trackById = new Dictionary<string, Track>();
         private Dictionary<string, Room> _roomById = new Dictionary<string, Room>();
+        private Dictionary<string, Session> _sessionById = new Dictionary<string,Session>();
 
         public void Load(Conference conference)
         {
             LoadSpeakers(conference);
-            //LoadSessions(conference);
-            //CreateLunchTimes(conference);
-            //AssignSessionPlaces(conference);
+            LoadSessions(conference);
+            LoadSessionTimes(conference);
+            CreateLunchTimes(conference);
         }
 
         private void LoadSpeakers(Conference conference)
@@ -55,27 +54,50 @@ namespace FacetedWorlds.MyCon.Capture
 
         private void LoadSessions(Conference conference)
         {
-            using (Stream sessionsStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(typeof(DataLoader), "sessions.xml"))
+            HtmlDocument sessionsDocument = new HtmlDocument();
+            using (Stream sessionsStream = WebRequest.Create("http://dallastechfest.com/Sessions?tab=list").GetResponse().GetResponseStream())
             {
-                XDocument document = XDocument.Load(sessionsStream);
-                var posts = document.Descendants("div").Where(AttributeEquals("class", "post"));
+                sessionsDocument.Load(sessionsStream);
+                var posts = sessionsDocument.DocumentNode.SelectNodes("//div[@class='post']");
 
                 foreach (var post in posts)
                 {
-                    var anchors = post.Descendants("a").ToArray();
-                    string speakerName = anchors[1].Value;
+                    var anchors = post.SelectNodes(".//a").ToArray();
+                    string speakerName = anchors[1].InnerText;
                     string correctedSpeakerName = CorrectSpeakerName(speakerName);
                     if (correctedSpeakerName != null)
                     {
-                        string sessionId = anchors[0].Attribute("href").Value.Split('/')[2];
-                        string sessionName = anchors[0].Value;
-                        var entry = post.Descendants("div").Where(AttributeEquals("class", "entry")).Single();
-                        var fields = entry.Descendants("div").Select(d => d.Value).ToList();
+                        string sessionId = anchors[0].GetAttributeValue("href", string.Empty).Split('/')[2];
+                        string sessionName = HttpUtility.HtmlDecode(anchors[0].InnerText);
+                        var entry = post.SelectSingleNode(".//div[@class='entry']");
+                        var fields = entry.SelectNodes(".//div").Select(d => d.InnerText).ToList();
                         var category = fields.Where(f => f.StartsWith("Category: ")).Single().Substring("Category: ".Length);
                         var level = fields.Where(f => f.StartsWith("Level: ")).Single().Substring("Level: ".Length);
-                        string[] paragraphs = entry.Elements("p").Select(p => p.Value).ToArray();
+                        string[] paragraphs = entry.SelectNodes("p").Select(p => HttpUtility.HtmlDecode(p.InnerText)).ToArray();
 
-                        conference.NewSession(sessionId, sessionName, category, conference.GetSpeaker(correctedSpeakerName), level, String.Join("\n", paragraphs));
+                        _sessionById[sessionId] = conference.NewSession(sessionId, sessionName, category, conference.GetSpeaker(correctedSpeakerName), level, String.Join("\n", paragraphs));
+                    }
+                }
+            }
+        }
+
+        private void LoadSessionTimes(Conference conference)
+        {
+            HtmlDocument sessionsDocument = new HtmlDocument();
+            using (Stream sessionsStream = WebRequest.Create("http://dallastechfest.com/Sessions?tab=times").GetResponse().GetResponseStream())
+            {
+                sessionsDocument.Load(sessionsStream);
+                var slots = sessionsDocument.DocumentNode.SelectNodes("//h3").Where(slot => slot.InnerText != "None");
+                foreach (var slot in slots)
+                {
+                    DateTime startTime = DateTime.Parse("8/12/2011 " + slot.InnerText.Substring(0, 8));
+                    var sessions = slot.NextSibling.NextSibling.SelectNodes(".//tr[@class='status_Accepted']");
+                    foreach (var session in sessions)
+                    {
+                        var anchors = session.SelectNodes(".//a").ToArray();
+                        string sessionId = anchors[1].GetAttributeValue("href", string.Empty).Split('/')[2];
+
+                        conference.NewSessionPlace(_sessionById[sessionId], startTime, "TBD");
                     }
                 }
             }
@@ -83,10 +105,6 @@ namespace FacetedWorlds.MyCon.Capture
 
         private string CorrectSpeakerName(string speakerName)
         {
-            if (speakerName == "Devlin")
-                return null;
-            if (speakerName == "Latish")
-                return "Latish Sehgal";
             if (speakerName == "rob vettor")
                 return "Rob Vettor";
             return speakerName;
@@ -105,38 +123,8 @@ namespace FacetedWorlds.MyCon.Capture
 
         private void CreateLunchTimes(Conference conference)
         {
-            Time[] times = conference.Days
-                .SelectMany(day => day.Times)
-                .Where(time => time.Start.Hour == 12)
-                .ToArray();
-
-            foreach (Time time in times)
-            {
-                conference.NewGeneralSessionPlace(String.Format("Lunch_{0:yyyyMMdd}", time.Day.ConferenceDate), "Lunch", time, "Dining Area");
-            }
-        }
-
-        private void AssignSessionPlaces(Conference conference)
-        {
-            Time[] times = conference.Days
-                .SelectMany(day => day.Times)
-                .Where(time => time.Start.Hour != 12)
-                .ToArray();
-            Session[] sessions = conference.Sessions.ToArray();
-
-            int room = 0;
-            int sessionIndex = 0;
-            while (sessionIndex < sessions.Length)
-            {
-                for (int timeIndex = 0; timeIndex < times.Length && sessionIndex < sessions.Length; ++timeIndex, ++sessionIndex)
-                {
-                    Time time = times[timeIndex];
-                    Session session = sessions[sessionIndex];
-
-                    session.SetSessionPlace(time, (room + 101).ToString());
-                }
-                room++;
-            }
+            conference.NewGeneralSessionPlace("lunch_08122011", "Lunch", conference.GetTime(DateTime.Parse("8/12/2011 11:45 AM")), "TBD", "http://qedcode.com/images/lunch.png");
+            conference.NewGeneralSessionPlace("lunch_08132011", "Lunch", conference.GetTime(DateTime.Parse("8/13/2011 11:45 AM")), "TBD", "http://qedcode.com/images/lunch.png");
         }
     }
 }
