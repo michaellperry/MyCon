@@ -20,7 +20,7 @@ namespace FacetedWorlds.MyCon.Model
         public Speaker NewSpeaker(string speakerName, string contact, string bio, string imageUrl)
         {
             Speaker speaker = GetSpeaker(speakerName);
-            if (speaker.ImageUrl.Value != imageUrl)
+            if (speaker.ImageUrl.Value != imageUrl && imageUrl != null)
                 speaker.ImageUrl = imageUrl;
             List<DocumentSegment> bioSegments = DocumentSegments(bio);
             if (!SegmentsEqual(speaker.Bio.Value, bioSegments))

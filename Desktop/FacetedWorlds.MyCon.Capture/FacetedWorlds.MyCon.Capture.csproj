@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\..\packages\HtmlAgilityPack.1.4.2\lib\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -74,6 +77,139 @@
       <Project>{D2108D96-F5AB-4E8A-AA79-986006EB4393}</Project>
       <Name>FacetedWorlds.MyCon.Model %28Desktop\FacetedWorlds.MyCon.Model%29</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Data\100.xml" />
+    <EmbeddedResource Include="Data\1006.xml" />
+    <EmbeddedResource Include="Data\1007.xml" />
+    <EmbeddedResource Include="Data\101.xml" />
+    <EmbeddedResource Include="Data\102.xml" />
+    <EmbeddedResource Include="Data\1037.xml" />
+    <EmbeddedResource Include="Data\104.xml" />
+    <EmbeddedResource Include="Data\105.xml" />
+    <EmbeddedResource Include="Data\1051.xml" />
+    <EmbeddedResource Include="Data\107.xml" />
+    <EmbeddedResource Include="Data\110.xml" />
+    <EmbeddedResource Include="Data\111.xml" />
+    <EmbeddedResource Include="Data\113.xml" />
+    <EmbeddedResource Include="Data\1131.xml" />
+    <EmbeddedResource Include="Data\114.xml" />
+    <EmbeddedResource Include="Data\115.xml" />
+    <EmbeddedResource Include="Data\1202.xml" />
+    <EmbeddedResource Include="Data\1206.xml" />
+    <EmbeddedResource Include="Data\1207.xml" />
+    <EmbeddedResource Include="Data\1208.xml" />
+    <EmbeddedResource Include="Data\1209.xml" />
+    <EmbeddedResource Include="Data\1210.xml" />
+    <EmbeddedResource Include="Data\1211.xml" />
+    <EmbeddedResource Include="Data\1212.xml" />
+    <EmbeddedResource Include="Data\123.xml" />
+    <EmbeddedResource Include="Data\124.xml" />
+    <EmbeddedResource Include="Data\1293.xml" />
+    <EmbeddedResource Include="Data\1295.xml" />
+    <EmbeddedResource Include="Data\137.xml" />
+    <EmbeddedResource Include="Data\140.xml" />
+    <EmbeddedResource Include="Data\152.xml" />
+    <EmbeddedResource Include="Data\183.xml" />
+    <EmbeddedResource Include="Data\184.xml" />
+    <EmbeddedResource Include="Data\196.xml" />
+    <EmbeddedResource Include="Data\212.xml" />
+    <EmbeddedResource Include="Data\213.xml" />
+    <EmbeddedResource Include="Data\214.xml" />
+    <EmbeddedResource Include="Data\215.xml" />
+    <EmbeddedResource Include="Data\228.xml" />
+    <EmbeddedResource Include="Data\287.xml" />
+    <EmbeddedResource Include="Data\302.xml" />
+    <EmbeddedResource Include="Data\317.xml" />
+    <EmbeddedResource Include="Data\318.xml" />
+    <EmbeddedResource Include="Data\319.xml" />
+    <EmbeddedResource Include="Data\376.xml" />
+    <EmbeddedResource Include="Data\392.xml" />
+    <EmbeddedResource Include="Data\393.xml" />
+    <EmbeddedResource Include="Data\466.xml" />
+    <EmbeddedResource Include="Data\47.xml" />
+    <EmbeddedResource Include="Data\481.xml" />
+    <EmbeddedResource Include="Data\496.xml" />
+    <EmbeddedResource Include="Data\497.xml" />
+    <EmbeddedResource Include="Data\542.xml" />
+    <EmbeddedResource Include="Data\543.xml" />
+    <EmbeddedResource Include="Data\544.xml" />
+    <EmbeddedResource Include="Data\545.xml" />
+    <EmbeddedResource Include="Data\572.xml" />
+    <EmbeddedResource Include="Data\573.xml" />
+    <EmbeddedResource Include="Data\586.xml" />
+    <EmbeddedResource Include="Data\617.xml" />
+    <EmbeddedResource Include="Data\618.xml" />
+    <EmbeddedResource Include="Data\619.xml" />
+    <EmbeddedResource Include="Data\631.xml" />
+    <EmbeddedResource Include="Data\64.xml" />
+    <EmbeddedResource Include="Data\646.xml" />
+    <EmbeddedResource Include="Data\647.xml" />
+    <EmbeddedResource Include="Data\661.xml" />
+    <EmbeddedResource Include="Data\662.xml" />
+    <EmbeddedResource Include="Data\663.xml" />
+    <EmbeddedResource Include="Data\664.xml" />
+    <EmbeddedResource Include="Data\665.xml" />
+    <EmbeddedResource Include="Data\666.xml" />
+    <EmbeddedResource Include="Data\692.xml" />
+    <EmbeddedResource Include="Data\693.xml" />
+    <EmbeddedResource Include="Data\707.xml" />
+    <EmbeddedResource Include="Data\71.xml" />
+    <EmbeddedResource Include="Data\712.xml" />
+    <EmbeddedResource Include="Data\713.xml" />
+    <EmbeddedResource Include="Data\715.xml" />
+    <EmbeddedResource Include="Data\716.xml" />
+    <EmbeddedResource Include="Data\717.xml" />
+    <EmbeddedResource Include="Data\718.xml" />
+    <EmbeddedResource Include="Data\720.xml" />
+    <EmbeddedResource Include="Data\721.xml" />
+    <EmbeddedResource Include="Data\722.xml" />
+    <EmbeddedResource Include="Data\737.xml" />
+    <EmbeddedResource Include="Data\74.xml" />
+    <EmbeddedResource Include="Data\75.xml" />
+    <EmbeddedResource Include="Data\752.xml" />
+    <EmbeddedResource Include="Data\766.xml" />
+    <EmbeddedResource Include="Data\767.xml" />
+    <EmbeddedResource Include="Data\78.xml" />
+    <EmbeddedResource Include="Data\782.xml" />
+    <EmbeddedResource Include="Data\783.xml" />
+    <EmbeddedResource Include="Data\784.xml" />
+    <EmbeddedResource Include="Data\785.xml" />
+    <EmbeddedResource Include="Data\786.xml" />
+    <EmbeddedResource Include="Data\787.xml" />
+    <EmbeddedResource Include="Data\79.xml" />
+    <EmbeddedResource Include="Data\790.xml" />
+    <EmbeddedResource Include="Data\796.xml" />
+    <EmbeddedResource Include="Data\797.xml" />
+    <EmbeddedResource Include="Data\799.xml" />
+    <EmbeddedResource Include="Data\800.xml" />
+    <EmbeddedResource Include="Data\811.xml" />
+    <EmbeddedResource Include="Data\829.xml" />
+    <EmbeddedResource Include="Data\83.xml" />
+    <EmbeddedResource Include="Data\872.xml" />
+    <EmbeddedResource Include="Data\873.xml" />
+    <EmbeddedResource Include="Data\874.xml" />
+    <EmbeddedResource Include="Data\88.xml" />
+    <EmbeddedResource Include="Data\886.xml" />
+    <EmbeddedResource Include="Data\887.xml" />
+    <EmbeddedResource Include="Data\889.xml" />
+    <EmbeddedResource Include="Data\89.xml" />
+    <EmbeddedResource Include="Data\890.xml" />
+    <EmbeddedResource Include="Data\90.xml" />
+    <EmbeddedResource Include="Data\902.xml" />
+    <EmbeddedResource Include="Data\903.xml" />
+    <EmbeddedResource Include="Data\904.xml" />
+    <EmbeddedResource Include="Data\91.xml" />
+    <EmbeddedResource Include="Data\92.xml" />
+    <EmbeddedResource Include="Data\931.xml" />
+    <EmbeddedResource Include="Data\94.xml" />
+    <EmbeddedResource Include="Data\947.xml" />
+    <EmbeddedResource Include="Data\95.xml" />
+    <EmbeddedResource Include="Data\96.xml" />
+    <EmbeddedResource Include="Data\977.xml" />
+    <EmbeddedResource Include="Data\978.xml" />
+    <EmbeddedResource Include="Data\99.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

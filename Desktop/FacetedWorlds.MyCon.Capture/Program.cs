@@ -10,8 +10,8 @@ namespace FacetedWorlds.MyCon.Capture
 {
     class Program
     {
-        private static Conference conference;
-        private const string ConferenceID = "09BD46B786CA49BAB443CC212F6DB5EA";
+        private static Conference _conference;
+        private const string ConferenceID = "B6F26D44432E4136B22B643CF9509453";
 
         static void Main(string[] args)
         {
@@ -22,9 +22,9 @@ namespace FacetedWorlds.MyCon.Capture
             Community community = new Community(FileStreamStorageStrategy.Load(folderPath))
                 .AddAsynchronousCommunicationStrategy(new POXAsynchronousCommunicationStrategy(new POXConfigurationProvider()))
                 .Register<CorrespondenceModel>()
-                .Subscribe(() => conference);
+                .Subscribe(() => _conference);
 
-            conference = community.AddFact(new Conference(ConferenceID));
+            _conference = community.AddFact(new Conference(ConferenceID));
 
             Console.WriteLine("Receiving facts.");
             community.BeginReceiving();
@@ -32,7 +32,7 @@ namespace FacetedWorlds.MyCon.Capture
 
             Console.WriteLine("Updating conference data.");
             DataLoader dataLoader = new DataLoader();
-            dataLoader.Load(conference);
+            dataLoader.Load(_conference);
 
             Console.WriteLine("Sending updates.");
             community.BeginSending();
