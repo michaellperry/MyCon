@@ -23,7 +23,7 @@ namespace FacetedWorlds.MyCon
 
         public void Initialize()
         {
-            //InitializeData();
+            InitializeData();
 
             POXConfigurationProvider configurationProvider = new POXConfigurationProvider();
             _community = new Community(IsolatedStorageStorageStrategy.Load())

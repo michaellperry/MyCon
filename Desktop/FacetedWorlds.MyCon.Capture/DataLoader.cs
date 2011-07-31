@@ -250,7 +250,9 @@ namespace FacetedWorlds.MyCon.Capture
 
         private void SetTimeOfSession(DateTime startTime, string sessionId)
         {
-            _conference.NewSessionPlace(_sessionById[sessionId], startTime, "TBD");
+            Session session;
+            if (_sessionById.TryGetValue(sessionId, out session))
+                _conference.NewSessionPlace(session, startTime, "TBD");
         }
     }
 }
