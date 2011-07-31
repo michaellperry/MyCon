@@ -73,7 +73,9 @@ namespace FacetedWorlds.MyCon.Model
             Time time = GetTime(startTime);
             Room room = Community.AddFact(new Room(this, roomNumber));
             Place place = Community.AddFact(new Place(time, room));
-            Community.AddFact(new SessionPlace(session, place, new List<SessionPlace>()));
+            var currentSessionPlaces = session.CurrentSessionPlaces.ToList();
+            if (currentSessionPlaces.Count != 1 || currentSessionPlaces[0].Place != place)
+                Community.AddFact(new SessionPlace(session, place, currentSessionPlaces));
         }
 
         public List<DocumentSegment> DocumentSegments(string text)

@@ -126,7 +126,6 @@ namespace FacetedWorlds.MyCon.Capture
             SetTimeOfSession(d1s1, "720");
             SetTimeOfSession(d1s1, "717");
             SetTimeOfSession(d1s1, "647");
-            SetTimeOfSession(d1s1, "722");
             SetTimeOfSession(d1s1, "873");
             SetTimeOfSession(d1s1, "811");
             SetTimeOfSession(d1s1, "95");
@@ -134,11 +133,10 @@ namespace FacetedWorlds.MyCon.Capture
             SetTimeOfSession(d1s1, "1212");
 
             DateTime d1s2 = new DateTime(2011, 8, 12, 10, 30, 0);
-            SetTimeOfSession(d1s2, "720");
+            //SetTimeOfSession(d1s2, "720");
             SetTimeOfSession(d1s2, "1372");
             SetTimeOfSession(d1s2, "712");
-            SetTimeOfSession(d1s2, "647");
-            SetTimeOfSession(d1s2, "722");
+            //SetTimeOfSession(d1s2, "647");
             SetTimeOfSession(d1s2, "886");
             SetTimeOfSession(d1s2, "796");
             SetTimeOfSession(d1s2, "787");
@@ -196,7 +194,7 @@ namespace FacetedWorlds.MyCon.Capture
             SetTimeOfSession(d2s2, "113");
             SetTimeOfSession(d2s2, "1371");
             SetTimeOfSession(d2s2, "1369");
-            SetTimeOfSession(d2s2, "722");
+            //SetTimeOfSession(d2s2, "722");
             SetTimeOfSession(d2s2, "302");
             SetTimeOfSession(d2s2, "196");
             SetTimeOfSession(d2s2, "96");
@@ -211,7 +209,7 @@ namespace FacetedWorlds.MyCon.Capture
             SetTimeOfSession(d2s3, "947");
             SetTimeOfSession(d2s3, "105");
             SetTimeOfSession(d2s3, "666");
-            SetTimeOfSession(d2s3, "196");
+            //SetTimeOfSession(d2s3, "196");
             SetTimeOfSession(d2s3, "89");
             SetTimeOfSession(d2s3, "1209");
 
