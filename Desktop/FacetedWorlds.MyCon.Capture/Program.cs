@@ -11,7 +11,7 @@ namespace FacetedWorlds.MyCon.Capture
     class Program
     {
         private static Conference _conference;
-        private const string ConferenceID = "B6F26D44432E4136B22B643CF9509453";
+        private const string ConferenceID = "E5A90A87F303439E9080E03C4FD97447";
 
         static void Main(string[] args)
         {
