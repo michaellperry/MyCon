@@ -22,11 +22,25 @@ namespace FacetedWorlds.MyCon.Capture
         public void Load(Conference conference)
         {
             _conference = conference;
+            SetConferenceName("Dallas TechFest 2011");
+            SetConferenceMap("http://img.docstoccdn.com/thumb/orig/10507230.png");
             LoadSpeakers();
             LoadSessions();
             //LoadSessionTimes();
             SetSessionTimes();
             CreateLunchTimes();
+        }
+
+        private void SetConferenceName(string name)
+        {
+            if (_conference.Name.Value != name)
+                _conference.Name = name;
+        }
+
+        private void SetConferenceMap(string mapUrl)
+        {
+            if (_conference.MapUrl.Value != mapUrl)
+                _conference.MapUrl = mapUrl;
         }
 
         private void LoadSpeakers()
