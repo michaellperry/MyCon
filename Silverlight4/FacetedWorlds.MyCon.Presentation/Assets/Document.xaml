@@ -1,0 +1,160 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="FacetedWorlds.MyCon.Presentation.Document"
+	d:DesignWidth="640" d:DesignHeight="480">
+
+	<Viewbox x:Name="LayoutRoot">
+		<Canvas Width="42.7499902048279" Height="44.8446303037214">
+  <Canvas Canvas.Left="-2.75000643504086" Canvas.Top="-3.1464462">
+    <Canvas>
+      <Canvas>
+        <Rectangle Stroke="{x:Null}" Width="1339.6335" Height="478.35718" Opacity="0.40206185" Canvas.Left="-1559.2523" Canvas.Top="-150.69685">
+          <Rectangle.Fill>
+            <LinearGradientBrush StartPoint="507.316899099553,4.42934847058041E-05" EndPoint="507.316899099553,478.357303090243" MappingMode="Absolute" SpreadMethod="Pad">
+              <LinearGradientBrush.GradientStops>
+                <GradientStop Color="#00000000" Offset="0" ></GradientStop>
+                <GradientStop Color="#FF000000" Offset="0.5" ></GradientStop>
+                <GradientStop Color="#00000000" Offset="1" ></GradientStop>
+              </LinearGradientBrush.GradientStops>
+            </LinearGradientBrush>
+          </Rectangle.Fill>
+        </Rectangle>
+        <Path Data="F1M-219.61876,-150.68038C-219.61876,-150.68038 -219.61876,327.65041 -219.61876,327.65041 -76.744594,328.55086 125.78146,220.48075 125.78138,88.454235 125.78138,-43.572302 -33.655436,-150.68036 -219.61876,-150.68038z" Stroke="{x:Null}" StrokeThickness="1" Opacity="0.40206185">
+          <Path.Fill>
+            <RadialGradientBrush Center="605.71429,486.64789" RadiusX="117.14286" RadiusY="117.14286" GradientOrigin="605.71429,486.64789" MappingMode="Absolute">
+              <RadialGradientBrush.GradientStops>
+                <GradientStop Color="#FF000000" Offset="0" ></GradientStop>
+                <GradientStop Color="#00000000" Offset="1" ></GradientStop>
+              </RadialGradientBrush.GradientStops>
+              <RadialGradientBrush.Transform>
+                <MatrixTransform Matrix="2.77438902854919,0,0,1.9697060585022,-1891.63305664063,-872.885375976563" ></MatrixTransform>
+              </RadialGradientBrush.Transform>
+            </RadialGradientBrush>
+          </Path.Fill>
+        </Path>
+        <Path Data="F1M-1559.2523,-150.68038C-1559.2523,-150.68038 -1559.2523,327.65041 -1559.2523,327.65041 -1702.1265,328.55086 -1904.6525,220.48075 -1904.6525,88.454235 -1904.6525,-43.572302 -1745.2157,-150.68036 -1559.2523,-150.68038z" Stroke="{x:Null}" StrokeThickness="1" Opacity="0.40206185">
+          <Path.Fill>
+            <RadialGradientBrush Center="605.71429,486.64789" RadiusX="117.14286" RadiusY="117.14286" GradientOrigin="605.71429,486.64789" MappingMode="Absolute">
+              <RadialGradientBrush.GradientStops>
+                <GradientStop Color="#FF000000" Offset="0" ></GradientStop>
+                <GradientStop Color="#00000000" Offset="1" ></GradientStop>
+              </RadialGradientBrush.GradientStops>
+              <RadialGradientBrush.Transform>
+                <MatrixTransform Matrix="-2.77438902854919,0,0,1.9697060585022,112.762298583984,-872.885375976563" ></MatrixTransform>
+              </RadialGradientBrush.Transform>
+            </RadialGradientBrush>
+          </Path.Fill>
+        </Path>
+        <Canvas.RenderTransform>
+          <MatrixTransform Matrix="0.0210546087473631,0,0,0.0208675786852837,42.8517189025879,41.1535987854004" ></MatrixTransform>
+        </Canvas.RenderTransform>
+      </Canvas>
+    </Canvas>
+    <Canvas>
+      <Rectangle RadiusX="0.1" RadiusY="1.1490486" StrokeThickness="1" Width="35.875" Height="41.920494" Canvas.Left="6.1035528" Canvas.Top="3.1464462">
+        <Rectangle.Fill>
+          <RadialGradientBrush Center="27.0915090545987,32.2345298533532" RadiusX="86.70845" RadiusY="86.70845" GradientOrigin="27.0915090545987,32.2345298533532" MappingMode="Absolute">
+            <RadialGradientBrush.GradientStops>
+              <GradientStop Color="#FFFAFAFA" Offset="0" ></GradientStop>
+              <GradientStop Color="#FFBBBBBB" Offset="1" ></GradientStop>
+            </RadialGradientBrush.GradientStops>
+            <RadialGradientBrush.Transform>
+              <MatrixTransform Matrix="0.96049302816391,0,0,1.0411319732666,0,0" ></MatrixTransform>
+            </RadialGradientBrush.Transform>
+          </RadialGradientBrush>
+        </Rectangle.Fill>
+        <Rectangle.Stroke>
+          <RadialGradientBrush Center="2.00449021036233,0.225374712099851" RadiusX="37.751713" RadiusY="37.751713" GradientOrigin="2.00449021036233,0.225374712099851" MappingMode="Absolute">
+            <RadialGradientBrush.GradientStops>
+              <GradientStop Color="#FFA3A3A3" Offset="0" ></GradientStop>
+              <GradientStop Color="#FF4C4C4C" Offset="1" ></GradientStop>
+            </RadialGradientBrush.GradientStops>
+            <RadialGradientBrush.Transform>
+              <MatrixTransform Matrix="0.968272984027863,0,0,1.03276705741882,3.35355305671692,0.646447002887726" ></MatrixTransform>
+            </RadialGradientBrush.Transform>
+          </RadialGradientBrush>
+        </Rectangle.Stroke>
+      </Rectangle>
+      <Rectangle RadiusX="0.14904857" RadiusY="0.14904857" Fill="{x:Null}" StrokeThickness="1" Width="33.775887" Height="39.946384" Canvas.Left="7.1660538" Canvas.Top="4.0839462">
+        <Rectangle.Stroke>
+          <RadialGradientBrush Center="0.226312262447145,2.82938738943332" RadiusX="38.158695" RadiusY="38.158695" GradientOrigin="0.226312262447145,2.82938738943332" MappingMode="Absolute">
+            <RadialGradientBrush.GradientStops>
+              <GradientStop Color="#FFFFFFFF" Offset="0" ></GradientStop>
+              <GradientStop Color="#FFF8F8F8" Offset="1" ></GradientStop>
+            </RadialGradientBrush.GradientStops>
+            <RadialGradientBrush.Transform>
+              <MatrixTransform Matrix="0.968272984027863,0,0,1.03276705741882,3.35355305671692,0.646447002887726" ></MatrixTransform>
+            </RadialGradientBrush.Transform>
+          </RadialGradientBrush>
+        </Rectangle.Stroke>
+      </Rectangle>
+      <Canvas>
+        <Canvas>
+          <Path Data="F1M23.428,113.07C23.428,115.043 21.828,116.642 19.855,116.642 17.881,116.642 16.282,115.042 16.282,113.07 16.282,111.096 17.882,109.497 19.855,109.497 21.828,109.497 23.428,111.097 23.428,113.07z" Fill="#FFFFFFFF" Stroke="{x:Null}" StrokeThickness="1" ></Path>
+          <Path Data="F1M23.428,63.07C23.428,65.043 21.828,66.643 19.855,66.643 17.881,66.643 16.282,65.043 16.282,63.07 16.282,61.096 17.882,59.497 19.855,59.497 21.828,59.497 23.428,61.097 23.428,63.07z" Fill="#FFFFFFFF" Stroke="{x:Null}" StrokeThickness="1" ></Path>
+          <Canvas.RenderTransform>
+            <MatrixTransform Matrix="0.229702994227409,0,0,0.229702994227409,4.96708106994629,4.24497222900391" ></MatrixTransform>
+          </Canvas.RenderTransform>
+        </Canvas>
+        <Path Data="F1M9.9950109,29.952326C9.9950109,30.40553 9.6274861,30.772825 9.1742821,30.772825 8.7208483,30.772825 8.3535532,30.405301 8.3535532,29.952326 8.3535532,29.498892 8.721078,29.131597 9.1742821,29.131597 9.6274861,29.131597 9.9950109,29.499122 9.9950109,29.952326z" Stroke="{x:Null}" StrokeThickness="1">
+          <Path.Fill>
+            <RadialGradientBrush Center="20.8921,114.5684" RadiusX="5.256" RadiusY="5.256" GradientOrigin="20.8921,114.5684" MappingMode="Absolute">
+              <RadialGradientBrush.GradientStops>
+                <GradientStop Color="#FFF0F0F0" Offset="0" ></GradientStop>
+                <GradientStop Color="#FF9A9A9A" Offset="1" ></GradientStop>
+              </RadialGradientBrush.GradientStops>
+              <RadialGradientBrush.Transform>
+                <MatrixTransform Matrix="0.229702994227409,0,0,0.229702994227409,4.61352920532227,3.97980809211731" ></MatrixTransform>
+              </RadialGradientBrush.Transform>
+            </RadialGradientBrush>
+          </Path.Fill>
+        </Path>
+        <Path Data="F1M9.9950109,18.467176C9.9950109,18.92038 9.6274861,19.287905 9.1742821,19.287905 8.7208483,19.287905 8.3535532,18.92038 8.3535532,18.467176 8.3535532,18.013742 8.721078,17.646447 9.1742821,17.646447 9.6274861,17.646447 9.9950109,18.013972 9.9950109,18.467176z" Stroke="{x:Null}" StrokeThickness="1">
+          <Path.Fill>
+            <RadialGradientBrush Center="20.8921,64.5679" RadiusX="5.257" RadiusY="5.257" GradientOrigin="20.8921,64.5679" MappingMode="Absolute">
+              <RadialGradientBrush.GradientStops>
+                <GradientStop Color="#FFF0F0F0" Offset="0" ></GradientStop>
+                <GradientStop Color="#FF9A9A9A" Offset="1" ></GradientStop>
+              </RadialGradientBrush.GradientStops>
+              <RadialGradientBrush.Transform>
+                <MatrixTransform Matrix="0.229702994227409,0,0,0.229702994227409,4.61352920532227,3.97980809211731" ></MatrixTransform>
+              </RadialGradientBrush.Transform>
+            </RadialGradientBrush>
+          </Path.Fill>
+        </Path>
+        <Canvas.RenderTransform>
+          <MatrixTransform Matrix="1,0,0,1,0.646447002887726,-0.03798932954669" ></MatrixTransform>
+        </Canvas.RenderTransform>
+      </Canvas>
+      <Path Data="M11.505723,5.4942766L11.505723,43.400869" Fill="{x:Null}" Stroke="#04000000" StrokeThickness="0.988553106784821" StrokeMiterLimit="4" ></Path>
+      <Path Data="M12.5,5.0205154L12.5,43.038228" Fill="{x:Null}" Stroke="#34FFFFFF" StrokeThickness="1" StrokeMiterLimit="4" ></Path>
+    </Canvas>
+    <Canvas>
+      <Canvas>
+        <Rectangle RadiusX="0.15156493" RadiusY="0.065390877" Fill="#8C9B9B9B" Stroke="{x:Null}" Width="22.000004" Height="1" Canvas.Left="15.000002" Canvas.Top="9" ></Rectangle>
+        <Rectangle RadiusX="0.15156493" RadiusY="0.065390877" Fill="#8C9B9B9B" Stroke="{x:Null}" Width="22.000004" Height="1" Canvas.Left="15.000002" Canvas.Top="11" ></Rectangle>
+        <Rectangle RadiusX="0.15156493" RadiusY="0.065390877" Fill="#8C9B9B9B" Stroke="{x:Null}" Width="22.000004" Height="1" Canvas.Left="15.000002" Canvas.Top="13" ></Rectangle>
+        <Rectangle RadiusX="0.15156493" RadiusY="0.065390877" Fill="#8C9B9B9B" Stroke="{x:Null}" Width="22.000004" Height="1" Canvas.Left="15.000002" Canvas.Top="15" ></Rectangle>
+        <Rectangle RadiusX="0.15156493" RadiusY="0.065390877" Fill="#8C9B9B9B" Stroke="{x:Null}" Width="22.000004" Height="1" Canvas.Left="15.000002" Canvas.Top="17" ></Rectangle>
+        <Rectangle RadiusX="0.15156493" RadiusY="0.065390877" Fill="#8C9B9B9B" Stroke="{x:Null}" Width="22.000004" Height="1" Canvas.Left="15.000002" Canvas.Top="19" ></Rectangle>
+        <Rectangle RadiusX="0.15156493" RadiusY="0.065390877" Fill="#8C9B9B9B" Stroke="{x:Null}" Width="22.000004" Height="1" Canvas.Left="15.000002" Canvas.Top="21" ></Rectangle>
+        <Rectangle RadiusX="0.15156493" RadiusY="0.065390877" Fill="#8C9B9B9B" Stroke="{x:Null}" Width="22.000004" Height="1" Canvas.Left="15.000002" Canvas.Top="23" ></Rectangle>
+        <Rectangle RadiusX="0.068204239" RadiusY="0.065390877" Fill="#8C9B9B9B" Stroke="{x:Null}" Width="9.9000053" Height="1" Canvas.Left="14.999992" Canvas.Top="25" ></Rectangle>
+        <Rectangle RadiusX="0.15156493" RadiusY="0.065390877" Fill="#8C9B9B9B" Stroke="{x:Null}" Width="22.000004" Height="1" Canvas.Left="14.999992" Canvas.Top="29" ></Rectangle>
+        <Rectangle RadiusX="0.15156493" RadiusY="0.065390877" Fill="#8C9B9B9B" Stroke="{x:Null}" Width="22.000004" Height="1" Canvas.Left="14.999992" Canvas.Top="31" ></Rectangle>
+        <Rectangle RadiusX="0.15156493" RadiusY="0.065390877" Fill="#8C9B9B9B" Stroke="{x:Null}" Width="22.000004" Height="1" Canvas.Left="14.999992" Canvas.Top="33" ></Rectangle>
+        <Rectangle RadiusX="0.15156493" RadiusY="0.065390877" Fill="#8C9B9B9B" Stroke="{x:Null}" Width="22.000004" Height="1" Canvas.Left="14.999992" Canvas.Top="35" ></Rectangle>
+        <Rectangle RadiusX="0.10609552" RadiusY="0.065390877" Fill="#8C9B9B9B" Stroke="{x:Null}" Width="15.400014" Height="1" Canvas.Left="14.999992" Canvas.Top="37" ></Rectangle>
+        <Canvas.RenderTransform>
+          <MatrixTransform Matrix="0.909090995788574,0,0,1,2.36362791061401,0" ></MatrixTransform>
+        </Canvas.RenderTransform>
+      </Canvas>
+    </Canvas>
+  </Canvas>
+</Canvas>
+	</Viewbox>
+</UserControl>

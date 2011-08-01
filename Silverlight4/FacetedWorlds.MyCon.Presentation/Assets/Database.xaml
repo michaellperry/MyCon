@@ -1,0 +1,24 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="FacetedWorlds.MyCon.Presentation.Database"
+	d:DesignWidth="640" d:DesignHeight="480">
+
+	<Viewbox x:Name="LayoutRoot">
+		<Canvas Height="292" Width="289">
+			<Path Data="M288.38376,0.5 L288.5,0.5 L288.5,2.4999988 C288.5,2.0512664 288.48425,1.6038626 288.45297,1.157855 z M0.5,0.5 L0.61625618,0.5 L0.54703516,1.157855 C0.51574379,1.6038626 0.50000381,2.0512664 0.50000435,2.4999988 C0.50000381,31.218805 64.971001,54.499996 144.5,54.499996 C224.02901,54.499996 288.5,31.218805 288.5,2.4999988 L288.5,189.5 C288.5,218.21881 224.02901,241.5 144.5,241.5 C64.970993,241.5 0.50000179,218.21881 0.5,189.5 z" Stretch="Fill" Stroke="Black" UseLayoutRounding="False" StrokeThickness="2" Height="242" Canvas.Top="50" Width="289">
+				<Path.Fill>
+					<LinearGradientBrush EndPoint="0.082,0.484" StartPoint="0.918,0.516">
+						<GradientStop Color="#FF5D657E"/>
+						<GradientStop Color="#FFB8C3E5" Offset="1"/>
+						<GradientStop Color="#FF96A2C8" Offset="0.826"/>
+					</LinearGradientBrush>
+				</Path.Fill>
+			</Path>
+			<Ellipse Fill="#FF8E99BC" Height="105" Stroke="Black" StrokeThickness="2" Width="289"/>
+		</Canvas>
+	</Viewbox>
+</UserControl>

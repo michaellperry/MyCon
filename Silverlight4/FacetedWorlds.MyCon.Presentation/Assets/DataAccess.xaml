@@ -1,0 +1,51 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="FacetedWorlds.MyCon.Presentation.DataAccess"
+	d:DesignWidth="640" d:DesignHeight="480">
+	<UserControl.Resources>
+		<LinearGradientBrush x:Key="HeaderFooterBrush" EndPoint="1.025,0.527" StartPoint="-0.017,0.513">
+			<GradientStop Color="#FFAFD8E6" Offset="0.028"/>
+			<GradientStop Color="#FFFAFDFD" Offset="0.965"/>
+		</LinearGradientBrush>
+	</UserControl.Resources>
+
+	<Viewbox x:Name="LayoutRoot">
+		<Canvas Height="369" Width="488">
+			<Path Data="M162.98703,1 L162.98703,23.5 M23.737034,25.375006 L23.737034,47.875008 M23.481001,28.540998 L1,48.573997 M23.73703,28.284012 L46.560032,48.625011 M292.737,25.375006 L292.737,47.875008 M22.737024,24.500004 L293.73703,24.500004 M292.48105,28.540998 L270.00003,48.573997 M292.737,28.284012 L315.56,48.625011" Fill="White" Height="49.625" Stretch="Fill" Stroke="Black" StrokeThickness="2" UseLayoutRounding="False" Width="316.56" Canvas.Left="82.013" Canvas.Top="160"/>
+			<Canvas Height="161" Canvas.Left="140" Width="219">
+				<Path Data="M26.999998,1 L27.999998,1 L191,1 C205.91168,1 218,13.08831 218,28 L217.97472,29 L218,29 L218,133 L218,138 L217.53029,138 L217.45146,138.44144 C214.93381,150.74487 204.04773,160 191,160 L26.999998,160 L26.999998,159.9747 L26.610586,159.96486 C14.127848,159.33211 3.8817983,150.22168 1.5153313,138.27647 L1.4675226,138 L1,138 L1,29 L1.0244966,29 L1,28 C1.0000008,13.554298 12.344598,1.7582779 26.610582,1.0351334 L26.999998,1.0252838 z" Fill="White" Height="161" Stretch="Fill" Stroke="Black" StrokeThickness="2" UseLayoutRounding="False" Width="219"/>
+				<Path Data="M25.999994,0 L26.999994,0 L190,0 C204.91168,-7.7486038E-07 217,12.088309 217,26.999996 L216.97472,27.999996 L217,27.999996 L217,50 L0,50 L0,27.999996 L0.024494171,27.999996 L0,26.999996 C-1.9073486E-06,12.554297 11.344595,0.75827712 25.610582,0.035132706 L25.999994,0.025283039 z" Fill="{StaticResource HeaderFooterBrush}" Height="50" Canvas.Left="1" Stretch="Fill" StrokeThickness="2" Canvas.Top="1" UseLayoutRounding="False" Width="217"/>
+				<Path Data="M0,0 L217,0 L217,18.000002 L0,18.000002 z" Fill="#FFADD9E7" Height="18" Canvas.Left="1" Stretch="Fill" StrokeThickness="2" Canvas.Top="51" UseLayoutRounding="False" Width="217"/>
+				<Path Data="M0,0 L215.15527,0 L214.96048,0.71107864 C211.64224,11.865596 201.30988,19.999985 189.07764,19.999985 L25.077639,19.999985 L25.077639,19.974686 L24.688227,19.964844 C12.985662,19.371639 3.2489338,11.327352 0.12764931,0.48158646 z" Fill="{StaticResource HeaderFooterBrush}" Height="20" Canvas.Left="1.922" Stretch="Fill" StrokeThickness="2" Canvas.Top="140" UseLayoutRounding="False" Width="215.156"/>
+				<Path Data="M0,0 L217,0 L217,64 L217,69 L216.53029,69 L216.45146,69.441437 C216.37279,69.82592 216.28593,70.207428 216.1911,70.585762 L216.07764,71 L0.92235374,71 L0.76010132,70.387863 C0.67093086,70.020279 0.58928299,69.649765 0.51533127,69.276474 L0.46752167,69 L0,69 z" Fill="White" Height="71" Canvas.Left="1" Stretch="Fill" StrokeThickness="2" Canvas.Top="69" UseLayoutRounding="False" Width="217"/>
+				<TextBlock Height="26" Canvas.Left="24" TextWrapping="Wrap" Text="Entity" Canvas.Top="16" Width="166" FontSize="14.667"/>
+				<TextBlock Height="26" Canvas.Left="24" TextWrapping="Wrap" Text="Property" Canvas.Top="73" Width="166" FontSize="14.667"/>
+				<TextBlock Height="26" Canvas.Left="24" TextWrapping="Wrap" Text="Property" Canvas.Top="94" Width="166" FontSize="14.667"/>
+			</Canvas>
+			<Canvas Height="161" Width="219" Canvas.Top="208">
+				<Path Data="M26.999998,1 L27.999998,1 L191,1 C205.91168,1 218,13.08831 218,28 L217.97472,29 L218,29 L218,133 L218,138 L217.53029,138 L217.45146,138.44144 C214.93381,150.74487 204.04773,160 191,160 L26.999998,160 L26.999998,159.9747 L26.610586,159.96486 C14.127848,159.33211 3.8817983,150.22168 1.5153313,138.27647 L1.4675226,138 L1,138 L1,29 L1.0244966,29 L1,28 C1.0000008,13.554298 12.344598,1.7582779 26.610582,1.0351334 L26.999998,1.0252838 z" Fill="White" Height="161" Stretch="Fill" Stroke="Black" StrokeThickness="2" UseLayoutRounding="False" Width="219"/>
+				<Path Data="M25.999994,0 L26.999994,0 L190,0 C204.91168,-7.7486038E-07 217,12.088309 217,26.999996 L216.97472,27.999996 L217,27.999996 L217,50 L0,50 L0,27.999996 L0.024494171,27.999996 L0,26.999996 C-1.9073486E-06,12.554297 11.344595,0.75827712 25.610582,0.035132706 L25.999994,0.025283039 z" Fill="{StaticResource HeaderFooterBrush}" Height="50" Canvas.Left="1" Stretch="Fill" StrokeThickness="2" Canvas.Top="1" UseLayoutRounding="False" Width="217"/>
+				<Path Data="M0,0 L217,0 L217,18.000002 L0,18.000002 z" Fill="#FFADD9E7" Height="18" Canvas.Left="1" Stretch="Fill" StrokeThickness="2" Canvas.Top="51" UseLayoutRounding="False" Width="217"/>
+				<Path Data="M0,0 L215.15527,0 L214.96048,0.71107864 C211.64224,11.865596 201.30988,19.999985 189.07764,19.999985 L25.077639,19.999985 L25.077639,19.974686 L24.688227,19.964844 C12.985662,19.371639 3.2489338,11.327352 0.12764931,0.48158646 z" Fill="{StaticResource HeaderFooterBrush}" Height="20" Canvas.Left="1.922" Stretch="Fill" StrokeThickness="2" Canvas.Top="140" UseLayoutRounding="False" Width="215.156"/>
+				<Path Data="M0,0 L217,0 L217,64 L217,69 L216.53029,69 L216.45146,69.441437 C216.37279,69.82592 216.28593,70.207428 216.1911,70.585762 L216.07764,71 L0.92235374,71 L0.76010132,70.387863 C0.67093086,70.020279 0.58928299,69.649765 0.51533127,69.276474 L0.46752167,69 L0,69 z" Fill="White" Height="71" Canvas.Left="1" Stretch="Fill" StrokeThickness="2" Canvas.Top="69" UseLayoutRounding="False" Width="217"/>
+				<TextBlock Height="26" Canvas.Left="24" TextWrapping="Wrap" Text="Entity" Canvas.Top="16" Width="166" FontSize="14.667"/>
+				<TextBlock Height="26" Canvas.Left="24" TextWrapping="Wrap" Text="Property" Canvas.Top="73" Width="166" FontSize="14.667"/>
+				<TextBlock Height="26" Canvas.Left="24" TextWrapping="Wrap" Text="Property" Canvas.Top="94" Width="166" FontSize="14.667"/>
+			</Canvas>
+			<Canvas Height="161" Canvas.Left="269" Width="219" Canvas.Top="208">
+				<Path Data="M26.999998,1 L27.999998,1 L191,1 C205.91168,1 218,13.08831 218,28 L217.97472,29 L218,29 L218,133 L218,138 L217.53029,138 L217.45146,138.44144 C214.93381,150.74487 204.04773,160 191,160 L26.999998,160 L26.999998,159.9747 L26.610586,159.96486 C14.127848,159.33211 3.8817983,150.22168 1.5153313,138.27647 L1.4675226,138 L1,138 L1,29 L1.0244966,29 L1,28 C1.0000008,13.554298 12.344598,1.7582779 26.610582,1.0351334 L26.999998,1.0252838 z" Fill="White" Height="161" Stretch="Fill" Stroke="Black" StrokeThickness="2" UseLayoutRounding="False" Width="219"/>
+				<Path Data="M25.999994,0 L26.999994,0 L190,0 C204.91168,-7.7486038E-07 217,12.088309 217,26.999996 L216.97472,27.999996 L217,27.999996 L217,50 L0,50 L0,27.999996 L0.024494171,27.999996 L0,26.999996 C-1.9073486E-06,12.554297 11.344595,0.75827712 25.610582,0.035132706 L25.999994,0.025283039 z" Fill="{StaticResource HeaderFooterBrush}" Height="50" Canvas.Left="1" Stretch="Fill" StrokeThickness="2" Canvas.Top="1" UseLayoutRounding="False" Width="217"/>
+				<Path Data="M0,0 L217,0 L217,18.000002 L0,18.000002 z" Fill="#FFADD9E7" Height="18" Canvas.Left="1" Stretch="Fill" StrokeThickness="2" Canvas.Top="51" UseLayoutRounding="False" Width="217"/>
+				<Path Data="M0,0 L215.15527,0 L214.96048,0.71107864 C211.64224,11.865596 201.30988,19.999985 189.07764,19.999985 L25.077639,19.999985 L25.077639,19.974686 L24.688227,19.964844 C12.985662,19.371639 3.2489338,11.327352 0.12764931,0.48158646 z" Fill="{StaticResource HeaderFooterBrush}" Height="20" Canvas.Left="1.922" Stretch="Fill" StrokeThickness="2" Canvas.Top="140" UseLayoutRounding="False" Width="215.156"/>
+				<Path Data="M0,0 L217,0 L217,64 L217,69 L216.53029,69 L216.45146,69.441437 C216.37279,69.82592 216.28593,70.207428 216.1911,70.585762 L216.07764,71 L0.92235374,71 L0.76010132,70.387863 C0.67093086,70.020279 0.58928299,69.649765 0.51533127,69.276474 L0.46752167,69 L0,69 z" Fill="White" Height="71" Canvas.Left="1" Stretch="Fill" StrokeThickness="2" Canvas.Top="69" UseLayoutRounding="False" Width="217"/>
+				<TextBlock Height="26" Canvas.Left="24" TextWrapping="Wrap" Text="Entity" Canvas.Top="16" Width="166" FontSize="14.667"/>
+				<TextBlock Height="26" Canvas.Left="24" TextWrapping="Wrap" Text="Property" Canvas.Top="73" Width="166" FontSize="14.667"/>
+				<TextBlock Height="26" Canvas.Left="24" TextWrapping="Wrap" Text="Property" Canvas.Top="94" Width="166" FontSize="14.667"/>
+			</Canvas>
+		</Canvas>
+	</Viewbox>
+</UserControl>
