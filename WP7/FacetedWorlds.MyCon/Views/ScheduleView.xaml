@@ -8,7 +8,7 @@
     xmlns:FacetedWorlds_MyCon="clr-namespace:FacetedWorlds.MyCon.Views" 
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" 
     x:Class="FacetedWorlds.MyCon.Views.ScheduleView"
-    SupportedOrientations="Portrait" Orientation="Portrait"
+    SupportedOrientations="PortraitOrLandscape" Orientation="Landscape"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True"
     >

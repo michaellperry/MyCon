@@ -8,7 +8,7 @@
     xmlns:FacetedWorlds_MyCon_Converters="clr-namespace:FacetedWorlds.MyCon.Converters" 
     xmlns:Itzben="clr-namespace:Itzben;assembly=Itzben" 
     x:Class="FacetedWorlds.MyCon.Views.SessionDetailsView"
-    SupportedOrientations="Portrait" Orientation="Portrait"
+    SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True"
     Loaded="PhoneApplicationPage_Loaded">
@@ -50,37 +50,38 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
     	<TextBlock Text="{Binding Title}" Margin="8,8,8,4" VerticalAlignment="Top" FontSize="{StaticResource PhoneFontSizeLarge}" TextWrapping="Wrap"/>
-    	<Grid Grid.Row="2">
-    		<Grid.RowDefinitions>
-    			<RowDefinition Height="Auto"/>
-    			<RowDefinition Height="Auto"/>
-    			<RowDefinition Height="Auto"/>
-    		</Grid.RowDefinitions>
-    		<Grid.ColumnDefinitions>
-    			<ColumnDefinition Width="0.273*"/>
-    			<ColumnDefinition Width="0.36*"/>
-    			<ColumnDefinition Width="0.367*"/>
-    		</Grid.ColumnDefinitions>
-            <Grid Grid.RowSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5">
-    			<Rectangle Fill="{StaticResource PhoneAccentBrush}" Visibility="{Binding Scheduled, Converter={StaticResource VisibleWhenTrueConverter}}"/>
-    			<Rectangle Visibility="{Binding Overbooked, Converter={StaticResource VisibleWhenTrueConverter}}" Fill="{StaticResource OverbookedBrush}"/>
-    			<Image Margin="3" Source="{Binding ImageUrl, Converter={StaticResource CachedImageUrlValueConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-    		</Grid>
-    		<TextBlock Text="{Binding Time}" Margin="8" Grid.Column="1" Grid.ColumnSpan="2"/>
-    		<TextBlock Text="{Binding Speaker}" Margin="8" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap"/>
-    		<TextBlock Text="{Binding Room}" Margin="8" Grid.Column="1" Grid.Row="2" TextWrapping="Wrap"/>
-    		<TextBlock Text="{Binding Track}" Margin="8" Grid.Column="2" Grid.Row="1" TextWrapping="Wrap"/>
-    		<TextBlock Text="{Binding Level}" Margin="8" Grid.Column="2" Grid.Row="2" TextWrapping="Wrap"/>
-    	</Grid>
     	<ScrollViewer Grid.Row="3">
     		<Grid>
     			<Grid.RowDefinitions>
     				<RowDefinition Height="Auto"/>
     				<RowDefinition Height="Auto"/>
     				<RowDefinition Height="Auto"/>
+    				<RowDefinition Height="Auto"/>
     			</Grid.RowDefinitions>
-    			<TextBlock Text="{Binding Description}" Margin="8" TextWrapping="Wrap"/>
-    			<Grid Height="50" Margin="0" VerticalAlignment="Bottom" Grid.Row="1">
+    			<Grid Grid.Row="0">
+    				<Grid.RowDefinitions>
+    					<RowDefinition Height="Auto"/>
+    					<RowDefinition Height="Auto"/>
+    					<RowDefinition Height="Auto"/>
+    				</Grid.RowDefinitions>
+    				<Grid.ColumnDefinitions>
+    					<ColumnDefinition Width="131"/>
+    					<ColumnDefinition Width="0.496*"/>
+    					<ColumnDefinition Width="0.504*"/>
+    				</Grid.ColumnDefinitions>
+    				<Grid Grid.RowSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5">
+    					<Rectangle Fill="{StaticResource PhoneAccentBrush}" Visibility="{Binding Scheduled, Converter={StaticResource VisibleWhenTrueConverter}}"/>
+    					<Rectangle Visibility="{Binding Overbooked, Converter={StaticResource VisibleWhenTrueConverter}}" Fill="{StaticResource OverbookedBrush}"/>
+    					<Image Margin="3" Source="{Binding ImageUrl, Converter={StaticResource CachedImageUrlValueConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    				</Grid>
+    				<TextBlock Text="{Binding Time}" Margin="8" Grid.Column="1" Grid.ColumnSpan="2"/>
+    				<TextBlock Text="{Binding Speaker}" Margin="8" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap"/>
+    				<TextBlock Text="{Binding Room}" Margin="8" Grid.Column="1" Grid.Row="2" TextWrapping="Wrap"/>
+    				<TextBlock Text="{Binding Track}" Margin="8" Grid.Column="2" Grid.Row="1" TextWrapping="Wrap"/>
+    				<TextBlock Text="{Binding Level}" Margin="8" Grid.Column="2" Grid.Row="2" TextWrapping="Wrap"/>
+    			</Grid>
+    			<TextBlock Text="{Binding Description}" Margin="8" TextWrapping="Wrap" Grid.Row="1"/>
+    			<Grid Height="50" Margin="0" VerticalAlignment="Bottom" Grid.Row="2">
     				<Grid.ColumnDefinitions>
     					<ColumnDefinition Width="Auto"/>
     					<ColumnDefinition Width="0.506*"/>
@@ -88,10 +89,9 @@
     				<TextBlock Text="{Binding Speaker}" Margin="8" FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
     				<TextBlock Text="{Binding Contact}" Margin="8" Grid.Column="1" FontSize="{StaticResource PhoneFontSizeMediumLarge}" TextAlignment="Right"/>
     			</Grid>
-    			<TextBlock Text="{Binding Bio}" Margin="8" TextWrapping="Wrap" Grid.Row="2"/>
+    			<TextBlock Text="{Binding Bio}" Margin="8" TextWrapping="Wrap" Grid.Row="3"/>
 
     		</Grid>
-
     	</ScrollViewer>
     	<TextBlock Text="{Binding Instructions}" Grid.Row="1" Margin="8,4,8,8" Foreground="{StaticResource PhoneSubtleBrush}"/>
 

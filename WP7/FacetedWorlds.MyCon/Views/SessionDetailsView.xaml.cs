@@ -168,7 +168,7 @@ namespace FacetedWorlds.MyCon.Views
             if (viewModel != null && viewModel.ShouldPromptForPushNotification())
             {
                 MessageBoxResult result = MessageBox.Show(
-                    "Enable toast notifications to be informed of schedule changes.",
+                    "Would you like to enable push notifications to stay informed of schedule changes?",
                     viewModel.GetConferenceName(),
                     MessageBoxButton.OKCancel);
                 return result == MessageBoxResult.OK;

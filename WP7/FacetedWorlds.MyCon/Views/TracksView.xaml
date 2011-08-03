@@ -9,7 +9,7 @@
     xmlns:FacetedWorlds_MyCon="clr-namespace:FacetedWorlds.MyCon.Views" 
     x:Class="FacetedWorlds.MyCon.Views.TracksView" 
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
-    SupportedOrientations="Portrait"  Orientation="Portrait"
+    SupportedOrientations="PortraitOrLandscape"  Orientation="Portrait"
     shell:SystemTray.IsVisible="True"
     DataContext="{Binding Tracks, Source={StaticResource Locator}}">
 	<phone:PhoneApplicationPage.Resources>

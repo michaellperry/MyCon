@@ -19,6 +19,8 @@ namespace FacetedWorlds.MyCon.Converters
             if (value == null)
                 return value;
 
+            if (!(value is CachedImage))
+                return null;
             CachedImage cachedImage = (CachedImage)value;
             if (cachedImage.Access != null)
                 cachedImage.Access();

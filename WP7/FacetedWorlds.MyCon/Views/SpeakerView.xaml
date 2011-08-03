@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:FacetedWorlds_MyCon_Converters="clr-namespace:FacetedWorlds.MyCon.Converters" xmlns:local="clr-namespace:FacetedWorlds.MyCon.Views" 
     x:Class="FacetedWorlds.MyCon.Views.SpeakerView"
-    SupportedOrientations="Portrait" Orientation="Portrait"
+    SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True"
     Loaded="PhoneApplicationPage_Loaded">
@@ -72,7 +72,7 @@
 <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
         	<ScrollViewer>
-        		<StackPanel Orientation="Vertical" Width="456">
+        		<StackPanel Orientation="Vertical">
         			<ItemsControl ItemTemplate="{StaticResource SpeakerDayViewModelTemplate}" ItemsSource="{Binding Days}"/>
         			<TextBlock Text="{Binding Bio}" VerticalAlignment="Top" TextWrapping="Wrap" Margin="8,16,8,0"/>
         		</StackPanel>

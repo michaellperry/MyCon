@@ -9,7 +9,7 @@
     xmlns:Custom="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     xmlns:Itzben="clr-namespace:Itzben;assembly=Itzben" 
     x:Class="FacetedWorlds.MyCon.Views.SearchView"
-    SupportedOrientations="Portrait" Orientation="Portrait"
+    SupportedOrientations="PortraitOrLandscape" Orientation="Landscape"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True"
     Loaded="PhoneApplicationPage_Loaded"

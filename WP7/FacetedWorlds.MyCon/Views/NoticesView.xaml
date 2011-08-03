@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Itzben="clr-namespace:Itzben;assembly=Itzben" xmlns:FacetedWorlds_MyCon_Converters="clr-namespace:FacetedWorlds.MyCon.Converters" 
     x:Class="FacetedWorlds.MyCon.Views.NoticesView"
-    SupportedOrientations="Portrait" Orientation="Portrait"
+    SupportedOrientations="PortraitOrLandscape" Orientation="Landscape"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True"
     DataContext="{Binding Notices, Source={StaticResource Locator}}">
