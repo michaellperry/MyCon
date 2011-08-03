@@ -288,10 +288,6 @@
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FacetedWorlds.MyCon.DallasTechFest\FacetedWorlds.MyCon.DallasTechFest.csproj">
-      <Project>{6BC172E2-1680-4F9C-A4CD-6D5E6DE00350}</Project>
-      <Name>FacetedWorlds.MyCon.DallasTechFest</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FacetedWorlds.MyCon.Model\FacetedWorlds.MyCon.Model.csproj">
       <Project>{C2A15C3B-BA6E-4FE4-9E69-B3CDE6CD8B75}</Project>
       <Name>FacetedWorlds.MyCon.Model %28WP7\FacetedWorlds.MyCon.Model%29</Name>
