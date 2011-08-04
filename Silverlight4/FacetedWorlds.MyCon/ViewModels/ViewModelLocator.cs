@@ -3,27 +3,42 @@ using System.ComponentModel;
 using System.Linq;
 using FacetedWorlds.MyCon.Models;
 using UpdateControls.XAML;
+using FacetedWorlds.MyCon.Model;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {
     public class ViewModelLocator
     {
+        private readonly NavigationModel _navigationModel;
         private readonly SynchronizationService _synchronizationService;
 
         private readonly MainViewModel _main;
 
         public ViewModelLocator()
         {
-            NavigationModel navigationModel = new NavigationModel();
-            _synchronizationService = new SynchronizationService(navigationModel);
+            _navigationModel = new NavigationModel();
+            _synchronizationService = new SynchronizationService(_navigationModel);
             if (!DesignerProperties.IsInDesignTool)
+            {
                 _synchronizationService.Initialize();
-            _main = new MainViewModel(_synchronizationService.Community, navigationModel, _synchronizationService);
+                TemporarilyPreselectDallasTechFest();
+            }
+            _main = new MainViewModel(_synchronizationService.Community, _navigationModel, _synchronizationService);
         }
 
         public object Main
         {
             get { return ForView.Wrap(_main); }
+        }
+
+        public object Schedule
+        {
+            get { return ForView.Wrap(new ScheduleViewModel(_navigationModel.SelectedConference)); }
+        }
+
+        private void TemporarilyPreselectDallasTechFest()
+        {
+            _navigationModel.SelectedConference = _synchronizationService.Conference;
         }
     }
 }
