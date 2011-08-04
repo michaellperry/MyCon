@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.0">
-  <App xmlns="" ProductID="{2cc0a428-1512-4dc5-95cd-bf79d9b91f15}" Title="Dallas TechFest" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Michael L Perry" Description="Schedule breakout sessions for the Dallas TechFest" Publisher="Faceted Worlds">
+  <App xmlns="" ProductID="{2cc0a428-1512-4dc5-95cd-bf79d9b91f15}" Title="Dallas TechFest" RuntimeType="Silverlight" Version="1.1.0.0" Genre="apps.normal" Author="Michael L Perry" Description="Schedule breakout sessions for the Dallas TechFest" Publisher="Faceted Worlds">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_IDENTITY_USER" />
