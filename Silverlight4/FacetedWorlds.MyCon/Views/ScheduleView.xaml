@@ -35,7 +35,7 @@
     
 	<Grid x:Name="LayoutRoot" Background="White" d:DataContext="{d:DesignData /SampleData/ScheduleViewModelSampleData.xaml}">
 		<ScrollViewer Margin="8" HorizontalScrollBarVisibility="Visible">
-			<Grid Height="365" Width="335">
+			<Grid HorizontalAlignment="Left" VerticalAlignment="Top">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="75"/>
 					<ColumnDefinition Width="Auto" MinWidth="758"/>
@@ -44,7 +44,7 @@
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="Auto"/>
 				</Grid.RowDefinitions>
-				<ItemsControl ItemTemplate="{StaticResource ScheduleColumnHeaderViewModelTemplate}" ItemsSource="{Binding ColumnHeaders}" ItemsPanel="{StaticResource ColumnHeaderPanelTemplate}" HorizontalAlignment="Left" Grid.Column="1" Width="260" d:LayoutOverrides="Height"/>
+				<ItemsControl ItemTemplate="{StaticResource ScheduleColumnHeaderViewModelTemplate}" ItemsSource="{Binding ColumnHeaders}" ItemsPanel="{StaticResource ColumnHeaderPanelTemplate}" HorizontalAlignment="Left" Grid.Column="1" d:LayoutOverrides="Height"/>
 				<ItemsControl ItemTemplate="{StaticResource ScheduleRowViewModelTemplate}" ItemsSource="{Binding Rows}" Grid.Row="1" Grid.ColumnSpan="2"/>
 
 			</Grid>

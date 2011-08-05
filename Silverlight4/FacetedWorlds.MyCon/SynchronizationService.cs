@@ -33,6 +33,7 @@ namespace FacetedWorlds.MyCon
             _community = new Community(IsolatedStorageStorageStrategy.Load())
                 .AddAsynchronousCommunicationStrategy(new POXAsynchronousCommunicationStrategy(configurationProvider))
                 .Register<CorrespondenceModel>()
+                .Subscribe(() => _conference)
                 ;
 
             _conference = _community.AddFact(new Conference(ConferenceID));
