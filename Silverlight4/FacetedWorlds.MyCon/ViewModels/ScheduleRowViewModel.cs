@@ -22,7 +22,7 @@ namespace FacetedWorlds.MyCon.ViewModels
                     from day in _room.Conference.Days
                     from time in day.Times
                     orderby time.Start
-                    select new ScheduleCellViewModel(time.GetPlace(room));
+                    select new ScheduleCellViewModel(time.GetPlace(_room));
             }
         }
 

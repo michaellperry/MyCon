@@ -5,7 +5,7 @@ using FacetedWorlds.MyCon.Model;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {
-    public class ScheduledSessionViewModel : IEnumerable<ScheduledSessionViewModel>
+    public class ScheduledSessionViewModel
     {
         private readonly SessionPlace _sessionPlace;
 
