@@ -64,6 +64,10 @@ query:
 		ConferenceSessionSurvey s : s.conference = this
 			where s.isCurrent
 	}
+
+	Room* rooms {
+		Room r : r.conference = this
+	}
 }
 
 fact ConferenceSessionSurvey {
@@ -217,6 +221,12 @@ fact Place {
 key:
     Time placeTime;
     Room room;
+
+query:
+	SessionPlace* currentSessionPlaces {
+		SessionPlace sp : sp.place = this
+			where sp.isCurrent
+	}
 }
 
 fact Level {

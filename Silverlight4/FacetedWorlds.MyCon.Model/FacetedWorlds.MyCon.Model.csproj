@@ -96,6 +96,9 @@
     <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Slot.cs">
       <Link>Slot.cs</Link>
     </Compile>
+    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Time.cs">
+      <Link>Time.cs</Link>
+    </Compile>
     <Compile Include="Models\Identity.cs" />
     <Compile Include="Models\Model.generated.cs">
       <AutoGen>True</AutoGen>

@@ -469,6 +469,9 @@ namespace FacetedWorlds.MyCon.Model
             .JoinSuccessors(ConferenceSessionSurvey.RoleConference, Condition.WhereIsEmpty(ConferenceSessionSurvey.QueryIsCurrent)
             )
             ;
+        public static Query QueryRooms = new Query()
+            .JoinSuccessors(Room.RoleConference)
+            ;
 
         // Predicates
 
@@ -487,6 +490,7 @@ namespace FacetedWorlds.MyCon.Model
         private Result<Speaker> _speakers;
         private Result<ConferenceNotice> _notices;
         private Result<ConferenceSessionSurvey> _currentSessionSurveys;
+        private Result<Room> _rooms;
 
         // Business constructor
         public Conference(
@@ -515,6 +519,7 @@ namespace FacetedWorlds.MyCon.Model
             _speakers = new Result<Speaker>(this, QuerySpeakers);
             _notices = new Result<ConferenceNotice>(this, QueryNotices);
             _currentSessionSurveys = new Result<ConferenceSessionSurvey>(this, QueryCurrentSessionSurveys);
+            _rooms = new Result<Room>(this, QueryRooms);
         }
 
         // Predecessor access
@@ -549,6 +554,10 @@ namespace FacetedWorlds.MyCon.Model
         public IEnumerable<ConferenceSessionSurvey> CurrentSessionSurveys
         {
             get { return _currentSessionSurveys; }
+        }
+        public IEnumerable<Room> Rooms
+        {
+            get { return _rooms; }
         }
 
         // Mutable property access
@@ -2690,6 +2699,10 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
+        public static Query QueryCurrentSessionPlaces = new Query()
+            .JoinSuccessors(SessionPlace.RolePlace, Condition.WhereIsEmpty(SessionPlace.QueryIsCurrent)
+            )
+            ;
 
         // Predicates
 
@@ -2700,6 +2713,7 @@ namespace FacetedWorlds.MyCon.Model
         // Fields
 
         // Results
+        private Result<SessionPlace> _currentSessionPlaces;
 
         // Business constructor
         public Place(
@@ -2723,6 +2737,7 @@ namespace FacetedWorlds.MyCon.Model
         // Result initializer
         private void InitializeResults()
         {
+            _currentSessionPlaces = new Result<SessionPlace>(this, QueryCurrentSessionPlaces);
         }
 
         // Predecessor access
@@ -2738,6 +2753,10 @@ namespace FacetedWorlds.MyCon.Model
         // Field access
 
         // Query result access
+        public IEnumerable<SessionPlace> CurrentSessionPlaces
+        {
+            get { return _currentSessionPlaces; }
+        }
 
         // Mutable property access
 
@@ -5253,6 +5272,9 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				Conference._correspondenceFactType,
 				Conference.QueryCurrentSessionSurveys.QueryDefinition);
+			community.AddQuery(
+				Conference._correspondenceFactType,
+				Conference.QueryRooms.QueryDefinition);
 			community.AddType(
 				ConferenceName._correspondenceFactType,
 				new ConferenceName.CorrespondenceFactFactory(fieldSerializerByType),
@@ -5391,6 +5413,9 @@ namespace FacetedWorlds.MyCon.Model
 				Place._correspondenceFactType,
 				new Place.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Place._correspondenceFactType }));
+			community.AddQuery(
+				Place._correspondenceFactType,
+				Place.QueryCurrentSessionPlaces.QueryDefinition);
 			community.AddType(
 				Level._correspondenceFactType,
 				new Level.CorrespondenceFactFactory(fieldSerializerByType),
