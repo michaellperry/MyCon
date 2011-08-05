@@ -14,7 +14,12 @@ namespace FacetedWorlds.MyCon.ViewModels
             _room = room;
         }
 
-        public IEnumerable<ScheduleCellViewModel> ColumnHeaders
+        public string RoomNumber
+        {
+            get { return _room.RoomNumber; }
+        }
+
+        public IEnumerable<ScheduleCellViewModel> Cells
         {
             get
             {

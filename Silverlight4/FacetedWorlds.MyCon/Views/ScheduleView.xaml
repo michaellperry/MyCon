@@ -1,0 +1,53 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Itzben="clr-namespace:Itzben;assembly=Itzben" x:Class="FacetedWorlds.MyCon.Views.ScheduleView"
+    mc:Ignorable="d"
+    d:DesignHeight="300" d:DesignWidth="400"
+    >
+	<UserControl.Resources>
+		<Itzben:StringFormatConverter x:Key="StringFormatConverter"/>
+		<DataTemplate x:Key="ScheduleColumnHeaderViewModelTemplate">
+			<TextBlock Text="{Binding Start, ConverterParameter=\{0:ddd h:mm\}, Converter={StaticResource StringFormatConverter}}" VerticalAlignment="Top" Width="150" Margin="4,0"/>
+		</DataTemplate>
+		<ItemsPanelTemplate x:Key="ColumnHeaderPanelTemplate">
+			<StackPanel Orientation="Horizontal"/>
+		</ItemsPanelTemplate>
+		<ItemsPanelTemplate x:Key="RowPanelTemplate">
+			<StackPanel Orientation="Horizontal"/>
+		</ItemsPanelTemplate>
+		<DataTemplate x:Key="CellItemTemplate">
+			<Grid Width="150" Height="50"/>
+		</DataTemplate>
+		<DataTemplate x:Key="ScheduleRowViewModelTemplate">
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="{Binding RoomNumber}" Width="75" TextWrapping="Wrap"/>
+				<ItemsControl ItemsSource="{Binding Cells}" ItemsPanel="{StaticResource RowPanelTemplate}" ItemTemplate="{StaticResource CellItemTemplate}"/>
+			</StackPanel>
+		</DataTemplate>
+	</UserControl.Resources>
+    
+	<UserControl.DataContext>
+		<Binding Path="Schedule" Source="{StaticResource Locator}"/>
+	</UserControl.DataContext>
+    
+	<Grid x:Name="LayoutRoot" Background="White" d:DataContext="{d:DesignData /SampleData/ScheduleViewModelSampleData.xaml}">
+		<ScrollViewer Margin="8" HorizontalScrollBarVisibility="Visible">
+			<Grid Height="365" Width="335">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="75"/>
+					<ColumnDefinition Width="Auto" MinWidth="758"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<ItemsControl ItemTemplate="{StaticResource ScheduleColumnHeaderViewModelTemplate}" ItemsSource="{Binding ColumnHeaders}" ItemsPanel="{StaticResource ColumnHeaderPanelTemplate}" HorizontalAlignment="Left" Grid.Column="1" Width="260" d:LayoutOverrides="Height"/>
+				<ItemsControl ItemTemplate="{StaticResource ScheduleRowViewModelTemplate}" ItemsSource="{Binding Rows}" Grid.Row="1" Grid.ColumnSpan="2"/>
+
+			</Grid>
+		</ScrollViewer>
+	</Grid>
+</UserControl>

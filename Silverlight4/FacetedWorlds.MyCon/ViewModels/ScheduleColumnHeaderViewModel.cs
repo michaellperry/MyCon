@@ -14,6 +14,11 @@ namespace FacetedWorlds.MyCon.ViewModels
             _time = time;
         }
 
+        public DateTime Start
+        {
+            get { return _time.Start; }
+        }
+
         public override bool Equals(object obj)
         {
             if (this == obj)
