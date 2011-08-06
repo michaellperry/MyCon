@@ -1,18 +1,30 @@
-﻿<FacetedWorlds_MyCon_ViewModels:ScheduleViewModel xmlns:FacetedWorlds_MyCon_ViewModels="clr-namespace:FacetedWorlds.MyCon.ViewModels">
+﻿<FacetedWorlds_MyCon_ViewModels:ScheduleViewModel xmlns:FacetedWorlds_MyCon_ViewModels="clr-namespace:FacetedWorlds.MyCon.ViewModels" NewRoomNumber="Maecenas praesent class nam">
 	<FacetedWorlds_MyCon_ViewModels:ScheduleViewModel.ColumnHeaders>
-		<FacetedWorlds_MyCon_ViewModels:ScheduleColumnHeaderViewModel Start="08/05/2011 19:12:33"/>
-		<FacetedWorlds_MyCon_ViewModels:ScheduleColumnHeaderViewModel Start="08/05/2011 19:12:33"/>
-		<FacetedWorlds_MyCon_ViewModels:ScheduleColumnHeaderViewModel Start="08/05/2011 19:12:33"/>
-		<FacetedWorlds_MyCon_ViewModels:ScheduleColumnHeaderViewModel Start="08/05/2011 19:12:33"/>
-		<FacetedWorlds_MyCon_ViewModels:ScheduleColumnHeaderViewModel Start="08/05/2011 19:12:33"/>
-		<FacetedWorlds_MyCon_ViewModels:ScheduleColumnHeaderViewModel Start="08/05/2011 19:12:33"/>
-		<FacetedWorlds_MyCon_ViewModels:ScheduleColumnHeaderViewModel Start="08/05/2011 19:12:33"/>
-		<FacetedWorlds_MyCon_ViewModels:ScheduleColumnHeaderViewModel Start="08/05/2011 19:12:33"/>
-		<FacetedWorlds_MyCon_ViewModels:ScheduleColumnHeaderViewModel Start="08/05/2011 19:12:33"/>
-		<FacetedWorlds_MyCon_ViewModels:ScheduleColumnHeaderViewModel Start="08/05/2011 19:12:33"/>
+		<FacetedWorlds_MyCon_ViewModels:ScheduleColumnHeaderViewModel Start="08/06/2011 12:55:43"/>
+		<FacetedWorlds_MyCon_ViewModels:ScheduleColumnHeaderViewModel Start="08/06/2011 12:55:43"/>
+		<FacetedWorlds_MyCon_ViewModels:ScheduleColumnHeaderViewModel Start="08/06/2011 12:55:43"/>
+		<FacetedWorlds_MyCon_ViewModels:ScheduleColumnHeaderViewModel Start="08/06/2011 12:55:43"/>
+		<FacetedWorlds_MyCon_ViewModels:ScheduleColumnHeaderViewModel Start="08/06/2011 12:55:43"/>
+		<FacetedWorlds_MyCon_ViewModels:ScheduleColumnHeaderViewModel Start="08/06/2011 12:55:43"/>
+		<FacetedWorlds_MyCon_ViewModels:ScheduleColumnHeaderViewModel Start="08/06/2011 12:55:43"/>
+		<FacetedWorlds_MyCon_ViewModels:ScheduleColumnHeaderViewModel Start="08/06/2011 12:55:43"/>
+		<FacetedWorlds_MyCon_ViewModels:ScheduleColumnHeaderViewModel Start="08/06/2011 12:55:43"/>
+		<FacetedWorlds_MyCon_ViewModels:ScheduleColumnHeaderViewModel Start="08/06/2011 12:55:43"/>
 	</FacetedWorlds_MyCon_ViewModels:ScheduleViewModel.ColumnHeaders>
+	<FacetedWorlds_MyCon_ViewModels:ScheduleViewModel.RowHeaders>
+		<FacetedWorlds_MyCon_ViewModels:ScheduleRowHeaderViewModel RoomNumber="Maecenas"/>
+		<FacetedWorlds_MyCon_ViewModels:ScheduleRowHeaderViewModel RoomNumber="Nam"/>
+		<FacetedWorlds_MyCon_ViewModels:ScheduleRowHeaderViewModel RoomNumber="Praesent"/>
+		<FacetedWorlds_MyCon_ViewModels:ScheduleRowHeaderViewModel RoomNumber="Aliquam"/>
+		<FacetedWorlds_MyCon_ViewModels:ScheduleRowHeaderViewModel RoomNumber="Integer"/>
+		<FacetedWorlds_MyCon_ViewModels:ScheduleRowHeaderViewModel RoomNumber="Accumsan"/>
+		<FacetedWorlds_MyCon_ViewModels:ScheduleRowHeaderViewModel RoomNumber="Class"/>
+		<FacetedWorlds_MyCon_ViewModels:ScheduleRowHeaderViewModel RoomNumber="Sed"/>
+		<FacetedWorlds_MyCon_ViewModels:ScheduleRowHeaderViewModel RoomNumber="Dis"/>
+		<FacetedWorlds_MyCon_ViewModels:ScheduleRowHeaderViewModel RoomNumber="Curae"/>
+	</FacetedWorlds_MyCon_ViewModels:ScheduleViewModel.RowHeaders>
 	<FacetedWorlds_MyCon_ViewModels:ScheduleViewModel.Rows>
-		<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel RoomNumber="Nam">
+		<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel>
 			<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel.Cells>
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
@@ -21,7 +33,7 @@
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
 			</FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel.Cells>
 		</FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel>
-		<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel RoomNumber="Aliquam">
+		<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel>
 			<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel.Cells>
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
@@ -30,7 +42,7 @@
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
 			</FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel.Cells>
 		</FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel>
-		<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel RoomNumber="Aenean">
+		<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel>
 			<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel.Cells>
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
@@ -39,7 +51,7 @@
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
 			</FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel.Cells>
 		</FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel>
-		<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel RoomNumber="Cras">
+		<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel>
 			<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel.Cells>
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
@@ -48,7 +60,7 @@
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
 			</FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel.Cells>
 		</FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel>
-		<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel RoomNumber="Mauris">
+		<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel>
 			<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel.Cells>
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
@@ -57,7 +69,7 @@
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
 			</FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel.Cells>
 		</FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel>
-		<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel RoomNumber="Nullam">
+		<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel>
 			<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel.Cells>
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
@@ -66,7 +78,7 @@
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
 			</FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel.Cells>
 		</FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel>
-		<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel RoomNumber="Maecenas">
+		<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel>
 			<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel.Cells>
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
@@ -75,7 +87,7 @@
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
 			</FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel.Cells>
 		</FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel>
-		<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel RoomNumber="Sed">
+		<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel>
 			<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel.Cells>
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
@@ -84,7 +96,7 @@
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
 			</FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel.Cells>
 		</FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel>
-		<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel RoomNumber="Dis">
+		<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel>
 			<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel.Cells>
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
@@ -93,7 +105,7 @@
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
 			</FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel.Cells>
 		</FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel>
-		<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel RoomNumber="Integer">
+		<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel>
 			<FacetedWorlds_MyCon_ViewModels:ScheduleRowViewModel.Cells>
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>
 				<FacetedWorlds_MyCon_ViewModels:ScheduleCellViewModel/>

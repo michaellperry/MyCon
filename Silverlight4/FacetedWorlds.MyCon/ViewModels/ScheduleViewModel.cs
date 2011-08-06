@@ -30,6 +30,17 @@ namespace FacetedWorlds.MyCon.ViewModels
             }
         }
 
+        public IEnumerable<ScheduleRowHeaderViewModel> RowHeaders
+        {
+            get
+            {
+                return
+                    from room in _conference.Rooms
+                    orderby room.RoomNumber
+                    select new ScheduleRowHeaderViewModel(room);
+            }
+        }
+
         public IEnumerable<ScheduleColumnHeaderViewModel> ColumnHeaders
         {
             get

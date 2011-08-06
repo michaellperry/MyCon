@@ -110,6 +110,7 @@
     <Compile Include="ViewModels\ScheduleCellViewModel.cs" />
     <Compile Include="ViewModels\ScheduleColumnHeaderViewModel.cs" />
     <Compile Include="ViewModels\ScheduledSessionViewModel.cs" />
+    <Compile Include="ViewModels\ScheduleRowHeaderViewModel.cs" />
     <Compile Include="ViewModels\ScheduleRowViewModel.cs" />
     <Compile Include="ViewModels\ScheduleViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />

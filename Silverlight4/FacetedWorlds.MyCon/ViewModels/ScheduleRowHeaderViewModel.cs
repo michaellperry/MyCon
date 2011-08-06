@@ -5,32 +5,25 @@ using FacetedWorlds.MyCon.Model;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {
-    public class ScheduleRowViewModel
+    public class ScheduleRowHeaderViewModel
     {
         private readonly Room _room;
 
-        public ScheduleRowViewModel(Room room)
+        public ScheduleRowHeaderViewModel(Room room)
         {
             _room = room;
         }
 
-        public IEnumerable<ScheduleCellViewModel> Cells
+        public string RoomNumber
         {
-            get
-            {
-                return
-                    from day in _room.Conference.Days
-                    from time in day.Times
-                    orderby time.Start
-                    select new ScheduleCellViewModel(time.GetPlace(_room));
-            }
+            get { return _room.RoomNumber; }
         }
 
         public override bool Equals(object obj)
         {
             if (this == obj)
                 return true;
-            ScheduleRowViewModel that = obj as ScheduleRowViewModel;
+            ScheduleRowHeaderViewModel that = obj as ScheduleRowHeaderViewModel;
             if (that == null)
                 return false;
             return _room.Equals(that._room);

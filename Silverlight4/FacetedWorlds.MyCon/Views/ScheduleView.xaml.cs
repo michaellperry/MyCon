@@ -6,6 +6,8 @@ using FacetedWorlds.MyCon.ViewModels;
 using SL_Drag_Drop_BaseClasses;
 using UpdateControls.XAML;
 using System.Windows.Threading;
+using System.Windows.Media;
+using System.Collections.Generic;
 
 namespace FacetedWorlds.MyCon.Views
 {
@@ -73,6 +75,32 @@ namespace FacetedWorlds.MyCon.Views
         private void DragSource_DragMoved(object sender, SL_Drag_Drop_BaseClasses.DragEventArgs args)
         {
             _position = args.MouseEventArgs.GetPosition(Scroller);
+        }
+
+        private void UserControl_LayoutUpdated(object sender, EventArgs e)
+        {
+            List<FrameworkElement> rowHeaders = ItemsIn(RowHeaderContainer);
+            List<FrameworkElement> rows = ItemsIn(RowContainer);
+            for (int i = 0; i < rowHeaders.Count && i < rows.Count; i++)
+            {
+                rowHeaders[i].Height = rows[i].ActualHeight;
+            }
+
+            ColumnHeaders.ScrollToHorizontalOffset(Scroller.HorizontalOffset);
+            RowHeaders.ScrollToVerticalOffset(Scroller.VerticalOffset);
+        }
+
+        private List<FrameworkElement> ItemsIn(DependencyObject container)
+        {
+            DependencyObject itemsPresenter = VisualTreeHelper.GetChild(container, 0);
+            DependencyObject itemsPanel = VisualTreeHelper.GetChild(itemsPresenter, 0);
+            int itemCount = VisualTreeHelper.GetChildrenCount(itemsPanel);
+            List<FrameworkElement> items = new List<FrameworkElement>(itemCount);
+            for (int i = 0; i < itemCount; i++)
+            {
+                items.Add(VisualTreeHelper.GetChild(itemsPanel, i) as FrameworkElement);
+            }
+            return items;
         }
     }
 }

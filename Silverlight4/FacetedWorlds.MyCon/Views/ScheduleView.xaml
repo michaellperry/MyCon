@@ -5,9 +5,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Itzben="clr-namespace:Itzben;assembly=Itzben" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" x:Class="FacetedWorlds.MyCon.Views.ScheduleView"
     mc:Ignorable="d"
-    d:DesignHeight="300" d:DesignWidth="400" d:DataContext="{d:DesignData /SampleData/ScheduleViewModelSampleData.xaml}" 
+    d:DesignHeight="300" d:DesignWidth="400" 
     xmlns:dragdrop="clr-namespace:SL_Drag_Drop_BaseClasses;assembly=SL_Drag_Drop_BaseClasses"
-    Unloaded="UserControl_Unloaded"
+    Unloaded="UserControl_Unloaded" LayoutUpdated="UserControl_LayoutUpdated"
     >
 	<UserControl.Resources>
 		<Itzben:StringFormatConverter x:Key="StringFormatConverter"/>
@@ -65,9 +65,18 @@
 			</Grid>
 		</DataTemplate>
 		<DataTemplate x:Key="ScheduleRowViewModelTemplate">
-			<StackPanel Orientation="Horizontal">
-				<TextBlock Text="{Binding RoomNumber}" Width="75" TextWrapping="Wrap"/>
-				<ItemsControl ItemsSource="{Binding Cells}" ItemsPanel="{StaticResource RowPanelTemplate}" ItemTemplate="{StaticResource CellItemTemplate}" VerticalContentAlignment="Top" VerticalAlignment="Top"/>
+			<StackPanel>
+				<ItemsControl ItemsSource="{Binding Cells}" ItemsPanel="{StaticResource RowPanelTemplate}" ItemTemplate="{StaticResource CellItemTemplate}" VerticalContentAlignment="Top"/>
+			</StackPanel>
+		</DataTemplate>
+		<DataTemplate x:Key="ScheduleColumnHeaderViewModelTemplate1">
+			<StackPanel>
+				<TextBlock Text="{Binding Start, ConverterParameter=\{0:ddd hh:mm\}, Converter={StaticResource StringFormatConverter}}"/>
+			</StackPanel>
+		</DataTemplate>
+		<DataTemplate x:Key="ScheduleRowHeaderViewModelTemplate">
+			<StackPanel>
+				<TextBlock Text="{Binding RoomNumber}"/>
 			</StackPanel>
 		</DataTemplate>
 	</UserControl.Resources>
@@ -76,26 +85,30 @@
 		<Binding Path="Schedule" Source="{StaticResource Locator}"/>
 	</UserControl.DataContext>
     
-	<Grid x:Name="LayoutRoot" Background="White">
+	<Grid x:Name="LayoutRoot" Background="White" d:DataContext="{d:DesignData /SampleData/ScheduleViewModelSampleData.xaml}">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="0.637*"/>
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
-		<ScrollViewer x:Name="Scroller" Margin="8" HorizontalScrollBarVisibility="Visible">
-			<Grid HorizontalAlignment="Left" VerticalAlignment="Top">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="75"/>
-					<ColumnDefinition Width="Auto" MinWidth="758"/>
-				</Grid.ColumnDefinitions>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="Auto"/>
-				</Grid.RowDefinitions>
-				<ItemsControl ItemTemplate="{StaticResource ScheduleColumnHeaderViewModelTemplate}" ItemsSource="{Binding ColumnHeaders}" ItemsPanel="{StaticResource ColumnHeaderPanelTemplate}" HorizontalAlignment="Left" Grid.Column="1" d:LayoutOverrides="Height"/>
-				<ItemsControl ItemTemplate="{StaticResource ScheduleRowViewModelTemplate}" ItemsSource="{Binding Rows}" Grid.Row="1" Grid.ColumnSpan="2"/>
-
-			</Grid>
-		</ScrollViewer>
+		<Grid Margin="8">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="0.889*"/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="75"/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+			<ScrollViewer x:Name="ColumnHeaders" Grid.Column="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" BorderThickness="0" Padding="4,0">
+				<ItemsControl ItemTemplate="{StaticResource ScheduleColumnHeaderViewModelTemplate}" ItemsSource="{Binding ColumnHeaders}" ItemsPanel="{StaticResource ColumnHeaderPanelTemplate}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+			</ScrollViewer>
+			<ScrollViewer x:Name="Scroller" Grid.Column="1" Grid.Row="1" HorizontalScrollBarVisibility="Visible" >
+				<ItemsControl x:Name="RowContainer" ItemTemplate="{StaticResource ScheduleRowViewModelTemplate}" ItemsSource="{Binding Rows}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+			</ScrollViewer>
+			<ScrollViewer x:Name="RowHeaders" Grid.Row="1" BorderThickness="0" Padding="0,4" VerticalScrollBarVisibility="Hidden">
+				<ItemsControl x:Name="RowHeaderContainer" ItemTemplate="{StaticResource ScheduleRowHeaderViewModelTemplate}" ItemsSource="{Binding RowHeaders}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+			</ScrollViewer>
+		</Grid>
 		<Grid Grid.Row="1">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto"/>
