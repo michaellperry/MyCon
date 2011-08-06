@@ -6,9 +6,14 @@ namespace FacetedWorlds.MyCon.Model
 {
     public partial class Conference
     {
+        public Day GetDay(DateTime startTime)
+        {
+            return Community.AddFact(new Day(this, startTime.Date));
+        }
+
         public Time GetTime(DateTime startTime)
         {
-            Day day = Community.AddFact(new Day(this, startTime.Date));
+            Day day = GetDay(startTime);
             return Community.AddFact(new Time(day, startTime));
         }
 
