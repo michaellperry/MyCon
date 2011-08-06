@@ -7,6 +7,7 @@
     mc:Ignorable="d"
     d:DesignHeight="300" d:DesignWidth="400" d:DataContext="{d:DesignData /SampleData/ScheduleViewModelSampleData.xaml}" 
     xmlns:dragdrop="clr-namespace:SL_Drag_Drop_BaseClasses;assembly=SL_Drag_Drop_BaseClasses"
+    Unloaded="UserControl_Unloaded"
     >
 	<UserControl.Resources>
 		<Itzben:StringFormatConverter x:Key="StringFormatConverter"/>
@@ -25,7 +26,7 @@
                     <dragdrop:DragSource AllDropTargetsValid="True"
                                          ShowReturnToOriginalPositionAnimation="True"
                                          DropMode="ReturnDragSource" DragHandleMode="FullDragSource"
-                                         Tag="News" >
+                                         Tag="News" DragStarted="DragSource_DragStarted" DragFinished="DragSource_DragFinished" DragMoved="DragSource_DragMoved" >
 
                         <Grid Width="150">
                             <Grid.RowDefinitions>
@@ -80,7 +81,7 @@
 			<RowDefinition Height="0.637*"/>
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
-		<ScrollViewer Margin="8" HorizontalScrollBarVisibility="Visible">
+		<ScrollViewer x:Name="Scroller" Margin="8" HorizontalScrollBarVisibility="Visible">
 			<Grid HorizontalAlignment="Left" VerticalAlignment="Top">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="75"/>
