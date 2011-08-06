@@ -13,5 +13,25 @@ namespace FacetedWorlds.MyCon.ViewModels
         {
             _sessionPlace = sessionPlace;
         }
+
+        public string SessionName
+        {
+            get { return _sessionPlace.Session.Name; }
+        }
+
+        public string Speaker
+        {
+            get { return _sessionPlace.Session.Speaker.Name; }
+        }
+
+        public string Track
+        {
+            get
+            {
+                return _sessionPlace.Session.Track == null
+                    ? string.Empty :
+                    _sessionPlace.Session.Track.Name;
+            }
+        }
     }
 }

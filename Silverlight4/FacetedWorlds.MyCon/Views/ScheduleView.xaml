@@ -5,7 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Itzben="clr-namespace:Itzben;assembly=Itzben" x:Class="FacetedWorlds.MyCon.Views.ScheduleView"
     mc:Ignorable="d"
-    d:DesignHeight="300" d:DesignWidth="400"
+    d:DesignHeight="300" d:DesignWidth="400" d:DataContext="{d:DesignData /SampleData/ScheduleViewModelSampleData.xaml}"
     >
 	<UserControl.Resources>
 		<Itzben:StringFormatConverter x:Key="StringFormatConverter"/>
@@ -18,8 +18,25 @@
 		<ItemsPanelTemplate x:Key="RowPanelTemplate">
 			<StackPanel Orientation="Horizontal"/>
 		</ItemsPanelTemplate>
+		<DataTemplate x:Key="ScheduledSessionViewModelTemplate">
+			<Grid Width="150">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+				<TextBlock Text="{Binding SessionName}" d:LayoutOverrides="Width" Grid.ColumnSpan="2" Margin="4" TextWrapping="Wrap"/>
+				<TextBlock Text="{Binding Speaker}" Margin="4" Grid.Row="1" Foreground="Gray" TextWrapping="Wrap"/>
+				<TextBlock Text="{Binding Track}" Margin="4" Grid.Row="1" Grid.Column="1" Foreground="Gray" TextWrapping="Wrap"/>
+			</Grid>
+		</DataTemplate>
 		<DataTemplate x:Key="CellItemTemplate">
-			<Grid Width="150" Height="50"/>
+			<Grid>
+				<ItemsControl ItemTemplate="{StaticResource ScheduledSessionViewModelTemplate}" ItemsSource="{Binding ScheduledSessions}"/>
+			</Grid>
 		</DataTemplate>
 		<DataTemplate x:Key="ScheduleRowViewModelTemplate">
 			<StackPanel Orientation="Horizontal">
@@ -33,7 +50,7 @@
 		<Binding Path="Schedule" Source="{StaticResource Locator}"/>
 	</UserControl.DataContext>
     
-	<Grid x:Name="LayoutRoot" Background="White" d:DataContext="{d:DesignData /SampleData/ScheduleViewModelSampleData.xaml}">
+	<Grid x:Name="LayoutRoot" Background="White">
 		<ScrollViewer Margin="8" HorizontalScrollBarVisibility="Visible">
 			<Grid HorizontalAlignment="Left" VerticalAlignment="Top">
 				<Grid.ColumnDefinitions>
