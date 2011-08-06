@@ -33,7 +33,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public object Schedule
         {
-            get { return ForView.Wrap(new ScheduleViewModel(_navigationModel.SelectedConference)); }
+            get { return ForView.Wrap(new ScheduleViewModel(_navigationModel.SelectedConference, _navigationModel)); }
         }
 
         private void TemporarilyPreselectDallasTechFest()

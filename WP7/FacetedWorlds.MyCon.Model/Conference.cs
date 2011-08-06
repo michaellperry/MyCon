@@ -17,6 +17,11 @@ namespace FacetedWorlds.MyCon.Model
             return Community.AddFact(new Speaker(this, speakerName));
         }
 
+        public Room NewRoom(string roomNumber)
+        {
+            return Community.AddFact(new Room(this, roomNumber));
+        }
+
         public Speaker NewSpeaker(string speakerName, string contact, string bio, string imageUrl)
         {
             Speaker speaker = GetSpeaker(speakerName);

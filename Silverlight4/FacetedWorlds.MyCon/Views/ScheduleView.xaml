@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:Itzben="clr-namespace:Itzben;assembly=Itzben" x:Class="FacetedWorlds.MyCon.Views.ScheduleView"
+    xmlns:Itzben="clr-namespace:Itzben;assembly=Itzben" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" x:Class="FacetedWorlds.MyCon.Views.ScheduleView"
     mc:Ignorable="d"
     d:DesignHeight="300" d:DesignWidth="400" d:DataContext="{d:DesignData /SampleData/ScheduleViewModelSampleData.xaml}"
     >
@@ -51,6 +51,10 @@
 	</UserControl.DataContext>
     
 	<Grid x:Name="LayoutRoot" Background="White">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="0.637*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
 		<ScrollViewer Margin="8" HorizontalScrollBarVisibility="Visible">
 			<Grid HorizontalAlignment="Left" VerticalAlignment="Top">
 				<Grid.ColumnDefinitions>
@@ -66,5 +70,19 @@
 
 			</Grid>
 		</ScrollViewer>
+		<Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="0.362*"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+			<TextBlock HorizontalAlignment="Left" Margin="8,8,0,8" TextWrapping="Wrap" Text="New Room:" VerticalAlignment="Center"/>
+			<TextBox Text="{Binding NewRoomNumber, Mode=TwoWay}" Margin="8" Grid.Column="1" VerticalAlignment="Center">
+				<i:Interaction.Behaviors>
+					<Itzben:UpdateOnTextChangedBehavior/>
+				</i:Interaction.Behaviors>
+			</TextBox>
+			<Button Content="Add" Grid.Column="2" Margin="8" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Command="{Binding NewRoom}"/>
+		</Grid>
 	</Grid>
 </UserControl>
