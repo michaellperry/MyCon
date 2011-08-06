@@ -4,6 +4,11 @@
              xmlns:vm="clr-namespace:FacetedWorlds.MyCon.ViewModels"
              >
     <Application.Resources>
-        <vm:ViewModelLocator x:Key="Locator"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Assets/Styles.xaml"/>
+                <ResourceDictionary Source="Assets/Locator.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
