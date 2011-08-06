@@ -76,7 +76,7 @@
 		</DataTemplate>
 		<DataTemplate x:Key="ScheduleRowHeaderViewModelTemplate">
 			<StackPanel>
-				<TextBlock Text="{Binding RoomNumber}"/>
+				<TextBlock Text="{Binding RoomNumber}" TextWrapping="Wrap"/>
 			</StackPanel>
 		</DataTemplate>
 	</UserControl.Resources>
