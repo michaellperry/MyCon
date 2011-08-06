@@ -14,7 +14,7 @@ namespace FacetedWorlds.MyCon.ViewModels
             _place = place;
         }
 
-        public Place Place
+        internal Place Place
         {
             get { return _place; }
         }
