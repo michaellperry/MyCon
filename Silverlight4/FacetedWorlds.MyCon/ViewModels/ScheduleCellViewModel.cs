@@ -14,6 +14,11 @@ namespace FacetedWorlds.MyCon.ViewModels
             _place = place;
         }
 
+        public Place Place
+        {
+            get { return _place; }
+        }
+
         public IEnumerable<ScheduledSessionViewModel> ScheduledSessions
         {
             get

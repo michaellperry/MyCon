@@ -33,5 +33,25 @@ namespace FacetedWorlds.MyCon.ViewModels
                     _sessionPlace.Session.Track.Name;
             }
         }
+
+        public void MoveTo(Place place)
+        {
+            _sessionPlace.Session.SetPlace(place);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (this == obj)
+                return true;
+            ScheduledSessionViewModel that = obj as ScheduledSessionViewModel;
+            if (that == null)
+                return false;
+            return _sessionPlace.Equals(that._sessionPlace);
+        }
+
+        public override int GetHashCode()
+        {
+            return _sessionPlace.GetHashCode();
+        }
     }
 }

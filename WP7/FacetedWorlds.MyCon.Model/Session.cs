@@ -1,5 +1,6 @@
 ﻿
 using System.Linq;
+using System.Collections.Generic;
 namespace FacetedWorlds.MyCon.Model
 {
     public partial class Session
@@ -16,8 +17,13 @@ namespace FacetedWorlds.MyCon.Model
         {
             Room room = Community.AddFact(new Room(Conference, roomNumber));
             Place place = Community.AddFact(new Place(time, room));
-            SessionPlace currentPlace = CurrentSessionPlaces.FirstOrDefault();
-            if (currentPlace == null || currentPlace.Place != place)
+            SetPlace(place);
+        }
+
+        public void SetPlace(Place place)
+        {
+            List<SessionPlace> currentSessionPlaces = CurrentSessionPlaces.ToList();
+            if (currentSessionPlaces.Count != 1 || currentSessionPlaces[0].Place != place)
                 Community.AddFact(new SessionPlace(this, place, CurrentSessionPlaces));
         }
     }

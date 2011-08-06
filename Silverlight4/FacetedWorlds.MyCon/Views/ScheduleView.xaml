@@ -20,7 +20,7 @@
 			<StackPanel Orientation="Horizontal"/>
 		</ItemsPanelTemplate>
 		<DataTemplate x:Key="ScheduledSessionViewModelTemplate">
-            <dragdrop:DropTarget Grid.Row="2" ShowHover="False">
+            <dragdrop:DropTarget Grid.Row="2" ShowHover="False" VerticalAlignment="Top" Margin="0,4">
                 <dragdrop:DropTarget.Content>
                     <dragdrop:DragSource AllDropTargetsValid="True"
                                          ShowReturnToOriginalPositionAnimation="True"
@@ -43,23 +43,30 @@
 
                     </dragdrop:DragSource>
                 </dragdrop:DropTarget.Content>
-                <dragdrop:DropTarget.Ghost>
-                    <Rectangle Fill="Beige" HorizontalAlignment="Center"
-                           VerticalAlignment="Center" Width="64" Height="64" Opacity="0.3" >
-                    </Rectangle>
-                </dragdrop:DropTarget.Ghost>
             </dragdrop:DropTarget>
             
 		</DataTemplate>
 		<DataTemplate x:Key="CellItemTemplate">
-			<Grid>
-				<ItemsControl ItemTemplate="{StaticResource ScheduledSessionViewModelTemplate}" ItemsSource="{Binding ScheduledSessions}"/>
+			<Grid Width="150" Margin="4,0">
+                <dragdrop:DropTarget DragSourceDropped="DropTarget_DragSourceDropped" VerticalAlignment="Top">
+                    <dragdrop:DropTarget.DropBorderBrush>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFD83F00" Offset="0"/>
+                            <GradientStop Color="#FFF65E00" Offset="1"/>
+                        </LinearGradientBrush>
+                    </dragdrop:DropTarget.DropBorderBrush>
+                    <dragdrop:DropTarget.Content>
+                        <dragdrop:DragSource DraggingEnabled="False">
+                            <ItemsControl ItemTemplate="{StaticResource ScheduledSessionViewModelTemplate}" ItemsSource="{Binding ScheduledSessions}" VerticalAlignment="Top" VerticalContentAlignment="Top"/>
+                        </dragdrop:DragSource>
+                    </dragdrop:DropTarget.Content>
+                </dragdrop:DropTarget>
 			</Grid>
 		</DataTemplate>
 		<DataTemplate x:Key="ScheduleRowViewModelTemplate">
 			<StackPanel Orientation="Horizontal">
 				<TextBlock Text="{Binding RoomNumber}" Width="75" TextWrapping="Wrap"/>
-				<ItemsControl ItemsSource="{Binding Cells}" ItemsPanel="{StaticResource RowPanelTemplate}" ItemTemplate="{StaticResource CellItemTemplate}"/>
+				<ItemsControl ItemsSource="{Binding Cells}" ItemsPanel="{StaticResource RowPanelTemplate}" ItemTemplate="{StaticResource CellItemTemplate}" VerticalContentAlignment="Top" VerticalAlignment="Top"/>
 			</StackPanel>
 		</DataTemplate>
 	</UserControl.Resources>
