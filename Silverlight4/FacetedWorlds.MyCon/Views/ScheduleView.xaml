@@ -5,7 +5,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Itzben="clr-namespace:Itzben;assembly=Itzben" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" x:Class="FacetedWorlds.MyCon.Views.ScheduleView"
     mc:Ignorable="d"
-    d:DesignHeight="300" d:DesignWidth="400" d:DataContext="{d:DesignData /SampleData/ScheduleViewModelSampleData.xaml}"
+    d:DesignHeight="300" d:DesignWidth="400" d:DataContext="{d:DesignData /SampleData/ScheduleViewModelSampleData.xaml}" 
+    xmlns:dragdrop="clr-namespace:SL_Drag_Drop_BaseClasses;assembly=SL_Drag_Drop_BaseClasses"
     >
 	<UserControl.Resources>
 		<Itzben:StringFormatConverter x:Key="StringFormatConverter"/>
@@ -19,19 +20,36 @@
 			<StackPanel Orientation="Horizontal"/>
 		</ItemsPanelTemplate>
 		<DataTemplate x:Key="ScheduledSessionViewModelTemplate">
-			<Grid Width="150">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="Auto"/>
-				</Grid.RowDefinitions>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition/>
-					<ColumnDefinition/>
-				</Grid.ColumnDefinitions>
-				<TextBlock Text="{Binding SessionName}" d:LayoutOverrides="Width" Grid.ColumnSpan="2" Margin="4" TextWrapping="Wrap"/>
-				<TextBlock Text="{Binding Speaker}" Margin="4" Grid.Row="1" Foreground="Gray" TextWrapping="Wrap"/>
-				<TextBlock Text="{Binding Track}" Margin="4" Grid.Row="1" Grid.Column="1" Foreground="Gray" TextWrapping="Wrap"/>
-			</Grid>
+            <dragdrop:DropTarget Grid.Row="2" ShowHover="False">
+                <dragdrop:DropTarget.Content>
+                    <dragdrop:DragSource AllDropTargetsValid="True"
+                                         ShowReturnToOriginalPositionAnimation="True"
+                                         DropMode="ReturnDragSource" DragHandleMode="FullDragSource"
+                                         Tag="News" >
+
+                        <Grid Width="150">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding SessionName}" d:LayoutOverrides="Width" Grid.ColumnSpan="2" Margin="4" TextWrapping="Wrap"/>
+                            <TextBlock Text="{Binding Speaker}" Margin="4" Grid.Row="1" Foreground="Gray" TextWrapping="Wrap"/>
+                            <TextBlock Text="{Binding Track}" Margin="4" Grid.Row="1" Grid.Column="1" Foreground="Gray" TextWrapping="Wrap"/>
+                        </Grid>
+
+                    </dragdrop:DragSource>
+                </dragdrop:DropTarget.Content>
+                <dragdrop:DropTarget.Ghost>
+                    <Rectangle Fill="Beige" HorizontalAlignment="Center"
+                           VerticalAlignment="Center" Width="64" Height="64" Opacity="0.3" >
+                    </Rectangle>
+                </dragdrop:DropTarget.Ghost>
+            </dragdrop:DropTarget>
+            
 		</DataTemplate>
 		<DataTemplate x:Key="CellItemTemplate">
 			<Grid>

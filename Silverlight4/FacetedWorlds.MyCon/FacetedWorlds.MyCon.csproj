@@ -140,6 +140,10 @@
       <Project>{835D447C-0578-49D3-8B9E-F4DA84CBED06}</Project>
       <Name>FacetedWorlds.MyCon.Model %28Silverlight4\FacetedWorlds.MyCon.Model%29</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SL_Drag_Drop_BaseClasses\SL_Drag_Drop_BaseClasses.csproj">
+      <Project>{912977D5-0889-4433-9C63-A37B01411EBC}</Project>
+      <Name>SL_Drag_Drop_BaseClasses</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Readme.txt" />

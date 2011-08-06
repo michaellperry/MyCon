@@ -17,6 +17,8 @@ namespace FacetedWorlds.MyCon.Views
         public ScheduleView()
         {
             InitializeComponent();
+
+            SL_Drag_Drop_BaseClasses.InitialValues.ContainingLayoutPanel = this.LayoutRoot;
         }
     }
 }
