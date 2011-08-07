@@ -116,9 +116,13 @@
     <Compile Include="ViewModels\ScheduleRowViewModel.cs" />
     <Compile Include="ViewModels\ScheduleViewModel.cs" />
     <Compile Include="ViewModels\SegmentExtensions.cs" />
+    <Compile Include="ViewModels\SessionDetailsViewModel.cs" />
+    <Compile Include="ViewModels\SessionsViewModel.cs" />
+    <Compile Include="ViewModels\SessionViewModel.cs" />
     <Compile Include="ViewModels\SpeakerDetailsViewModel.cs" />
     <Compile Include="ViewModels\SpeakersViewModel.cs" />
     <Compile Include="ViewModels\SpeakerViewModel.cs" />
+    <Compile Include="ViewModels\TrackViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
@@ -131,6 +135,12 @@
     </Compile>
     <Compile Include="Views\ScheduleView.xaml.cs">
       <DependentUpon>ScheduleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SessionDetailsView.xaml.cs">
+      <DependentUpon>SessionDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SessionsView.xaml.cs">
+      <DependentUpon>SessionsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SpeakerDetailsView.xaml.cs">
       <DependentUpon>SpeakerDetailsView.xaml</DependentUpon>
@@ -172,6 +182,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SessionDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SessionsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SpeakerDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -200,6 +218,12 @@
   </ItemGroup>
   <ItemGroup>
     <DesignData Include="SampleData\ScheduleViewModelSampleData.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+    </DesignData>
+    <DesignData Include="SampleData\SessionDetailsViewModelSampleData.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+    </DesignData>
+    <DesignData Include="SampleData\SessionsViewModelSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>
     <DesignData Include="SampleData\SpeakerDetailsViewModelSampleData.xaml">

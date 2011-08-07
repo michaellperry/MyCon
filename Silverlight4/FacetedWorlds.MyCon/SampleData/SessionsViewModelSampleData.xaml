@@ -1,0 +1,50 @@
+﻿<FacetedWorlds_MyCon_ViewModels:SessionsViewModel xmlns:FacetedWorlds_MyCon_ViewModels="clr-namespace:FacetedWorlds.MyCon.ViewModels" NewSessionId="Aliquam">
+	<FacetedWorlds_MyCon_ViewModels:SessionsViewModel.SelectedSession>
+		<FacetedWorlds_MyCon_ViewModels:SessionViewModel Name="Curae aenean duis vestibulum"/>
+	</FacetedWorlds_MyCon_ViewModels:SessionsViewModel.SelectedSession>
+	<FacetedWorlds_MyCon_ViewModels:SessionsViewModel.SelectedSpeaker>
+		<FacetedWorlds_MyCon_ViewModels:SpeakerViewModel Name="Donec maecenas"/>
+	</FacetedWorlds_MyCon_ViewModels:SessionsViewModel.SelectedSpeaker>
+	<FacetedWorlds_MyCon_ViewModels:SessionsViewModel.SessionDetails>
+		<FacetedWorlds_MyCon_ViewModels:SessionDetailsViewModel Description="Adipiscing parturient" Name="Nullam phasellus" Speaker="Dis amet ante" Track="Fusce aliquam"/>
+	</FacetedWorlds_MyCon_ViewModels:SessionsViewModel.SessionDetails>
+	<FacetedWorlds_MyCon_ViewModels:SessionsViewModel.Sessions>
+		<FacetedWorlds_MyCon_ViewModels:SessionViewModel Name="Integer lorem morbi praesent"/>
+		<FacetedWorlds_MyCon_ViewModels:SessionViewModel Name="Vestibulum accumsan quisque"/>
+		<FacetedWorlds_MyCon_ViewModels:SessionViewModel Name="Aptent bibendum nulla auctor vivamus"/>
+		<FacetedWorlds_MyCon_ViewModels:SessionViewModel Name="Est hac arcu dictumst aliquam"/>
+		<FacetedWorlds_MyCon_ViewModels:SessionViewModel Name="Leo congue"/>
+		<FacetedWorlds_MyCon_ViewModels:SessionViewModel Name="Cursus proin mus eleifend"/>
+		<FacetedWorlds_MyCon_ViewModels:SessionViewModel Name="Aliquet diam"/>
+		<FacetedWorlds_MyCon_ViewModels:SessionViewModel Name="Blandit consequat vestibulum dictum facilisi"/>
+		<FacetedWorlds_MyCon_ViewModels:SessionViewModel Name="Nec lectus commodo faucibus convallis"/>
+		<FacetedWorlds_MyCon_ViewModels:SessionViewModel Name="Dignissim non elementum"/>
+	</FacetedWorlds_MyCon_ViewModels:SessionsViewModel.Sessions>
+	<FacetedWorlds_MyCon_ViewModels:SessionsViewModel.Speakers>
+		<FacetedWorlds_MyCon_ViewModels:SpeakerViewModel Name="Eget augue facilisis dolor"/>
+		<FacetedWorlds_MyCon_ViewModels:SpeakerViewModel Name="Fames fermentum fringilla habitasse"/>
+		<FacetedWorlds_MyCon_ViewModels:SpeakerViewModel Name="Adipiscing hendrerit elit enim"/>
+		<FacetedWorlds_MyCon_ViewModels:SpeakerViewModel Name="Conubia per himenaeos"/>
+		<FacetedWorlds_MyCon_ViewModels:SpeakerViewModel Name="Parturient erat libero cubilia"/>
+		<FacetedWorlds_MyCon_ViewModels:SpeakerViewModel Name="Habitant ligula"/>
+		<FacetedWorlds_MyCon_ViewModels:SpeakerViewModel Name="Felis vestibulum dapibus"/>
+		<FacetedWorlds_MyCon_ViewModels:SpeakerViewModel Name="Vestibulum sed ipsum sem"/>
+		<FacetedWorlds_MyCon_ViewModels:SpeakerViewModel Name="Sit justo eros litora"/>
+		<FacetedWorlds_MyCon_ViewModels:SpeakerViewModel Name="Egestas imperdiet adipiscing nibh"/>
+	</FacetedWorlds_MyCon_ViewModels:SessionsViewModel.Speakers>
+	<FacetedWorlds_MyCon_ViewModels:SessionsViewModel.SelectedTrack>
+		<FacetedWorlds_MyCon_ViewModels:TrackViewModel Name="Sed nunc etiam mauris"/>
+	</FacetedWorlds_MyCon_ViewModels:SessionsViewModel.SelectedTrack>
+	<FacetedWorlds_MyCon_ViewModels:SessionsViewModel.Tracks>
+		<FacetedWorlds_MyCon_ViewModels:TrackViewModel Name="Euismod vel"/>
+		<FacetedWorlds_MyCon_ViewModels:TrackViewModel Name="Inceptos parturient malesuada luctus"/>
+		<FacetedWorlds_MyCon_ViewModels:TrackViewModel Name="Interdum vestibulum penatibus nisi"/>
+		<FacetedWorlds_MyCon_ViewModels:TrackViewModel Name="Nam vestibulum"/>
+		<FacetedWorlds_MyCon_ViewModels:TrackViewModel Name="Feugiat lobortis"/>
+		<FacetedWorlds_MyCon_ViewModels:TrackViewModel Name="Gravida magnis nisl"/>
+		<FacetedWorlds_MyCon_ViewModels:TrackViewModel Name="Mattis lacus porttitor mauris"/>
+		<FacetedWorlds_MyCon_ViewModels:TrackViewModel Name="Nunc mollis lorem"/>
+		<FacetedWorlds_MyCon_ViewModels:TrackViewModel Name="Montes tincidunt tristique"/>
+		<FacetedWorlds_MyCon_ViewModels:TrackViewModel Name="Iaculis nascetur"/>
+	</FacetedWorlds_MyCon_ViewModels:SessionsViewModel.Tracks>
+</FacetedWorlds_MyCon_ViewModels:SessionsViewModel>

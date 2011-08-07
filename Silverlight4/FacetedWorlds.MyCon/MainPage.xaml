@@ -51,6 +51,11 @@
                     <Rectangle Style="{StaticResource DividerStyle}"/>
 
                     <HyperlinkButton Style="{StaticResource LinkStyle}" 
+                                     NavigateUri="/SessionsView" TargetName="ContentFrame" Content="sessions"/>
+
+                    <Rectangle Style="{StaticResource DividerStyle}"/>
+
+                    <HyperlinkButton Style="{StaticResource LinkStyle}" 
                                      NavigateUri="/ScheduleView" TargetName="ContentFrame" Content="schedule"/>
 
                     <Rectangle x:Name="Divider1" Style="{StaticResource DividerStyle}"/>

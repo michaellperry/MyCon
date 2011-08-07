@@ -38,10 +38,15 @@ namespace FacetedWorlds.MyCon.Model
             return speaker;
         }
 
+        public Session NewSession(string sessionId, Speaker speaker, Track track)
+        {
+            return Community.AddFact(new Session(this, speaker, track, sessionId));
+        }
+
         public Session NewSession(string sessionId, string sessionName, string trackName, Speaker speaker, string level, string description)
         {
             Track track = trackName == null ? null : Community.AddFact(new Track(this, trackName));
-            Session session = Community.AddFact(new Session(this, speaker, track, sessionId));
+            Session session = NewSession(sessionId, speaker, track);
             if (session.Name.Value != sessionName)
                 session.Name = sessionName;
             var descriptionSegments = DocumentSegments(description);
