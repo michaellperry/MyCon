@@ -7,36 +7,36 @@ namespace FacetedWorlds.MyCon.ViewModels
 {
     public class ScheduledSessionViewModel
     {
-        private readonly SessionPlace _sessionPlace;
+        private readonly Session _session;
 
-        public ScheduledSessionViewModel(SessionPlace sessionPlace)
+        public ScheduledSessionViewModel(Session session)
         {
-            _sessionPlace = sessionPlace;
+            _session = session;
         }
 
         public string SessionName
         {
-            get { return _sessionPlace.Session.Name; }
+            get { return _session.Name; }
         }
 
         public string Speaker
         {
-            get { return _sessionPlace.Session.Speaker.Name; }
+            get { return _session.Speaker.Name; }
         }
 
         public string Track
         {
             get
             {
-                return _sessionPlace.Session.Track == null
+                return _session.Track == null
                     ? string.Empty :
-                    _sessionPlace.Session.Track.Name;
+                    _session.Track.Name;
             }
         }
 
         public void MoveTo(Place place)
         {
-            _sessionPlace.Session.SetPlace(place);
+            _session.SetPlace(place);
         }
 
         public override bool Equals(object obj)
@@ -46,12 +46,12 @@ namespace FacetedWorlds.MyCon.ViewModels
             ScheduledSessionViewModel that = obj as ScheduledSessionViewModel;
             if (that == null)
                 return false;
-            return _sessionPlace.Equals(that._sessionPlace);
+            return _session.Equals(that._session);
         }
 
         public override int GetHashCode()
         {
-            return _sessionPlace.GetHashCode();
+            return _session.GetHashCode();
         }
     }
 }

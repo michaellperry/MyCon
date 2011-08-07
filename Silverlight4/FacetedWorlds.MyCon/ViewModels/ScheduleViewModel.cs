@@ -53,6 +53,17 @@ namespace FacetedWorlds.MyCon.ViewModels
             }
         }
 
+        public IEnumerable<ScheduledSessionViewModel> UnscheduledSessions
+        {
+            get
+            {
+                return
+                    from session in _conference.UnscheduledSessions
+                    orderby session.Name.Value
+                    select new ScheduledSessionViewModel(session);
+            }
+        }
+
         public string NewRoomNumber
         {
             get { return _navigationModel.NewRoomNumber; }

@@ -52,6 +52,12 @@ query:
 			where not s.isDeleted
 	}
 
+	Session* unscheduledSessions {
+		Session s : s.conference = this
+			where not s.isDeleted
+			and not s.isScheduled
+	}
+
 	Speaker* speakers {
 		Speaker s : s.conference = this
 	}
@@ -259,6 +265,10 @@ query:
 	bool isDeleted {
 		exists SessionDelete d : d.deleted = this
 			where not d.isUndeleted
+	}
+
+	bool isScheduled {
+		exists SessionPlace sp : sp.session = this
 	}
 }
 

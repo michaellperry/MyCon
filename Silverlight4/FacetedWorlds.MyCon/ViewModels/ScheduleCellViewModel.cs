@@ -25,7 +25,7 @@ namespace FacetedWorlds.MyCon.ViewModels
             {
                 return
                     from sessionPlace in _place.CurrentSessionPlaces
-                    select new ScheduledSessionViewModel(sessionPlace);
+                    select new ScheduledSessionViewModel(sessionPlace.Session);
             }
         }
 

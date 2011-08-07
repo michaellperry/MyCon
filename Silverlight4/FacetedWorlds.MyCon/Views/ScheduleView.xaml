@@ -5,7 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Itzben="clr-namespace:Itzben;assembly=Itzben" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" x:Class="FacetedWorlds.MyCon.Views.ScheduleView"
     mc:Ignorable="d"
-    d:DesignHeight="300" d:DesignWidth="400" 
+    d:DesignHeight="363" d:DesignWidth="671" 
     xmlns:dragdrop="clr-namespace:SL_Drag_Drop_BaseClasses;assembly=SL_Drag_Drop_BaseClasses"
     Unloaded="UserControl_Unloaded" LayoutUpdated="UserControl_LayoutUpdated"
     >
@@ -79,6 +79,13 @@
 				<TextBlock Text="{Binding RoomNumber}" TextWrapping="Wrap"/>
 			</StackPanel>
 		</DataTemplate>
+		<DataTemplate x:Key="ScheduledSessionViewModelTemplate1">
+			<StackPanel>
+				<TextBlock Text="{Binding SessionName}"/>
+				<TextBlock Text="{Binding Speaker}"/>
+				<TextBlock Text="{Binding Track}"/>
+			</StackPanel>
+		</DataTemplate>
 	</UserControl.Resources>
     
 	<UserControl.DataContext>
@@ -98,6 +105,7 @@
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="75"/>
 				<ColumnDefinition/>
+				<ColumnDefinition Width="Auto"/>
 			</Grid.ColumnDefinitions>
 			<ScrollViewer x:Name="ColumnHeaders" Grid.Column="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" BorderThickness="0" Padding="4,0">
 				<ItemsControl ItemTemplate="{StaticResource ScheduleColumnHeaderViewModelTemplate}" ItemsSource="{Binding ColumnHeaders}" ItemsPanel="{StaticResource ColumnHeaderPanelTemplate}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
@@ -108,6 +116,7 @@
 			<ScrollViewer x:Name="RowHeaders" Grid.Row="1" BorderThickness="0" Padding="0,4" VerticalScrollBarVisibility="Hidden">
 				<ItemsControl x:Name="RowHeaderContainer" ItemTemplate="{StaticResource ScheduleRowHeaderViewModelTemplate}" ItemsSource="{Binding RowHeaders}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 			</ScrollViewer>
+			<ListBox Grid.Column="2" ItemTemplate="{StaticResource ScheduledSessionViewModelTemplate}" ItemsSource="{Binding UnscheduledSessions}" Margin="8,0,0,0" Grid.RowSpan="2" Width="166"/>
 		</Grid>
 		<Grid Grid.Row="1">
 			<Grid.ColumnDefinitions>

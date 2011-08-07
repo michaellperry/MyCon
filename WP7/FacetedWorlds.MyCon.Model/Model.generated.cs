@@ -459,6 +459,11 @@ namespace FacetedWorlds.MyCon.Model
             .JoinSuccessors(Session.RoleConference, Condition.WhereIsEmpty(Session.QueryIsDeleted)
             )
             ;
+        public static Query QueryUnscheduledSessions = new Query()
+            .JoinSuccessors(Session.RoleConference, Condition.WhereIsEmpty(Session.QueryIsDeleted)
+                .And().IsEmpty(Session.QueryIsScheduled)
+            )
+            ;
         public static Query QuerySpeakers = new Query()
             .JoinSuccessors(Speaker.RoleConference)
             ;
@@ -487,6 +492,7 @@ namespace FacetedWorlds.MyCon.Model
         private Result<Day> _days;
         private Result<Track> _tracks;
         private Result<Session> _sessions;
+        private Result<Session> _unscheduledSessions;
         private Result<Speaker> _speakers;
         private Result<ConferenceNotice> _notices;
         private Result<ConferenceSessionSurvey> _currentSessionSurveys;
@@ -516,6 +522,7 @@ namespace FacetedWorlds.MyCon.Model
             _days = new Result<Day>(this, QueryDays);
             _tracks = new Result<Track>(this, QueryTracks);
             _sessions = new Result<Session>(this, QuerySessions);
+            _unscheduledSessions = new Result<Session>(this, QueryUnscheduledSessions);
             _speakers = new Result<Speaker>(this, QuerySpeakers);
             _notices = new Result<ConferenceNotice>(this, QueryNotices);
             _currentSessionSurveys = new Result<ConferenceSessionSurvey>(this, QueryCurrentSessionSurveys);
@@ -542,6 +549,10 @@ namespace FacetedWorlds.MyCon.Model
         public IEnumerable<Session> Sessions
         {
             get { return _sessions; }
+        }
+        public IEnumerable<Session> UnscheduledSessions
+        {
+            get { return _unscheduledSessions; }
         }
         public IEnumerable<Speaker> Speakers
         {
@@ -2008,7 +2019,7 @@ namespace FacetedWorlds.MyCon.Model
     
     public partial class Speaker : CorrespondenceFact
     {
-        // Factory
+		// Factory
 		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
 		{
 			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
@@ -2938,9 +2949,13 @@ namespace FacetedWorlds.MyCon.Model
             .JoinSuccessors(SessionDelete.RoleDeleted, Condition.WhereIsEmpty(SessionDelete.QueryIsUndeleted)
             )
             ;
+        public static Query QueryIsScheduled = new Query()
+            .JoinSuccessors(SessionPlace.RoleSession)
+            ;
 
         // Predicates
         public static Condition IsDeleted = Condition.WhereIsNotEmpty(QueryIsDeleted);
+        public static Condition IsScheduled = Condition.WhereIsNotEmpty(QueryIsScheduled);
 
         // Predecessors
         private PredecessorObj<Conference> _conference;
@@ -5265,6 +5280,9 @@ namespace FacetedWorlds.MyCon.Model
 				Conference.QuerySessions.QueryDefinition);
 			community.AddQuery(
 				Conference._correspondenceFactType,
+				Conference.QueryUnscheduledSessions.QueryDefinition);
+			community.AddQuery(
+				Conference._correspondenceFactType,
 				Conference.QuerySpeakers.QueryDefinition);
 			community.AddQuery(
 				Conference._correspondenceFactType,
@@ -5442,6 +5460,9 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				Session._correspondenceFactType,
 				Session.QueryIsDeleted.QueryDefinition);
+			community.AddQuery(
+				Session._correspondenceFactType,
+				Session.QueryIsScheduled.QueryDefinition);
 			community.AddType(
 				SessionName._correspondenceFactType,
 				new SessionName.CorrespondenceFactFactory(fieldSerializerByType),
