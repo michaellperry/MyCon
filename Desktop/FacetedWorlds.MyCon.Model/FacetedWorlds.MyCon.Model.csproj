@@ -82,6 +82,9 @@
     <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Slot.cs">
       <Link>Slot.cs</Link>
     </Compile>
+    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Speaker.cs">
+      <Link>Speaker.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

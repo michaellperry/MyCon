@@ -31,6 +31,14 @@ namespace FacetedWorlds.MyCon.ViewModels
             get { return ForView.Wrap(_main); }
         }
 
+        public object Speakers
+        {
+            get
+            {
+                return ForView.Wrap(new SpeakersViewModel(_navigationModel.SelectedConference, _navigationModel));
+            }
+        }
+
         public object Schedule
         {
             get { return ForView.Wrap(new ScheduleViewModel(_navigationModel.SelectedConference, _navigationModel)); }

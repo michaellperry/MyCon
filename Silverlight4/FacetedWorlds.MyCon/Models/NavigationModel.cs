@@ -8,6 +8,8 @@ namespace FacetedWorlds.MyCon.Models
     {
         private Independent<Conference> _selectedConference = new Independent<Conference>();
         private Independent<string> _newRoomNumber = new Independent<string>();
+        private Independent<string> _newSpeakerName = new Independent<string>();
+        private Independent<Speaker> _selectedSpeaker = new Independent<Speaker>();
 
         public Conference SelectedConference
         {
@@ -19,6 +21,18 @@ namespace FacetedWorlds.MyCon.Models
         {
             get { return _newRoomNumber; }
             set { _newRoomNumber.Value = value; }
+        }
+
+        public string NewSpeakerName
+        {
+            get { return _newSpeakerName; }
+            set { _newSpeakerName.Value = value; }
+        }
+
+        public Speaker SelectedSpeaker
+        {
+            get { return _selectedSpeaker; }
+            set { _selectedSpeaker.Value = value; }
         }
     }
 }

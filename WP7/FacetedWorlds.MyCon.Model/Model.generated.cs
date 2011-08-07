@@ -2008,7 +2008,7 @@ namespace FacetedWorlds.MyCon.Model
     
     public partial class Speaker : CorrespondenceFact
     {
-		// Factory
+        // Factory
 		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
 		{
 			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;

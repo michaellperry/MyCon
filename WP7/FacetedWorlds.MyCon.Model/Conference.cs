@@ -32,9 +32,7 @@ namespace FacetedWorlds.MyCon.Model
             Speaker speaker = GetSpeaker(speakerName);
             if (speaker.ImageUrl.Value != imageUrl && imageUrl != null)
                 speaker.ImageUrl = imageUrl;
-            List<DocumentSegment> bioSegments = DocumentSegments(bio);
-            if (!SegmentsEqual(speaker.Bio.Value, bioSegments))
-                speaker.Bio = bioSegments;
+            speaker.SetBio(bio);
             if (speaker.Contact != contact && !String.IsNullOrEmpty(contact))
                 speaker.Contact = contact;
             return speaker;

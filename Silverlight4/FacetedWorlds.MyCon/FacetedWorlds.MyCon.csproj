@@ -115,6 +115,10 @@
     <Compile Include="ViewModels\ScheduleRowHeaderViewModel.cs" />
     <Compile Include="ViewModels\ScheduleRowViewModel.cs" />
     <Compile Include="ViewModels\ScheduleViewModel.cs" />
+    <Compile Include="ViewModels\SegmentExtensions.cs" />
+    <Compile Include="ViewModels\SpeakerDetailsViewModel.cs" />
+    <Compile Include="ViewModels\SpeakersViewModel.cs" />
+    <Compile Include="ViewModels\SpeakerViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>

@@ -71,6 +71,7 @@
     <Compile Include="SessionEvaluationEssay.cs" />
     <Compile Include="SessionEvaluationRating.cs" />
     <Compile Include="Slot.cs" />
+    <Compile Include="Speaker.cs" />
     <Compile Include="Time.cs" />
   </ItemGroup>
   <ItemGroup>
