@@ -85,7 +85,7 @@
 		<Binding Path="Schedule" Source="{StaticResource Locator}"/>
 	</UserControl.DataContext>
     
-	<Grid x:Name="LayoutRoot" Background="White" d:DataContext="{d:DesignData /SampleData/ScheduleViewModelSampleData.xaml}">
+	<Grid x:Name="LayoutRoot" d:DataContext="{d:DesignData /SampleData/ScheduleViewModelSampleData.xaml}">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="0.637*"/>
 			<RowDefinition Height="Auto"/>

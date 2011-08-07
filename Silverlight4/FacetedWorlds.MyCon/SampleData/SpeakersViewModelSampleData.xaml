@@ -1,0 +1,20 @@
+<FacetedWorlds_MyCon_ViewModels:SpeakersViewModel xmlns:FacetedWorlds_MyCon_ViewModels="clr-namespace:FacetedWorlds.MyCon.ViewModels" NewSpeakerName="Maecenas vestibulum cras duis">
+	<FacetedWorlds_MyCon_ViewModels:SpeakersViewModel.SpeakerDetails>
+		<FacetedWorlds_MyCon_ViewModels:SpeakerDetailsViewModel Bio="Class amet" Contact="Parturient ante" ImageUrl="Accumsan bibendum dictumst nam" Name="Arcu eleifend mauris phasellus sed"/>
+	</FacetedWorlds_MyCon_ViewModels:SpeakersViewModel.SpeakerDetails>
+	<FacetedWorlds_MyCon_ViewModels:SpeakersViewModel.SelectedSpeaker>
+		<FacetedWorlds_MyCon_ViewModels:SpeakerViewModel Name="Praesent curabitur nunc aenean adipiscing"/>
+	</FacetedWorlds_MyCon_ViewModels:SpeakersViewModel.SelectedSpeaker>
+	<FacetedWorlds_MyCon_ViewModels:SpeakersViewModel.Speakers>
+		<FacetedWorlds_MyCon_ViewModels:SpeakerViewModel Name="Vestibulum facilisi"/>
+		<FacetedWorlds_MyCon_ViewModels:SpeakerViewModel Name="Diam nullam aliquam"/>
+		<FacetedWorlds_MyCon_ViewModels:SpeakerViewModel Name="Consequat vestibulum faucibus aptent habitant"/>
+		<FacetedWorlds_MyCon_ViewModels:SpeakerViewModel Name="Auctor curae eget"/>
+		<FacetedWorlds_MyCon_ViewModels:SpeakerViewModel Name="Dis elit"/>
+		<FacetedWorlds_MyCon_ViewModels:SpeakerViewModel Name="Adipiscing est parturient integer inceptos"/>
+		<FacetedWorlds_MyCon_ViewModels:SpeakerViewModel Name="Congue interdum"/>
+		<FacetedWorlds_MyCon_ViewModels:SpeakerViewModel Name="Cursus donec vestibulum lobortis"/>
+		<FacetedWorlds_MyCon_ViewModels:SpeakerViewModel Name="Dictum vestibulum convallis adipiscing"/>
+		<FacetedWorlds_MyCon_ViewModels:SpeakerViewModel Name="Enim parturient lectus quisque"/>
+	</FacetedWorlds_MyCon_ViewModels:SpeakersViewModel.Speakers>
+</FacetedWorlds_MyCon_ViewModels:SpeakersViewModel>

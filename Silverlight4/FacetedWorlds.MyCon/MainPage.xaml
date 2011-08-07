@@ -5,7 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:FacetedWorlds_MyCon_Views="clr-namespace:FacetedWorlds.MyCon.Views" x:Class="FacetedWorlds.MyCon.MainPage"
     mc:Ignorable="d"
-    d:DesignHeight="300" d:DesignWidth="400"
+    d:DesignHeight="343" d:DesignWidth="572"
     xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation" 
     xmlns:uriMapper="clr-namespace:System.Windows.Navigation;assembly=System.Windows.Controls.Navigation"
     DataContext="{Binding Main, Source={StaticResource Locator}}">
@@ -32,7 +32,7 @@
 
                     <ContentControl Style="{StaticResource LogoIcon}"/>
                     <TextBlock x:Name="ApplicationNameTextBlock" Style="{StaticResource ApplicationNameStyle}" 
-                               Text="Application Name"/>
+                               Text="Conference Organizer"/>
 
                 </StackPanel>
             </Border>
@@ -42,6 +42,11 @@
 
                     <HyperlinkButton x:Name="Link1" Style="{StaticResource LinkStyle}" 
                                      NavigateUri="/Home" TargetName="ContentFrame" Content="home"/>
+
+                    <Rectangle Style="{StaticResource DividerStyle}"/>
+
+                    <HyperlinkButton Style="{StaticResource LinkStyle}" 
+                                     NavigateUri="/SpeakersView" TargetName="ContentFrame" Content="speakers"/>
 
                     <Rectangle Style="{StaticResource DividerStyle}"/>
 

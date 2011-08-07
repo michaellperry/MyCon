@@ -34,7 +34,7 @@ namespace FacetedWorlds.MyCon.ViewModels
         {
             get
             {
-                return _navigationModel.SelectedSpeaker != null
+                return _navigationModel.SelectedSpeaker == null
                     ? null
                     : new SpeakerViewModel(_navigationModel.SelectedSpeaker);
             }
