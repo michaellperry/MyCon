@@ -21,6 +21,16 @@ namespace FacetedWorlds.MyCon.ViewModels
             _synhronizationService = synhronizationService;
         }
 
+        public string ConferenceName
+        {
+            get
+            {
+                return _navigationModel.SelectedConference == null
+                    ? null
+                    : _navigationModel.SelectedConference.Name;
+            }
+        }
+
         public bool Synchronizing
         {
             get { return _synhronizationService.Synchronizing; }

@@ -19,7 +19,7 @@
     	<TextBlock Text="{Binding Speaker}" Margin="8" VerticalAlignment="Center"/>
     	<TextBlock Text="{Binding Track}" Grid.Column="1" Margin="8" VerticalAlignment="Center"/>
     	<TextBox Grid.Row="1" Text="{Binding Name, Mode=TwoWay}" Margin="8" Grid.ColumnSpan="2" VerticalAlignment="Center"/>
-    	<TextBox Grid.Row="2" TextWrapping="Wrap" Text="{Binding Description, Mode=TwoWay}" Margin="8" Grid.ColumnSpan="2"/>
+    	<TextBox Grid.Row="2" TextWrapping="Wrap" Text="{Binding Description, Mode=TwoWay}" Margin="8" Grid.ColumnSpan="2" AcceptsReturn="True"/>
 
     </Grid>
 </UserControl>

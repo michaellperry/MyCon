@@ -1,0 +1,26 @@
+<FacetedWorlds_MyCon_ViewModels:SurveyEditViewModel xmlns:FacetedWorlds_MyCon_ViewModels="clr-namespace:FacetedWorlds.MyCon.ViewModels" xmlns:System="clr-namespace:System;assembly=mscorlib" NewQuestion="Lectus accumsan nec non" SelectedEssayQuestion="Litora luctus donec etiam" SelectedRatingQuestion="Nam erat">
+	<FacetedWorlds_MyCon_ViewModels:SurveyEditViewModel.EssayQuestions>
+		<System:String>Cras aenean vestibulum aliquam mauris</System:String>
+		<System:String>Integer adipiscing duis nunc quisque</System:String>
+		<System:String>Nam vivamus class nullam sed</System:String>
+		<System:String>Parturient maecenas vestibulum aliquam</System:String>
+		<System:String>Vestibulum amet</System:String>
+		<System:String>Aptent auctor curabitur</System:String>
+		<System:String>Phasellus adipiscing congue consequat</System:String>
+		<System:String>Parturient vestibulum</System:String>
+		<System:String>Dis est hac leo convallis</System:String>
+		<System:String>Cursus mus praesent dictum dignissim</System:String>
+	</FacetedWorlds_MyCon_ViewModels:SurveyEditViewModel.EssayQuestions>
+	<FacetedWorlds_MyCon_ViewModels:SurveyEditViewModel.RatingQuestions>
+		<System:String>Aliquet blandit elementum ante</System:String>
+		<System:String>Arcu vestibulum commodo</System:String>
+		<System:String>Bibendum facilisis per</System:String>
+		<System:String>Sed fermentum</System:String>
+		<System:String>Sem sit dictumst conubia</System:String>
+		<System:String>Diam eget elit</System:String>
+		<System:String>Curae cubilia</System:String>
+		<System:String>Vel libero enim eleifend</System:String>
+		<System:String>Facilisi fringilla</System:String>
+		<System:String>Adipiscing ligula habitasse dapibus egestas</System:String>
+	</FacetedWorlds_MyCon_ViewModels:SurveyEditViewModel.RatingQuestions>
+</FacetedWorlds_MyCon_ViewModels:SurveyEditViewModel>

@@ -10,6 +10,8 @@ namespace FacetedWorlds.MyCon.ViewModels
     public class ViewModelLocator
     {
         private readonly NavigationModel _navigationModel;
+        private readonly SurveySnapshotModel _surveySnapshot;
+        private readonly SurveyNavigationModel _surveyNavigationModel;
         private readonly SynchronizationService _synchronizationService;
 
         private readonly MainViewModel _main;
@@ -17,6 +19,8 @@ namespace FacetedWorlds.MyCon.ViewModels
         public ViewModelLocator()
         {
             _navigationModel = new NavigationModel();
+            _surveySnapshot = new SurveySnapshotModel();
+            _surveyNavigationModel = new SurveyNavigationModel();
             _synchronizationService = new SynchronizationService(_navigationModel);
             if (!DesignerProperties.IsInDesignTool)
             {
@@ -29,6 +33,11 @@ namespace FacetedWorlds.MyCon.ViewModels
         public object Main
         {
             get { return ForView.Wrap(_main); }
+        }
+
+        public object Conference
+        {
+            get { return ForView.Wrap(new ConferenceViewModel(_navigationModel.SelectedConference, _surveySnapshot, _surveyNavigationModel)); }
         }
 
         public object Speakers

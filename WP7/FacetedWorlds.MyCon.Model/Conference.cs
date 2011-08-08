@@ -136,7 +136,7 @@ namespace FacetedWorlds.MyCon.Model
                 .ToList();
             Survey survey = Community.AddFact(new Survey(ratingQuestions, essayQuestions));
             List<ConferenceSessionSurvey> currentSessionSurveys = CurrentSessionSurveys.ToList();
-            if (currentSessionSurveys.Count == 1 && currentSessionSurveys.Single().SessionSurvey != survey)
+            if (currentSessionSurveys.Count != 1 || currentSessionSurveys.Single().SessionSurvey != survey)
             {
                 Community.AddFact(new ConferenceSessionSurvey(this, survey, currentSessionSurveys));
             }

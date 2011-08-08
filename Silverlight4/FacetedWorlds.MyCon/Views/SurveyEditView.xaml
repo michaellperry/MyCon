@@ -1,0 +1,48 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Itzben="clr-namespace:Itzben;assembly=Itzben" x:Class="FacetedWorlds.MyCon.Views.SurveyEditView"
+    mc:Ignorable="d"
+    d:DesignHeight="300" d:DesignWidth="400">
+	<UserControl.Resources>
+		<DataTemplate x:Key="StringTemplate">
+			<StackPanel>
+				<TextBlock Text="{Binding Mode=OneWay}"/>
+			</StackPanel>
+		</DataTemplate>
+		<DataTemplate x:Key="StringTemplate1">
+			<StackPanel>
+				<TextBlock Text="{Binding Mode=OneWay}"/>
+			</StackPanel>
+		</DataTemplate>
+	</UserControl.Resources>
+    
+    <Grid x:Name="LayoutRoot" d:DataContext="{d:DesignData /SampleData/SurveyEditViewModelSampleData.xaml}">
+    	<Grid.RowDefinitions>
+    		<RowDefinition Height="0.393*"/>
+    		<RowDefinition Height="Auto"/>
+    		<RowDefinition Height="Auto"/>
+    		<RowDefinition Height="Auto"/>
+    		<RowDefinition Height="Auto"/>
+    	</Grid.RowDefinitions>
+    	<Grid.ColumnDefinitions>
+    		<ColumnDefinition Width="0.5*"/>
+    		<ColumnDefinition Width="0.5*"/>
+    	</Grid.ColumnDefinitions>
+    	<ListBox ItemTemplate="{StaticResource StringTemplate}" ItemsSource="{Binding RatingQuestions}" Margin="8,8,8,0" SelectedItem="{Binding SelectedRatingQuestion, Mode=TwoWay}"/>
+    	<ListBox Grid.Column="1" ItemTemplate="{StaticResource StringTemplate1}" ItemsSource="{Binding EssayQuestions}" Margin="8,8,8,0" SelectedItem="{Binding SelectedEssayQuestion, Mode=TwoWay}"/>
+    	<Button Content="Delete Rating Question" Margin="8,8,0,0" Grid.Row="1" Command="{Binding DeleteRatingQuestion}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="150"/>
+    	<Button Content="Delete Essay Question" Grid.Column="1" HorizontalAlignment="Left" Margin="8,8,0,0" Grid.Row="1" Width="150" Command="{Binding DeleteEssayQuestion}" VerticalAlignment="Top"/>
+    	<Button Content="Add Rating Question" HorizontalAlignment="Left" Margin="8,8,0,8" Grid.Row="3" Width="150" Command="{Binding AddRatingQuestion}" VerticalAlignment="Top"/>
+    	<Button Content="Add Essay Question" Grid.Column="1" HorizontalAlignment="Left" Margin="8,8,0,8" Grid.Row="3" Width="150" Command="{Binding AddEssayQuestion}" VerticalAlignment="Top"/>
+    	<TextBox Margin="8,8,8,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding NewQuestion, Mode=TwoWay}" Grid.ColumnSpan="2" VerticalAlignment="Top">
+    		<i:Interaction.Behaviors>
+    			<Itzben:UpdateOnTextChangedBehavior/>
+    		</i:Interaction.Behaviors>
+    	</TextBox>
+    	<Button Content="Save" Grid.Column="1" HorizontalAlignment="Right" Margin="8" Grid.Row="4" Width="75" Command="{Binding Save}" VerticalAlignment="Top" Click="Save_Click"/>
+
+    </Grid>
+</UserControl>

@@ -10,6 +10,7 @@
     Unloaded="UserControl_Unloaded" LayoutUpdated="UserControl_LayoutUpdated"
     >
 	<UserControl.Resources>
+		<Itzben:VisibleWhenTrueConverter x:Key="VisibleWhenTrueConverter"/>
 		<Itzben:StringFormatConverter x:Key="StringFormatConverter"/>
 		<DataTemplate x:Key="ScheduleColumnHeaderViewModelTemplate">
 			<TextBlock Text="{Binding Start, ConverterParameter=\{0:ddd h:mm\}, Converter={StaticResource StringFormatConverter}}" VerticalAlignment="Top" Width="150" Margin="4,0"/>
@@ -116,7 +117,7 @@
 			<ScrollViewer x:Name="RowHeaders" Grid.Row="1" BorderThickness="0" Padding="0,4" VerticalScrollBarVisibility="Hidden">
 				<ItemsControl x:Name="RowHeaderContainer" ItemTemplate="{StaticResource ScheduleRowHeaderViewModelTemplate}" ItemsSource="{Binding RowHeaders}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 			</ScrollViewer>
-			<ListBox Grid.Column="2" ItemTemplate="{StaticResource ScheduledSessionViewModelTemplate}" ItemsSource="{Binding UnscheduledSessions}" Margin="8,0,0,0" Grid.RowSpan="2" Width="166"/>
+			<ListBox Grid.Column="2" ItemTemplate="{StaticResource ScheduledSessionViewModelTemplate}" ItemsSource="{Binding UnscheduledSessions}" Margin="8,0,0,0" Grid.RowSpan="2" Width="166" Visibility="{Binding AnyUnscheduledSessions, Converter={StaticResource VisibleWhenTrueConverter}}"/>
 		</Grid>
 		<Grid Grid.Row="1">
 			<Grid.ColumnDefinitions>

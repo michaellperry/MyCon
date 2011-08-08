@@ -64,6 +64,11 @@ namespace FacetedWorlds.MyCon.ViewModels
             }
         }
 
+        public bool AnyUnscheduledSessions
+        {
+            get { return _conference.UnscheduledSessions.Any(); }
+        }
+
         public string NewRoomNumber
         {
             get { return _navigationModel.NewRoomNumber; }

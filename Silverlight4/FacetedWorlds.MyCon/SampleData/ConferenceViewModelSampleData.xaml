@@ -1,0 +1,58 @@
+<FacetedWorlds_MyCon_ViewModels:ConferenceViewModel xmlns:FacetedWorlds_MyCon_ViewModels="clr-namespace:FacetedWorlds.MyCon.ViewModels" xmlns:System="clr-namespace:System;assembly=mscorlib" MapUrl="Aliquam cras" Name="Nam integer sed aenean curabitur">
+	<FacetedWorlds_MyCon_ViewModels:ConferenceViewModel.SurveyEdit>
+		<FacetedWorlds_MyCon_ViewModels:SurveyEditViewModel NewQuestion="Vestibulum congue est lorem" SelectedEssayQuestion="Cubilia interdum dolor lobortis" SelectedRatingQuestion="Himenaeos erat fames nascetur leo">
+			<FacetedWorlds_MyCon_ViewModels:SurveyEditViewModel.EssayQuestions>
+				<System:String>Duis mauris</System:String>
+				<System:String>Maecenas phasellus praesent consequat</System:String>
+				<System:String>Accumsan quisque convallis class dignissim</System:String>
+				<System:String>Curae nunc</System:String>
+				<System:String>Bibendum dictumst</System:String>
+				<System:String>Eleifend amet donec facilisi</System:String>
+				<System:String>Vestibulum vivamus nullam aliquam ante</System:String>
+				<System:String>Arcu adipiscing etiam fusce parturient</System:String>
+				<System:String>Aptent dis</System:String>
+				<System:String>Auctor aliquet faucibus</System:String>
+			</FacetedWorlds_MyCon_ViewModels:SurveyEditViewModel.EssayQuestions>
+			<FacetedWorlds_MyCon_ViewModels:SurveyEditViewModel.RatingQuestions>
+				<System:String>Diam cursus</System:String>
+				<System:String>Morbi dictum</System:String>
+				<System:String>Hac eget elementum</System:String>
+				<System:String>Vestibulum elit</System:String>
+				<System:String>Facilisis fermentum</System:String>
+				<System:String>Blandit adipiscing nulla</System:String>
+				<System:String>Proin commodo augue</System:String>
+				<System:String>Fringilla habitasse lectus</System:String>
+				<System:String>Habitant inceptos libero ligula conubia</System:String>
+				<System:String>Litora enim luctus hendrerit</System:String>
+			</FacetedWorlds_MyCon_ViewModels:SurveyEditViewModel.RatingQuestions>
+		</FacetedWorlds_MyCon_ViewModels:SurveyEditViewModel>
+	</FacetedWorlds_MyCon_ViewModels:ConferenceViewModel.SurveyEdit>
+	<FacetedWorlds_MyCon_ViewModels:ConferenceViewModel.SurveyReadOnly>
+		<FacetedWorlds_MyCon_ViewModels:SurveyReadOnlyViewModel>
+			<FacetedWorlds_MyCon_ViewModels:SurveyReadOnlyViewModel.EssayQuestions>
+				<System:String>Felis ipsum magnis</System:String>
+				<System:String>Justo imperdiet</System:String>
+				<System:String>Dapibus mattis mauris egestas</System:String>
+				<System:String>Malesuada mus</System:String>
+				<System:String>Parturient mollis nec euismod feugiat</System:String>
+				<System:String>Pharetra montes</System:String>
+				<System:String>Vestibulum penatibus porttitor placerat</System:String>
+				<System:String>Vestibulum lacus</System:String>
+				<System:String>Non gravida</System:String>
+				<System:String>Per iaculis</System:String>
+			</FacetedWorlds_MyCon_ViewModels:SurveyReadOnlyViewModel.EssayQuestions>
+			<FacetedWorlds_MyCon_ViewModels:SurveyReadOnlyViewModel.RatingQuestions>
+				<System:String>Tincidunt sed</System:String>
+				<System:String>Eros sem tristique</System:String>
+				<System:String>Nibh lacinia</System:String>
+				<System:String>Nostra sit lorem adipiscing</System:String>
+				<System:String>Parturient vestibulum</System:String>
+				<System:String>Nisi ultricies ornare platea venenatis</System:String>
+				<System:String>Nisl laoreet pulvinar</System:String>
+				<System:String>Vel nunc sagittis</System:String>
+				<System:String>Magna vulputate odio</System:String>
+				<System:String>Natoque primis nam orci</System:String>
+			</FacetedWorlds_MyCon_ViewModels:SurveyReadOnlyViewModel.RatingQuestions>
+		</FacetedWorlds_MyCon_ViewModels:SurveyReadOnlyViewModel>
+	</FacetedWorlds_MyCon_ViewModels:ConferenceViewModel.SurveyReadOnly>
+</FacetedWorlds_MyCon_ViewModels:ConferenceViewModel>

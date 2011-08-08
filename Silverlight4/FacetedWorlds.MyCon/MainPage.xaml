@@ -15,7 +15,7 @@
         <Border x:Name="ContentBorder" Style="{StaticResource ContentBorderStyle}">
 
             <navigation:Frame x:Name="ContentFrame" Style="{StaticResource ContentFrameStyle}" 
-                              Source="/Home" Navigated="ContentFrame_Navigated" NavigationFailed="ContentFrame_NavigationFailed">
+                              Source="/ConferenceView" Navigated="ContentFrame_Navigated" NavigationFailed="ContentFrame_NavigationFailed">
                 <navigation:Frame.UriMapper>
                     <uriMapper:UriMapper>
                         <uriMapper:UriMapping Uri="" MappedUri="/Views/ScheduleView.xaml"/>
@@ -32,7 +32,7 @@
 
                     <ContentControl Style="{StaticResource LogoIcon}"/>
                     <TextBlock x:Name="ApplicationNameTextBlock" Style="{StaticResource ApplicationNameStyle}" 
-                               Text="Conference Organizer"/>
+                               Text="{Binding ConferenceName}"/>
 
                 </StackPanel>
             </Border>
@@ -41,7 +41,7 @@
                 <StackPanel x:Name="LinksStackPanel" Style="{StaticResource LinksStackPanelStyle}">
 
                     <HyperlinkButton x:Name="Link1" Style="{StaticResource LinkStyle}" 
-                                     NavigateUri="/Home" TargetName="ContentFrame" Content="home"/>
+                                     NavigateUri="/ConferenceView" TargetName="ContentFrame" Content="home"/>
 
                     <Rectangle Style="{StaticResource DividerStyle}"/>
 
