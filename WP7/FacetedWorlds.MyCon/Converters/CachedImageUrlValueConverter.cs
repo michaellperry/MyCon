@@ -11,6 +11,8 @@ namespace FacetedWorlds.MyCon.Converters
 {
     public class CachedImageUrlValueConverter : IValueConverter
     {
+        private static IsolatedStorageFile _isoStore = IsolatedStorageFile.GetUserStoreForApplication();
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (targetType != typeof(ImageSource))
@@ -31,14 +33,11 @@ namespace FacetedWorlds.MyCon.Converters
                 return new BitmapImage(new Uri(url, UriKind.RelativeOrAbsolute));
 
             url = url.Substring("storage:".Length);
-            using (IsolatedStorageFile isoStore = IsolatedStorageFile.GetUserStoreForApplication())
+            using (IsolatedStorageFileStream isoStream = _isoStore.OpenFile(url, FileMode.Open))
             {
-                using (IsolatedStorageFileStream isoStream = isoStore.OpenFile(url, FileMode.Open))
-                {
-                    BitmapImage bmp = new BitmapImage();
-                    bmp.SetSource(isoStream);
-                    return bmp;
-                }
+                BitmapImage bmp = new BitmapImage();
+                bmp.SetSource(isoStream);
+                return bmp;
             }
         }
 

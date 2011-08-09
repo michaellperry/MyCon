@@ -1,8 +1,8 @@
 digraph "FacetedWorlds.MyCon.Model"
 {
     rankdir=BT
-    DisableToastNotification -> Identity
-    EnableToastNotification -> DisableToastNotification [label="  *"]
+    EnableToastNotification -> Identity
+    DisableToastNotification -> EnableToastNotification [label="  *"]
     ConferenceName -> Conference [color="red"]
     ConferenceName -> ConferenceName [label="  *"]
     ConferenceConferenceSurvey -> Conference [color="red"]

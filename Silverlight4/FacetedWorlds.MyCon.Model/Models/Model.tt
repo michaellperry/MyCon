@@ -1,7 +1,7 @@
 ﻿<#@ template language="C#" hostspecific="True" debug="True" #>
 <#@ assembly name="System.Core"#>
-<#@ assembly name="$(SolutionDir)packages\Correspondence.Model.1.2.0.2\tools\UpdateControls.Correspondence.Factual.dll"#>
-<#@ assembly name="$(SolutionDir)packages\Correspondence.Model.1.2.0.2\tools\QEDCode.LLOne.dll"#>
+<#@ assembly name="$(SolutionDir)packages\Correspondence.Model.1.2.0.3\tools\UpdateControls.Correspondence.Factual.dll"#>
+<#@ assembly name="$(SolutionDir)packages\Correspondence.Model.1.2.0.3\tools\QEDCode.LLOne.dll"#>
 <#@ import namespace="System.IO"#>
 <#@ import namespace="System.Collections.Generic"#>
 <#@ import namespace="System.Linq"#>

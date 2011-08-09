@@ -112,13 +112,15 @@ namespace FacetedWorlds.MyCon
 
         private void InitializeData()
         {
-            IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication();
-            ExtractFile(store, "FactTree.bin");
-            ExtractFile(store, "FactTypeTable.bin");
-            ExtractFile(store, "IncomingTimestampTable.bin");
-            ExtractFile(store, "Index.bin");
-            ExtractFile(store, "PeerTable.bin");
-            ExtractFile(store, "RoleTable.bin");
+            using (IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                ExtractFile(store, "FactTree.bin");
+                ExtractFile(store, "FactTypeTable.bin");
+                ExtractFile(store, "IncomingTimestampTable.bin");
+                ExtractFile(store, "Index.bin");
+                ExtractFile(store, "PeerTable.bin");
+                ExtractFile(store, "RoleTable.bin");
+            }
         }
 
         private static void ExtractFile(IsolatedStorageFile store, string baseFileName)
