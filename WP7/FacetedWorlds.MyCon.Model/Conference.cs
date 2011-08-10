@@ -6,6 +6,11 @@ namespace FacetedWorlds.MyCon.Model
 {
     public partial class Conference
     {
+        public Track NewTrack(string trackName)
+        {
+            return Community.AddFact(new Track(this, trackName));
+        }
+
         public Day GetDay(DateTime startTime)
         {
             return Community.AddFact(new Day(this, startTime.Date));

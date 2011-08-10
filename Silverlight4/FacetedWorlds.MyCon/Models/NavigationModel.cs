@@ -13,6 +13,7 @@ namespace FacetedWorlds.MyCon.Models
         private Independent<Session> _selectedSession = new Independent<Session>();
         private Independent<string> _newSessionId = new Independent<string>();
         private Independent<Track> _selectedTrack = new Independent<Track>();
+        private Independent<string> _newTrackName = new Independent<string>();
 
         public Conference SelectedConference
         {
@@ -54,6 +55,12 @@ namespace FacetedWorlds.MyCon.Models
         {
             get { return _selectedTrack; }
             set { _selectedTrack.Value = value; }
+        }
+
+        public string NewTrackName
+        {
+            get { return _newTrackName; }
+            set { _newTrackName.Value = value; }
         }
     }
 }

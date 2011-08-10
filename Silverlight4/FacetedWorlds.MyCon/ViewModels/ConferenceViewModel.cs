@@ -19,12 +19,14 @@ namespace FacetedWorlds.MyCon.ViewModels
     public class ConferenceViewModel
     {
         private readonly Conference _conference;
+        private readonly NavigationModel _navigationModel;
         private readonly SurveySnapshotModel _surveySnapshot;
         private readonly SurveyNavigationModel _surveyNavigationModel;
         
-        public ConferenceViewModel(Conference conference, SurveySnapshotModel surveySnapshot, SurveyNavigationModel surveyNavigationModel)
+        public ConferenceViewModel(Conference conference, NavigationModel navigationModel, SurveySnapshotModel surveySnapshot, SurveyNavigationModel surveyNavigationModel)
         {
             _conference = conference;
+            _navigationModel = navigationModel;
             _surveySnapshot = surveySnapshot;
             _surveyNavigationModel = surveyNavigationModel;
         }
@@ -76,6 +78,33 @@ namespace FacetedWorlds.MyCon.ViewModels
                             .Select(p => p.SessionSurvey)
                             .FirstOrDefault());
                     });
+            }
+        }
+
+        public IEnumerable<string> Tracks
+        {
+            get
+            {
+                return
+                    from track in _conference.Tracks
+                    orderby track.Name
+                    select track.Name;
+            }
+        }
+
+        public string NewTrackName
+        {
+            get { return _navigationModel.NewTrackName; }
+            set { _navigationModel.NewTrackName = value; }
+        }
+
+        public ICommand NewTrack
+        {
+            get
+            {
+                return MakeCommand
+                    .When(() => !String.IsNullOrEmpty(_navigationModel.NewTrackName))
+                    .Do(() => _conference.NewTrack(_navigationModel.NewTrackName));
             }
         }
     }
