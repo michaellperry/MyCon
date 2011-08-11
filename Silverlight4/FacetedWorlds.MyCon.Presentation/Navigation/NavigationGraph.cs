@@ -14,55 +14,40 @@ namespace FacetedWorlds.MyCon.Presentation.Navigation
         {
             _controller = controller;
 
-            _viewModels.Add(new BulletPointViewModel("Occasionally Connected Clients")
-                .AddBullet("View data off-line")
-                .AddBullet("Make changes off-line")
-                .AddBullet("Work with a subset of data")
-                .AddBullet("Store and forward")
-                .AddBullet("Propogate changes to the user"));
-            _viewModels.Add(new BulletPointViewModel("Correspondence")
+            _viewModels.Add(new BulletPointViewModel("Michael L Perry")
+                .AddBullet("qedcode.com")
+                .AddBullet("@MichaelLPerry")
+                .AddBullet("Update Controls")
+                .AddBullet("Correspondence"));
+            _viewModels.Add(new BulletPointViewModel("Occasionally-connected clients Windows Phone")
+                .AddBullet("Why?")
+                .AddBullet("Architecture")
+                .AddBullet("Correspondence")
+                .AddBullet("Next steps"));
+            _viewModels.Add(new BulletPointViewModel("Problems with phone apps")
+                .AddBullet("Long delays waiting for data")
+                .AddBullet("Error messages on failure to connect")
+                .AddBullet("Refresh buttons"));
+            _viewModels.Add(new BulletPointViewModel("Occasionally-connected solutions")
                 .AddBullet("Local storage")
                 .AddBullet("Change queue")
-                .AddBullet("Synchronization service")
-                .AddBullet("Push notification")
-                .AddBullet("Conflict detection"));
-            _viewModels.Add(new BulletPointViewModel("Correspondence is Not")
-                .AddBullet("Object oriented")
-                .AddBullet("Relational")
-                .AddBullet("An ORM"));
-            _viewModels.Add(new BulletPointViewModel("Key Concepts")
-                .AddBullet("Facts")
-                .AddBullet("Storage strategy")
-                .AddBullet("Communication strategy")
-                .AddBullet("Community"));
-            _viewModels.Add(new FactsViewModel());
-            _viewModels.Add(new BulletPointViewModel("Storage Strategy")
-                .AddBullet("Stores facts")
-                .AddBullet("Executes queries")
-                .AddBullet("Manages queues")
-                .AddBullet("Model agnostic"));
-            _viewModels.Add(new BulletPointViewModel("Communication Strategy")
-                .AddBullet("Sends facts")
-                .AddBullet("Receives facts")
-                .AddBullet("Listens for push notifications")
-                .AddBullet("Model agnostic"));
-            _viewModels.Add(new BulletPointViewModel("Community")
+                .AddBullet("Push notification"));
+            _viewModels.Add(new ArchitectureViewModel());
+            _viewModels.Add(new BulletPointViewModel("The Community is ...")
+                .AddBullet("Users")
+                .AddBullet("Devices")
+                .AddBullet("Data")
+                .AddBullet("Services"));
+            _viewModels.Add(new BulletPointViewModel("The Community ...")
                 .AddBullet("Calls strategies")
                 .AddBullet("Caches facts")
                 .AddBullet("Subscribes to queues")
-                .AddBullet("Model agnostic"));
-            _viewModels.Add(new ArchitectureViewModel());
-            _viewModels.Add(new BulletPointViewModel("Roadmap")
-                .AddBullet("Model browser")
-                .AddBullet("Security")
-                .AddBullet("Self hosting")
-                .AddBullet("Tiered service plans")
-                .AddBullet("Enterprise tools"));
+                .AddBullet("Is model agnostic"));
+            _viewModels.Add(new FactsViewModel());
             _viewModels.Add(new BulletPointViewModel("Next Steps")
-                .AddBullet("NuGet Correspondence. Silverlight.AllInOne")
-                .AddBullet("http://Correspondence. CodePlex.com")
-                .AddBullet("mperry@mallardsoft.com")
-                .AddBullet("http://HistoricalModeling.com"));
+                .AddBullet("qedcode.com/correspondence")
+                .AddBullet("NuGet Correspondence. WindowsPhone.AllInOne")
+                .AddBullet("Correspondence.CodePlex.com"));
         }
 
         public void Start()
