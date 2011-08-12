@@ -6,19 +6,18 @@ namespace FacetedWorlds.MyCon.Presentation.ViewModels
     {
         public enum StateId
         {
-            NewIdentityMike,
-            NewIdentityRussell,
-            NewCloud1,
-            NewCloud2,
-            NewThought3,
-            NewThought3Text,
-            NewThought4,
-            NewThought4Text,
-            NewLink,
-            QueryNeighbors,
-            NewShare,
-            QueryClouds,
-            PublishThoughts
+            Start,
+            CreateConference1,
+            CreateConference2,
+            CreateConference3,
+            Track,
+            CreateTrack1,
+            CreateTrack2,
+            CreateTrack3,
+            Tracks,
+            ViewModel,
+            Publish,
+            End,
         }
 
         private Independent<StateId> _state = new Independent<StateId>();
@@ -30,7 +29,7 @@ namespace FacetedWorlds.MyCon.Presentation.ViewModels
 
         public bool Forward()
         {
-            if (_state.Value != StateId.PublishThoughts)
+            if (_state.Value != StateId.End)
             {
                 _state.Value = _state.Value + 1;
                 return true;
@@ -41,7 +40,7 @@ namespace FacetedWorlds.MyCon.Presentation.ViewModels
 
         public bool Backward()
         {
-            if (_state.Value != StateId.NewIdentityMike)
+            if (_state.Value != StateId.Start)
             {
                 _state.Value = _state.Value - 1;
                 return true;
@@ -56,28 +55,47 @@ namespace FacetedWorlds.MyCon.Presentation.ViewModels
             {
                 switch (_state.Value)
                 {
-                    case StateId.NewIdentityMike:
-                    case StateId.NewIdentityRussell:
-                        return "fact Identity {\nkey:\n    string userName;\n}";
-                    case StateId.NewCloud1:
-                    case StateId.NewCloud2:
-                        return "fact Cloud {\nkey:\n    unique;\n}";
-                    case StateId.NewThought3:
-                        return "fact Thought {\nkey:\n    unique;\n    Cloud cloud;\n}";
-                    case StateId.NewThought3Text:
-                    case StateId.NewThought4:
-                    case StateId.NewThought4Text:
-                        return "fact Thought {\nkey:\n    unique;\n    Cloud cloud;\n\nmutable:\n    string text;\n}";
-                    case StateId.NewLink:
-                        return "fact Link {\nkey:\n    Thought* thoughts;\n}";
-                    case StateId.QueryNeighbors:
-                        return "fact Thought {\n...\nquery:\n    Thought* neighbors {\n        Link l : l.thoughts = this\n        Thought t : l.thoughts = t\n    }\n}";
-                    case StateId.NewShare:
-                        return "fact Share {\nkey:\n    publish Identity recipient;\n    Cloud cloud;\n}";
-                    case StateId.QueryClouds:
-                        return "fact Identity {\n...\nquery:\n    Cloud* sharedClouds {\n        Share s : s.recipient = this\n        Cloud c : s.cloud = c\n    }\n}";
-                    case StateId.PublishThoughts:
-                        return "fact Thought {\nkey:\n    unique;\n    publish Cloud cloud;\n\nmutable:\n    string text;\n}";
+                    case StateId.Start:
+                        return "fact Conference {\nkey:\n    string id;\n}";
+                    case StateId.CreateConference1:
+                        return
+                            "Conference con1 = Community.AddFact(\n    new Conference(\"379...\"));";
+                    case StateId.CreateConference2:
+                        return
+                            "Conference con1 = Community.AddFact(\n    new Conference(\"379...\"));\n" +
+                            "Conference con2 = Community.AddFact(\n    new Conference(\"379...\"));";
+                    case StateId.CreateConference3:
+                        return
+                            "Conference con1 = Community.AddFact(\n    new Conference(\"379...\"));\n" +
+                            "Conference con2 = Community.AddFact(\n    new Conference(\"379...\"));\n" +
+                            "Conference con3 = Community.AddFact(\n    new Conference(\"86C...\"));";
+                    case StateId.Track:
+                        return "fact Track {\nkey:\n    Conference conference;\n    string name;\n}";
+                    case StateId.CreateTrack1:
+                        return
+                            "Conference con1 = Community.AddFact(\n    new Conference(\"379...\"));\n" +
+                            "Track track1 = Community.AddFact(\n    new Track(con1, \"Developers\"));";
+                    case StateId.CreateTrack2:
+                        return
+                            "Conference con1 = Community.AddFact(\n    new Conference(\"379...\"));\n" +
+                            "Track track1 = Community.AddFact(\n    new Track(con1, \"Developers\"));\n" +
+                            "Conference con2 = Community.AddFact(\n    new Conference(\"86C...\"));\n" +
+                            "Track track2 = Community.AddFact(\n    new Track(con2, \"Developers\"));";
+                    case StateId.CreateTrack3:
+                        return
+                            "Conference con1 = Community.AddFact(\n    new Conference(\"379...\"));\n" +
+                            "Track track1 = Community.AddFact(\n    new Track(con1, \"Developers\"));\n" +
+                            "Conference con2 = Community.AddFact(\n    new Conference(\"86C...\"));\n" +
+                            "Track track2 = Community.AddFact(\n    new Track(con2, \"Developers\"));\n" +
+                            "Track track3 = Community.AddFact(\n    new Track(con1, \"Project Managers\"));";
+                    case StateId.Tracks:
+                        return "fact Conference {\nkey:\n    string id;\n\nquery:\n    Track* tracks {\n        Track t : t.conference = this;\n    }\n}";
+                    case StateId.ViewModel:
+                        return "public class ConferenceViewModel\n{\n    public IEnumerable<string> Tracks\n    {\n        return\n            from track in _conference.Tracks\n            orderby track.Name\n            select track.Name;\n    }\n}";
+                    case StateId.Publish:
+                        return "fact Track {\nkey:\n    publish Conference conference;\n    string name;\n}";
+                    case StateId.End:
+                        return "Community.Subscribe(() => _conference);";
                 }
                 return string.Empty;
             }
