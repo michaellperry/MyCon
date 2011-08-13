@@ -14,6 +14,7 @@ namespace FacetedWorlds.MyCon.Presentation.Navigation
         {
             _controller = controller;
 
+            _viewModels.Add(new TitleViewModel());
             _viewModels.Add(new BulletPointViewModel("Michael L Perry")
                 .AddBullet("qedcode.com")
                 .AddBullet("@MichaelLPerry")

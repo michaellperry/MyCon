@@ -31,6 +31,8 @@
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
     <LinkedServerProject>
     </LinkedServerProject>
+    <Utf8Output>true</Utf8Output>
+    <ExpressionBlendVersion>4.0.30422.0</ExpressionBlendVersion>
   </PropertyGroup>
   <!-- This property group is only here to support building this project using the 
        MSBuild 3.5 toolset. In order to work correctly with this older toolset, it needs 
@@ -125,6 +127,7 @@
     <Compile Include="ViewModels\BulletViewModel.cs" />
     <Compile Include="ViewModels\FactsViewModel.cs" />
     <Compile Include="ViewModels\IPresentationViewModel.cs" />
+    <Compile Include="ViewModels\TitleViewModel.cs" />
     <Compile Include="Views\ArchitectureView.xaml.cs">
       <DependentUpon>ArchitectureView.xaml</DependentUpon>
     </Compile>
@@ -133,6 +136,9 @@
     </Compile>
     <Compile Include="Views\FactsView.xaml.cs">
       <DependentUpon>FactsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TitleView.xaml.cs">
+      <DependentUpon>TitleView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -195,6 +201,10 @@
     <Page Include="Views\FactsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TitleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
