@@ -48,7 +48,8 @@ namespace FacetedWorlds.MyCon.Presentation.Navigation
             _viewModels.Add(new BulletPointViewModel("Next Steps")
                 .AddBullet("qedcode.com/correspondence")
                 .AddBullet("NuGet Correspondence. WindowsPhone.AllInOne")
-                .AddBullet("Correspondence.CodePlex.com"));
+                .AddBullet("Correspondence.CodePlex.com")
+                .AddBullet("@MichaelLPerry"));
         }
 
         public void Start()

@@ -174,7 +174,7 @@
 						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
 					</Storyboard>
 				</VisualState>
-				<VisualState x:Name="End">
+				<VisualState x:Name="Subscribe">
 					<Storyboard>
 						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
 						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference2" d:IsOptimized="True"/>
@@ -209,6 +209,84 @@
 						<DoubleAnimation Duration="0" To="34" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
 					</Storyboard>
 				</VisualState>
+				<VisualState x:Name="Mutable">
+					<Storyboard>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference2" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="60" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="-22" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="34" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
+						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
+						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
+						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
+					</Storyboard>
+				</VisualState>
+				<VisualState x:Name="Property">
+					<Storyboard>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference2" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
+						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
+						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
+						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="112" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Conference2" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="112" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track2" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="112" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="-57" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="-31" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="6" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ConferenceName1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ConferenceName1Path" d:IsOptimized="True"/>
+					</Storyboard>
+				</VisualState>
+				<VisualState x:Name="PropertyOverwrite">
+					<Storyboard>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference2" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
+						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
+						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
+						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="112" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Conference2" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="112" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track2" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="112" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="-57" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="-31" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="6" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ConferenceName1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ConferenceName1Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ConferenceName2" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ConferenceName2Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="PriorPath" d:IsOptimized="True"/>
+					</Storyboard>
+				</VisualState>
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
     
@@ -237,10 +315,16 @@
 				</sdk:Label.RenderTransform>
 				<TextBlock TextWrapping="Wrap" TextAlignment="Center"><Run Text="Track"/><LineBreak/><Run Text="&quot;Developers&quot;"/></TextBlock>
 			</sdk:Label>
-			<sdk:Label x:Name="Track2" Height="75" Canvas.Left="449" Style="{StaticResource FactStyle}" Canvas.Top="163" Width="146">
+			<sdk:Label x:Name="Track2" Height="75" Canvas.Left="449" Style="{StaticResource FactStyle}" Canvas.Top="163" Width="146" RenderTransformOrigin="0.5,0.5">
+				<sdk:Label.RenderTransform>
+					<CompositeTransform/>
+				</sdk:Label.RenderTransform>
 				<TextBlock TextWrapping="Wrap" TextAlignment="Center"><Run Text="Track"/><LineBreak/><Run Text="&quot;Developers&quot;"/></TextBlock>
 			</sdk:Label>
-			<sdk:Label x:Name="Track3" Height="75" Canvas.Left="90" Style="{StaticResource FactStyle}" Canvas.Top="163" Width="146">
+			<sdk:Label x:Name="Track3" Height="75" Canvas.Left="90" Style="{StaticResource FactStyle}" Canvas.Top="163" Width="146" RenderTransformOrigin="0.5,0.5">
+				<sdk:Label.RenderTransform>
+					<CompositeTransform/>
+				</sdk:Label.RenderTransform>
 				<TextBlock TextWrapping="Wrap" TextAlignment="Center"><Run Text="Track"/><LineBreak/><Run Text="&quot;Project Managers&quot;"/></TextBlock>
 			</sdk:Label>
 			<Path x:Name="Track1Path" Data="M384,149 L333,234" Height="54" Canvas.Left="265.21" Stretch="Fill" Stroke="#FF4B6F97" Canvas.Top="108" UseLayoutRounding="False" Width="8.845" StrokeThickness="7" RenderTransformOrigin="0.5,0.5">
@@ -248,8 +332,43 @@
 					<CompositeTransform ScaleX="-1"/>
 				</Path.RenderTransform>
 			</Path>
-			<Path x:Name="Track2Path" Data="M427,149 L468,234" Height="57" Canvas.Left="518.979" Stretch="Fill" Stroke="#FF4B6F97" StrokeThickness="7" Canvas.Top="105" UseLayoutRounding="False" Width="7.845"/>
-			<Path x:Name="Track3Path" Data="M458,317 L411,380" Height="42" Canvas.Left="196" Stretch="Fill" Stroke="{StaticResource FactStrokeBrush}" StrokeThickness="7" Canvas.Top="108" UseLayoutRounding="False" Width="32"/>
+			<Path x:Name="Track2Path" Data="M427,149 L468,234" Height="57" Canvas.Left="518.979" Stretch="Fill" Stroke="#FF4B6F97" StrokeThickness="7" Canvas.Top="105" UseLayoutRounding="False" Width="7.845" RenderTransformOrigin="0.5,0.5">
+				<Path.RenderTransform>
+					<CompositeTransform/>
+				</Path.RenderTransform>
+			</Path>
+			<Path x:Name="Track3Path" Data="M458,317 L411,380" Height="42" Canvas.Left="196" Stretch="Fill" Stroke="{StaticResource FactStrokeBrush}" StrokeThickness="7" Canvas.Top="108" UseLayoutRounding="False" Width="32" RenderTransformOrigin="0.5,0.5">
+				<Path.RenderTransform>
+					<CompositeTransform/>
+				</Path.RenderTransform>
+			</Path>
+			<sdk:Label x:Name="ConferenceName1" Height="75" Canvas.Left="370" Style="{StaticResource FactStyle}" Canvas.Top="163" Width="166" RenderTransformOrigin="0.5,0.5" Opacity="0">
+				<sdk:Label.RenderTransform>
+					<CompositeTransform/>
+				</sdk:Label.RenderTransform>
+				<TextBlock TextWrapping="Wrap" TextAlignment="Center"><Run Text="ConferenceName"/><LineBreak/><Run Text="&quot;Dallas TechFest&quot;"/></TextBlock>
+			</sdk:Label>
+			<Path x:Name="ConferenceName1Path" Data="M384,149 L333,234" Height="54" Canvas.Left="343.21" Stretch="Fill" Stroke="#FF974B4B" Canvas.Top="105" UseLayoutRounding="False" Width="72.845" StrokeThickness="7" RenderTransformOrigin="0.5,0.5" Opacity="0">
+				<Path.RenderTransform>
+					<CompositeTransform ScaleX="-1"/>
+				</Path.RenderTransform>
+			</Path>
+			<sdk:Label x:Name="ConferenceName2" Height="75" Canvas.Left="264" Style="{StaticResource FactStyle}" Canvas.Top="233" Width="197" RenderTransformOrigin="0.5,0.5" Opacity="0">
+				<sdk:Label.RenderTransform>
+					<CompositeTransform/>
+				</sdk:Label.RenderTransform>
+				<TextBlock TextWrapping="Wrap" TextAlignment="Center"><Run Text="ConferenceName"/><LineBreak/><Run Text="&quot;Dallas TechFest 2011&quot;"/></TextBlock>
+			</sdk:Label>
+			<Path x:Name="ConferenceName2Path" Data="M384,149 L333,234" Height="116" Canvas.Left="302.21" Stretch="Fill" Stroke="#FF974B4B" Canvas.Top="107" UseLayoutRounding="False" Width="62.845" StrokeThickness="7" RenderTransformOrigin="0.5,0.5" Opacity="0">
+				<Path.RenderTransform>
+					<CompositeTransform ScaleX="-1"/>
+				</Path.RenderTransform>
+			</Path>
+			<Path x:Name="PriorPath" Data="M458,317 L411,380" Height="24" Canvas.Left="459" Stretch="Fill" Stroke="{StaticResource FactStrokeBrush}" StrokeThickness="7" Canvas.Top="238" UseLayoutRounding="False" Width="19" RenderTransformOrigin="0.5,0.5" Opacity="0">
+				<Path.RenderTransform>
+					<CompositeTransform/>
+				</Path.RenderTransform>
+			</Path>
 		</Canvas>
 	</Viewbox>
 </UserControl>

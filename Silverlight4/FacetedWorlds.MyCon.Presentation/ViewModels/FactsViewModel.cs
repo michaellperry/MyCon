@@ -17,6 +17,10 @@ namespace FacetedWorlds.MyCon.Presentation.ViewModels
             Tracks,
             ViewModel,
             Publish,
+            Subscribe,
+            Mutable,
+            Property,
+            PropertyOverwrite,
             End,
         }
 
@@ -59,33 +63,33 @@ namespace FacetedWorlds.MyCon.Presentation.ViewModels
                         return "fact Conference {\nkey:\n    string id;\n}";
                     case StateId.CreateConference1:
                         return
-                            "Conference con1 = Community.AddFact(\n    new Conference(\"379...\"));";
+                            "Conference con1 = Community.AddFact(\n    new Conference(\"3796A5094AC\"));";
                     case StateId.CreateConference2:
                         return
-                            "Conference con1 = Community.AddFact(\n    new Conference(\"379...\"));\n" +
-                            "Conference con2 = Community.AddFact(\n    new Conference(\"379...\"));";
+                            "Conference con1 = Community.AddFact(\n    new Conference(\"3796A5094AC\"));\n" +
+                            "Conference con2 = Community.AddFact(\n    new Conference(\"3796A5094AC\"));";
                     case StateId.CreateConference3:
                         return
-                            "Conference con1 = Community.AddFact(\n    new Conference(\"379...\"));\n" +
-                            "Conference con2 = Community.AddFact(\n    new Conference(\"379...\"));\n" +
-                            "Conference con3 = Community.AddFact(\n    new Conference(\"86C...\"));";
+                            "Conference con1 = Community.AddFact(\n    new Conference(\"3796A5094AC\"));\n" +
+                            "Conference con2 = Community.AddFact(\n    new Conference(\"3796A5094AC\"));\n" +
+                            "Conference con3 = Community.AddFact(\n    new Conference(\"86CBD521FD9\"));";
                     case StateId.Track:
                         return "fact Track {\nkey:\n    Conference conference;\n    string name;\n}";
                     case StateId.CreateTrack1:
                         return
-                            "Conference con1 = Community.AddFact(\n    new Conference(\"379...\"));\n" +
+                            "Conference con1 = Community.AddFact(\n    new Conference(\"3796A5094AC\"));\n" +
                             "Track track1 = Community.AddFact(\n    new Track(con1, \"Developers\"));";
                     case StateId.CreateTrack2:
                         return
-                            "Conference con1 = Community.AddFact(\n    new Conference(\"379...\"));\n" +
+                            "Conference con1 = Community.AddFact(\n    new Conference(\"3796A5094AC\"));\n" +
                             "Track track1 = Community.AddFact(\n    new Track(con1, \"Developers\"));\n" +
-                            "Conference con2 = Community.AddFact(\n    new Conference(\"86C...\"));\n" +
+                            "Conference con2 = Community.AddFact(\n    new Conference(\"86CBD521FD9\"));\n" +
                             "Track track2 = Community.AddFact(\n    new Track(con2, \"Developers\"));";
                     case StateId.CreateTrack3:
                         return
-                            "Conference con1 = Community.AddFact(\n    new Conference(\"379...\"));\n" +
+                            "Conference con1 = Community.AddFact(\n    new Conference(\"3796A5094AC\"));\n" +
                             "Track track1 = Community.AddFact(\n    new Track(con1, \"Developers\"));\n" +
-                            "Conference con2 = Community.AddFact(\n    new Conference(\"86C...\"));\n" +
+                            "Conference con2 = Community.AddFact(\n    new Conference(\"86CBD521FD9\"));\n" +
                             "Track track2 = Community.AddFact(\n    new Track(con2, \"Developers\"));\n" +
                             "Track track3 = Community.AddFact(\n    new Track(con1, \"Project Managers\"));";
                     case StateId.Tracks:
@@ -94,8 +98,14 @@ namespace FacetedWorlds.MyCon.Presentation.ViewModels
                         return "public class ConferenceViewModel\n{\n    public IEnumerable<string> Tracks\n    {\n        return\n            from track in _conference.Tracks\n            orderby track.Name\n            select track.Name;\n    }\n}";
                     case StateId.Publish:
                         return "fact Track {\nkey:\n    publish Conference conference;\n    string name;\n}";
-                    case StateId.End:
+                    case StateId.Subscribe:
                         return "Community.Subscribe(() => _conference);";
+                    case StateId.Mutable:
+                        return "fact Conference {\nkey:\n    string id;\n\nmutable:\n    publish string name;\n\nquery:\n    Track* tracks { ... }\n}";
+                    case StateId.Property:
+                        return "con1 = \"Dallas TechFest\";";
+                    case StateId.PropertyOverwrite:
+                        return "con1 = \"Dallas TechFest 2011\";";
                 }
                 return string.Empty;
             }
