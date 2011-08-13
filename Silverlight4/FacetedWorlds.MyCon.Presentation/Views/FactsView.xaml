@@ -35,256 +35,200 @@
 				</VisualStateGroup.Transitions>
 				<VisualState x:Name="Start">
 					<Storyboard>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="280.806" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="IdentityMike" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="196.209" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="IdentityMike" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="-304.265" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="IdentityRussell" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="189.1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="IdentityRussell" d:IsOptimized="True"/>
 					</Storyboard>
 				</VisualState>
-				<VisualState x:Name="CreateConference1">
+				<VisualState x:Name="NewIdentityMike">
 					<Storyboard>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="135" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentityMike" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="280.806" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="IdentityMike" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="196.209" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="IdentityMike" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="-304.265" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="IdentityRussell" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="189.1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="IdentityRussell" d:IsOptimized="True"/>
 					</Storyboard>
 				</VisualState>
-				<VisualState x:Name="CreateConference2">
+				<VisualState x:Name="NewIdentityRussell">
 					<Storyboard>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="135" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentityMike" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentityRussell" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="-304.265" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="IdentityRussell" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="189.1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="IdentityRussell" d:IsOptimized="True"/>
 					</Storyboard>
 				</VisualState>
-				<VisualState x:Name="CreateConference3">
+				<VisualState x:Name="NewCloud1">
 					<Storyboard>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentityMike" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentityRussell" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Cloud1" d:IsOptimized="True"/>
 					</Storyboard>
 				</VisualState>
-				<VisualState x:Name="Track">
+				<VisualState x:Name="NewCloud2">
 					<Storyboard>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentityMike" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentityRussell" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Cloud1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Cloud2" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="-90.8" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Cloud1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="-58.8" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Cloud2" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="Cloud1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="Cloud2" d:IsOptimized="True"/>
 					</Storyboard>
 				</VisualState>
-				<VisualState x:Name="CreateTrack1">
+				<VisualState x:Name="NewThought3">
 					<Storyboard>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentityMike" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentityRussell" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Cloud1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="textBlock" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="textBlock1" d:IsOptimized="True"/>
 					</Storyboard>
 				</VisualState>
-				<VisualState x:Name="CreateTrack2">
+				<VisualState x:Name="NewThought3Text">
 					<Storyboard>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentityMike" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentityRussell" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Cloud1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3Text" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3TextPath" d:IsOptimized="True"/>
 					</Storyboard>
 				</VisualState>
-				<VisualState x:Name="CreateTrack3">
+				<VisualState x:Name="NewThought4">
 					<Storyboard>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="60" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="-22" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="34" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentityMike" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentityRussell" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Cloud1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3Text" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3TextPath" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4Path" d:IsOptimized="True"/>
 					</Storyboard>
 				</VisualState>
-				<VisualState x:Name="Tracks">
+				<VisualState x:Name="NewThought4Text">
 					<Storyboard>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="60" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="-22" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="34" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentityMike" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentityRussell" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Cloud1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3Text" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3TextPath" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4Text" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4TextPath" d:IsOptimized="True"/>
 					</Storyboard>
 				</VisualState>
-				<VisualState x:Name="Publish">
+				<VisualState x:Name="NewLink">
 					<Storyboard>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="60" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="-22" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="34" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
-						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentityMike" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentityRussell" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Cloud1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3Text" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3TextPath" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4Text" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4TextPath" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Link" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3LinkPath" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4LinkPath" d:IsOptimized="True"/>
 					</Storyboard>
 				</VisualState>
-				<VisualState x:Name="Subscribe">
+				<VisualState x:Name="NewShare">
 					<Storyboard>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="60" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="-22" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="34" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
-						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentityMike" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentityRussell" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Cloud1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3Text" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3TextPath" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4Text" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4TextPath" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Link" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3LinkPath" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4LinkPath" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ShareRussell" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="CloudSharePath" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentitySharePath" d:IsOptimized="True"/>
+						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="IdentitySharePath" d:IsOptimized="True"/>
 					</Storyboard>
 				</VisualState>
-				<VisualState x:Name="ViewModel">
+				<VisualState x:Name="QueryNeighbors">
 					<Storyboard>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="60" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="-22" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="34" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentityMike" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentityRussell" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Cloud1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3Text" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3TextPath" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4Text" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4TextPath" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Link" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3LinkPath" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4LinkPath" d:IsOptimized="True"/>
 					</Storyboard>
 				</VisualState>
-				<VisualState x:Name="Mutable">
+				<VisualState x:Name="PublishThoughts">
 					<Storyboard>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="60" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="-22" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="34" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
-						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentityMike" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentityRussell" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Cloud1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3Text" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3TextPath" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4Text" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4TextPath" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Link" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3LinkPath" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4LinkPath" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ShareRussell" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="CloudSharePath" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentitySharePath" d:IsOptimized="True"/>
+						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Thought3Path" d:IsOptimized="True"/>
+						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Thought4Path" d:IsOptimized="True"/>
+						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="IdentitySharePath" d:IsOptimized="True"/>
 					</Storyboard>
 				</VisualState>
-				<VisualState x:Name="Property">
+				<VisualState x:Name="QueryClouds">
 					<Storyboard>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
-						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="112" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Conference2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="112" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="112" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="-57" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="-31" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="6" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ConferenceName1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ConferenceName1Path" d:IsOptimized="True"/>
-					</Storyboard>
-				</VisualState>
-				<VisualState x:Name="PropertyOverwrite">
-					<Storyboard>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Conference2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Conference1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Track1Path" d:IsOptimized="True"/>
-						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
-						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="112" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Conference2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="112" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="112" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track2Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="-57" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="Track3" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="-31" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="6" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="Track3Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ConferenceName1" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ConferenceName1Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ConferenceName2" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ConferenceName2Path" d:IsOptimized="True"/>
-						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="PriorPath" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentityMike" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentityRussell" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Cloud1" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3Text" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3TextPath" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4Path" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4Text" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4TextPath" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Link" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought3LinkPath" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Thought4LinkPath" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ShareRussell" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="CloudSharePath" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IdentitySharePath" d:IsOptimized="True"/>
+						<ColorAnimation Duration="0" To="#FF974B4B" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="IdentitySharePath" d:IsOptimized="True"/>
 					</Storyboard>
 				</VisualState>
 			</VisualStateGroup>
@@ -294,81 +238,61 @@
 			<i:Interaction.Behaviors>
 				<Itzben:BindVisualStateBehavior StateName="{Binding State}"/>
 			</i:Interaction.Behaviors>
-			<Border Height="274" Canvas.Left="129" Canvas.Top="318" Width="551" Background="White" CornerRadius="12">
+			<Border Height="220" Canvas.Left="139" Canvas.Top="372" Width="529" Background="White" CornerRadius="12">
 				<TextBlock TextWrapping="Wrap" FontSize="21.333" Foreground="Black" FontFamily="Consolas" Margin="8,0" Text="{Binding Code}"/>
 			</Border>
-			<sdk:Label x:Name="Conference1" Height="75" Canvas.Left="196" Style="{StaticResource FactStyle}" Canvas.Top="26" Width="146" RenderTransformOrigin="0.5,0.5">
+			<sdk:Label x:Name="IdentityMike" Height="75" Canvas.Left="51" Style="{StaticResource FactStyle}" Canvas.Top="26" Width="146" Opacity="0" RenderTransformOrigin="0.5,0.5">
 				<sdk:Label.RenderTransform>
 					<CompositeTransform/>
 				</sdk:Label.RenderTransform>
-				<TextBlock TextWrapping="Wrap" TextAlignment="Center"><Run Text="Conference"/><LineBreak/><Run Text="&quot;3796A5094AC&quot;"/></TextBlock>
+				<TextBlock TextWrapping="Wrap" TextAlignment="Center"><Run Text="Identity"/><LineBreak/><Run Text="&quot;mike&quot;"/></TextBlock>
 			</sdk:Label>
-			<sdk:Label x:Name="Conference2" Height="75" Canvas.Left="449" Style="{StaticResource FactStyle}" Canvas.Top="26" Width="146" RenderTransformOrigin="0.5,0.5">
+			<sdk:Label x:Name="IdentityRussell" Canvas.Left="629" Canvas.Top="29" Style="{StaticResource FactStyle}" Width="146" Height="68" Opacity="0" RenderTransformOrigin="0.5,0.5">
 				<sdk:Label.RenderTransform>
 					<CompositeTransform/>
 				</sdk:Label.RenderTransform>
-				<TextBlock TextWrapping="Wrap" TextAlignment="Center"><Run Text="Conference"/><LineBreak/><Run Text="&quot;86CBD521FD9&quot;"/></TextBlock>
+				<TextBlock TextWrapping="Wrap" TextAlignment="Center"><Run Text="Identity"/><LineBreak/><Run Text="&quot;russell&quot;"/></TextBlock>
 			</sdk:Label>
-			<sdk:Label x:Name="Track1" Height="75" Canvas.Left="196" Style="{StaticResource FactStyle}" Canvas.Top="163" Width="146" RenderTransformOrigin="0.5,0.5">
+			<sdk:Label x:Name="Cloud1" Height="75" Canvas.Left="333" Style="{StaticResource FactStyle}" Canvas.Top="26" Width="146" Opacity="0" RenderTransformOrigin="0.5,0.5">
 				<sdk:Label.RenderTransform>
 					<CompositeTransform/>
 				</sdk:Label.RenderTransform>
-				<TextBlock TextWrapping="Wrap" TextAlignment="Center"><Run Text="Track"/><LineBreak/><Run Text="&quot;Developers&quot;"/></TextBlock>
+				<TextBlock TextWrapping="Wrap" TextAlignment="Center"><Run Text="Cloud"/><LineBreak/><Run Text="GUID 1"/></TextBlock>
 			</sdk:Label>
-			<sdk:Label x:Name="Track2" Height="75" Canvas.Left="449" Style="{StaticResource FactStyle}" Canvas.Top="163" Width="146" RenderTransformOrigin="0.5,0.5">
+			<sdk:Label x:Name="Cloud2" Height="75" Canvas.Left="479" Style="{StaticResource FactStyle}" Canvas.Top="26" Width="146" Opacity="0" RenderTransformOrigin="0.5,0.5">
 				<sdk:Label.RenderTransform>
 					<CompositeTransform/>
 				</sdk:Label.RenderTransform>
-				<TextBlock TextWrapping="Wrap" TextAlignment="Center"><Run Text="Track"/><LineBreak/><Run Text="&quot;Developers&quot;"/></TextBlock>
+				<TextBlock TextWrapping="Wrap" TextAlignment="Center"><Run Text="Cloud"/><LineBreak/><Run Text="GUID 2"/></TextBlock>
 			</sdk:Label>
-			<sdk:Label x:Name="Track3" Height="75" Canvas.Left="90" Style="{StaticResource FactStyle}" Canvas.Top="163" Width="146" RenderTransformOrigin="0.5,0.5">
-				<sdk:Label.RenderTransform>
-					<CompositeTransform/>
-				</sdk:Label.RenderTransform>
-				<TextBlock TextWrapping="Wrap" TextAlignment="Center"><Run Text="Track"/><LineBreak/><Run Text="&quot;Project Managers&quot;"/></TextBlock>
+			<sdk:Label x:Name="Thought3" Height="75" Canvas.Left="237" Style="{StaticResource FactStyle}" Canvas.Top="163" Width="146" Opacity="0">
+				<TextBlock TextWrapping="Wrap" TextAlignment="Center"><Run Text="Thought"/><LineBreak/><Run Text="GUID 3"/></TextBlock>
 			</sdk:Label>
-			<Path x:Name="Track1Path" Data="M384,149 L333,234" Height="54" Canvas.Left="265.21" Stretch="Fill" Stroke="#FF4B6F97" Canvas.Top="108" UseLayoutRounding="False" Width="8.845" StrokeThickness="7" RenderTransformOrigin="0.5,0.5">
-				<Path.RenderTransform>
-					<CompositeTransform ScaleX="-1"/>
-				</Path.RenderTransform>
-			</Path>
-			<Path x:Name="Track2Path" Data="M427,149 L468,234" Height="57" Canvas.Left="518.979" Stretch="Fill" Stroke="#FF4B6F97" StrokeThickness="7" Canvas.Top="105" UseLayoutRounding="False" Width="7.845" RenderTransformOrigin="0.5,0.5">
-				<Path.RenderTransform>
-					<CompositeTransform/>
-				</Path.RenderTransform>
-			</Path>
-			<Path x:Name="Track3Path" Data="M458,317 L411,380" Height="42" Canvas.Left="196" Stretch="Fill" Stroke="{StaticResource FactStrokeBrush}" StrokeThickness="7" Canvas.Top="108" UseLayoutRounding="False" Width="32" RenderTransformOrigin="0.5,0.5">
-				<Path.RenderTransform>
-					<CompositeTransform/>
-				</Path.RenderTransform>
-			</Path>
-			<sdk:Label x:Name="ConferenceName1" Height="75" Canvas.Left="370" Style="{StaticResource FactStyle}" Canvas.Top="163" Width="166" RenderTransformOrigin="0.5,0.5" Opacity="0">
-				<sdk:Label.RenderTransform>
-					<CompositeTransform/>
-				</sdk:Label.RenderTransform>
-				<TextBlock TextWrapping="Wrap" TextAlignment="Center"><Run Text="ConferenceName"/><LineBreak/><Run Text="&quot;Dallas TechFest&quot;"/></TextBlock>
+			<sdk:Label x:Name="Thought4" Height="75" Canvas.Left="410" Style="{StaticResource FactStyle}" Canvas.Top="163" Width="146" Opacity="0">
+				<TextBlock TextWrapping="Wrap" TextAlignment="Center"><Run Text="Thought"/><LineBreak/><Run Text="GUID 4"/></TextBlock>
 			</sdk:Label>
-			<Path x:Name="ConferenceName1Path" Data="M384,149 L333,234" Height="54" Canvas.Left="343.21" Stretch="Fill" Stroke="#FF974B4B" Canvas.Top="105" UseLayoutRounding="False" Width="72.845" StrokeThickness="7" RenderTransformOrigin="0.5,0.5" Opacity="0">
-				<Path.RenderTransform>
-					<CompositeTransform ScaleX="-1"/>
-				</Path.RenderTransform>
-			</Path>
-			<sdk:Label x:Name="ConferenceName2" Height="75" Canvas.Left="264" Style="{StaticResource FactStyle}" Canvas.Top="233" Width="197" RenderTransformOrigin="0.5,0.5" Opacity="0">
-				<sdk:Label.RenderTransform>
-					<CompositeTransform/>
-				</sdk:Label.RenderTransform>
-				<TextBlock TextWrapping="Wrap" TextAlignment="Center"><Run Text="ConferenceName"/><LineBreak/><Run Text="&quot;Dallas TechFest 2011&quot;"/></TextBlock>
+			<sdk:Label x:Name="Thought3Text" Height="75" Canvas.Left="155" Style="{StaticResource FactStyle}" Canvas.Top="280" Width="146" Opacity="0">
+				<TextBlock TextWrapping="Wrap" TextAlignment="Center"><Run Text="ThoughtText"/><LineBreak/><Run Text="&quot;Star Wars&quot;"/></TextBlock>
 			</sdk:Label>
-			<Path x:Name="ConferenceName2Path" Data="M384,149 L333,234" Height="116" Canvas.Left="302.21" Stretch="Fill" Stroke="#FF974B4B" Canvas.Top="107" UseLayoutRounding="False" Width="62.845" StrokeThickness="7" RenderTransformOrigin="0.5,0.5" Opacity="0">
-				<Path.RenderTransform>
-					<CompositeTransform ScaleX="-1"/>
-				</Path.RenderTransform>
-			</Path>
-			<Path x:Name="PriorPath" Data="M458,317 L411,380" Height="24" Canvas.Left="459" Stretch="Fill" Stroke="{StaticResource FactStrokeBrush}" StrokeThickness="7" Canvas.Top="238" UseLayoutRounding="False" Width="19" RenderTransformOrigin="0.5,0.5" Opacity="0">
-				<Path.RenderTransform>
-					<CompositeTransform/>
-				</Path.RenderTransform>
-			</Path>
+			<sdk:Label x:Name="Thought4Text" Height="75" Canvas.Left="510" Style="{StaticResource FactStyle}" Canvas.Top="281" Width="146" Opacity="0">
+				<TextBlock TextWrapping="Wrap" TextAlignment="Center"><Run Text="ThoughtText"/><LineBreak/><Run Text="&quot;Characters&quot;"/></TextBlock>
+			</sdk:Label>
+			<sdk:Label x:Name="Link" Height="75" Canvas.Left="325" Style="{StaticResource FactStyle}" Canvas.Top="281" Width="146" Opacity="0">
+				<TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="Link"/>
+			</sdk:Label>
+			<sdk:Label x:Name="ShareRussell" Height="75" Canvas.Left="572" Style="{StaticResource FactStyle}" Canvas.Top="130" Width="146" Opacity="0">
+				<TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="Share"/>
+			</sdk:Label>
+			<Path x:Name="Thought3Path" Data="M384,149 L333,234" Height="54" Canvas.Left="343" Stretch="Fill" Stroke="#FF4B6F97" Canvas.Top="109" UseLayoutRounding="False" Width="42" StrokeThickness="7" Opacity="0"/>
+			<Path x:Name="Thought4Path" Data="M427,149 L468,234" Height="57" Canvas.Left="424" Stretch="Fill" Stroke="#FF4B6F97" StrokeThickness="7" Canvas.Top="106" UseLayoutRounding="False" Width="41" Opacity="0"/>
+			<Path x:Name="Thought3LinkPath" Data="M333,317 L384,380" Height="42" Canvas.Left="329" Stretch="Fill" Stroke="{StaticResource FactStrokeBrush}" StrokeThickness="7" Canvas.Top="239" UseLayoutRounding="False" Width="38" Opacity="0"/>
+			<Path x:Name="Thought4LinkPath" Data="M458,317 L411,380" Height="42" Canvas.Left="423" Stretch="Fill" Stroke="{StaticResource FactStrokeBrush}" StrokeThickness="7" Canvas.Top="239" UseLayoutRounding="False" Width="38" Opacity="0"/>
+			<Path x:Name="CloudSharePath" Data="M495,149 L472,132" Height="54" Canvas.Left="469" Stretch="Fill" Stroke="{StaticResource FactStrokeBrush}" StrokeThickness="7" Canvas.Top="89" UseLayoutRounding="False" Width="118" Opacity="0"/>
+			<Path x:Name="IdentitySharePath" Data="M679,141 L657,162" Height="33" Canvas.Left="674.667" Stretch="Fill" Stroke="#FF4B6F97" StrokeThickness="7" Canvas.Top="97" UseLayoutRounding="False" Width="19.333" Opacity="0"/>
+			<Path x:Name="Thought3TextPath" Data="M458,317 L411,380" Height="42" Canvas.Left="259" Stretch="Fill" Stroke="{StaticResource FactStrokeBrush}" StrokeThickness="7" Canvas.Top="238" UseLayoutRounding="False" Width="32" Opacity="0"/>
+			<Path x:Name="Thought4TextPath" Data="M333,317 L384,380" Height="41.992" Canvas.Left="510" Stretch="Fill" Stroke="{StaticResource FactStrokeBrush}" StrokeThickness="7" Canvas.Top="239.008" UseLayoutRounding="False" Width="34" Opacity="0"/>
+			<TextBlock x:Name="textBlock" Canvas.Left="469" TextWrapping="Wrap" Text="Predecessor" Canvas.Top="89" Foreground="#FF18AD0C" FontSize="24" Opacity="0"/>
+			<TextBlock x:Name="textBlock1" Canvas.Left="358" TextWrapping="Wrap" Text="Successor" Canvas.Top="228" Foreground="#FF18AD0C" FontSize="24" Opacity="0"/>
 		</Canvas>
 	</Viewbox>
 </UserControl>

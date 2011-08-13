@@ -22,14 +22,19 @@ namespace FacetedWorlds.MyCon.Model
             return Community.AddFact(new Time(day, startTime));
         }
 
-        public Speaker GetSpeaker(string speakerName)
+        public Track NewTrack(string name)
         {
-            return Community.AddFact(new Speaker(this, speakerName));
+            return Community.AddFact(new Track(this, name));
         }
 
         public Room NewRoom(string roomNumber)
         {
             return Community.AddFact(new Room(this, roomNumber));
+        }
+
+        public Speaker GetSpeaker(string speakerName)
+        {
+            return Community.AddFact(new Speaker(this, speakerName));
         }
 
         public Speaker NewSpeaker(string speakerName, string contact, string bio, string imageUrl)
@@ -51,12 +56,7 @@ namespace FacetedWorlds.MyCon.Model
         public Session NewSession(string sessionId, string sessionName, string trackName, Speaker speaker, string level, string description)
         {
             Track track = trackName == null ? null : Community.AddFact(new Track(this, trackName));
-            Session session = NewSession(sessionId, speaker, track);
-            if (session.Name.Value != sessionName)
-                session.Name = sessionName;
-            var descriptionSegments = DocumentSegments(description);
-            if (!SegmentsEqual(session.Description.Value, descriptionSegments))
-                session.Description = descriptionSegments;
+            Session session = NewSession(sessionId, sessionName, description, speaker, track);
             if (!String.IsNullOrEmpty(level))
             {
                 Level l = Community.AddFact(new Level(level));
@@ -73,6 +73,13 @@ namespace FacetedWorlds.MyCon.Model
             NewSessionPlace(session, startTime, roomNumber);
         }
 
+        public void NewSessionPlace(string sessionId, string sessionName, string description, Speaker speaker, Track track, Time time, Room room)
+        {
+            Session session = NewSession(sessionId, sessionName, description, speaker, track);
+            Place place = Community.AddFact(new Place(time, room));
+            session.SetPlace(place);
+        }
+
         public void NewGeneralSessionPlace(string sessionId, string sessionName, Time time, string roomNumber, string imageUrl)
         {
             Speaker speaker = Community.AddFact(new Speaker(this, string.Empty));
@@ -83,7 +90,7 @@ namespace FacetedWorlds.MyCon.Model
                 session.Name = sessionName;
             Room room = Community.AddFact(new Room(this, roomNumber));
             Place place = Community.AddFact(new Place(time, room));
-            Community.AddFact(new SessionPlace(session, place, new List<SessionPlace>()));
+            session.SetPlace(place);
         }
 
         public void NewSessionPlace(Session session, DateTime startTime, string roomNumber)
@@ -145,6 +152,17 @@ namespace FacetedWorlds.MyCon.Model
             {
                 Community.AddFact(new ConferenceSessionSurvey(this, survey, currentSessionSurveys));
             }
+        }
+
+        private Session NewSession(string sessionId, string sessionName, string description, Speaker speaker, Track track)
+        {
+            Session session = Community.AddFact(new Session(this, speaker, track, sessionId));
+            if (session.Name.Value != sessionName)
+                session.Name = sessionName;
+            var descriptionSegments = DocumentSegments(description);
+            if (!SegmentsEqual(session.Description.Value, descriptionSegments))
+                session.Description = descriptionSegments;
+            return session;
         }
     }
 }
