@@ -10,7 +10,8 @@
     	<Grid.RowDefinitions>
     		<RowDefinition Height="Auto"/>
     		<RowDefinition Height="Auto"/>
-    		<RowDefinition Height="0.747*"/>
+    		<RowDefinition Height="0.829*"/>
+    		<RowDefinition Height="Auto"/>
     	</Grid.RowDefinitions>
     	<Grid.ColumnDefinitions>
     		<ColumnDefinition/>
@@ -20,6 +21,7 @@
     	<TextBlock Text="{Binding Track}" Grid.Column="1" Margin="8" VerticalAlignment="Center"/>
     	<TextBox Grid.Row="1" Text="{Binding Name, Mode=TwoWay}" Margin="8" Grid.ColumnSpan="2" VerticalAlignment="Center"/>
     	<TextBox Grid.Row="2" TextWrapping="Wrap" Text="{Binding Description, Mode=TwoWay}" Margin="8" Grid.ColumnSpan="2" AcceptsReturn="True"/>
+    	<Button Content="Delete" Grid.Column="1" Margin="0,0,8,8" Grid.Row="3" HorizontalAlignment="Right" Width="75" VerticalAlignment="Bottom" Command="{Binding Delete}"/>
 
     </Grid>
 </UserControl>

@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FacetedWorlds.MyCon.Model;
+using System.Windows.Input;
+using UpdateControls.XAML;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {
@@ -34,6 +36,19 @@ namespace FacetedWorlds.MyCon.ViewModels
         {
             get { return _session.Description.Value.JoinSegments(); }
             set { _session.SetDescription(value); }
+        }
+
+        public ICommand Delete
+        {
+            get
+            {
+                return MakeCommand
+                    .When(() => !_session.SessionDeletes.Any())
+                    .Do(() =>
+                    {
+                        _session.Delete();
+                    });
+            }
         }
 
         public override bool Equals(object obj)

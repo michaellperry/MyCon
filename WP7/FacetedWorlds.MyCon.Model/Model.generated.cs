@@ -32,7 +32,7 @@ digraph "FacetedWorlds.MyCon.Model"
     Slot -> Attendee
     Slot -> Time [color="red"]
     Room -> Conference
-    Track -> Conference
+    Track -> Conference [color="red"]
     Speaker -> Conference [color="red"]
     SpeakerImageUrl -> Speaker
     SpeakerImageUrl -> SpeakerImageUrl [label="  *"]
@@ -451,6 +451,9 @@ namespace FacetedWorlds.MyCon.Model
             .JoinSuccessors(Day.RoleConference, Condition.WhereIsNotEmpty(Day.QueryHasTimes)
             )
             ;
+        public static Query QueryAllTracks = new Query()
+            .JoinSuccessors(Track.RoleConference)
+            ;
         public static Query QueryTracks = new Query()
             .JoinSuccessors(Track.RoleConference, Condition.WhereIsNotEmpty(Track.QueryHasSessions)
             )
@@ -490,6 +493,7 @@ namespace FacetedWorlds.MyCon.Model
         private Result<ConferenceConferenceSurvey> _conferenceSurvey;
         private Result<ConferenceMapUrl> _mapUrl;
         private Result<Day> _days;
+        private Result<Track> _allTracks;
         private Result<Track> _tracks;
         private Result<Session> _sessions;
         private Result<Session> _unscheduledSessions;
@@ -520,6 +524,7 @@ namespace FacetedWorlds.MyCon.Model
             _conferenceSurvey = new Result<ConferenceConferenceSurvey>(this, QueryConferenceSurvey);
             _mapUrl = new Result<ConferenceMapUrl>(this, QueryMapUrl);
             _days = new Result<Day>(this, QueryDays);
+            _allTracks = new Result<Track>(this, QueryAllTracks);
             _tracks = new Result<Track>(this, QueryTracks);
             _sessions = new Result<Session>(this, QuerySessions);
             _unscheduledSessions = new Result<Session>(this, QueryUnscheduledSessions);
@@ -541,6 +546,10 @@ namespace FacetedWorlds.MyCon.Model
         public IEnumerable<Day> Days
         {
             get { return _days; }
+        }
+        public IEnumerable<Track> AllTracks
+        {
+            get { return _allTracks; }
         }
         public IEnumerable<Track> Tracks
         {
@@ -1945,7 +1954,7 @@ namespace FacetedWorlds.MyCon.Model
 			_correspondenceFactType,
 			"conference",
 			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
-			false));
+			true));
 
         // Queries
         public static Query QueryCurrentSessionPlaces = new Query()
@@ -2949,6 +2958,10 @@ namespace FacetedWorlds.MyCon.Model
             .JoinSuccessors(SessionDelete.RoleDeleted, Condition.WhereIsEmpty(SessionDelete.QueryIsUndeleted)
             )
             ;
+        public static Query QuerySessionDeletes = new Query()
+            .JoinSuccessors(SessionDelete.RoleDeleted, Condition.WhereIsEmpty(SessionDelete.QueryIsUndeleted)
+            )
+            ;
         public static Query QueryIsScheduled = new Query()
             .JoinSuccessors(SessionPlace.RoleSession)
             ;
@@ -2971,6 +2984,7 @@ namespace FacetedWorlds.MyCon.Model
         private Result<SessionLevel> _level;
         private Result<SessionPlace> _currentSessionPlaces;
         private Result<SessionNotice> _notices;
+        private Result<SessionDelete> _sessionDeletes;
 
         // Business constructor
         public Session(
@@ -3004,6 +3018,7 @@ namespace FacetedWorlds.MyCon.Model
             _level = new Result<SessionLevel>(this, QueryLevel);
             _currentSessionPlaces = new Result<SessionPlace>(this, QueryCurrentSessionPlaces);
             _notices = new Result<SessionNotice>(this, QueryNotices);
+            _sessionDeletes = new Result<SessionDelete>(this, QuerySessionDeletes);
         }
 
         // Predecessor access
@@ -3034,6 +3049,10 @@ namespace FacetedWorlds.MyCon.Model
         public IEnumerable<SessionNotice> Notices
         {
             get { return _notices; }
+        }
+        public IEnumerable<SessionDelete> SessionDeletes
+        {
+            get { return _sessionDeletes; }
         }
 
         // Mutable property access
@@ -5274,6 +5293,9 @@ namespace FacetedWorlds.MyCon.Model
 				Conference.QueryDays.QueryDefinition);
 			community.AddQuery(
 				Conference._correspondenceFactType,
+				Conference.QueryAllTracks.QueryDefinition);
+			community.AddQuery(
+				Conference._correspondenceFactType,
 				Conference.QueryTracks.QueryDefinition);
 			community.AddQuery(
 				Conference._correspondenceFactType,
@@ -5460,6 +5482,9 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				Session._correspondenceFactType,
 				Session.QueryIsDeleted.QueryDefinition);
+			community.AddQuery(
+				Session._correspondenceFactType,
+				Session.QuerySessionDeletes.QueryDefinition);
 			community.AddQuery(
 				Session._correspondenceFactType,
 				Session.QueryIsScheduled.QueryDefinition);

@@ -86,7 +86,7 @@ namespace FacetedWorlds.MyCon.ViewModels
             get
             {
                 return
-                    from track in _conference.Tracks
+                    from track in _conference.AllTracks
                     orderby track.Name
                     select track.Name;
             }

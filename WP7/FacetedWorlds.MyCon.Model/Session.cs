@@ -28,6 +28,11 @@ namespace FacetedWorlds.MyCon.Model
                 Community.AddFact(new SessionPlace(this, place, CurrentSessionPlaces));
         }
 
+        public void Delete()
+        {
+            Community.AddFact(new SessionDelete(this));
+        }
+
         public void SetDescription(string description)
         {
             List<DocumentSegment> descriptionSegments = DocumentSegments(description);
