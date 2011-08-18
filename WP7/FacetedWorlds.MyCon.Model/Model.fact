@@ -90,6 +90,10 @@ query:
 	bool isCurrent {
 		not exists ConferenceSessionSurvey next : next.prior = this
 	}
+
+	SessionEvaluationCompleted* completed {
+		SessionEvaluationCompleted c : c.sessionSurvey = this
+	}
 }
 
 fact Attendee {

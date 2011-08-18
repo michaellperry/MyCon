@@ -5,14 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A4AA5EE1-C717-4D27-B6C9-713D2D42220E}</ProjectGuid>
+    <ProjectGuid>{01AE2D18-D96C-4231-91DA-186C2678E4BC}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FacetedWorlds.MyCon.Capture</RootNamespace>
-    <AssemblyName>FacetedWorlds.MyCon.Capture</AssemblyName>
+    <RootNamespace>FacetedWorlds.MyCon.SurveyDump</RootNamespace>
+    <AssemblyName>FacetedWorlds.MyCon.SurveyDump</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -35,12 +34,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack">
-      <HintPath>..\..\packages\HtmlAgilityPack.1.4.2\lib\HtmlAgilityPack.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,13 +47,10 @@
     <Reference Include="UpdateControls.Correspondence">
       <HintPath>..\..\ExternalLibs\UpdateControls.Correspondence.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.Data, Version=1.2.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\ExternalLibs\UpdateControls.Correspondence.Data.dll</HintPath>
+    <Reference Include="UpdateControls.Correspondence.Memory">
+      <HintPath>..\..\ExternalLibs\UpdateControls.Correspondence.Memory.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.FileStream, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\ExternalLibs\UpdateControls.Correspondence.FileStream.dll</HintPath>
-    </Reference>
-    <Reference Include="UpdateControls.Correspondence.POXClient, Version=1.2.0.2, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls.Correspondence.POXClient">
       <HintPath>..\..\ExternalLibs\UpdateControls.Correspondence.POXClient.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.XAML">
@@ -66,7 +58,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataLoader.cs" />
     <Compile Include="POXConfigurationProvider.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,7 +72,6 @@
       <Name>FacetedWorlds.MyCon.Model %28Desktop\FacetedWorlds.MyCon.Model%29</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

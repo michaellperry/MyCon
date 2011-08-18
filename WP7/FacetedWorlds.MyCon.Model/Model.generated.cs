@@ -1038,6 +1038,9 @@ namespace FacetedWorlds.MyCon.Model
         public static Query QueryIsCurrent = new Query()
             .JoinSuccessors(ConferenceSessionSurvey.RolePrior)
             ;
+        public static Query QueryCompleted = new Query()
+            .JoinSuccessors(SessionEvaluationCompleted.RoleSessionSurvey)
+            ;
 
         // Predicates
         public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
@@ -1050,6 +1053,7 @@ namespace FacetedWorlds.MyCon.Model
         // Fields
 
         // Results
+        private Result<SessionEvaluationCompleted> _completed;
 
         // Business constructor
         public ConferenceSessionSurvey(
@@ -1076,6 +1080,7 @@ namespace FacetedWorlds.MyCon.Model
         // Result initializer
         private void InitializeResults()
         {
+            _completed = new Result<SessionEvaluationCompleted>(this, QueryCompleted);
         }
 
         // Predecessor access
@@ -1095,6 +1100,10 @@ namespace FacetedWorlds.MyCon.Model
         // Field access
 
         // Query result access
+        public IEnumerable<SessionEvaluationCompleted> Completed
+        {
+            get { return _completed; }
+        }
 
         // Mutable property access
 
@@ -5343,6 +5352,9 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				ConferenceSessionSurvey._correspondenceFactType,
 				ConferenceSessionSurvey.QueryIsCurrent.QueryDefinition);
+			community.AddQuery(
+				ConferenceSessionSurvey._correspondenceFactType,
+				ConferenceSessionSurvey.QueryCompleted.QueryDefinition);
 			community.AddType(
 				Attendee._correspondenceFactType,
 				new Attendee.CorrespondenceFactFactory(fieldSerializerByType),
