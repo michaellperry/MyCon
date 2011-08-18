@@ -20,6 +20,7 @@ namespace FacetedWorlds.MyCon.SurveyDump
             Community community = new Community(new MemoryStorageStrategy())
                 .AddAsynchronousCommunicationStrategy(new POXAsynchronousCommunicationStrategy(new POXConfigurationProvider()))
                 .Register<CorrespondenceModel>()
+                .Subscribe(() => _conference)
                 .Subscribe(() => _conference.CurrentSessionSurveys);
 
             _conference = community.AddFact(new Conference(ConferenceID));
