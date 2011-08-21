@@ -477,6 +477,9 @@ namespace FacetedWorlds.MyCon.Model
             .JoinSuccessors(ConferenceSessionSurvey.RoleConference, Condition.WhereIsEmpty(ConferenceSessionSurvey.QueryIsCurrent)
             )
             ;
+        public static Query QueryAllSessionSurveys = new Query()
+            .JoinSuccessors(ConferenceSessionSurvey.RoleConference)
+            ;
         public static Query QueryRooms = new Query()
             .JoinSuccessors(Room.RoleConference)
             ;
@@ -500,6 +503,7 @@ namespace FacetedWorlds.MyCon.Model
         private Result<Speaker> _speakers;
         private Result<ConferenceNotice> _notices;
         private Result<ConferenceSessionSurvey> _currentSessionSurveys;
+        private Result<ConferenceSessionSurvey> _allSessionSurveys;
         private Result<Room> _rooms;
 
         // Business constructor
@@ -531,6 +535,7 @@ namespace FacetedWorlds.MyCon.Model
             _speakers = new Result<Speaker>(this, QuerySpeakers);
             _notices = new Result<ConferenceNotice>(this, QueryNotices);
             _currentSessionSurveys = new Result<ConferenceSessionSurvey>(this, QueryCurrentSessionSurveys);
+            _allSessionSurveys = new Result<ConferenceSessionSurvey>(this, QueryAllSessionSurveys);
             _rooms = new Result<Room>(this, QueryRooms);
         }
 
@@ -574,6 +579,10 @@ namespace FacetedWorlds.MyCon.Model
         public IEnumerable<ConferenceSessionSurvey> CurrentSessionSurveys
         {
             get { return _currentSessionSurveys; }
+        }
+        public IEnumerable<ConferenceSessionSurvey> AllSessionSurveys
+        {
+            get { return _allSessionSurveys; }
         }
         public IEnumerable<Room> Rooms
         {
@@ -5321,6 +5330,9 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				Conference._correspondenceFactType,
 				Conference.QueryCurrentSessionSurveys.QueryDefinition);
+			community.AddQuery(
+				Conference._correspondenceFactType,
+				Conference.QueryAllSessionSurveys.QueryDefinition);
 			community.AddQuery(
 				Conference._correspondenceFactType,
 				Conference.QueryRooms.QueryDefinition);

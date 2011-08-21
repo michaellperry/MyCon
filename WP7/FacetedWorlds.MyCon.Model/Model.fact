@@ -75,6 +75,10 @@ query:
 			where s.isCurrent
 	}
 
+	ConferenceSessionSurvey* allSessionSurveys {
+		ConferenceSessionSurvey s : s.conference = this
+	}
+
 	Room* rooms {
 		Room r : r.conference = this
 	}

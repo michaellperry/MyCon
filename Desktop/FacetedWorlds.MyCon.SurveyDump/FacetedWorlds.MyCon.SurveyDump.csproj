@@ -47,8 +47,11 @@
     <Reference Include="UpdateControls.Correspondence">
       <HintPath>..\..\ExternalLibs\UpdateControls.Correspondence.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.Memory">
-      <HintPath>..\..\ExternalLibs\UpdateControls.Correspondence.Memory.dll</HintPath>
+    <Reference Include="UpdateControls.Correspondence.Data">
+      <HintPath>..\..\ExternalLibs\UpdateControls.Correspondence.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="UpdateControls.Correspondence.FileStream">
+      <HintPath>..\..\ExternalLibs\UpdateControls.Correspondence.FileStream.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.Correspondence.POXClient">
       <HintPath>..\..\ExternalLibs\UpdateControls.Correspondence.POXClient.dll</HintPath>

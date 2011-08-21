@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using FacetedWorlds.MyCon.Model;
 using UpdateControls.Correspondence;
-using UpdateControls.Correspondence.Memory;
+using UpdateControls.Correspondence.FileStream;
 using UpdateControls.Correspondence.POXClient;
-using System.Threading;
+using System.IO;
 
 namespace FacetedWorlds.MyCon.SurveyDump
 {
@@ -17,11 +16,12 @@ namespace FacetedWorlds.MyCon.SurveyDump
 
         static void Main(string[] args)
         {
-            Community community = new Community(new MemoryStorageStrategy())
+            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "FacetedWorlds", "MyConSurveys");
+            Community community = new Community(FileStreamStorageStrategy.Load(path))
                 .AddAsynchronousCommunicationStrategy(new POXAsynchronousCommunicationStrategy(new POXConfigurationProvider()))
                 .Register<CorrespondenceModel>()
                 .Subscribe(() => _conference)
-                .Subscribe(() => _conference.CurrentSessionSurveys);
+                .Subscribe(() => _conference.AllSessionSurveys);
 
             _conference = community.AddFact(new Conference(ConferenceID));
 
@@ -30,7 +30,7 @@ namespace FacetedWorlds.MyCon.SurveyDump
             WaitWhileSynchronizing(community);
 
             var completedSurveys =
-                from survey in _conference.CurrentSessionSurveys
+                from survey in _conference.AllSessionSurveys
                 from completed in survey.Completed
                 select new
                 {
