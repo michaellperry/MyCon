@@ -80,21 +80,21 @@
     <Reference Include="UpdateControls">
       <HintPath>..\..\packages\UpdateControls.2.1.3.0\lib\sl4\UpdateControls.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence, Version=1.2.0.3, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls.Correspondence, Version=1.2.0.5, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.1.2.0.3\lib\SL4\UpdateControls.Correspondence.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.1.2.0.5\lib\SL4\UpdateControls.Correspondence.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.Data, Version=1.2.0.3, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls.Correspondence.Data, Version=1.2.0.5, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.2.0.3\lib\SL4\UpdateControls.Correspondence.Data.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.2.0.5\lib\SL4\UpdateControls.Correspondence.Data.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.IsolatedStorage, Version=1.2.0.3, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls.Correspondence.IsolatedStorage, Version=1.2.0.5, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.2.0.3\lib\SL4\UpdateControls.Correspondence.IsolatedStorage.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.2.0.5\lib\SL4\UpdateControls.Correspondence.IsolatedStorage.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.POXClient, Version=1.2.0.3, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls.Correspondence.POXClient, Version=1.2.0.5, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.2.0.3\lib\SL4\UpdateControls.Correspondence.POXClient.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.2.0.5\lib\SL4\UpdateControls.Correspondence.POXClient.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

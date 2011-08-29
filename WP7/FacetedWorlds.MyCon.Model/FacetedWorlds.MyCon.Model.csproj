@@ -49,9 +49,9 @@
     <Reference Include="UpdateControls">
       <HintPath>..\..\packages\UpdateControls.2.1.3.0\lib\sl4-wp\UpdateControls.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence, Version=1.2.0.3, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls.Correspondence, Version=1.2.0.5, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.1.2.0.3\lib\SL4-wp\UpdateControls.Correspondence.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.1.2.0.5\lib\SL4-wp\UpdateControls.Correspondence.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -62,6 +62,12 @@
       <DependentUpon>Model.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Models\Identity.cs" />
+    <Compile Include="Models\Model.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schedule.cs" />
@@ -80,6 +86,11 @@
   <ItemGroup>
     <None Include="Model.fact" />
     <None Include="Model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Model.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Models\Model.fact" />
+    <None Include="Models\Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model.generated.cs</LastGenOutput>
     </None>

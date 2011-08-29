@@ -38,12 +38,6 @@ namespace FacetedWorlds.MyCon
 
             _conference = _community.AddFact(new Conference(ConferenceID));
 
-            // TODO: Hack to fix error in server. No roles are reported as pivots, so no messages
-            // are created. By creating these facts before downloading, they are recognized as
-            // messages. So successors are also recognized as messages.
-            _conference.GetDay(new DateTime(2011, 8, 12));
-            _conference.GetDay(new DateTime(2011, 8, 13));
-
             // Synchronize whenever the user has something to send.
             _community.FactAdded += delegate
             {
