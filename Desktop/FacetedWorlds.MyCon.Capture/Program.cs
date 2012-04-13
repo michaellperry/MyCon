@@ -11,7 +11,6 @@ namespace FacetedWorlds.MyCon.Capture
     class Program
     {
         private static Conference _conference;
-        private const string ConferenceID = "3796A5094AC64949B9FB286CBD521FD9";
 
         static void Main(string[] args)
         {
@@ -24,7 +23,7 @@ namespace FacetedWorlds.MyCon.Capture
                 .Register<CorrespondenceModel>()
                 .Subscribe(() => _conference);
 
-            _conference = community.AddFact(new Conference(ConferenceID));
+            _conference = community.AddFact(new Conference(CommonSettings.ConferenceID));
 
             Console.WriteLine("Receiving facts.");
             community.BeginReceiving();

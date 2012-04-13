@@ -61,6 +61,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\CommonSettings.cs">
+      <Link>CommonSettings.cs</Link>
+    </Compile>
     <Compile Include="POXConfigurationProvider.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

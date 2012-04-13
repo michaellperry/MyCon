@@ -16,8 +16,6 @@ namespace FacetedWorlds.MyCon
 {
     public class SynchronizationService
     {
-        private const string ConferenceID = "3796A5094AC64949B9FB286CBD521FD9";
-
         private NavigationModel _navigationModel;
         private Community _community;
         private Conference _conference;
@@ -36,7 +34,7 @@ namespace FacetedWorlds.MyCon
                 .Subscribe(() => _conference)
                 ;
 
-            _conference = _community.AddFact(new Conference(ConferenceID));
+            _conference = _community.AddFact(new Conference(CommonSettings.ConferenceID));
 
             // Synchronize whenever the user has something to send.
             _community.FactAdded += delegate

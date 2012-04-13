@@ -27,6 +27,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SL_Drag_Drop_BaseClasses", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacetedWorlds.MyCon.SurveyDump", "Desktop\FacetedWorlds.MyCon.SurveyDump\FacetedWorlds.MyCon.SurveyDump.csproj", "{01AE2D18-D96C-4231-91DA-186C2678E4BC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{4133F23C-383B-4D1E-9F39-53FF383CB94D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacetedWorlds.MyCon.Web", "Web\FacetedWorlds.MyCon.Web\FacetedWorlds.MyCon.Web.csproj", "{58DEEB22-8E6B-4113-976D-EBE78C054519}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{B9BA4761-2F68-4776-9707-205A2E0499AF}"
+	ProjectSection(SolutionItems) = preProject
+		CommonSettings.cs = CommonSettings.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -135,6 +144,16 @@ Global
 		{01AE2D18-D96C-4231-91DA-186C2678E4BC}.Release|Mixed Platforms.Build.0 = Release|x86
 		{01AE2D18-D96C-4231-91DA-186C2678E4BC}.Release|x86.ActiveCfg = Release|x86
 		{01AE2D18-D96C-4231-91DA-186C2678E4BC}.Release|x86.Build.0 = Release|x86
+		{58DEEB22-8E6B-4113-976D-EBE78C054519}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58DEEB22-8E6B-4113-976D-EBE78C054519}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58DEEB22-8E6B-4113-976D-EBE78C054519}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{58DEEB22-8E6B-4113-976D-EBE78C054519}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{58DEEB22-8E6B-4113-976D-EBE78C054519}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{58DEEB22-8E6B-4113-976D-EBE78C054519}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58DEEB22-8E6B-4113-976D-EBE78C054519}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58DEEB22-8E6B-4113-976D-EBE78C054519}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{58DEEB22-8E6B-4113-976D-EBE78C054519}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{58DEEB22-8E6B-4113-976D-EBE78C054519}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -150,5 +169,6 @@ Global
 		{D2108D96-F5AB-4E8A-AA79-986006EB4393} = {BEB87237-5D9C-4EF9-95BE-7758430926AF}
 		{A4AA5EE1-C717-4D27-B6C9-713D2D42220E} = {BEB87237-5D9C-4EF9-95BE-7758430926AF}
 		{01AE2D18-D96C-4231-91DA-186C2678E4BC} = {BEB87237-5D9C-4EF9-95BE-7758430926AF}
+		{58DEEB22-8E6B-4113-976D-EBE78C054519} = {4133F23C-383B-4D1E-9F39-53FF383CB94D}
 	EndGlobalSection
 EndGlobal
