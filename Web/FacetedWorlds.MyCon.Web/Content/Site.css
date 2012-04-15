@@ -41,12 +41,37 @@ header ul li a:hover
     color: #C6ECC8;
 }
 
-/* Speakers section
+/* Speakers
 -----------------------------------------------------------*/
 
-.speaker a
+.speaker
+{
+    clear: left;
+}
+
+.speaker .name
+{
+    font-size: 1.5em;
+    margin-bottom: 5px;
+    border-bottom: 3px solid Green;
+}
+
+.speaker .name a
 {
     color: Green;
+    text-decoration: none;
+}
+
+.speaker img
+{
+    float:left;
+    width: 150px;
+    margin-bottom: 16px;
+}
+
+.speaker p
+{
+    margin: 0 0 16px 156px;
 }
 
 /* Styles for basic forms
