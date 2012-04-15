@@ -7,11 +7,15 @@ using System.Web.Routing;
 
 namespace FacetedWorlds.MyCon.Web
 {
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
-    // visit http://go.microsoft.com/?LinkId=9394801
-
     public class MvcApplication : System.Web.HttpApplication
     {
+        private static SynchronizationService _synchronizationService = new SynchronizationService();
+
+        public static SynchronizationService SynchronizationService
+        {
+            get { return _synchronizationService; }
+        }
+
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
@@ -35,6 +39,7 @@ namespace FacetedWorlds.MyCon.Web
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+            SynchronizationService.Initialize();
         }
     }
 }

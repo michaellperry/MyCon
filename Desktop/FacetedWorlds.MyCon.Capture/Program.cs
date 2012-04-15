@@ -3,8 +3,8 @@ using System.IO;
 using System.Threading;
 using FacetedWorlds.MyCon.Model;
 using UpdateControls.Correspondence;
+using UpdateControls.Correspondence.BinaryHTTPClient;
 using UpdateControls.Correspondence.FileStream;
-using UpdateControls.Correspondence.POXClient;
 
 namespace FacetedWorlds.MyCon.Capture
 {
@@ -19,7 +19,7 @@ namespace FacetedWorlds.MyCon.Capture
                 "FacetedWorlds",
                 "MyCon");
             Community community = new Community(FileStreamStorageStrategy.Load(folderPath))
-                .AddAsynchronousCommunicationStrategy(new POXAsynchronousCommunicationStrategy(new POXConfigurationProvider()))
+                .AddAsynchronousCommunicationStrategy(new BinaryHTTPAsynchronousCommunicationStrategy(new HTTPConfigurationProvider()))
                 .Register<CorrespondenceModel>()
                 .Subscribe(() => _conference);
 

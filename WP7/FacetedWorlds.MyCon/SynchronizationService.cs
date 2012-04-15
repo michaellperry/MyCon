@@ -8,9 +8,8 @@ using FacetedWorlds.MyCon.Model;
 using Microsoft.Phone.Info;
 using Microsoft.Phone.Net.NetworkInformation;
 using UpdateControls.Correspondence;
+using UpdateControls.Correspondence.BinaryHTTPClient;
 using UpdateControls.Correspondence.IsolatedStorage;
-using UpdateControls.Correspondence.POXClient;
-using System.Reflection;
 
 namespace FacetedWorlds.MyCon
 {
@@ -25,9 +24,9 @@ namespace FacetedWorlds.MyCon
         {
             InitializeData();
 
-            POXConfigurationProvider configurationProvider = new POXConfigurationProvider();
+            HTTPConfigurationProvider configurationProvider = new HTTPConfigurationProvider();
             _community = new Community(IsolatedStorageStorageStrategy.Load())
-                .AddAsynchronousCommunicationStrategy(new POXAsynchronousCommunicationStrategy(configurationProvider))
+                .AddAsynchronousCommunicationStrategy(new BinaryHTTPAsynchronousCommunicationStrategy(configurationProvider))
                 .Register<CorrespondenceModel>()
                 .Subscribe(() => _attendee.Conference)
                 .Subscribe(() => _attendee.ScheduledSessions)

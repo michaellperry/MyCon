@@ -77,24 +77,24 @@
     <Reference Include="System.Windows.Browser" />
     <Reference Include="System.Xml.Linq, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Serialization, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="UpdateControls">
-      <HintPath>..\..\packages\UpdateControls.2.1.3.0\lib\sl4\UpdateControls.dll</HintPath>
-    </Reference>
-    <Reference Include="UpdateControls.Correspondence, Version=1.2.0.5, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls, Version=2.2.1.1, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.1.2.0.5\lib\SL4\UpdateControls.Correspondence.dll</HintPath>
+      <HintPath>..\..\packages\UpdateControls.2.2.1.1\lib\sl4\UpdateControls.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.Data, Version=1.2.0.5, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls.Correspondence, Version=1.3.2.1, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.2.0.5\lib\SL4\UpdateControls.Correspondence.Data.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.1.3.2.1\lib\SL4\UpdateControls.Correspondence.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.IsolatedStorage, Version=1.2.0.5, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.2.0.5\lib\SL4\UpdateControls.Correspondence.IsolatedStorage.dll</HintPath>
+    <Reference Include="UpdateControls.Correspondence.BinaryHTTPClient">
+      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.3.2.1\lib\SL4\UpdateControls.Correspondence.BinaryHTTPClient.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.POXClient, Version=1.2.0.5, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls.Correspondence.Data, Version=1.3.2.1, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.2.0.5\lib\SL4\UpdateControls.Correspondence.POXClient.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.3.2.1\lib\SL4\UpdateControls.Correspondence.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="UpdateControls.Correspondence.IsolatedStorage, Version=1.3.2.1, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.3.2.1\lib\SL4\UpdateControls.Correspondence.IsolatedStorage.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -108,7 +108,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\NavigationModel.cs" />
-    <Compile Include="POXConfigurationProvider.cs" />
+    <Compile Include="HTTPConfigurationProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SynchronizationService.cs" />
     <Compile Include="ViewModels\ConferenceViewModel.cs" />
@@ -266,7 +266,7 @@
     </DesignData>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Readme.txt" />
+    <Content Include="Readme_Correspondence.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

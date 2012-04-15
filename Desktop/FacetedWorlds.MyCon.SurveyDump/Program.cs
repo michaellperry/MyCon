@@ -1,11 +1,11 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using FacetedWorlds.MyCon.Model;
 using UpdateControls.Correspondence;
+using UpdateControls.Correspondence.BinaryHTTPClient;
 using UpdateControls.Correspondence.FileStream;
-using UpdateControls.Correspondence.POXClient;
-using System.IO;
 
 namespace FacetedWorlds.MyCon.SurveyDump
 {
@@ -17,7 +17,7 @@ namespace FacetedWorlds.MyCon.SurveyDump
         {
             string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "FacetedWorlds", "MyConSurveys");
             Community community = new Community(FileStreamStorageStrategy.Load(path))
-                .AddAsynchronousCommunicationStrategy(new POXAsynchronousCommunicationStrategy(new POXConfigurationProvider()))
+                .AddAsynchronousCommunicationStrategy(new BinaryHTTPAsynchronousCommunicationStrategy(new HTTPConfigurationProvider()))
                 .Register<CorrespondenceModel>()
                 .Subscribe(() => _conference)
                 .Subscribe(() => _conference.AllSessionSurveys);

@@ -1,16 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Threading;
-using UpdateControls.Correspondence;
-using UpdateControls.Correspondence.IsolatedStorage;
-using UpdateControls.Correspondence.POXClient;
-using FacetedWorlds.MyCon.Models;
 using FacetedWorlds.MyCon.Model;
-using System.Reflection;
-using System.IO;
-using System.Xml;
-using System.Xml.Linq;
+using FacetedWorlds.MyCon.Models;
+using UpdateControls.Correspondence;
+using UpdateControls.Correspondence.BinaryHTTPClient;
+using UpdateControls.Correspondence.IsolatedStorage;
 
 namespace FacetedWorlds.MyCon
 {
@@ -27,9 +21,9 @@ namespace FacetedWorlds.MyCon
 
         public void Initialize()
         {
-            POXConfigurationProvider configurationProvider = new POXConfigurationProvider();
+            HTTPConfigurationProvider configurationProvider = new HTTPConfigurationProvider();
             _community = new Community(IsolatedStorageStorageStrategy.Load())
-                .AddAsynchronousCommunicationStrategy(new POXAsynchronousCommunicationStrategy(configurationProvider))
+                .AddAsynchronousCommunicationStrategy(new BinaryHTTPAsynchronousCommunicationStrategy(configurationProvider))
                 .Register<CorrespondenceModel>()
                 .Subscribe(() => _conference)
                 ;

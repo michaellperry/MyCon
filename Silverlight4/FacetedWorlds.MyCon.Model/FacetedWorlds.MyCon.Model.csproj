@@ -53,13 +53,13 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Net" />
     <Reference Include="System.Windows.Browser" />
-    <Reference Include="UpdateControls, Version=2.1.3.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls, Version=2.2.1.1, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UpdateControls.2.1.3.0\lib\sl4\UpdateControls.dll</HintPath>
+      <HintPath>..\..\packages\UpdateControls.2.2.1.1\lib\sl4\UpdateControls.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence, Version=1.2.0.5, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls.Correspondence, Version=1.3.2.1, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.1.2.0.5\lib\SL4\UpdateControls.Correspondence.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.1.3.2.1\lib\SL4\UpdateControls.Correspondence.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -102,20 +102,9 @@
     <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Time.cs">
       <Link>Time.cs</Link>
     </Compile>
-    <Compile Include="Models\Identity.cs" />
-    <Compile Include="Models\Model.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Models\Model.fact" />
-    <None Include="Models\Model.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model.generated.cs</LastGenOutput>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
