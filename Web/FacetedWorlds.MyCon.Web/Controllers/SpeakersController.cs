@@ -24,7 +24,7 @@ namespace FacetedWorlds.MyCon.Web.Controllers
         {
             var speaker = MvcApplication.SynchronizationService.Conference.FindSpeaker(id);
             if (speaker == null)
-                return new HttpNotFoundResult();
+                return HttpNotFound();
 
             return View(new SpeakerDetailsViewModel(speaker));
         }

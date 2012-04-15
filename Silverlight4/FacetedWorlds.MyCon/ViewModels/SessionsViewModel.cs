@@ -54,18 +54,12 @@ namespace FacetedWorlds.MyCon.ViewModels
             }
         }
 
-        public string NewSessionId
-        {
-            get { return _navigationModel.NewSessionId; }
-            set { _navigationModel.NewSessionId = value; }
-        }
-
         public IEnumerable<TrackViewModel> Tracks
         {
             get
             {
                 return
-                    from track in _conference.Tracks
+                    from track in _conference.AllTracks
                     orderby track.Name
                     select new TrackViewModel(track);
             }
@@ -119,11 +113,10 @@ namespace FacetedWorlds.MyCon.ViewModels
             get
             {
                 return MakeCommand
-                    .When(() => !String.IsNullOrEmpty(_navigationModel.NewSessionId) && _navigationModel.SelectedSpeaker != null)
+                    .When(() => _navigationModel.SelectedSpeaker != null)
                     .Do(() =>
                     {
                         _navigationModel.SelectedSession = _conference.NewSession(_navigationModel.SelectedSpeaker, _navigationModel.SelectedTrack);
-                        _navigationModel.NewSessionId = string.Empty;
                         _navigationModel.SelectedSpeaker = null;
                         _navigationModel.SelectedTrack = null;
                     });

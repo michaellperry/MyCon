@@ -1,16 +1,10 @@
-﻿@model FacetedWorlds.MyCon.Web.ViewModels.SpeakerDetailsViewModel
+﻿@model FacetedWorlds.MyCon.Web.ViewModels.TrackDetailsViewModel
 
 @{
     ViewBag.Title = @Model.Name;
 }
 
 <h2>@Model.Name</h2>
-
-<div class="details">
-    <img src="@Model.ImageUrl" alt="@Model.Name" />
-    <p>@Model.Bio</p>
-    <div class="clear" />
-</div>
 
 @foreach (var session in @Model.Sessions)
 {

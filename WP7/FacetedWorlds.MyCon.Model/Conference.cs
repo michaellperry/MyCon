@@ -6,6 +6,11 @@ namespace FacetedWorlds.MyCon.Model
 {
     public partial class Conference
     {
+        public Track FindTrack(string trackName)
+        {
+            return Community.FindFact(new Track(this, trackName));
+        }
+
         public Track NewTrack(string trackName)
         {
             return Community.AddFact(new Track(this, trackName));

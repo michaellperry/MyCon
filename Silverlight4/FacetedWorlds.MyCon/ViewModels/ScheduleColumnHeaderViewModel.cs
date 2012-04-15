@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FacetedWorlds.MyCon.Model;
+using System.Windows.Input;
+using UpdateControls.XAML;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {
@@ -17,6 +19,18 @@ namespace FacetedWorlds.MyCon.ViewModels
         public DateTime Start
         {
             get { return _time.Start; }
+        }
+
+        public ICommand Delete
+        {
+            get
+            {
+                return MakeCommand
+                    .Do(() =>
+                    {
+                        _time.Delete();
+                    });
+            }
         }
 
         public override bool Equals(object obj)

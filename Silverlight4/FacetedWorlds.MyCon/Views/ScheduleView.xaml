@@ -122,16 +122,22 @@
 		<Grid Grid.Row="1">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto"/>
-				<ColumnDefinition Width="0.362*"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
 				<ColumnDefinition Width="Auto"/>
 			</Grid.ColumnDefinitions>
 			<TextBlock HorizontalAlignment="Left" Margin="8,8,0,8" TextWrapping="Wrap" Text="New Room:" VerticalAlignment="Center"/>
-			<TextBox Text="{Binding NewRoomNumber, Mode=TwoWay}" Margin="8" Grid.Column="1" VerticalAlignment="Center">
+            <TextBox Text="{Binding NewRoomNumber, Mode=TwoWay}" Margin="8" Grid.Column="1" VerticalAlignment="Center">
 				<i:Interaction.Behaviors>
 					<Itzben:UpdateOnTextChangedBehavior/>
 				</i:Interaction.Behaviors>
 			</TextBox>
-			<Button Content="Add" Grid.Column="2" Margin="8" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Command="{Binding NewRoom}"/>
+            <Button Content="Add" Grid.Column="2" Margin="8,8,0,8" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Command="{Binding NewRoom}"/>
+			<TextBlock Grid.Column="3" HorizontalAlignment="Left" Margin="8,8,0,8" TextWrapping="Wrap" Text="New Time:" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding NewTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="8" Grid.Column="4" VerticalAlignment="Center"/>
+            <Button Content="Add" Grid.Column="5" Margin="8" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Command="{Binding AddTime}"/>
 		</Grid>
 	</Grid>
 </UserControl>

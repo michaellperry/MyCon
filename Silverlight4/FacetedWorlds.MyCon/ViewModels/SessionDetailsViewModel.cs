@@ -23,7 +23,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public string Track
         {
-            get { return _session.Track.Name; }
+            get { return _session.Track == null ? string.Empty : _session.Track.Name; }
         }
 
         public string Name

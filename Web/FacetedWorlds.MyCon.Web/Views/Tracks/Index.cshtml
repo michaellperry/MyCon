@@ -1,0 +1,19 @@
+﻿@model FacetedWorlds.MyCon.Web.ViewModels.TracksViewModel
+
+@{
+    ViewBag.Title = @Model.Title;
+}
+
+<h2>Tracks</h2>
+
+@foreach (var track in @Model.Tracks)
+{
+    <div class="track">
+        <h3>@Html.ActionLink(track.Name, "Details", new { id = track.Name })</h3>
+        @foreach (var speaker in @track.Speakers)
+        {
+            <img src="@speaker.ImageUrl" alt="@speaker.Name" />
+        }
+        <div class="clear" />
+    </div>
+}

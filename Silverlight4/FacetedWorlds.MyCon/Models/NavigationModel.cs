@@ -11,9 +11,9 @@ namespace FacetedWorlds.MyCon.Models
         private Independent<string> _newSpeakerName = new Independent<string>();
         private Independent<Speaker> _selectedSpeaker = new Independent<Speaker>();
         private Independent<Session> _selectedSession = new Independent<Session>();
-        private Independent<string> _newSessionId = new Independent<string>();
         private Independent<Track> _selectedTrack = new Independent<Track>();
         private Independent<string> _newTrackName = new Independent<string>();
+        private Independent<string> _newTime = new Independent<string>();
 
         public Conference SelectedConference
         {
@@ -45,12 +45,6 @@ namespace FacetedWorlds.MyCon.Models
             set { _selectedSession.Value = value; }
         }
 
-        public string NewSessionId
-        {
-            get { return _newSessionId; }
-            set { _newSessionId.Value = value; }
-        }
-
         public Track SelectedTrack
         {
             get { return _selectedTrack; }
@@ -61,6 +55,12 @@ namespace FacetedWorlds.MyCon.Models
         {
             get { return _newTrackName; }
             set { _newTrackName.Value = value; }
+        }
+
+        public string NewTime
+        {
+            get { return _newTime; }
+            set { _newTime.Value = value; }
         }
     }
 }

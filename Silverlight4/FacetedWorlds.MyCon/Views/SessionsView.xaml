@@ -40,17 +40,13 @@
     	</Grid.ColumnDefinitions>
     	<Grid Grid.Row="1" Grid.ColumnSpan="2">
     		<Grid.ColumnDefinitions>
-    			<ColumnDefinition Width="Auto"/>
-    			<ColumnDefinition Width="0.228*"/>
-    			<ColumnDefinition Width="0.221*"/>
-    			<ColumnDefinition Width="0.197*"/>
+                <ColumnDefinition Width="*"/>
+    			<ColumnDefinition Width="*"/>
     			<ColumnDefinition Width="Auto"/>
     		</Grid.ColumnDefinitions>
-    		<TextBlock Text="New Session:" Margin="8" VerticalAlignment="Center"/>
-    		<TextBox Grid.Column="1" Text="{Binding NewSessionId, Mode=TwoWay}" Margin="8" VerticalAlignment="Center"/>
-    		<ComboBox Grid.Column="2" Margin="8" VerticalAlignment="Center" ItemTemplate="{StaticResource SpeakerViewModelTemplate}" ItemsSource="{Binding Speakers}" SelectedItem="{Binding SelectedSpeaker, Mode=TwoWay}"/>
-    		<ComboBox Grid.Column="3" Margin="8" VerticalAlignment="Center" ItemTemplate="{StaticResource TrackViewModelTemplate}" ItemsSource="{Binding Tracks}" SelectedItem="{Binding SelectedTrack, Mode=TwoWay}"/>
-    		<Button Content="Add" Grid.Column="4" Margin="8" VerticalAlignment="Center" Width="75" Command="{Binding NewSession}"/>
+            <ComboBox Margin="8" VerticalAlignment="Center" ItemTemplate="{StaticResource SpeakerViewModelTemplate}" ItemsSource="{Binding Speakers}" SelectedItem="{Binding SelectedSpeaker, Mode=TwoWay}"/>
+    		<ComboBox Grid.Column="1" Margin="8" VerticalAlignment="Center" ItemTemplate="{StaticResource TrackViewModelTemplate}" ItemsSource="{Binding Tracks}" SelectedItem="{Binding SelectedTrack, Mode=TwoWay}"/>
+    		<Button Content="Add" Grid.Column="2" Margin="8" VerticalAlignment="Center" Width="75" Command="{Binding NewSession}"/>
     	</Grid>
     	<ListBox ItemTemplate="{StaticResource SessionViewModelTemplate}" ItemsSource="{Binding Sessions}" Margin="8" SelectedItem="{Binding SelectedSession, Mode=TwoWay}"/>
 

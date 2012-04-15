@@ -31,6 +31,7 @@ header
 
 header ul li 
 {
+    float:left;
     list-style-type: none;
 }
 
@@ -51,17 +52,16 @@ header ul li a:hover
 
 .speaker
 {
-    margin-bottom: 16px;
+    margin: 32px 0;
 }
 
-.speaker .name
+.speaker h3
 {
     font-size: 1.5em;
     margin-bottom: 5px;
-    border-bottom: 3px solid #8A4949;
 }
 
-.speaker .name a
+.speaker h3 a
 {
     color: #8A4949;
     text-decoration: none;
@@ -93,15 +93,18 @@ header ul li a:hover
     margin: 0 0 16px 206px;
 }
 
+/* Sessions
+-----------------------------------------------------------*/
+
 .session
 {
     margin: 8px 0;
 }
 
-.session .name
+.session h3
 {
-    margin-left: 86px;
-    font-size: 1.7em;
+    margin: 0 0 0 86px;
+    font-size: 1.5em;
 }
 
 .session p
@@ -109,19 +112,45 @@ header ul li a:hover
     margin-left: 86px;
 }
 
-.session .calendar
+.calendar
 {
     width: 80px;
     background-color: #8A4949;
     float:left;
 }
 
-.session .calendar p
+.calendar p
 {
     text-align: center;
     font-size: 1.2em;
     color: White;
     margin: 8px auto;
+}
+
+/* Tracks
+-----------------------------------------------------------*/
+
+.track
+{
+    margin: 8px 0;
+}
+
+.track h3
+{
+    font-size: 1.5em;
+}
+
+.track h3 a
+{
+    color: #8A4949;
+    text-decoration: none;
+}
+
+.track img
+{
+    width: 100px;
+    margin: 0 6px 0 0;
+    float:left;
 }
 
 /* Styles for basic forms

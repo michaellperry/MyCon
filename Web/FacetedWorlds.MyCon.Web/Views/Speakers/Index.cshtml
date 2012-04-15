@@ -9,7 +9,7 @@
 
 @foreach (var speaker in Model.Speakers) {
     <div class="speaker">
-        <div class="name">@Html.ActionLink(speaker.Name, "Details", new { id = speaker.Name })</div>
+        <h3>@Html.ActionLink(speaker.Name, "Details", new { id = speaker.Name })</h3>
         <img src="@speaker.ImageUrl" alt="@speaker.Name" />
         <p>@speaker.Bio</p>
         <div class="clear" />

@@ -8,6 +8,7 @@
     
     <Grid x:Name="LayoutRoot" d:DataContext="{d:DesignData /SampleData/SpeakerDetailsViewModelSampleData.xaml}">
     	<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
     		<ColumnDefinition/>
     		<ColumnDefinition Width="125"/>
     	</Grid.ColumnDefinitions>
@@ -17,11 +18,13 @@
     		<RowDefinition Height="Auto"/>
     		<RowDefinition Height="0.63*"/>
     	</Grid.RowDefinitions>
-    	<TextBlock Text="{Binding Name}" Margin="8,8,8,0" VerticalAlignment="Top" Height="20"/>
-    	<TextBox Margin="8" Grid.Row="1" Text="{Binding Contact, Mode=TwoWay}"/>
-    	<TextBox Margin="8" Grid.Row="2" Text="{Binding ImageUrl, Mode=TwoWay}"/>
-    	<TextBox Margin="8" Grid.Row="3" TextWrapping="Wrap" Text="{Binding Bio, Mode=TwoWay}" Grid.ColumnSpan="2" AcceptsReturn="True"/>
-    	<Image Grid.Column="1" Margin="8" Grid.RowSpan="3" Source="{Binding ImageUrl}"/>
+    	<TextBlock Grid.ColumnSpan="2" Text="{Binding Name}" Margin="8,8,8,0" VerticalAlignment="Top" Height="20"/>
+        <TextBlock Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8">Contact:</TextBlock>
+    	<TextBox Margin="8" Grid.Row="1" Grid.Column="1" Text="{Binding Contact, Mode=TwoWay}"/>
+        <TextBlock Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8">Image URL:</TextBlock>
+        <TextBox Margin="8" Grid.Row="2" Grid.Column="1" Text="{Binding ImageUrl, Mode=TwoWay}"/>
+        <TextBox Margin="8" Grid.Row="3" TextWrapping="Wrap" Text="{Binding Bio, Mode=TwoWay}" Grid.ColumnSpan="3" AcceptsReturn="True"/>
+    	<Image Grid.Column="2" Margin="8" Grid.RowSpan="3" Source="{Binding ImageUrl}"/>
 
     </Grid>
 </UserControl>

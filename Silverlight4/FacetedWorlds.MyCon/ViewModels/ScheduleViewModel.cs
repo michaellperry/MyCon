@@ -25,7 +25,7 @@ namespace FacetedWorlds.MyCon.ViewModels
             {
                 return
                     from room in _conference.Rooms
-                    orderby room.RoomNumber.Value
+                    orderby room.RoomNumber.Value ?? room.Unique.ToString()
                     select new ScheduleRowViewModel(room);
             }
         }
@@ -36,7 +36,7 @@ namespace FacetedWorlds.MyCon.ViewModels
             {
                 return
                     from room in _conference.Rooms
-                    orderby room.RoomNumber.Value
+                    orderby room.RoomNumber.Value ?? room.Unique.ToString()
                     select new ScheduleRowHeaderViewModel(room);
             }
         }
@@ -87,6 +87,32 @@ namespace FacetedWorlds.MyCon.ViewModels
                         _navigationModel.NewRoomNumber = null;
                     });
             }
+        }
+
+        public string NewTime
+        {
+            get { return _navigationModel.NewTime; }
+            set { _navigationModel.NewTime = value; }
+        }
+
+        public ICommand AddTime
+        {
+            get
+            {
+                return MakeCommand
+                    .When(() => IsValidDateTime(_navigationModel.NewTime))
+                    .Do(() =>
+                    {
+                        Time time = _conference.GetTime(DateTime.Parse(_navigationModel.NewTime));
+                        time.UnDelete();
+                    });
+            }
+        }
+
+        private static bool IsValidDateTime(string str)
+        {
+            DateTime value;
+            return DateTime.TryParse(str, out value);
         }
     }
 }
