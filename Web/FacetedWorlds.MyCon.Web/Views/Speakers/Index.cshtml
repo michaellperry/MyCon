@@ -1,0 +1,16 @@
+﻿@model FacetedWorlds.MyCon.Web.ViewModels.SpeakersViewModel
+
+@{
+    ViewBag.Title = @Model.Title;
+}
+
+<h2>@Model.Title</h2>
+
+
+@foreach (var speaker in Model.Speakers) {
+    <div class="speaker">
+        @Html.ActionLink(speaker.Name, "Details", new { id = speaker.Name })
+        <img src="@speaker.ImageUrl" alt="@speaker.Name" />
+        @speaker.Bio
+    </div>
+}

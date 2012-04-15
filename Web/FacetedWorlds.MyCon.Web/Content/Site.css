@@ -4,6 +4,8 @@ body
     font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
     color: #232323;
     background-color: #fff;
+    width:640px;
+    margin: 0 auto;
 }
 
 header,
@@ -11,6 +13,40 @@ footer,
 nav,
 section {
     display: block;
+}
+
+/* Top navigation
+-----------------------------------------------------------*/
+
+header
+{
+    background-color: #2D5C33;
+    font-size: 1.7em;
+}
+
+header ul li 
+{
+    list-style-type: none;
+}
+
+header ul li a
+{
+    color: White;
+    text-decoration: none;
+    margin: 8px;
+}
+
+header ul li a:hover
+{
+    color: #C6ECC8;
+}
+
+/* Speakers section
+-----------------------------------------------------------*/
+
+.speaker a
+{
+    color: Green;
 }
 
 /* Styles for basic forms

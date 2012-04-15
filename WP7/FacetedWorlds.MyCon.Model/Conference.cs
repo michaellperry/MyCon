@@ -22,6 +22,11 @@ namespace FacetedWorlds.MyCon.Model
             return Community.AddFact(new Time(day, startTime));
         }
 
+        public Speaker FindSpeaker(string speakerName)
+        {
+            return Community.FindFact(new Speaker(this, speakerName));
+        }
+
         public Speaker GetSpeaker(string speakerName)
         {
             return Community.AddFact(new Speaker(this, speakerName));
