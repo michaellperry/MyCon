@@ -1,5 +1,7 @@
-﻿@{
-    ViewBag.Title = "Index";
+﻿@model FacetedWorlds.MyCon.Web.ViewModels.HomeViewModel
+
+@{
+    ViewBag.Title = @Model.ConferenceName;
 }
 
-<h2>Index</h2>
+<h2>@Model.ConferenceName</h2>
