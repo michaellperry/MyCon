@@ -19,7 +19,10 @@ namespace FacetedWorlds.MyCon.Web
         public void Initialize()
         {
             HTTPConfigurationProvider configurationProvider = new HTTPConfigurationProvider();
-            string correspondenceConnectionString = ConfigurationManager.ConnectionStrings["Correspondence"].ConnectionString;
+            string correspondenceConnectionString;
+            correspondenceConnectionString = ConfigurationManager.AppSettings["SQLSERVER_CONNECTION_STRING"];
+            if (correspondenceConnectionString == null)
+                correspondenceConnectionString = ConfigurationManager.ConnectionStrings["Correspondence"].ConnectionString;
             _community = new Community(new SQLStorageStrategy(correspondenceConnectionString).UpgradeDatabase())
                 .AddAsynchronousCommunicationStrategy(new BinaryHTTPAsynchronousCommunicationStrategy(configurationProvider))
                 .Register<CorrespondenceModel>()
