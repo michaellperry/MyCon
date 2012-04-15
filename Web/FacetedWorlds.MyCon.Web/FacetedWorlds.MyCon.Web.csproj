@@ -86,6 +86,7 @@
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SpeakersController.cs" />
+    <Compile Include="Controllers\SponsorsController.cs" />
     <Compile Include="Controllers\TracksController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -98,6 +99,7 @@
     <Compile Include="ViewModels\SpeakerDetailsViewModel.cs" />
     <Compile Include="ViewModels\SpeakersViewModel.cs" />
     <Compile Include="ViewModels\SpeakerViewModel.cs" />
+    <Compile Include="ViewModels\SponsorsViewModel.cs" />
     <Compile Include="ViewModels\TracksViewModel.cs" />
     <Compile Include="ViewModels\TrackDetailsViewModel.cs" />
     <Compile Include="ViewModels\TrackViewModel.cs" />
@@ -195,6 +197,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Tracks\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Sponsors\Index.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
