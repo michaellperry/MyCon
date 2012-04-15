@@ -30,7 +30,10 @@ namespace FacetedWorlds.MyCon.Web
                 ;
             _community.ClientApp = false;
 
-            _conference = _community.AddFact(new Conference(CommonSettings.ConferenceID));
+            string conferenceId = ConfigurationManager.AppSettings["ConferenceID"];
+            if (string.IsNullOrEmpty(conferenceId))
+                conferenceId = CommonSettings.ConferenceID;
+            _conference = _community.AddFact(new Conference(conferenceId));
 
             // Synchronize whenever the user has something to send.
             _community.FactAdded += delegate

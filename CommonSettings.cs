@@ -5,7 +5,7 @@ namespace FacetedWorlds.MyCon
 {
     public static class CommonSettings
     {
-        private const string _conferenceID = "B313BE8C72EC4F06BD55E332F491FB34";
+        private const string _conferenceID = "<<Your conference ID>>";
 
         public static string ConferenceID
         {
