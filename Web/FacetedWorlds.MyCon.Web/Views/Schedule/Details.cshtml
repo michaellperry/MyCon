@@ -1,0 +1,21 @@
+﻿@model FacetedWorlds.MyCon.Web.ViewModels.TimeDetailsViewModel
+
+@{
+    ViewBag.Title = Model.Time;
+}
+
+<h2>@Model.Time</h2>
+
+@foreach (var session in @Model.Sessions)
+{
+    <div class="session">
+        <div class="calendar">
+            <p>@session.Day</p>
+            <p>@session.Time</p>
+        </div>
+        <h3>@session.Name</h3>
+        <p>Room: @session.Room Track: @session.Track</p>
+        <p>@session.Description</p>
+        <div class="clear" />
+    </div>
+}

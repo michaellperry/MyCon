@@ -153,6 +153,20 @@ header ul li a:hover
     float:left;
 }
 
+/* Schedule
+-----------------------------------------------------------*/
+
+.time h3
+{
+    margin-left: 86px;
+    font-size: 1.5em;
+}
+
+.time h3 a
+{
+    color:Black;
+}
+
 /* Styles for basic forms
 -----------------------------------------------------------*/
 

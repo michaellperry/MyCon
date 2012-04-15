@@ -21,6 +21,14 @@ namespace FacetedWorlds.MyCon.Model
             return Community.AddFact(new Day(this, startTime.Date));
         }
 
+        public Time FindTime(DateTime startTime)
+        {
+            Day day = Community.FindFact(new Day(this, startTime.Date));
+            if (day == null)
+                return null;
+            return Community.FindFact(new Time(day, startTime));
+        }
+
         public Time GetTime(DateTime startTime)
         {
             Day day = GetDay(startTime);
