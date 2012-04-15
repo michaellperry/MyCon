@@ -25,7 +25,7 @@ namespace FacetedWorlds.MyCon.ViewModels
             {
                 return
                     from room in _conference.Rooms
-                    orderby room.RoomNumber
+                    orderby room.RoomNumber.Value
                     select new ScheduleRowViewModel(room);
             }
         }
@@ -36,7 +36,7 @@ namespace FacetedWorlds.MyCon.ViewModels
             {
                 return
                     from room in _conference.Rooms
-                    orderby room.RoomNumber
+                    orderby room.RoomNumber.Value
                     select new ScheduleRowHeaderViewModel(room);
             }
         }

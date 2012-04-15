@@ -5,3 +5,23 @@
 }
 
 <h2>@Model.Name</h2>
+
+<div class="details">
+    <img src="@Model.ImageUrl" alt="@Model.Name" />
+    <p>@Model.Bio</p>
+    <div class="clear" />
+</div>
+
+@foreach (var session in @Model.Sessions)
+{
+    <div class="session">
+        <div class="calendar">
+            <p>@session.Day</p>
+            <p>@session.Time</p>
+        </div>
+        <div class="name">@session.Name</div>
+        <p>Room: @session.Room Track: @session.Track</p>
+        <p>@session.Description</p>
+        <div class="clear" />
+    </div>
+}

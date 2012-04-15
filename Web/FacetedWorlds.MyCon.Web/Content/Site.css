@@ -15,6 +15,11 @@ section {
     display: block;
 }
 
+.clear
+{
+    clear: both;
+}
+
 /* Top navigation
 -----------------------------------------------------------*/
 
@@ -46,19 +51,19 @@ header ul li a:hover
 
 .speaker
 {
-    clear: left;
+    margin-bottom: 16px;
 }
 
 .speaker .name
 {
     font-size: 1.5em;
     margin-bottom: 5px;
-    border-bottom: 3px solid Green;
+    border-bottom: 3px solid #8A4949;
 }
 
 .speaker .name a
 {
-    color: Green;
+    color: #8A4949;
     text-decoration: none;
 }
 
@@ -66,12 +71,57 @@ header ul li a:hover
 {
     float:left;
     width: 150px;
-    margin-bottom: 16px;
 }
 
 .speaker p
 {
-    margin: 0 0 16px 156px;
+    margin: 0 0 0 156px;
+}
+
+/* Speaker details
+-----------------------------------------------------------*/
+
+.details img
+{
+    float:left;
+    width: 200px;
+    margin-bottom: 16px;
+}
+
+.details p
+{
+    margin: 0 0 16px 206px;
+}
+
+.session
+{
+    margin: 8px 0;
+}
+
+.session .name
+{
+    margin-left: 86px;
+    font-size: 1.7em;
+}
+
+.session p
+{
+    margin-left: 86px;
+}
+
+.session .calendar
+{
+    width: 80px;
+    background-color: #8A4949;
+    float:left;
+}
+
+.session .calendar p
+{
+    text-align: center;
+    font-size: 1.2em;
+    color: White;
+    margin: 8px auto;
 }
 
 /* Styles for basic forms

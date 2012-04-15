@@ -36,5 +36,16 @@ namespace FacetedWorlds.MyCon.Web.ViewModels
                 return string.Join("", segments.Select(segment => segment.Text).ToArray());
             }
         }
+
+        public IEnumerable<SessionViewModel> Sessions
+        {
+            get
+            {
+                return
+                    from sessionPlace in _speaker.AvailableSessions
+                    orderby sessionPlace.Place.PlaceTime.Start
+                    select new SessionViewModel(sessionPlace);
+            }
+        }
     }
 }

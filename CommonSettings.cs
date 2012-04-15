@@ -1,9 +1,24 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace FacetedWorlds.MyCon
 {
     public static class CommonSettings
     {
-        public const string ConferenceID = "3796A5094AC64949B9FB286CBD521FD9";
+        private const string _conferenceID = "B313BE8C72EC4F06BD55E332F491FB34";
+
+        public static string ConferenceID
+        {
+            get
+            {
+                if (_conferenceID == "<<Your conference ID>>")
+                {
+                    Regex punctuation = new Regex("[{}-]");
+                    throw new InvalidOperationException(String.Format("Set the conference ID to \"{0}\".",
+                        punctuation.Replace(Guid.NewGuid().ToString().ToUpper(), "")));
+                }
+                return _conferenceID;
+            }
+        }
     }
 }
