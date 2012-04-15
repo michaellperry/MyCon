@@ -1,0 +1,56 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Itzben="clr-namespace:Itzben;assembly=Itzben" x:Class="FacetedWorlds.MyCon.Views.ConferenceView"
+    mc:Ignorable="d"
+    d:DesignHeight="512" d:DesignWidth="622.667"
+    >
+	<UserControl.Resources>
+		<DataTemplate x:Key="StringTemplate">
+			<StackPanel>
+				<TextBlock Text="{Binding Mode=OneWay}" TextWrapping="Wrap" Margin="0,0,0,2"/>
+			</StackPanel>
+		</DataTemplate>
+		<DataTemplate x:Key="StringTemplate1">
+			<StackPanel>
+				<TextBlock Text="{Binding Mode=OneWay}" TextWrapping="Wrap"/>
+			</StackPanel>
+		</DataTemplate>
+	</UserControl.Resources>
+    
+	<UserControl.DataContext>
+		<Binding Path="Conference" Source="{StaticResource Locator}"/>
+	</UserControl.DataContext>
+    
+    <Grid x:Name="LayoutRoot" Background="White" d:DataContext="{d:DesignData /SampleData/ConferenceViewModelSampleData.xaml}">
+    	<Grid.RowDefinitions>
+    		<RowDefinition Height="Auto"/>
+    		<RowDefinition Height="Auto"/>
+    		<RowDefinition Height="Auto"/>
+    		<RowDefinition Height="Auto"/>
+    		<RowDefinition Height="0.357*"/>
+    	</Grid.RowDefinitions>
+    	<Grid.ColumnDefinitions>
+    		<ColumnDefinition Width="Auto"/>
+    		<ColumnDefinition/>
+    		<ColumnDefinition Width="Auto"/>
+    		<ColumnDefinition Width="150"/>
+    	</Grid.ColumnDefinitions>
+    	<TextBlock TextWrapping="Wrap" Text="Conference Name:" Margin="8" VerticalAlignment="Center"/>
+    	<TextBlock Grid.Row="1" TextWrapping="Wrap" Text="Map URL:" Margin="8" VerticalAlignment="Center"/>
+    	<TextBlock Grid.Row="2" TextWrapping="Wrap" Text="Rating Questions:" Margin="8,8,8,0" VerticalAlignment="Top"/>
+    	<TextBlock Grid.Row="3" TextWrapping="Wrap" Text="Essay Questions:" Margin="8,8,8,0" VerticalAlignment="Top"/>
+    	<TextBox Grid.Column="1" TextWrapping="Wrap" Text="{Binding Name, Mode=TwoWay}" Margin="8" VerticalAlignment="Center" Grid.ColumnSpan="3"/>
+    	<TextBox Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Text="{Binding MapUrl, Mode=TwoWay}" Margin="8" VerticalAlignment="Center" Grid.ColumnSpan="3"/>
+    	<ItemsControl Grid.Column="1" ItemTemplate="{StaticResource StringTemplate}" ItemsSource="{Binding SurveyReadOnly.RatingQuestions}" Grid.Row="2" Margin="8" VerticalAlignment="Center"/>
+    	<ItemsControl Grid.Column="1" ItemTemplate="{StaticResource StringTemplate}" ItemsSource="{Binding SurveyReadOnly.EssayQuestions}" Grid.Row="3" Margin="8" VerticalAlignment="Center"/>
+    	<Button Content="Edit Survey" Grid.Column="1" HorizontalAlignment="Left" Margin="8,8,0,0" Grid.Row="4" VerticalAlignment="Top" Width="75" Command="{Binding EditSurvey}" Click="EditSurvey_Click"/>
+    	<TextBlock Grid.Column="2" Margin="8,8,51,0" Grid.Row="2" TextWrapping="Wrap" Text="Tracks:" VerticalAlignment="Top" d:LayoutOverrides="Width"/>
+    	<ItemsControl Grid.Column="3" ItemTemplate="{StaticResource StringTemplate1}" ItemsSource="{Binding Tracks}" Margin="8" Grid.Row="2"/>
+    	<Button Content="Add Track" Grid.Column="2" Margin="8,8,0,0" Grid.Row="3" VerticalAlignment="Top" Command="{Binding NewTrack}" HorizontalAlignment="Left" Width="75"/>
+        <TextBox Grid.Column="3" Margin="8,8,8,0" Grid.Row="3" Text="{Binding NewTrackName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"/>
+
+    </Grid>
+</UserControl>

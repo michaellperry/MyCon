@@ -17,6 +17,8 @@ namespace FacetedWorlds.MyCon.Views
         private Dependent _depSearchBySpeakerEnabled;
         private Dependent _depSearchByTrackText;
         private Dependent _depSearchByTrackEnabled;
+        private Dependent _depSearchByTimeText;
+        private Dependent _depSearchByTimeEnabled;
 
         public SessionDetailsView()
         {
@@ -37,6 +39,8 @@ namespace FacetedWorlds.MyCon.Views
             _depSearchBySpeakerEnabled = this.UpdateWhenNecessary(() => this.MenuItem(0).IsEnabled = CanSearchBySpeaker);
             _depSearchByTrackText = this.UpdateWhenNecessary(() => this.MenuItem(1).Text = SearchByTrackText);
             _depSearchByTrackEnabled = this.UpdateWhenNecessary(() => this.MenuItem(1).IsEnabled = CanSearchByTrack);
+            _depSearchByTimeText = this.UpdateWhenNecessary(() => this.MenuItem(2).Text = SearchByTimeText);
+            _depSearchByTimeEnabled = this.UpdateWhenNecessary(() => this.MenuItem(2).IsEnabled = CanSearchByTime);
         }
 
 
@@ -161,6 +165,36 @@ namespace FacetedWorlds.MyCon.Views
             if (viewModel != null)
                 viewModel.SearchByTrack();
             NavigationService.Navigate(new Uri("/Views/TracksView.xaml", UriKind.Relative));
+        }
+
+        private string SearchByTimeText
+        {
+            get
+            {
+                SessionDetailsViewModel viewModel = ForView.Unwrap<SessionDetailsViewModel>(DataContext);
+                if (viewModel != null)
+                    return viewModel.SearchByTimeText;
+                else
+                    return "Other sessions at time";
+            }
+        }
+
+        public bool CanSearchByTime
+        {
+            get
+            {
+                SessionDetailsViewModel viewModel = ForView.Unwrap<SessionDetailsViewModel>(DataContext);
+                if (viewModel != null)
+                    return viewModel.CanSearchByTime;
+                return false;
+            }
+        }
+
+        private void SessionsByTime_Click(object sender, EventArgs e)
+        {
+            SessionDetailsViewModel viewModel = ForView.Unwrap<SessionDetailsViewModel>(DataContext);
+            if (viewModel != null)
+                NavigationService.Navigate(new Uri(viewModel.SearchByTimeUri, UriKind.Relative));
         }
 
         private static bool ShouldGoToSettings(SessionDetailsViewModel viewModel)

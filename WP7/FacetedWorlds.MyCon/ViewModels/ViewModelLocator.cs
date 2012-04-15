@@ -86,7 +86,8 @@ namespace FacetedWorlds.MyCon.ViewModels
         public object GetSessionDetailsViewModel(string sessionId)
         {
             Attendee attendee = _synchronizationService.Attendee;
-            Session session = attendee.Conference.Sessions.FirstOrDefault(s => s.Id == sessionId);
+            Guid sessionGuid = new Guid(sessionId);
+            Session session = attendee.Conference.Sessions.FirstOrDefault(s => s.Unique == sessionGuid);
             if (session == null)
                 return null;
             if (session.CurrentSessionPlaces.Count() != 1)
@@ -128,8 +129,9 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public object GetSessionEvaluationViewModel(string sessionId)
         {
+            Guid sessionGuid = new Guid(sessionId);
             Attendee attendee = _synchronizationService.Attendee;
-            List<Session> sessions = attendee.Conference.Sessions.Where(s => s.Id == sessionId).ToList();
+            List<Session> sessions = attendee.Conference.Sessions.Where(s => s.Unique == sessionGuid).ToList();
             if (sessions.Count != 1)
                 return null;
 
@@ -137,7 +139,7 @@ namespace FacetedWorlds.MyCon.ViewModels
             if (session.CurrentSessionPlaces.Count() != 1)
                 return null;
 
-            List<Schedule> schedules = attendee.CurrentSchedules.Where(s => s.SessionPlace.Session.Id == sessionId).ToList();
+            List<Schedule> schedules = attendee.CurrentSchedules.Where(s => s.SessionPlace.Session.Unique == sessionGuid).ToList();
             if (schedules.Count != 1)
                 return null;
 

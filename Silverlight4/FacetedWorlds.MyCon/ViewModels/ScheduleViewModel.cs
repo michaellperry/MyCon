@@ -83,7 +83,7 @@ namespace FacetedWorlds.MyCon.ViewModels
                     .When(() => !String.IsNullOrEmpty(_navigationModel.NewRoomNumber))
                     .Do(() =>
                     {
-                        _conference.NewRoom(_navigationModel.NewRoomNumber);
+                        _conference.GetRoom(_navigationModel.NewRoomNumber);
                         _navigationModel.NewRoomNumber = null;
                     });
             }

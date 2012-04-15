@@ -15,8 +15,6 @@ namespace FacetedWorlds.MyCon
 {
     public class SynchronizationService
     {
-        private const string ConferenceID = "3796A5094AC64949B9FB286CBD521FD9";
-
         private Community _community;
         private Attendee _attendee;
 
@@ -33,7 +31,7 @@ namespace FacetedWorlds.MyCon
                 ;
 
             Identity identity = _community.AddFact(new Identity(GetAnonymousUserId()));
-            Conference conference = _community.AddFact(new Conference(ConferenceID));
+            Conference conference = _community.AddFact(new Conference(CommonSettings.ConferenceID));
             _attendee = _community.AddFact(new Attendee(identity, conference));
             configurationProvider.Identity = identity;
 
@@ -117,6 +115,7 @@ namespace FacetedWorlds.MyCon
                 ExtractFile(store, "FactTypeTable.bin");
                 ExtractFile(store, "IncomingTimestampTable.bin");
                 ExtractFile(store, "Index.bin");
+                ExtractFile(store, "MessageTable.bin");
                 ExtractFile(store, "PeerTable.bin");
                 ExtractFile(store, "RoleTable.bin");
             }

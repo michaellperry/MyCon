@@ -122,7 +122,7 @@ namespace FacetedWorlds.MyCon.ViewModels
                     .When(() => !String.IsNullOrEmpty(_navigationModel.NewSessionId) && _navigationModel.SelectedSpeaker != null)
                     .Do(() =>
                     {
-                        _navigationModel.SelectedSession = _conference.NewSession(_navigationModel.NewSessionId, _navigationModel.SelectedSpeaker, _navigationModel.SelectedTrack);
+                        _navigationModel.SelectedSession = _conference.NewSession(_navigationModel.SelectedSpeaker, _navigationModel.SelectedTrack);
                         _navigationModel.NewSessionId = string.Empty;
                         _navigationModel.SelectedSpeaker = null;
                         _navigationModel.SelectedTrack = null;

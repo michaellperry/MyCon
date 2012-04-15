@@ -130,6 +130,7 @@ key:
 query:
 	Time* times {
 		Time t : t.day = this
+			where not t.isDeleted
 	}
 
 	bool hasTimes {
@@ -148,6 +149,11 @@ query:
 		SessionPlace sp : sp.place.placeTime = this
 			where sp.isCurrent
 			and not sp.isDeleted
+	}
+
+	TimeDelete* deletes {
+		TimeDelete d : d.deleted = this
+			where not d.isUndeleted
 	}
 
 	bool isDeleted {
@@ -186,7 +192,10 @@ query:
 
 fact Room {
 key:
+	unique;
     Conference conference;
+
+mutable:
     string roomNumber;
 }
 
@@ -254,7 +263,7 @@ key:
 
 fact Session {
 key:
-    string id;
+    unique;
     publish Conference conference;
     Speaker speaker;
     Track? track;

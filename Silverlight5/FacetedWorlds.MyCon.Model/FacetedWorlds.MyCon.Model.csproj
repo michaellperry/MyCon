@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FC9FC1B0-B358-4701-AA29-0F69A2F1C784}</ProjectGuid>
+    <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FacetedWorlds.MyCon.Model</RootNamespace>
+    <AssemblyName>FacetedWorlds.MyCon.Model</AssemblyName>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+  </PropertyGroup>
+  <!-- This property group is only here to support building this project using the 
+       MSBuild 3.5 toolset. In order to work correctly with this older toolset, it needs 
+       to set the TargetFrameworkVersion to v3.5 -->
+  <PropertyGroup Condition="'$(MSBuildToolsVersion)' == '3.5'">
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System.Windows" />
+    <Reference Include="system" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Browser" />
+    <Reference Include="UpdateControls, Version=2.2.1.1, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\UpdateControls.2.2.1.1\lib\sl5\UpdateControls.dll</HintPath>
+    </Reference>
+    <Reference Include="UpdateControls.Correspondence">
+      <HintPath>..\..\packages\Correspondence.1.3.2.1\lib\SL5\UpdateControls.Correspondence.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Attendee.cs">
+      <Link>Attendee.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Conference.cs">
+      <Link>Conference.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Identity.cs">
+      <Link>Identity.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Model.generated.cs">
+      <Link>Model.generated.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Schedule.cs">
+      <Link>Schedule.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\SearchExtensions.cs">
+      <Link>SearchExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Session.cs">
+      <Link>Session.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\SessionEvaluation.cs">
+      <Link>SessionEvaluation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\SessionEvaluationEssay.cs">
+      <Link>SessionEvaluationEssay.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\SessionEvaluationRating.cs">
+      <Link>SessionEvaluationRating.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Slot.cs">
+      <Link>Slot.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Speaker.cs">
+      <Link>Speaker.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Time.cs">
+      <Link>Time.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{A1591282-1198-4647-A2B1-27E5FF5F6F3B}">
+        <SilverlightProjectProperties />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

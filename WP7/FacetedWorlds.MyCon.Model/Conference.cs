@@ -27,9 +27,15 @@ namespace FacetedWorlds.MyCon.Model
             return Community.AddFact(new Speaker(this, speakerName));
         }
 
-        public Room NewRoom(string roomNumber)
+        public Room GetRoom(string roomNumber)
         {
-            return Community.AddFact(new Room(this, roomNumber));
+            Room room = Rooms.FirstOrDefault(r => r.RoomNumber == roomNumber);
+            if (room == null)
+            {
+                room = Community.AddFact(new Room(this));
+                room.RoomNumber = roomNumber;
+            }
+            return room;
         }
 
         public Speaker NewSpeaker(string speakerName, string contact, string bio, string imageUrl)
@@ -43,15 +49,15 @@ namespace FacetedWorlds.MyCon.Model
             return speaker;
         }
 
-        public Session NewSession(string sessionId, Speaker speaker, Track track)
+        public Session NewSession(Speaker speaker, Track track)
         {
-            return Community.AddFact(new Session(this, speaker, track, sessionId));
+            return Community.AddFact(new Session(this, speaker, track));
         }
 
-        public Session NewSession(string sessionId, string sessionName, string trackName, Speaker speaker, string level, string description)
+        public Session NewSession(string sessionName, string trackName, Speaker speaker, string level, string description)
         {
             Track track = trackName == null ? null : Community.AddFact(new Track(this, trackName));
-            Session session = NewSession(sessionId, speaker, track);
+            Session session = NewSession(speaker, track);
             if (session.Name.Value != sessionName)
                 session.Name = sessionName;
             var descriptionSegments = DocumentSegments(description);
@@ -66,22 +72,22 @@ namespace FacetedWorlds.MyCon.Model
             return session;
         }
 
-        public void NewSessionPlace(string sessionId, string sessionName, string description, string speakerName, string contact, string bio, string imageUrl, string trackName, DateTime startTime, string roomNumber)
+        public void NewSessionPlace(string sessionName, string description, string speakerName, string contact, string bio, string imageUrl, string trackName, DateTime startTime, string roomNumber)
         {
             Speaker speaker = NewSpeaker(speakerName, contact, bio, imageUrl);
-            Session session = NewSession(sessionId, sessionName, trackName, speaker, null, description);
+            Session session = NewSession(sessionName, trackName, speaker, null, description);
             NewSessionPlace(session, startTime, roomNumber);
         }
 
-        public void NewGeneralSessionPlace(string sessionId, string sessionName, Time time, string roomNumber, string imageUrl)
+        public void NewGeneralSessionPlace(string sessionName, Time time, string roomNumber, string imageUrl)
         {
             Speaker speaker = Community.AddFact(new Speaker(this, string.Empty));
             if (speaker.ImageUrl.Value != imageUrl)
                 speaker.ImageUrl = imageUrl;
-            Session session = Community.AddFact(new Session(this, speaker, null, sessionId));
+            Session session = Community.AddFact(new Session(this, speaker, null));
             if (session.Name.Value != sessionName)
                 session.Name = sessionName;
-            Room room = Community.AddFact(new Room(this, roomNumber));
+            Room room = GetRoom(roomNumber);
             Place place = Community.AddFact(new Place(time, room));
             Community.AddFact(new SessionPlace(session, place, new List<SessionPlace>()));
         }
@@ -89,7 +95,7 @@ namespace FacetedWorlds.MyCon.Model
         public void NewSessionPlace(Session session, DateTime startTime, string roomNumber)
         {
             Time time = GetTime(startTime);
-            Room room = Community.AddFact(new Room(this, roomNumber));
+            Room room = GetRoom(roomNumber);
             Place place = Community.AddFact(new Place(time, room));
             var currentSessionPlaces = session.CurrentSessionPlaces.ToList();
             if (currentSessionPlaces.Count != 1 || currentSessionPlaces[0].Place != place)

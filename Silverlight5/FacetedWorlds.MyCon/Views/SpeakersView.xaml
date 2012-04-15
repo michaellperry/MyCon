@@ -1,0 +1,49 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Itzben="clr-namespace:Itzben;assembly=Itzben" xmlns:local="clr-namespace:FacetedWorlds.MyCon.Views" x:Class="FacetedWorlds.MyCon.Views.SpeakersView"
+    mc:Ignorable="d"
+    d:DesignHeight="415" d:DesignWidth="539"
+    >
+	<UserControl.Resources>
+		<DataTemplate x:Key="SpeakerViewModelTemplate">
+			<StackPanel>
+				<TextBlock Text="{Binding Name}"/>
+			</StackPanel>
+		</DataTemplate>
+	</UserControl.Resources>
+    
+	<UserControl.DataContext>
+		<Binding Path="Speakers" Source="{StaticResource Locator}"/>
+	</UserControl.DataContext>
+    
+    <Grid x:Name="LayoutRoot" d:DataContext="{d:DesignData /SampleData/SpeakersViewModelSampleData.xaml}">
+    	<Grid.ColumnDefinitions>
+    		<ColumnDefinition Width="211"/>
+    		<ColumnDefinition/>
+    	</Grid.ColumnDefinitions>
+    	<Grid.RowDefinitions>
+    		<RowDefinition Height="0.833*"/>
+    		<RowDefinition Height="Auto"/>
+    	</Grid.RowDefinitions>
+    	<ListBox ItemTemplate="{StaticResource SpeakerViewModelTemplate}" ItemsSource="{Binding Speakers}" Margin="8" SelectedItem="{Binding SelectedSpeaker, Mode=TwoWay}"/>
+    	<Grid Grid.Row="1" Grid.ColumnSpan="2">
+    		<Grid.RowDefinitions>
+    			<RowDefinition Height="Auto"/>
+    		</Grid.RowDefinitions>
+    		<Grid.ColumnDefinitions>
+    			<ColumnDefinition Width="Auto"/>
+    			<ColumnDefinition Width="0.52*"/>
+    			<ColumnDefinition Width="Auto"/>
+    		</Grid.ColumnDefinitions>
+    		<TextBlock Margin="8" Text="New Speaker:" VerticalAlignment="Center"/>
+            <TextBox Grid.Column="1" Margin="8" Text="{Binding NewSpeakerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
+            <Button Content="Add" Grid.Column="2" Margin="8" Command="{Binding NewSpeaker}" VerticalAlignment="Center" Width="75"/>
+    	</Grid>
+
+    	<local:SpeakerDetailsView Grid.Column="1" DataContext="{Binding SpeakerDetails}"/>
+
+    </Grid>
+</UserControl>

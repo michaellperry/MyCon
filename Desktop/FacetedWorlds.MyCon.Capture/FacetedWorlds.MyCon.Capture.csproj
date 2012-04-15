@@ -35,9 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack">
-      <HintPath>..\..\packages\HtmlAgilityPack.1.4.2\lib\HtmlAgilityPack.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -74,7 +71,6 @@
     <Compile Include="..\..\CommonSettings.cs">
       <Link>CommonSettings.cs</Link>
     </Compile>
-    <Compile Include="DataLoader.cs" />
     <Compile Include="HTTPConfigurationProvider.cs" />
     <Compile Include="Models\NavigationModel.cs" />
     <Compile Include="Program.cs" />

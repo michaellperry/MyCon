@@ -60,12 +60,12 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public bool Overbooked
         {
-            get { return _slot.CurrentSchedules.Count() > 1; }
+            get { return Scheduled && _slot.CurrentSchedules.Count() > 1; }
         }
 
         public override string TargetUri
         {
-            get { return String.Format("/Views/SessionDetailsView.xaml?SessionId={0}", _sessionPlace.Session.Id); }
+            get { return String.Format("/Views/SessionDetailsView.xaml?SessionId={0}", _sessionPlace.Session.Unique); }
         }
     }
 }

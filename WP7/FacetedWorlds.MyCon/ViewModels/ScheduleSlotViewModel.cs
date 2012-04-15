@@ -93,7 +93,7 @@ namespace FacetedWorlds.MyCon.ViewModels
             {
                 SessionPlace sessionPlace = SessionPlace;
                 if (sessionPlace != null)
-                    return String.Format("/Views/SessionDetailsView.xaml?SessionId={0}", sessionPlace.Session.Id);
+                    return String.Format("/Views/SessionDetailsView.xaml?SessionId={0}", sessionPlace.Session.Unique);
                 else
                     return String.Format("/Views/SlotView.xaml?StartTime={0}", _slot.SlotTime.Start);
             }

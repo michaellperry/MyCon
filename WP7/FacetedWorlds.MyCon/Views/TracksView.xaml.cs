@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+using FacetedWorlds.MyCon.ViewModels;
 using Microsoft.Phone.Controls;
+using UpdateControls.XAML;
 
 namespace FacetedWorlds.MyCon.Views
 {
@@ -18,6 +11,13 @@ namespace FacetedWorlds.MyCon.Views
         public TracksView()
         {
             InitializeComponent();
+        }
+
+        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            var viewModel = ForView.Unwrap<TracksViewModel>(DataContext);
+            if (viewModel != null)
+                TracksPivot.SelectedIndex = viewModel.SelectedTrackIndex;
         }
     }
 }

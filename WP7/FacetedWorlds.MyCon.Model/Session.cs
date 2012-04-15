@@ -16,7 +16,7 @@ namespace FacetedWorlds.MyCon.Model
 
         public void SetSessionPlace(Time time, string roomNumber)
         {
-            Room room = Community.AddFact(new Room(Conference, roomNumber));
+            Room room = Conference.GetRoom(roomNumber);
             Place place = Community.AddFact(new Place(time, room));
             SetPlace(place);
         }

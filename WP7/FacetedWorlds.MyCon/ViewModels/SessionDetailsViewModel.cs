@@ -169,7 +169,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public bool CanEvaluate
         {
-            get { return !IsGeneralSession && SessionIsScheduled && !EvalIsCompleted; }
+            get { return !IsGeneralSession && SessionIsScheduled && SessionHasStarted && !EvalIsCompleted; }
         }
 
         public string SearchBySpeakerText
@@ -214,9 +214,29 @@ namespace FacetedWorlds.MyCon.ViewModels
                 _searchModel.SelectedTrack = _sessionPlace.Session.Track.Name;
         }
 
+        public string SearchByTimeText
+        {
+            get
+            {
+                return _sessionPlace.Session.Track == null
+                    ? "Other sessions at this time"
+                    : String.Format("Other sessions at {0:h:mm}", _sessionPlace.Place.PlaceTime.Start);
+            }
+        }
+
+        public bool CanSearchByTime
+        {
+            get { return true; }
+        }
+
+        public string SearchByTimeUri
+        {
+            get { return String.Format("/Views/SlotView.xaml?StartTime={0}", _slot.SlotTime.Start); }
+        }
+
         public string SessionEvaluationUri
         {
-            get { return String.Format("/Views/SessionEvaluationView.xaml?SessionId={0}", _sessionPlace.Session.Id); }
+            get { return String.Format("/Views/SessionEvaluationView.xaml?SessionId={0}", _sessionPlace.Session.Unique); }
         }
 
         private bool IsGeneralSession

@@ -9,7 +9,7 @@
     xmlns:Itzben="clr-namespace:Itzben;assembly=Itzben" 
     x:Class="FacetedWorlds.MyCon.Views.SessionDetailsView"
     SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
-    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True"
     Loaded="PhoneApplicationPage_Loaded">
 
@@ -24,6 +24,7 @@
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="Other sessions by speaker" Click="SessionsBySpeaker_Click"/>
                 <shell:ApplicationBarMenuItem Text="Other sessions in track" Click="SessionsByTrack_Click"/>
+                <shell:ApplicationBarMenuItem Text="Other sessions at time" Click="SessionsByTime_Click"/>
             </shell:ApplicationBar.MenuItems>
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.add.rest.png" Text="add" Click="Add_Click"/>
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.close.rest.png" Text="remove" Click="Remove_Click"/>

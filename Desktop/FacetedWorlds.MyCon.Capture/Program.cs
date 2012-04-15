@@ -29,14 +29,6 @@ namespace FacetedWorlds.MyCon.Capture
             community.BeginReceiving();
             WaitWhileSynchronizing(community);
 
-            Console.WriteLine("Updating conference data.");
-            DataLoader dataLoader = new DataLoader();
-            dataLoader.Load(_conference);
-
-            Console.WriteLine("Sending updates.");
-            community.BeginSending();
-            WaitWhileSynchronizing(community);
-
             Console.WriteLine("Finished.");
             Console.ReadKey();
         }
