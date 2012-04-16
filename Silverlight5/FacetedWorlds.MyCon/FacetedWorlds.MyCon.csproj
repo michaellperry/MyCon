@@ -81,17 +81,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\UpdateControls.2.2.1.1\lib\sl5\UpdateControls.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence">
-      <HintPath>..\..\packages\Correspondence.1.3.2.1\lib\SL5\UpdateControls.Correspondence.dll</HintPath>
+    <Reference Include="UpdateControls.Correspondence, Version=1.0.0.0, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Correspondence.1.3.2.2\lib\SL5\UpdateControls.Correspondence.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.Correspondence.BinaryHTTPClient">
-      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.3.2.1\lib\SL5\UpdateControls.Correspondence.BinaryHTTPClient.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.3.2.2\lib\SL5\UpdateControls.Correspondence.BinaryHTTPClient.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.Correspondence.Data">
-      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.3.2.1\lib\SL5\UpdateControls.Correspondence.Data.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.3.2.2\lib\SL5\UpdateControls.Correspondence.Data.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.Correspondence.IsolatedStorage">
-      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.3.2.1\lib\SL5\UpdateControls.Correspondence.IsolatedStorage.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.Silverlight.App.1.3.2.2\lib\SL5\UpdateControls.Correspondence.IsolatedStorage.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

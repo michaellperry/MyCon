@@ -50,19 +50,20 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\UpdateControls.2.2.1.1\lib\sl3-wp\UpdateControls.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence, Version=1.3.2.1, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls.Correspondence, Version=1.3.2.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.1.3.2.1\lib\SL4-wp\UpdateControls.Correspondence.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.1.3.2.2\lib\SL4-wp\UpdateControls.Correspondence.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attendee.cs" />
     <Compile Include="Conference.cs" />
     <Compile Include="Identity.cs" />
+    <Compile Include="MessageBoard.cs" />
     <Compile Include="Model.generated.cs">
-      <DependentUpon>Model.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schedule.cs" />
