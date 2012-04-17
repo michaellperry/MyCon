@@ -18,9 +18,14 @@
         <li>@Html.ActionLink("Schedule", "Index", "Schedule")</li>
         <li>@Html.ActionLink("Sponsors", "Index", "Sponsors")</li>
     </ul>
-    <div class="clear" />
+    <div class="clear"></div>
 </header>
 
     @RenderBody()
+
+<footer>
+    <img src="@Url.Content("~/Content/footer.png")" alt="Powered by Correspondence" />
+</footer>
+
 </body>
 </html>

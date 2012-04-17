@@ -20,6 +20,11 @@ section {
     clear: both;
 }
 
+footer img
+{
+    margin: 16px 80px 0 80px;
+}
+
 /* Top navigation
 -----------------------------------------------------------*/
 
@@ -138,6 +143,7 @@ header ul li a:hover
 .track h3
 {
     font-size: 1.5em;
+    margin: 0 0 0 0;
 }
 
 .track h3 a
@@ -148,7 +154,7 @@ header ul li a:hover
 
 .track img
 {
-    width: 100px;
+    height: 100px;
     margin: 0 6px 0 0;
     float:left;
 }

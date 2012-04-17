@@ -9,7 +9,7 @@
 <div class="details">
     <img src="@Model.ImageUrl" alt="@Model.Name" />
     <p>@Model.Bio</p>
-    <div class="clear" />
+    <div class="clear"></div>
 </div>
 
 @foreach (var session in @Model.Sessions)
@@ -22,6 +22,6 @@
         <h3>@session.Name</h3>
         <p>Room: @session.Room Track: @session.Track</p>
         <p>@session.Description</p>
-        <div class="clear" />
+        <div class="clear"></div>
     </div>
 }
