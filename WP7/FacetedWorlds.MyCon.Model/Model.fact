@@ -193,7 +193,7 @@ query:
 fact Room {
 key:
 	unique;
-    Conference conference;
+    publish Conference conference;
 
 mutable:
     string roomNumber;

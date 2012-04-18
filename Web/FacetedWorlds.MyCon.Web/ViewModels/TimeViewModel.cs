@@ -33,7 +33,9 @@ namespace FacetedWorlds.MyCon.Web.ViewModels
         {
             get
             {
-                var sessions = _time.AvailableSessions.ToList();
+                var sessions = _time.AvailableSessions
+                    .Where(session => session.Session.Track == null)
+                    .ToList();
                 if (sessions.Count == 1)
                     return new SessionViewModel(sessions[0]);
                 else
