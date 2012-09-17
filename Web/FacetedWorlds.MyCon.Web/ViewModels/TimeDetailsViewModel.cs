@@ -17,7 +17,7 @@ namespace FacetedWorlds.MyCon.Web.ViewModels
 
         public string Time
         {
-            get { return string.Format("{0:dddd MMMM d h:mm}", _time.Start); }
+            get { return string.Format("{0:dddd MMMM d h:mm}", _time.Start.ToLocalTime()); }
         }
 
         public IEnumerable<SessionViewModel> Sessions

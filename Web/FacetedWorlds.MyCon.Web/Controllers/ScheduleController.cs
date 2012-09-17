@@ -35,7 +35,7 @@ namespace FacetedWorlds.MyCon.Web.Controllers
                 int.Parse(match.Groups["day"].Value),
                 int.Parse(match.Groups["hour"].Value),
                 int.Parse(match.Groups["minute"].Value),
-                0);
+                0).ToUniversalTime();
             Time time = MvcApplication.SynchronizationService.Conference.FindTime(start);
             if (time == null)
                 return HttpNotFound();

@@ -103,7 +103,8 @@ namespace FacetedWorlds.MyCon.ViewModels
                     .When(() => IsValidDateTime(_navigationModel.NewTime))
                     .Do(() =>
                     {
-                        Time time = _conference.GetTime(DateTime.Parse(_navigationModel.NewTime));
+                        DateTime startTime = DateTime.Parse(_navigationModel.NewTime).ToUniversalTime();
+                        Time time = _conference.GetTime(startTime);
                         time.UnDelete();
                     });
             }

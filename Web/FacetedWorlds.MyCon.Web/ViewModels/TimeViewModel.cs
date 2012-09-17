@@ -16,17 +16,17 @@ namespace FacetedWorlds.MyCon.Web.ViewModels
 
         public string ID
         {
-            get { return string.Format("{0:yyyyMMddHHmm}", _time.Start); }
+            get { return string.Format("{0:yyyyMMddHHmm}", _time.Start.ToLocalTime()); }
         }
 
         public string Day
         {
-            get { return string.Format("{0:ddd}", _time.Start); }
+            get { return string.Format("{0:ddd}", _time.Start.ToLocalTime()); }
         }
 
         public string Time
         {
-            get { return string.Format("{0:h:mm}", _time.Start); }
+            get { return string.Format("{0:h:mm}", _time.Start.ToLocalTime()); }
         }
 
         public SessionViewModel CommonSession

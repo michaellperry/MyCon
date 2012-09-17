@@ -22,12 +22,12 @@ namespace FacetedWorlds.MyCon.Web.ViewModels
 
         public string Day
         {
-            get { return string.Format("{0:ddd}", _sessionPlace.Place.PlaceTime.Start); }
+            get { return string.Format("{0:ddd}", _sessionPlace.Place.PlaceTime.Start.ToLocalTime()); }
         }
 
         public string Time
         {
-            get { return string.Format("{0:h:mm}", _sessionPlace.Place.PlaceTime.Start); }
+            get { return string.Format("{0:h:mm}", _sessionPlace.Place.PlaceTime.Start.ToLocalTime()); }
         }
 
         public string Track
