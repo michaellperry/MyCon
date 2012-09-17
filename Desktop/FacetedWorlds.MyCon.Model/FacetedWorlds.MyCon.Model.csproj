@@ -40,17 +40,17 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UpdateControls, Version=2.2.1.1, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls, Version=2.2.1.2, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UpdateControls.2.2.1.1\lib\Net40\UpdateControls.dll</HintPath>
+      <HintPath>..\..\packages\UpdateControls.2.2.1.2\lib\Net40\UpdateControls.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence, Version=1.3.2.2, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls.Correspondence, Version=1.4.0.8, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.1.3.2.2\lib\NET4\UpdateControls.Correspondence.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.1.4.0.8\lib\NET4\UpdateControls.Correspondence.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.XAML, Version=2.2.1.1, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls.XAML, Version=2.2.1.2, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UpdateControls.2.2.1.1\lib\Net40\UpdateControls.XAML.dll</HintPath>
+      <HintPath>..\..\packages\UpdateControls.2.2.1.2\lib\Net40\UpdateControls.XAML.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +87,7 @@
     <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Speaker.cs">
       <Link>Speaker.cs</Link>
     </Compile>
+    <Compile Include="Individual.cs" />
     <Compile Include="MessageBoard.cs" />
     <Compile Include="Model1.generated.cs">
       <AutoGen>True</AutoGen>
@@ -96,15 +97,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Model.fact" />
     <None Include="Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model1.generated.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

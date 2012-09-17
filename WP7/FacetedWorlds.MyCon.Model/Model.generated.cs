@@ -31,7 +31,7 @@ digraph "FacetedWorlds.MyCon.Model"
     TimeUndelete -> TimeDelete
     Slot -> Attendee
     Slot -> Time [color="red"]
-    Room -> Conference
+    Room -> Conference [color="red"]
     Room__roomNumber -> Room
     Room__roomNumber -> Room__roomNumber [label="  *"]
     Track -> Conference [color="red"]
@@ -134,10 +134,14 @@ namespace FacetedWorlds.MyCon.Model
         // Roles
 
         // Queries
-        public static Query QueryIsToastNotificationEnabled = new Query()
-            .JoinSuccessors(EnableToastNotification.RoleIdentity, Condition.WhereIsEmpty(EnableToastNotification.QueryIsDisabled)
-            )
+        public static Query MakeQueryIsToastNotificationEnabled()
+		{
+			return new Query()
+				.JoinSuccessors(EnableToastNotification.RoleIdentity, Condition.WhereIsEmpty(EnableToastNotification.MakeQueryIsDisabled())
+				)
             ;
+		}
+        public static Query QueryIsToastNotificationEnabled = MakeQueryIsToastNotificationEnabled();
 
         // Predicates
 
@@ -240,9 +244,13 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryIsDisabled = new Query()
-            .JoinSuccessors(DisableToastNotification.RoleEnable)
+        public static Query MakeQueryIsDisabled()
+		{
+			return new Query()
+				.JoinSuccessors(DisableToastNotification.RoleEnable)
             ;
+		}
+        public static Query QueryIsDisabled = MakeQueryIsDisabled();
 
         // Predicates
         public static Condition IsDisabled = Condition.WhereIsNotEmpty(QueryIsDisabled);
@@ -437,54 +445,106 @@ namespace FacetedWorlds.MyCon.Model
         // Roles
 
         // Queries
-        public static Query QueryName = new Query()
-            .JoinSuccessors(Conference__name.RoleConference, Condition.WhereIsEmpty(Conference__name.QueryIsCurrent)
-            )
+        public static Query MakeQueryName()
+		{
+			return new Query()
+				.JoinSuccessors(Conference__name.RoleConference, Condition.WhereIsEmpty(Conference__name.MakeQueryIsCurrent())
+				)
             ;
-        public static Query QueryConferenceSurvey = new Query()
-            .JoinSuccessors(Conference__conferenceSurvey.RoleConference, Condition.WhereIsEmpty(Conference__conferenceSurvey.QueryIsCurrent)
-            )
+		}
+        public static Query QueryName = MakeQueryName();
+        public static Query MakeQueryConferenceSurvey()
+		{
+			return new Query()
+				.JoinSuccessors(Conference__conferenceSurvey.RoleConference, Condition.WhereIsEmpty(Conference__conferenceSurvey.MakeQueryIsCurrent())
+				)
             ;
-        public static Query QueryMapUrl = new Query()
-            .JoinSuccessors(Conference__mapUrl.RoleConference, Condition.WhereIsEmpty(Conference__mapUrl.QueryIsCurrent)
-            )
+		}
+        public static Query QueryConferenceSurvey = MakeQueryConferenceSurvey();
+        public static Query MakeQueryMapUrl()
+		{
+			return new Query()
+				.JoinSuccessors(Conference__mapUrl.RoleConference, Condition.WhereIsEmpty(Conference__mapUrl.MakeQueryIsCurrent())
+				)
             ;
-        public static Query QueryDays = new Query()
-            .JoinSuccessors(Day.RoleConference, Condition.WhereIsNotEmpty(Day.QueryHasTimes)
-            )
+		}
+        public static Query QueryMapUrl = MakeQueryMapUrl();
+        public static Query MakeQueryDays()
+		{
+			return new Query()
+				.JoinSuccessors(Day.RoleConference, Condition.WhereIsNotEmpty(Day.MakeQueryHasTimes())
+				)
             ;
-        public static Query QueryAllTracks = new Query()
-            .JoinSuccessors(Track.RoleConference)
+		}
+        public static Query QueryDays = MakeQueryDays();
+        public static Query MakeQueryAllTracks()
+		{
+			return new Query()
+				.JoinSuccessors(Track.RoleConference)
             ;
-        public static Query QueryTracks = new Query()
-            .JoinSuccessors(Track.RoleConference, Condition.WhereIsNotEmpty(Track.QueryHasSessions)
-            )
+		}
+        public static Query QueryAllTracks = MakeQueryAllTracks();
+        public static Query MakeQueryTracks()
+		{
+			return new Query()
+				.JoinSuccessors(Track.RoleConference, Condition.WhereIsNotEmpty(Track.MakeQueryHasSessions())
+				)
             ;
-        public static Query QuerySessions = new Query()
-            .JoinSuccessors(Session.RoleConference, Condition.WhereIsEmpty(Session.QueryIsDeleted)
-            )
+		}
+        public static Query QueryTracks = MakeQueryTracks();
+        public static Query MakeQuerySessions()
+		{
+			return new Query()
+				.JoinSuccessors(Session.RoleConference, Condition.WhereIsEmpty(Session.MakeQueryIsDeleted())
+				)
             ;
-        public static Query QueryUnscheduledSessions = new Query()
-            .JoinSuccessors(Session.RoleConference, Condition.WhereIsEmpty(Session.QueryIsDeleted)
-                .And().IsEmpty(Session.QueryIsScheduled)
-            )
+		}
+        public static Query QuerySessions = MakeQuerySessions();
+        public static Query MakeQueryUnscheduledSessions()
+		{
+			return new Query()
+				.JoinSuccessors(Session.RoleConference, Condition.WhereIsEmpty(Session.MakeQueryIsDeleted())
+					.And().IsEmpty(Session.MakeQueryIsScheduled())
+				)
             ;
-        public static Query QuerySpeakers = new Query()
-            .JoinSuccessors(Speaker.RoleConference)
+		}
+        public static Query QueryUnscheduledSessions = MakeQueryUnscheduledSessions();
+        public static Query MakeQuerySpeakers()
+		{
+			return new Query()
+				.JoinSuccessors(Speaker.RoleConference)
             ;
-        public static Query QueryNotices = new Query()
-            .JoinSuccessors(ConferenceNotice.RoleConference)
+		}
+        public static Query QuerySpeakers = MakeQuerySpeakers();
+        public static Query MakeQueryNotices()
+		{
+			return new Query()
+				.JoinSuccessors(ConferenceNotice.RoleConference)
             ;
-        public static Query QueryCurrentSessionSurveys = new Query()
-            .JoinSuccessors(ConferenceSessionSurvey.RoleConference, Condition.WhereIsEmpty(ConferenceSessionSurvey.QueryIsCurrent)
-            )
+		}
+        public static Query QueryNotices = MakeQueryNotices();
+        public static Query MakeQueryCurrentSessionSurveys()
+		{
+			return new Query()
+				.JoinSuccessors(ConferenceSessionSurvey.RoleConference, Condition.WhereIsEmpty(ConferenceSessionSurvey.MakeQueryIsCurrent())
+				)
             ;
-        public static Query QueryAllSessionSurveys = new Query()
-            .JoinSuccessors(ConferenceSessionSurvey.RoleConference)
+		}
+        public static Query QueryCurrentSessionSurveys = MakeQueryCurrentSessionSurveys();
+        public static Query MakeQueryAllSessionSurveys()
+		{
+			return new Query()
+				.JoinSuccessors(ConferenceSessionSurvey.RoleConference)
             ;
-        public static Query QueryRooms = new Query()
-            .JoinSuccessors(Room.RoleConference)
+		}
+        public static Query QueryAllSessionSurveys = MakeQueryAllSessionSurveys();
+        public static Query MakeQueryRooms()
+		{
+			return new Query()
+				.JoinSuccessors(Room.RoleConference)
             ;
+		}
+        public static Query QueryRooms = MakeQueryRooms();
 
         // Predicates
 
@@ -685,9 +745,13 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryIsCurrent = new Query()
-            .JoinSuccessors(Conference__name.RolePrior)
+        public static Query MakeQueryIsCurrent()
+		{
+			return new Query()
+				.JoinSuccessors(Conference__name.RolePrior)
             ;
+		}
+        public static Query QueryIsCurrent = MakeQueryIsCurrent();
 
         // Predicates
         public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
@@ -809,9 +873,13 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryIsCurrent = new Query()
-            .JoinSuccessors(Conference__conferenceSurvey.RolePrior)
+        public static Query MakeQueryIsCurrent()
+		{
+			return new Query()
+				.JoinSuccessors(Conference__conferenceSurvey.RolePrior)
             ;
+		}
+        public static Query QueryIsCurrent = MakeQueryIsCurrent();
 
         // Predicates
         public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
@@ -931,9 +999,13 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryIsCurrent = new Query()
-            .JoinSuccessors(Conference__mapUrl.RolePrior)
+        public static Query MakeQueryIsCurrent()
+		{
+			return new Query()
+				.JoinSuccessors(Conference__mapUrl.RolePrior)
             ;
+		}
+        public static Query QueryIsCurrent = MakeQueryIsCurrent();
 
         // Predicates
         public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
@@ -1055,12 +1127,20 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryIsCurrent = new Query()
-            .JoinSuccessors(ConferenceSessionSurvey.RolePrior)
+        public static Query MakeQueryIsCurrent()
+		{
+			return new Query()
+				.JoinSuccessors(ConferenceSessionSurvey.RolePrior)
             ;
-        public static Query QueryCompleted = new Query()
-            .JoinSuccessors(SessionEvaluationCompleted.RoleSessionSurvey)
+		}
+        public static Query QueryIsCurrent = MakeQueryIsCurrent();
+        public static Query MakeQueryCompleted()
+		{
+			return new Query()
+				.JoinSuccessors(SessionEvaluationCompleted.RoleSessionSurvey)
             ;
+		}
+        public static Query QueryCompleted = MakeQueryCompleted();
 
         // Predicates
         public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
@@ -1184,22 +1264,34 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryCurrentSchedules = new Query()
-            .JoinSuccessors(Slot.RoleAttendee)
-            .JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.QueryIsCurrent)
-            )
+        public static Query MakeQueryCurrentSchedules()
+		{
+			return new Query()
+				.JoinSuccessors(Slot.RoleAttendee)
+				.JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.MakeQueryIsCurrent())
+				)
             ;
-        public static Query QueryAllSchedules = new Query()
-            .JoinSuccessors(Slot.RoleAttendee)
-            .JoinSuccessors(Schedule.RoleSlot)
+		}
+        public static Query QueryCurrentSchedules = MakeQueryCurrentSchedules();
+        public static Query MakeQueryAllSchedules()
+		{
+			return new Query()
+				.JoinSuccessors(Slot.RoleAttendee)
+				.JoinSuccessors(Schedule.RoleSlot)
             ;
-        public static Query QueryScheduledSessions = new Query()
-            .JoinSuccessors(Slot.RoleAttendee)
-            .JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.QueryIsCurrent)
-            )
-            .JoinPredecessors(Schedule.RoleSessionPlace)
-            .JoinPredecessors(SessionPlace.RoleSession)
+		}
+        public static Query QueryAllSchedules = MakeQueryAllSchedules();
+        public static Query MakeQueryScheduledSessions()
+		{
+			return new Query()
+				.JoinSuccessors(Slot.RoleAttendee)
+				.JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.MakeQueryIsCurrent())
+				)
+				.JoinPredecessors(Schedule.RoleSessionPlace)
+				.JoinPredecessors(SessionPlace.RoleSession)
             ;
+		}
+        public static Query QueryScheduledSessions = MakeQueryScheduledSessions();
 
         // Predicates
 
@@ -1323,14 +1415,22 @@ namespace FacetedWorlds.MyCon.Model
 			true));
 
         // Queries
-        public static Query QueryTimes = new Query()
-            .JoinSuccessors(Time.RoleDay, Condition.WhereIsEmpty(Time.QueryIsDeleted)
-            )
+        public static Query MakeQueryTimes()
+		{
+			return new Query()
+				.JoinSuccessors(Time.RoleDay, Condition.WhereIsEmpty(Time.MakeQueryIsDeleted())
+				)
             ;
-        public static Query QueryHasTimes = new Query()
-            .JoinSuccessors(Time.RoleDay, Condition.WhereIsEmpty(Time.QueryIsDeleted)
-            )
+		}
+        public static Query QueryTimes = MakeQueryTimes();
+        public static Query MakeQueryHasTimes()
+		{
+			return new Query()
+				.JoinSuccessors(Time.RoleDay, Condition.WhereIsEmpty(Time.MakeQueryIsDeleted())
+				)
             ;
+		}
+        public static Query QueryHasTimes = MakeQueryHasTimes();
 
         // Predicates
         public static Condition HasTimes = Condition.WhereIsNotEmpty(QueryHasTimes);
@@ -1442,20 +1542,32 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryAvailableSessions = new Query()
-            .JoinSuccessors(Place.RolePlaceTime)
-            .JoinSuccessors(SessionPlace.RolePlace, Condition.WhereIsEmpty(SessionPlace.QueryIsCurrent)
-                .And().IsEmpty(SessionPlace.QueryIsDeleted)
-            )
+        public static Query MakeQueryAvailableSessions()
+		{
+			return new Query()
+				.JoinSuccessors(Place.RolePlaceTime)
+				.JoinSuccessors(SessionPlace.RolePlace, Condition.WhereIsEmpty(SessionPlace.MakeQueryIsCurrent())
+					.And().IsEmpty(SessionPlace.MakeQueryIsDeleted())
+				)
             ;
-        public static Query QueryDeletes = new Query()
-            .JoinSuccessors(TimeDelete.RoleDeleted, Condition.WhereIsEmpty(TimeDelete.QueryIsUndeleted)
-            )
+		}
+        public static Query QueryAvailableSessions = MakeQueryAvailableSessions();
+        public static Query MakeQueryDeletes()
+		{
+			return new Query()
+				.JoinSuccessors(TimeDelete.RoleDeleted, Condition.WhereIsEmpty(TimeDelete.MakeQueryIsUndeleted())
+				)
             ;
-        public static Query QueryIsDeleted = new Query()
-            .JoinSuccessors(TimeDelete.RoleDeleted, Condition.WhereIsEmpty(TimeDelete.QueryIsUndeleted)
-            )
+		}
+        public static Query QueryDeletes = MakeQueryDeletes();
+        public static Query MakeQueryIsDeleted()
+		{
+			return new Query()
+				.JoinSuccessors(TimeDelete.RoleDeleted, Condition.WhereIsEmpty(TimeDelete.MakeQueryIsUndeleted())
+				)
             ;
+		}
+        public static Query QueryIsDeleted = MakeQueryIsDeleted();
 
         // Predicates
         public static Condition IsDeleted = Condition.WhereIsNotEmpty(QueryIsDeleted);
@@ -1573,9 +1685,13 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryIsUndeleted = new Query()
-            .JoinSuccessors(TimeUndelete.RoleUndeleted)
+        public static Query MakeQueryIsUndeleted()
+		{
+			return new Query()
+				.JoinSuccessors(TimeUndelete.RoleUndeleted)
             ;
+		}
+        public static Query QueryIsUndeleted = MakeQueryIsUndeleted();
 
         // Predicates
         public static Condition IsUndeleted = Condition.WhereIsNotEmpty(QueryIsUndeleted);
@@ -1778,10 +1894,14 @@ namespace FacetedWorlds.MyCon.Model
 			true));
 
         // Queries
-        public static Query QueryCurrentSchedules = new Query()
-            .JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.QueryIsCurrent)
-            )
+        public static Query MakeQueryCurrentSchedules()
+		{
+			return new Query()
+				.JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.MakeQueryIsCurrent())
+				)
             ;
+		}
+        public static Query QueryCurrentSchedules = MakeQueryCurrentSchedules();
 
         // Predicates
 
@@ -1890,13 +2010,17 @@ namespace FacetedWorlds.MyCon.Model
 			_correspondenceFactType,
 			"conference",
 			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
-			false));
+			true));
 
         // Queries
-        public static Query QueryRoomNumber = new Query()
-            .JoinSuccessors(Room__roomNumber.RoleRoom, Condition.WhereIsEmpty(Room__roomNumber.QueryIsCurrent)
-            )
+        public static Query MakeQueryRoomNumber()
+		{
+			return new Query()
+				.JoinSuccessors(Room__roomNumber.RoleRoom, Condition.WhereIsEmpty(Room__roomNumber.MakeQueryIsCurrent())
+				)
             ;
+		}
+        public static Query QueryRoomNumber = MakeQueryRoomNumber();
 
         // Predicates
 
@@ -2018,9 +2142,13 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryIsCurrent = new Query()
-            .JoinSuccessors(Room__roomNumber.RolePrior)
+        public static Query MakeQueryIsCurrent()
+		{
+			return new Query()
+				.JoinSuccessors(Room__roomNumber.RolePrior)
             ;
+		}
+        public static Query QueryIsCurrent = MakeQueryIsCurrent();
 
         // Predicates
         public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
@@ -2134,16 +2262,24 @@ namespace FacetedWorlds.MyCon.Model
 			true));
 
         // Queries
-        public static Query QueryCurrentSessionPlaces = new Query()
-            .JoinSuccessors(Session.RoleTrack, Condition.WhereIsEmpty(Session.QueryIsDeleted)
-            )
-            .JoinSuccessors(SessionPlace.RoleSession, Condition.WhereIsEmpty(SessionPlace.QueryIsCurrent)
-            )
+        public static Query MakeQueryCurrentSessionPlaces()
+		{
+			return new Query()
+				.JoinSuccessors(Session.RoleTrack, Condition.WhereIsEmpty(Session.MakeQueryIsDeleted())
+				)
+				.JoinSuccessors(SessionPlace.RoleSession, Condition.WhereIsEmpty(SessionPlace.MakeQueryIsCurrent())
+				)
             ;
-        public static Query QueryHasSessions = new Query()
-            .JoinSuccessors(Session.RoleTrack, Condition.WhereIsEmpty(Session.QueryIsDeleted)
-            )
+		}
+        public static Query QueryCurrentSessionPlaces = MakeQueryCurrentSessionPlaces();
+        public static Query MakeQueryHasSessions()
+		{
+			return new Query()
+				.JoinSuccessors(Session.RoleTrack, Condition.WhereIsEmpty(Session.MakeQueryIsDeleted())
+				)
             ;
+		}
+        public static Query QueryHasSessions = MakeQueryHasSessions();
 
         // Predicates
         public static Condition HasSessions = Condition.WhereIsNotEmpty(QueryHasSessions);
@@ -2255,24 +2391,40 @@ namespace FacetedWorlds.MyCon.Model
 			true));
 
         // Queries
-        public static Query QueryImageUrl = new Query()
-            .JoinSuccessors(Speaker__imageUrl.RoleSpeaker, Condition.WhereIsEmpty(Speaker__imageUrl.QueryIsCurrent)
-            )
+        public static Query MakeQueryImageUrl()
+		{
+			return new Query()
+				.JoinSuccessors(Speaker__imageUrl.RoleSpeaker, Condition.WhereIsEmpty(Speaker__imageUrl.MakeQueryIsCurrent())
+				)
             ;
-        public static Query QueryContact = new Query()
-            .JoinSuccessors(Speaker__contact.RoleSpeaker, Condition.WhereIsEmpty(Speaker__contact.QueryIsCurrent)
-            )
+		}
+        public static Query QueryImageUrl = MakeQueryImageUrl();
+        public static Query MakeQueryContact()
+		{
+			return new Query()
+				.JoinSuccessors(Speaker__contact.RoleSpeaker, Condition.WhereIsEmpty(Speaker__contact.MakeQueryIsCurrent())
+				)
             ;
-        public static Query QueryBio = new Query()
-            .JoinSuccessors(Speaker__bio.RoleSpeaker, Condition.WhereIsEmpty(Speaker__bio.QueryIsCurrent)
-            )
+		}
+        public static Query QueryContact = MakeQueryContact();
+        public static Query MakeQueryBio()
+		{
+			return new Query()
+				.JoinSuccessors(Speaker__bio.RoleSpeaker, Condition.WhereIsEmpty(Speaker__bio.MakeQueryIsCurrent())
+				)
             ;
-        public static Query QueryAvailableSessions = new Query()
-            .JoinSuccessors(Session.RoleSpeaker, Condition.WhereIsEmpty(Session.QueryIsDeleted)
-            )
-            .JoinSuccessors(SessionPlace.RoleSession, Condition.WhereIsEmpty(SessionPlace.QueryIsCurrent)
-            )
+		}
+        public static Query QueryBio = MakeQueryBio();
+        public static Query MakeQueryAvailableSessions()
+		{
+			return new Query()
+				.JoinSuccessors(Session.RoleSpeaker, Condition.WhereIsEmpty(Session.MakeQueryIsDeleted())
+				)
+				.JoinSuccessors(SessionPlace.RoleSession, Condition.WhereIsEmpty(SessionPlace.MakeQueryIsCurrent())
+				)
             ;
+		}
+        public static Query QueryAvailableSessions = MakeQueryAvailableSessions();
 
         // Predicates
 
@@ -2427,9 +2579,13 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryIsCurrent = new Query()
-            .JoinSuccessors(Speaker__imageUrl.RolePrior)
+        public static Query MakeQueryIsCurrent()
+		{
+			return new Query()
+				.JoinSuccessors(Speaker__imageUrl.RolePrior)
             ;
+		}
+        public static Query QueryIsCurrent = MakeQueryIsCurrent();
 
         // Predicates
         public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
@@ -2548,9 +2704,13 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryIsCurrent = new Query()
-            .JoinSuccessors(Speaker__contact.RolePrior)
+        public static Query MakeQueryIsCurrent()
+		{
+			return new Query()
+				.JoinSuccessors(Speaker__contact.RolePrior)
             ;
+		}
+        public static Query QueryIsCurrent = MakeQueryIsCurrent();
 
         // Predicates
         public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
@@ -2672,9 +2832,13 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryIsCurrent = new Query()
-            .JoinSuccessors(Speaker__bio.RolePrior)
+        public static Query MakeQueryIsCurrent()
+		{
+			return new Query()
+				.JoinSuccessors(Speaker__bio.RolePrior)
             ;
+		}
+        public static Query QueryIsCurrent = MakeQueryIsCurrent();
 
         // Predicates
         public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
@@ -2905,10 +3069,14 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryCurrentSessionPlaces = new Query()
-            .JoinSuccessors(SessionPlace.RolePlace, Condition.WhereIsEmpty(SessionPlace.QueryIsCurrent)
-            )
+        public static Query MakeQueryCurrentSessionPlaces()
+		{
+			return new Query()
+				.JoinSuccessors(SessionPlace.RolePlace, Condition.WhereIsEmpty(SessionPlace.MakeQueryIsCurrent())
+				)
             ;
+		}
+        public static Query QueryCurrentSessionPlaces = MakeQueryCurrentSessionPlaces();
 
         // Predicates
 
@@ -3121,36 +3289,68 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryName = new Query()
-            .JoinSuccessors(Session__name.RoleSession, Condition.WhereIsEmpty(Session__name.QueryIsCurrent)
-            )
+        public static Query MakeQueryName()
+		{
+			return new Query()
+				.JoinSuccessors(Session__name.RoleSession, Condition.WhereIsEmpty(Session__name.MakeQueryIsCurrent())
+				)
             ;
-        public static Query QueryDescription = new Query()
-            .JoinSuccessors(Session__description.RoleSession, Condition.WhereIsEmpty(Session__description.QueryIsCurrent)
-            )
+		}
+        public static Query QueryName = MakeQueryName();
+        public static Query MakeQueryDescription()
+		{
+			return new Query()
+				.JoinSuccessors(Session__description.RoleSession, Condition.WhereIsEmpty(Session__description.MakeQueryIsCurrent())
+				)
             ;
-        public static Query QueryLevel = new Query()
-            .JoinSuccessors(Session__level.RoleSession, Condition.WhereIsEmpty(Session__level.QueryIsCurrent)
-            )
+		}
+        public static Query QueryDescription = MakeQueryDescription();
+        public static Query MakeQueryLevel()
+		{
+			return new Query()
+				.JoinSuccessors(Session__level.RoleSession, Condition.WhereIsEmpty(Session__level.MakeQueryIsCurrent())
+				)
             ;
-        public static Query QueryCurrentSessionPlaces = new Query()
-            .JoinSuccessors(SessionPlace.RoleSession, Condition.WhereIsEmpty(SessionPlace.QueryIsCurrent)
-            )
+		}
+        public static Query QueryLevel = MakeQueryLevel();
+        public static Query MakeQueryCurrentSessionPlaces()
+		{
+			return new Query()
+				.JoinSuccessors(SessionPlace.RoleSession, Condition.WhereIsEmpty(SessionPlace.MakeQueryIsCurrent())
+				)
             ;
-        public static Query QueryNotices = new Query()
-            .JoinSuccessors(SessionNotice.RoleSession)
+		}
+        public static Query QueryCurrentSessionPlaces = MakeQueryCurrentSessionPlaces();
+        public static Query MakeQueryNotices()
+		{
+			return new Query()
+				.JoinSuccessors(SessionNotice.RoleSession)
             ;
-        public static Query QueryIsDeleted = new Query()
-            .JoinSuccessors(SessionDelete.RoleDeleted, Condition.WhereIsEmpty(SessionDelete.QueryIsUndeleted)
-            )
+		}
+        public static Query QueryNotices = MakeQueryNotices();
+        public static Query MakeQueryIsDeleted()
+		{
+			return new Query()
+				.JoinSuccessors(SessionDelete.RoleDeleted, Condition.WhereIsEmpty(SessionDelete.MakeQueryIsUndeleted())
+				)
             ;
-        public static Query QuerySessionDeletes = new Query()
-            .JoinSuccessors(SessionDelete.RoleDeleted, Condition.WhereIsEmpty(SessionDelete.QueryIsUndeleted)
-            )
+		}
+        public static Query QueryIsDeleted = MakeQueryIsDeleted();
+        public static Query MakeQuerySessionDeletes()
+		{
+			return new Query()
+				.JoinSuccessors(SessionDelete.RoleDeleted, Condition.WhereIsEmpty(SessionDelete.MakeQueryIsUndeleted())
+				)
             ;
-        public static Query QueryIsScheduled = new Query()
-            .JoinSuccessors(SessionPlace.RoleSession)
+		}
+        public static Query QuerySessionDeletes = MakeQuerySessionDeletes();
+        public static Query MakeQueryIsScheduled()
+		{
+			return new Query()
+				.JoinSuccessors(SessionPlace.RoleSession)
             ;
+		}
+        public static Query QueryIsScheduled = MakeQueryIsScheduled();
 
         // Predicates
         public static Condition IsDeleted = Condition.WhereIsNotEmpty(QueryIsDeleted);
@@ -3334,9 +3534,13 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryIsCurrent = new Query()
-            .JoinSuccessors(Session__name.RolePrior)
+        public static Query MakeQueryIsCurrent()
+		{
+			return new Query()
+				.JoinSuccessors(Session__name.RolePrior)
             ;
+		}
+        public static Query QueryIsCurrent = MakeQueryIsCurrent();
 
         // Predicates
         public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
@@ -3458,9 +3662,13 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryIsCurrent = new Query()
-            .JoinSuccessors(Session__description.RolePrior)
+        public static Query MakeQueryIsCurrent()
+		{
+			return new Query()
+				.JoinSuccessors(Session__description.RolePrior)
             ;
+		}
+        public static Query QueryIsCurrent = MakeQueryIsCurrent();
 
         // Predicates
         public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
@@ -3583,9 +3791,13 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryIsCurrent = new Query()
-            .JoinSuccessors(Session__level.RolePrior)
+        public static Query MakeQueryIsCurrent()
+		{
+			return new Query()
+				.JoinSuccessors(Session__level.RolePrior)
             ;
+		}
+        public static Query QueryIsCurrent = MakeQueryIsCurrent();
 
         // Predicates
         public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
@@ -3700,9 +3912,13 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryIsUndeleted = new Query()
-            .JoinSuccessors(SessionUndelete.RoleUndeleted)
+        public static Query MakeQueryIsUndeleted()
+		{
+			return new Query()
+				.JoinSuccessors(SessionUndelete.RoleUndeleted)
             ;
+		}
+        public static Query QueryIsUndeleted = MakeQueryIsUndeleted();
 
         // Predicates
         public static Condition IsUndeleted = Condition.WhereIsNotEmpty(QueryIsUndeleted);
@@ -4023,14 +4239,22 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryIsCurrent = new Query()
-            .JoinSuccessors(SessionPlace.RolePrior)
+        public static Query MakeQueryIsCurrent()
+		{
+			return new Query()
+				.JoinSuccessors(SessionPlace.RolePrior)
             ;
-        public static Query QueryIsDeleted = new Query()
-            .JoinPredecessors(SessionPlace.RoleSession)
-            .JoinSuccessors(SessionDelete.RoleDeleted, Condition.WhereIsEmpty(SessionDelete.QueryIsUndeleted)
-            )
+		}
+        public static Query QueryIsCurrent = MakeQueryIsCurrent();
+        public static Query MakeQueryIsDeleted()
+		{
+			return new Query()
+				.JoinPredecessors(SessionPlace.RoleSession)
+				.JoinSuccessors(SessionDelete.RoleDeleted, Condition.WhereIsEmpty(SessionDelete.MakeQueryIsUndeleted())
+				)
             ;
+		}
+        public static Query QueryIsDeleted = MakeQueryIsDeleted();
 
         // Predicates
         public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
@@ -4151,13 +4375,21 @@ namespace FacetedWorlds.MyCon.Model
 			true));
 
         // Queries
-        public static Query QueryIsCurrent = new Query()
-            .JoinSuccessors(ScheduleRemove.RoleSchedule)
+        public static Query MakeQueryIsCurrent()
+		{
+			return new Query()
+				.JoinSuccessors(ScheduleRemove.RoleSchedule)
             ;
-        public static Query QueryCompletedEvaluations = new Query()
-            .JoinSuccessors(SessionEvaluation.RoleSchedule, Condition.WhereIsNotEmpty(SessionEvaluation.QueryIsCompleted)
-            )
+		}
+        public static Query QueryIsCurrent = MakeQueryIsCurrent();
+        public static Query MakeQueryCompletedEvaluations()
+		{
+			return new Query()
+				.JoinSuccessors(SessionEvaluation.RoleSchedule, Condition.WhereIsNotEmpty(SessionEvaluation.MakeQueryIsCompleted())
+				)
             ;
+		}
+        public static Query QueryCompletedEvaluations = MakeQueryCompletedEvaluations();
 
         // Predicates
         public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
@@ -4664,19 +4896,31 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryRatingAnswers = new Query()
-            .JoinSuccessors(SessionEvaluationRating.RoleEvaluation)
-            .JoinSuccessors(SessionEvaluationRatingAnswer.RoleRating, Condition.WhereIsEmpty(SessionEvaluationRatingAnswer.QueryIsCurrent)
-            )
+        public static Query MakeQueryRatingAnswers()
+		{
+			return new Query()
+				.JoinSuccessors(SessionEvaluationRating.RoleEvaluation)
+				.JoinSuccessors(SessionEvaluationRatingAnswer.RoleRating, Condition.WhereIsEmpty(SessionEvaluationRatingAnswer.MakeQueryIsCurrent())
+				)
             ;
-        public static Query QueryEssayAnswers = new Query()
-            .JoinSuccessors(SessionEvaluationEssay.RoleEvaluation)
-            .JoinSuccessors(SessionEvaluationEssayAnswer.RoleEssay, Condition.WhereIsEmpty(SessionEvaluationEssayAnswer.QueryIsCurrent)
-            )
+		}
+        public static Query QueryRatingAnswers = MakeQueryRatingAnswers();
+        public static Query MakeQueryEssayAnswers()
+		{
+			return new Query()
+				.JoinSuccessors(SessionEvaluationEssay.RoleEvaluation)
+				.JoinSuccessors(SessionEvaluationEssayAnswer.RoleEssay, Condition.WhereIsEmpty(SessionEvaluationEssayAnswer.MakeQueryIsCurrent())
+				)
             ;
-        public static Query QueryIsCompleted = new Query()
-            .JoinSuccessors(SessionEvaluationCompleted.RoleSessionEvaluation)
+		}
+        public static Query QueryEssayAnswers = MakeQueryEssayAnswers();
+        public static Query MakeQueryIsCompleted()
+		{
+			return new Query()
+				.JoinSuccessors(SessionEvaluationCompleted.RoleSessionEvaluation)
             ;
+		}
+        public static Query QueryIsCompleted = MakeQueryIsCompleted();
 
         // Predicates
         public static Condition IsCompleted = Condition.WhereIsNotEmpty(QueryIsCompleted);
@@ -4932,10 +5176,14 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryCurrentAnswers = new Query()
-            .JoinSuccessors(SessionEvaluationRatingAnswer.RoleRating, Condition.WhereIsEmpty(SessionEvaluationRatingAnswer.QueryIsCurrent)
-            )
+        public static Query MakeQueryCurrentAnswers()
+		{
+			return new Query()
+				.JoinSuccessors(SessionEvaluationRatingAnswer.RoleRating, Condition.WhereIsEmpty(SessionEvaluationRatingAnswer.MakeQueryIsCurrent())
+				)
             ;
+		}
+        public static Query QueryCurrentAnswers = MakeQueryCurrentAnswers();
 
         // Predicates
 
@@ -5052,9 +5300,13 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryIsCurrent = new Query()
-            .JoinSuccessors(SessionEvaluationRatingAnswer.RolePrior)
+        public static Query MakeQueryIsCurrent()
+		{
+			return new Query()
+				.JoinSuccessors(SessionEvaluationRatingAnswer.RolePrior)
             ;
+		}
+        public static Query QueryIsCurrent = MakeQueryIsCurrent();
 
         // Predicates
         public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
@@ -5171,10 +5423,14 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryCurrentAnswers = new Query()
-            .JoinSuccessors(SessionEvaluationEssayAnswer.RoleEssay, Condition.WhereIsEmpty(SessionEvaluationEssayAnswer.QueryIsCurrent)
-            )
+        public static Query MakeQueryCurrentAnswers()
+		{
+			return new Query()
+				.JoinSuccessors(SessionEvaluationEssayAnswer.RoleEssay, Condition.WhereIsEmpty(SessionEvaluationEssayAnswer.MakeQueryIsCurrent())
+				)
             ;
+		}
+        public static Query QueryCurrentAnswers = MakeQueryCurrentAnswers();
 
         // Predicates
 
@@ -5291,9 +5547,13 @@ namespace FacetedWorlds.MyCon.Model
 			false));
 
         // Queries
-        public static Query QueryIsCurrent = new Query()
-            .JoinSuccessors(SessionEvaluationEssayAnswer.RolePrior)
+        public static Query MakeQueryIsCurrent()
+		{
+			return new Query()
+				.JoinSuccessors(SessionEvaluationEssayAnswer.RolePrior)
             ;
+		}
+        public static Query QueryIsCurrent = MakeQueryIsCurrent();
 
         // Predicates
         public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);

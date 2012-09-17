@@ -1,7 +1,7 @@
 ﻿<#@ template language="C#" hostspecific="True" debug="True" #>
 <#@ assembly name="System.Core"#>
-<#@ assembly name="$(SolutionDir)packages\Correspondence.Model.1.3.2.2\tools\UpdateControls.Correspondence.Factual.dll"#>
-<#@ assembly name="$(SolutionDir)packages\Correspondence.Model.1.3.2.2\tools\QEDCode.LLOne.dll"#>
+<#@ assembly name="$(SolutionDir)packages\Correspondence.Model.1.4.0.8\tools\UpdateControls.Correspondence.Factual.dll"#>
+<#@ assembly name="$(SolutionDir)packages\Correspondence.Model.1.4.0.8\tools\QEDCode.LLOne.dll"#>
 <#@ import namespace="System.IO"#>
 <#@ import namespace="System.Collections.Generic"#>
 <#@ import namespace="System.Linq"#>
@@ -137,20 +137,24 @@ namespace <#=targetNamespace.Name#>
 
         // Queries
 <# foreach (Query query in c.Queries) { #>
-        public static Query <#=QueryName(query.Name)#> = new Query()
+        public static Query Make<#=QueryName(query.Name)#>()
+		{
+			return new Query()
 <# foreach (Join join in query.Joins) { #>
 <#   if (join.Conditions.Any()) { #>
 <#      Condition first = join.Conditions.First(); #>
-            .Join<#=join.Direction#>(<#=join.Type#>.<#=RoleName(join.Name)#>, Condition.WhereIs<#=first.Modifier == ConditionModifier.Positive ? "Not" : ""#>Empty(<#=first.Type#>.<#=QueryName(first.Name)#>)
+				.Join<#=join.Direction#>(<#=join.Type#>.<#=RoleName(join.Name)#>, Condition.WhereIs<#=first.Modifier == ConditionModifier.Positive ? "Not" : ""#>Empty(<#=first.Type#>.Make<#=QueryName(first.Name)#>())
 <#        foreach (Condition condition in join.Conditions.Skip(1)) { #>
-                .And().Is<#=condition.Modifier == ConditionModifier.Positive ? "Not" : ""#>Empty(<#=condition.Type#>.<#=QueryName(condition.Name)#>)
+					.And().Is<#=condition.Modifier == ConditionModifier.Positive ? "Not" : ""#>Empty(<#=condition.Type#>.Make<#=QueryName(condition.Name)#>())
 <#        } #>
-            )
+				)
 <#   } else { #>
-            .Join<#=join.Direction#>(<#=join.Type#>.<#=RoleName(join.Name)#>)
+				.Join<#=join.Direction#>(<#=join.Type#>.<#=RoleName(join.Name)#>)
 <#   }#>
 <#}#>
             ;
+		}
+        public static Query <#=QueryName(query.Name)#> = Make<#=QueryName(query.Name)#>();
 <#}#>
 
         // Predicates
@@ -417,6 +421,8 @@ private static string NativeTypeName(NativeType nativeType)
         return "DateTime";
     if (nativeType == NativeType.Time)
         return "DateTime";
+    if (nativeType == NativeType.Byte)
+        return "byte";
     return "UnknownType";
 }
 

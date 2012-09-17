@@ -1,24 +1,24 @@
 namespace FacetedWorlds.MyCon.Model;
 
-fact Identity {
+fact Individual {
 key:
     string anonymousId;
 
 query:
 	MessageBoard *messageBoards {
-		Share s : s.identity = this
+		Share s : s.individual = this
 		MessageBoard m : m = s.messageBoard
 	}
 
     EnableToastNotification* isToastNotificationEnabled {
-        EnableToastNotification e : e.identity = this
+        EnableToastNotification e : e.individual = this
             where not e.isDisabled
     }
 }
 
 fact Share {
 key:
-	publish Identity identity;
+	publish Individual individual;
 	MessageBoard messageBoard;
 }
 
@@ -47,7 +47,7 @@ key:
 fact EnableToastNotification {
 key:
     unique;
-    Identity identity;
+    Individual individual;
 
 query:
     bool isDisabled {

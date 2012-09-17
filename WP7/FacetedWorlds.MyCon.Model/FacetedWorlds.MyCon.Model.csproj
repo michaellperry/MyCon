@@ -48,19 +48,19 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Net" />
-    <Reference Include="UpdateControls, Version=2.2.1.1, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls, Version=2.2.1.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UpdateControls.2.2.1.1\lib\sl3-wp\UpdateControls.dll</HintPath>
+      <HintPath>..\..\packages\UpdateControls.2.2.1.2\lib\sl4-windowsphone71\UpdateControls.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence, Version=1.3.2.2, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.1.3.2.2\lib\SL4-wp\UpdateControls.Correspondence.dll</HintPath>
+    <Reference Include="UpdateControls.Correspondence">
+      <HintPath>..\..\packages\Correspondence.1.4.0.8\lib\SL4-wp\UpdateControls.Correspondence.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attendee.cs" />
     <Compile Include="Conference.cs" />
     <Compile Include="Identity.cs" />
+    <Compile Include="Individual.cs" />
     <Compile Include="MessageBoard.cs" />
     <Compile Include="Model.generated.cs">
       <AutoGen>True</AutoGen>
