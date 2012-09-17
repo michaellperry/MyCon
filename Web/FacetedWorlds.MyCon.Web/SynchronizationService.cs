@@ -1,13 +1,12 @@
 using System;
 using System.Configuration;
+using System.IO;
 using System.Timers;
+using System.Web.Hosting;
+using FacetedWorlds.MyCon.Model;
 using UpdateControls.Correspondence;
 using UpdateControls.Correspondence.BinaryHTTPClient;
-using UpdateControls.Correspondence.SQL;
-using UpdateControls.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using FacetedWorlds.MyCon.Model;
+using UpdateControls.Correspondence.FileStream;
 
 namespace FacetedWorlds.MyCon.Web
 {
@@ -19,11 +18,8 @@ namespace FacetedWorlds.MyCon.Web
         public void Initialize()
         {
             HTTPConfigurationProvider configurationProvider = new HTTPConfigurationProvider();
-            string correspondenceConnectionString;
-            correspondenceConnectionString = ConfigurationManager.AppSettings["SQLSERVER_CONNECTION_STRING"];
-            if (correspondenceConnectionString == null)
-                correspondenceConnectionString = ConfigurationManager.ConnectionStrings["Correspondence"].ConnectionString;
-            _community = new Community(new SQLStorageStrategy(correspondenceConnectionString).UpgradeDatabase())
+            string path = Path.Combine(HostingEnvironment.MapPath("~/App_Data"), "Correspondence");
+            _community = new Community(FileStreamStorageStrategy.Load(path))
                 .AddAsynchronousCommunicationStrategy(new BinaryHTTPAsynchronousCommunicationStrategy(configurationProvider))
                 .Register<CorrespondenceModel>()
                 .Subscribe(() => _conference)
