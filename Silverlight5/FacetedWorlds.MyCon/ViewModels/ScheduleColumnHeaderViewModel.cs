@@ -18,7 +18,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public DateTime Start
         {
-            get { return _time.Start; }
+            get { return _time.Start.ToLocalTime(); }
         }
 
         public ICommand Delete

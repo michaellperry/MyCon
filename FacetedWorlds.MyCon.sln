@@ -32,9 +32,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacetedWorlds.MyCon.Web", "Web\FacetedWorlds.MyCon.Web\FacetedWorlds.MyCon.Web.csproj", "{58DEEB22-8E6B-4113-976D-EBE78C054519}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{B9BA4761-2F68-4776-9707-205A2E0499AF}"
-	ProjectSection(SolutionItems) = preProject
-		CommonSettings.cs = CommonSettings.cs
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Silverlight5", "Silverlight5", "{BFFA02B7-2B72-412A-81A0-C3589003D581}"
 EndProject
