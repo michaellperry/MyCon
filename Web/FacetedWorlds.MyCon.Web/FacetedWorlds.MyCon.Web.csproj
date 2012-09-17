@@ -94,6 +94,7 @@
     <Compile Include="Controllers\SpeakersController.cs" />
     <Compile Include="Controllers\SponsorsController.cs" />
     <Compile Include="Controllers\TracksController.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

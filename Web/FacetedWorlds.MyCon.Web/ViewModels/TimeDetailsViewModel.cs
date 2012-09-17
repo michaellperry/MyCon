@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using FacetedWorlds.MyCon.Model;
+using FacetedWorlds.MyCon.Web.Extensions;
 
 namespace FacetedWorlds.MyCon.Web.ViewModels
 {
@@ -17,7 +18,7 @@ namespace FacetedWorlds.MyCon.Web.ViewModels
 
         public string Time
         {
-            get { return string.Format("{0:dddd MMMM d h:mm}", _time.Start.ToLocalTime()); }
+            get { return string.Format("{0:dddd MMMM d h:mm}", _time.Start.ConvertTo("Central Standard Time")); }
         }
 
         public IEnumerable<SessionViewModel> Sessions

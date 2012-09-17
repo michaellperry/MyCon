@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using FacetedWorlds.MyCon.Web.ViewModels;
 using System.Text.RegularExpressions;
 using FacetedWorlds.MyCon.Model;
+using FacetedWorlds.MyCon.Web.Extensions;
 
 namespace FacetedWorlds.MyCon.Web.Controllers
 {
@@ -35,7 +36,7 @@ namespace FacetedWorlds.MyCon.Web.Controllers
                 int.Parse(match.Groups["day"].Value),
                 int.Parse(match.Groups["hour"].Value),
                 int.Parse(match.Groups["minute"].Value),
-                0).ToUniversalTime();
+                0).ConvertFrom("Central Standard Time");
             Time time = MvcApplication.SynchronizationService.Conference.FindTime(start);
             if (time == null)
                 return HttpNotFound();

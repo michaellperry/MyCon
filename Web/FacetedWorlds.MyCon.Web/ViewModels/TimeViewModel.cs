@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FacetedWorlds.MyCon.Model;
+using FacetedWorlds.MyCon.Web.Extensions;
 
 namespace FacetedWorlds.MyCon.Web.ViewModels
 {
@@ -16,17 +17,17 @@ namespace FacetedWorlds.MyCon.Web.ViewModels
 
         public string ID
         {
-            get { return string.Format("{0:yyyyMMddHHmm}", _time.Start.ToLocalTime()); }
+            get { return string.Format("{0:yyyyMMddHHmm}", _time.Start.ConvertTo("Central Standard Time")); }
         }
 
         public string Day
         {
-            get { return string.Format("{0:ddd}", _time.Start.ToLocalTime()); }
+            get { return string.Format("{0:ddd}", _time.Start.ConvertTo("Central Standard Time")); }
         }
 
         public string Time
         {
-            get { return string.Format("{0:h:mm}", _time.Start.ToLocalTime()); }
+            get { return string.Format("{0:h:mm}", _time.Start.ConvertTo("Central Standard Time")); }
         }
 
         public SessionViewModel CommonSession

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FacetedWorlds.MyCon.Model;
+using FacetedWorlds.MyCon.Web.Extensions;
 
 namespace FacetedWorlds.MyCon.Web.ViewModels
 {
@@ -22,12 +23,12 @@ namespace FacetedWorlds.MyCon.Web.ViewModels
 
         public string Day
         {
-            get { return string.Format("{0:ddd}", _sessionPlace.Place.PlaceTime.Start.ToLocalTime()); }
+            get { return string.Format("{0:ddd}", _sessionPlace.Place.PlaceTime.Start.ConvertTo("Central Standard Time")); }
         }
 
         public string Time
         {
-            get { return string.Format("{0:h:mm}", _sessionPlace.Place.PlaceTime.Start.ToLocalTime()); }
+            get { return string.Format("{0:h:mm}", _sessionPlace.Place.PlaceTime.Start.ConvertTo("Central Standard Time")); }
         }
 
         public string Track
