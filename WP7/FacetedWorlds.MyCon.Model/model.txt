@@ -3,13 +3,13 @@ digraph "FacetedWorlds.MyCon.Model"
     rankdir=BT
     EnableToastNotification -> Identity
     DisableToastNotification -> EnableToastNotification [label="  *"]
-    ConferenceName -> Conference [color="red"]
-    ConferenceName -> ConferenceName [label="  *"]
-    ConferenceConferenceSurvey -> Conference [color="red"]
-    ConferenceConferenceSurvey -> ConferenceConferenceSurvey [label="  *"]
-    ConferenceConferenceSurvey -> Survey
-    ConferenceMapUrl -> Conference [color="red"]
-    ConferenceMapUrl -> ConferenceMapUrl [label="  *"]
+    Conference__name -> Conference [color="red"]
+    Conference__name -> Conference__name [label="  *"]
+    Conference__conferenceSurvey -> Conference [color="red"]
+    Conference__conferenceSurvey -> Conference__conferenceSurvey [label="  *"]
+    Conference__conferenceSurvey -> Survey
+    Conference__mapUrl -> Conference [color="red"]
+    Conference__mapUrl -> Conference__mapUrl [label="  *"]
     ConferenceSessionSurvey -> Conference [color="red"]
     ConferenceSessionSurvey -> Survey
     ConferenceSessionSurvey -> ConferenceSessionSurvey [label="  *"]
@@ -21,30 +21,32 @@ digraph "FacetedWorlds.MyCon.Model"
     TimeUndelete -> TimeDelete
     Slot -> Attendee
     Slot -> Time [color="red"]
-    Room -> Conference
-    Track -> Conference
+    Room -> Conference [color="red"]
+    Room__roomNumber -> Room
+    Room__roomNumber -> Room__roomNumber [label="  *"]
+    Track -> Conference [color="red"]
     Speaker -> Conference [color="red"]
-    SpeakerImageUrl -> Speaker
-    SpeakerImageUrl -> SpeakerImageUrl [label="  *"]
-    SpeakerContact -> Speaker
-    SpeakerContact -> SpeakerContact [label="  *"]
-    SpeakerBio -> Speaker
-    SpeakerBio -> SpeakerBio [label="  *"]
-    SpeakerBio -> DocumentSegment [label="  *"]
+    Speaker__imageUrl -> Speaker
+    Speaker__imageUrl -> Speaker__imageUrl [label="  *"]
+    Speaker__contact -> Speaker
+    Speaker__contact -> Speaker__contact [label="  *"]
+    Speaker__bio -> Speaker
+    Speaker__bio -> Speaker__bio [label="  *"]
+    Speaker__bio -> DocumentSegment [label="  *"]
     ConferenceNotice -> Conference [color="red"]
     Place -> Time
     Place -> Room
     Session -> Conference [color="red"]
     Session -> Speaker
     Session -> Track [label="  ?"]
-    SessionName -> Session
-    SessionName -> SessionName [label="  *"]
-    SessionDescription -> Session
-    SessionDescription -> SessionDescription [label="  *"]
-    SessionDescription -> DocumentSegment [label="  *"]
-    SessionLevel -> Session
-    SessionLevel -> SessionLevel [label="  *"]
-    SessionLevel -> Level
+    Session__name -> Session
+    Session__name -> Session__name [label="  *"]
+    Session__description -> Session
+    Session__description -> Session__description [label="  *"]
+    Session__description -> DocumentSegment [label="  *"]
+    Session__level -> Session
+    Session__level -> Session__level [label="  *"]
+    Session__level -> Level
     SessionDelete -> Session
     SessionUndelete -> SessionDelete
     SessionNotice -> Session [color="red"]
