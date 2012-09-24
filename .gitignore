@@ -1,5 +1,5 @@
 packages/
-App_Data/Correspondence/
+Web/FacetedWorlds.MyCon.Web/App_Data/Correspondence/*.bin
 
 #ignore thumbnails created by windows
 Thumbs.db
