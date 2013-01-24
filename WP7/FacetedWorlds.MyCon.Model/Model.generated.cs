@@ -183,7 +183,7 @@ namespace FacetedWorlds.MyCon.Model
         }
 
         // Query result access
-        public IEnumerable<EnableToastNotification> IsToastNotificationEnabled
+        public Result<EnableToastNotification> IsToastNotificationEnabled
         {
             get { return _isToastNotificationEnabled; }
         }
@@ -610,77 +610,80 @@ namespace FacetedWorlds.MyCon.Model
         }
 
         // Query result access
-        public IEnumerable<Day> Days
+        public Result<Day> Days
         {
             get { return _days; }
         }
-        public IEnumerable<Track> AllTracks
+        public Result<Track> AllTracks
         {
             get { return _allTracks; }
         }
-        public IEnumerable<Track> Tracks
+        public Result<Track> Tracks
         {
             get { return _tracks; }
         }
-        public IEnumerable<Session> Sessions
+        public Result<Session> Sessions
         {
             get { return _sessions; }
         }
-        public IEnumerable<Session> UnscheduledSessions
+        public Result<Session> UnscheduledSessions
         {
             get { return _unscheduledSessions; }
         }
-        public IEnumerable<Speaker> Speakers
+        public Result<Speaker> Speakers
         {
             get { return _speakers; }
         }
-        public IEnumerable<ConferenceNotice> Notices
+        public Result<ConferenceNotice> Notices
         {
             get { return _notices; }
         }
-        public IEnumerable<ConferenceSessionSurvey> CurrentSessionSurveys
+        public Result<ConferenceSessionSurvey> CurrentSessionSurveys
         {
             get { return _currentSessionSurveys; }
         }
-        public IEnumerable<ConferenceSessionSurvey> AllSessionSurveys
+        public Result<ConferenceSessionSurvey> AllSessionSurveys
         {
             get { return _allSessionSurveys; }
         }
-        public IEnumerable<Room> Rooms
+        public Result<Room> Rooms
         {
             get { return _rooms; }
         }
 
         // Mutable property access
-        public Disputable<string> Name
+        public TransientDisputable<Conference__name, string> Name
         {
-            get { return _name.Select(fact => fact.Value).AsDisputable(); }
+            get { return _name.AsTransientDisputable(fact => fact.Value); }
 			set
 			{
-				if (_name.Count() != 1 || !object.Equals(_name.Single().Value, value.Value))
+				var current = _name.Ensure().ToList();
+				if (current.Count != 1 || !object.Equals(current[0].Value, value.Value))
 				{
 					Community.AddFact(new Conference__name(this, _name, value.Value));
 				}
 			}
         }
-        public Disputable<string> MapUrl
+        public TransientDisputable<Conference__mapUrl, string> MapUrl
         {
-            get { return _mapUrl.Select(fact => fact.Value).AsDisputable(); }
+            get { return _mapUrl.AsTransientDisputable(fact => fact.Value); }
 			set
 			{
-				if (_mapUrl.Count() != 1 || !object.Equals(_mapUrl.Single().Value, value.Value))
+				var current = _mapUrl.Ensure().ToList();
+				if (current.Count != 1 || !object.Equals(current[0].Value, value.Value))
 				{
 					Community.AddFact(new Conference__mapUrl(this, _mapUrl, value.Value));
 				}
 			}
         }
 
-        public Disputable<Survey> ConferenceSurvey
+        public TransientDisputable<Conference__conferenceSurvey, Survey> ConferenceSurvey
         {
-            get { return _conferenceSurvey.Select(fact => fact.Value).AsDisputable(); }
+            get { return _conferenceSurvey.AsTransientDisputable(fact => fact.Value); }
 			set
 			{
-				if (_conferenceSurvey.Count() != 1 || !object.Equals(_conferenceSurvey.Single().Value, value.Value))
+				var current = _conferenceSurvey.Ensure().ToList();
+				if (current.Count != 1 || !object.Equals(current[0].Value, value.Value))
 				{
 					Community.AddFact(new Conference__conferenceSurvey(this, _conferenceSurvey, value.Value));
 				}
@@ -1200,7 +1203,7 @@ namespace FacetedWorlds.MyCon.Model
         // Field access
 
         // Query result access
-        public IEnumerable<SessionEvaluationCompleted> Completed
+        public Result<SessionEvaluationCompleted> Completed
         {
             get { return _completed; }
         }
@@ -1346,15 +1349,15 @@ namespace FacetedWorlds.MyCon.Model
         // Field access
 
         // Query result access
-        public IEnumerable<Schedule> CurrentSchedules
+        public Result<Schedule> CurrentSchedules
         {
             get { return _currentSchedules; }
         }
-        public IEnumerable<Schedule> AllSchedules
+        public Result<Schedule> AllSchedules
         {
             get { return _allSchedules; }
         }
-        public IEnumerable<Session> ScheduledSessions
+        public Result<Session> ScheduledSessions
         {
             get { return _scheduledSessions; }
         }
@@ -1481,7 +1484,7 @@ namespace FacetedWorlds.MyCon.Model
         }
 
         // Query result access
-        public IEnumerable<Time> Times
+        public Result<Time> Times
         {
             get { return _times; }
         }
@@ -1620,11 +1623,11 @@ namespace FacetedWorlds.MyCon.Model
         }
 
         // Query result access
-        public IEnumerable<SessionPlace> AvailableSessions
+        public Result<SessionPlace> AvailableSessions
         {
             get { return _availableSessions; }
         }
-        public IEnumerable<TimeDelete> Deletes
+        public Result<TimeDelete> Deletes
         {
             get { return _deletes; }
         }
@@ -1952,7 +1955,7 @@ namespace FacetedWorlds.MyCon.Model
         // Field access
 
         // Query result access
-        public IEnumerable<Schedule> CurrentSchedules
+        public Result<Schedule> CurrentSchedules
         {
             get { return _currentSchedules; }
         }
@@ -2071,12 +2074,13 @@ namespace FacetedWorlds.MyCon.Model
         // Query result access
 
         // Mutable property access
-        public Disputable<string> RoomNumber
+        public TransientDisputable<Room__roomNumber, string> RoomNumber
         {
-            get { return _roomNumber.Select(fact => fact.Value).AsDisputable(); }
+            get { return _roomNumber.AsTransientDisputable(fact => fact.Value); }
 			set
 			{
-				if (_roomNumber.Count() != 1 || !object.Equals(_roomNumber.Single().Value, value.Value))
+				var current = _roomNumber.Ensure().ToList();
+				if (current.Count != 1 || !object.Equals(current[0].Value, value.Value))
 				{
 					Community.AddFact(new Room__roomNumber(this, _roomNumber, value.Value));
 				}
@@ -2330,7 +2334,7 @@ namespace FacetedWorlds.MyCon.Model
         }
 
         // Query result access
-        public IEnumerable<SessionPlace> CurrentSessionPlaces
+        public Result<SessionPlace> CurrentSessionPlaces
         {
             get { return _currentSessionPlaces; }
         }
@@ -2480,41 +2484,44 @@ namespace FacetedWorlds.MyCon.Model
         }
 
         // Query result access
-        public IEnumerable<SessionPlace> AvailableSessions
+        public Result<SessionPlace> AvailableSessions
         {
             get { return _availableSessions; }
         }
 
         // Mutable property access
-        public Disputable<string> ImageUrl
+        public TransientDisputable<Speaker__imageUrl, string> ImageUrl
         {
-            get { return _imageUrl.Select(fact => fact.Value).AsDisputable(); }
+            get { return _imageUrl.AsTransientDisputable(fact => fact.Value); }
 			set
 			{
-				if (_imageUrl.Count() != 1 || !object.Equals(_imageUrl.Single().Value, value.Value))
+				var current = _imageUrl.Ensure().ToList();
+				if (current.Count != 1 || !object.Equals(current[0].Value, value.Value))
 				{
 					Community.AddFact(new Speaker__imageUrl(this, _imageUrl, value.Value));
 				}
 			}
         }
-        public Disputable<string> Contact
+        public TransientDisputable<Speaker__contact, string> Contact
         {
-            get { return _contact.Select(fact => fact.Value).AsDisputable(); }
+            get { return _contact.AsTransientDisputable(fact => fact.Value); }
 			set
 			{
-				if (_contact.Count() != 1 || !object.Equals(_contact.Single().Value, value.Value))
+				var current = _contact.Ensure().ToList();
+				if (current.Count != 1 || !object.Equals(current[0].Value, value.Value))
 				{
 					Community.AddFact(new Speaker__contact(this, _contact, value.Value));
 				}
 			}
         }
 
-        public Disputable<IEnumerable<DocumentSegment>> Bio
+        public TransientDisputable<Speaker__bio, IEnumerable<DocumentSegment>> Bio
         {
-            get { return _bio.Select(fact => fact.Value).AsDisputable(); }
+            get { return _bio.AsTransientDisputable(fact => fact.Value); }
 			set
 			{
-				if (_bio.Count() != 1 || !object.Equals(_bio.Single().Value, value.Value))
+				var current = _bio.Ensure().ToList();
+				if (current.Count != 1 || !object.Equals(current[0].Value, value.Value))
 				{
 					Community.AddFact(new Speaker__bio(this, _bio, value.Value));
 				}
@@ -3127,7 +3134,7 @@ namespace FacetedWorlds.MyCon.Model
         // Field access
 
         // Query result access
-        public IEnumerable<SessionPlace> CurrentSessionPlaces
+        public Result<SessionPlace> CurrentSessionPlaces
         {
             get { return _currentSessionPlaces; }
         }
@@ -3427,49 +3434,52 @@ namespace FacetedWorlds.MyCon.Model
 
 
         // Query result access
-        public IEnumerable<SessionPlace> CurrentSessionPlaces
+        public Result<SessionPlace> CurrentSessionPlaces
         {
             get { return _currentSessionPlaces; }
         }
-        public IEnumerable<SessionNotice> Notices
+        public Result<SessionNotice> Notices
         {
             get { return _notices; }
         }
-        public IEnumerable<SessionDelete> SessionDeletes
+        public Result<SessionDelete> SessionDeletes
         {
             get { return _sessionDeletes; }
         }
 
         // Mutable property access
-        public Disputable<string> Name
+        public TransientDisputable<Session__name, string> Name
         {
-            get { return _name.Select(fact => fact.Value).AsDisputable(); }
+            get { return _name.AsTransientDisputable(fact => fact.Value); }
 			set
 			{
-				if (_name.Count() != 1 || !object.Equals(_name.Single().Value, value.Value))
+				var current = _name.Ensure().ToList();
+				if (current.Count != 1 || !object.Equals(current[0].Value, value.Value))
 				{
 					Community.AddFact(new Session__name(this, _name, value.Value));
 				}
 			}
         }
 
-        public Disputable<IEnumerable<DocumentSegment>> Description
+        public TransientDisputable<Session__description, IEnumerable<DocumentSegment>> Description
         {
-            get { return _description.Select(fact => fact.Value).AsDisputable(); }
+            get { return _description.AsTransientDisputable(fact => fact.Value); }
 			set
 			{
-				if (_description.Count() != 1 || !object.Equals(_description.Single().Value, value.Value))
+				var current = _description.Ensure().ToList();
+				if (current.Count != 1 || !object.Equals(current[0].Value, value.Value))
 				{
 					Community.AddFact(new Session__description(this, _description, value.Value));
 				}
 			}
         }
-        public Disputable<Level> Level
+        public TransientDisputable<Session__level, Level> Level
         {
-            get { return _level.Select(fact => fact.Value).AsDisputable(); }
+            get { return _level.AsTransientDisputable(fact => fact.Value); }
 			set
 			{
-				if (_level.Count() != 1 || !object.Equals(_level.Single().Value, value.Value))
+				var current = _level.Ensure().ToList();
+				if (current.Count != 1 || !object.Equals(current[0].Value, value.Value))
 				{
 					Community.AddFact(new Session__level(this, _level, value.Value));
 				}
@@ -4447,7 +4457,7 @@ namespace FacetedWorlds.MyCon.Model
 
 
         // Query result access
-        public IEnumerable<SessionEvaluation> CompletedEvaluations
+        public Result<SessionEvaluation> CompletedEvaluations
         {
             get { return _completedEvaluations; }
         }
@@ -4974,11 +4984,11 @@ namespace FacetedWorlds.MyCon.Model
         // Field access
 
         // Query result access
-        public IEnumerable<SessionEvaluationRatingAnswer> RatingAnswers
+        public Result<SessionEvaluationRatingAnswer> RatingAnswers
         {
             get { return _ratingAnswers; }
         }
-        public IEnumerable<SessionEvaluationEssayAnswer> EssayAnswers
+        public Result<SessionEvaluationEssayAnswer> EssayAnswers
         {
             get { return _essayAnswers; }
         }
@@ -5234,7 +5244,7 @@ namespace FacetedWorlds.MyCon.Model
         // Field access
 
         // Query result access
-        public IEnumerable<SessionEvaluationRatingAnswer> CurrentAnswers
+        public Result<SessionEvaluationRatingAnswer> CurrentAnswers
         {
             get { return _currentAnswers; }
         }
@@ -5481,7 +5491,7 @@ namespace FacetedWorlds.MyCon.Model
         // Field access
 
         // Query result access
-        public IEnumerable<SessionEvaluationEssayAnswer> CurrentAnswers
+        public Result<SessionEvaluationEssayAnswer> CurrentAnswers
         {
             get { return _currentAnswers; }
         }

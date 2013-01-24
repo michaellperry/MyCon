@@ -13,7 +13,7 @@
     <AssemblyName>FacetedWorlds.MyCon</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
-    <TargetFrameworkProfile>WindowsPhone</TargetFrameworkProfile>
+    <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <SilverlightApplication>true</SilverlightApplication>
     <SupportedCultures>
@@ -29,6 +29,11 @@
     <ExpressionBlendVersion>4.0.20901.0</ExpressionBlendVersion>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -57,7 +62,9 @@
     </Reference>
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Phone.Controls.Toolkit">
+      <HintPath>..\..\packages\WPtoolkit.4.2012.10.30\lib\sl4-windowsphone71\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
@@ -65,24 +72,24 @@
     <Reference Include="System.Net" />
     <Reference Include="System.Windows.Interactivity" />
     <Reference Include="System.Xml" />
-    <Reference Include="UpdateControls, Version=2.2.1.2, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls, Version=2.2.2.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UpdateControls.2.2.1.2\lib\sl4-windowsphone71\UpdateControls.dll</HintPath>
+      <HintPath>..\..\packages\updatecontrols.2.2.2.1\lib\sl4-windowsphone71\UpdateControls.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.Correspondence">
-      <HintPath>..\..\packages\Correspondence.1.4.0.8\lib\SL4-wp\UpdateControls.Correspondence.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.1.4.1.4\lib\SL4-windowsphone71\UpdateControls.Correspondence.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.BinaryHTTPClient, Version=1.3.2.2, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.WindowsPhone.App.1.3.2.2\lib\SL4-wp\UpdateControls.Correspondence.BinaryHTTPClient.dll</HintPath>
+    <Reference Include="UpdateControls.Correspondence.BinaryHTTPClient">
+      <HintPath>..\..\packages\Correspondence.App.1.4.1.4\lib\SL4-windowsphone71\UpdateControls.Correspondence.BinaryHTTPClient.dll</HintPath>
+    </Reference>
+    <Reference Include="UpdateControls.Correspondence.BinaryHTTPClient.Notification">
+      <HintPath>..\..\packages\Correspondence.App.1.4.1.4\lib\SL4-windowsphone71\UpdateControls.Correspondence.BinaryHTTPClient.Notification.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.Correspondence.Data">
-      <HintPath>..\..\packages\Correspondence.WindowsPhone.App.1.3.2.2\lib\SL4-wp\UpdateControls.Correspondence.Data.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\Correspondence.App.1.4.1.4\lib\SL4-windowsphone71\UpdateControls.Correspondence.Data.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.IsolatedStorage, Version=1.3.2.2, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.WindowsPhone.App.1.3.2.2\lib\SL4-wp\UpdateControls.Correspondence.IsolatedStorage.dll</HintPath>
+    <Reference Include="UpdateControls.Correspondence.IsolatedStorage">
+      <HintPath>..\..\packages\Correspondence.App.1.4.1.4\lib\SL4-windowsphone71\UpdateControls.Correspondence.IsolatedStorage.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -186,74 +193,114 @@
     <ApplicationDefinition Include="App.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\RatingControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\RatingItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\MapView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\NoticesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SessionEvaluationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SpeakerSessionUserControl.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SearchSessionUserControl.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SpeakerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\TrackSessionUserControl.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SlotSessionUserControl.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ScheduleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SearchView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SessionDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ScheduleSessionUserControl.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SlotView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\TracksView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -263,6 +310,11 @@
     <Content Include="Data\Index.bin" />
     <Content Include="Data\PeerTable.bin" />
     <Content Include="Data\RoleTable.bin" />
+    <Content Include="README_FIRST.txt" />
+    <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
     <None Include="Data\ClientGuid.bin" />
     <Content Include="Data\MessageTable.bin" />
     <None Include="packages.config" />
@@ -307,39 +359,63 @@
   <ItemGroup>
     <DesignData Include="SampleData\MapViewModelSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </DesignData>
     <DesignData Include="SampleData\NoticesViewModelSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </DesignData>
     <DesignData Include="SampleData\ScheduleSlotViewModelSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </DesignData>
     <DesignData Include="SampleData\ScheduleViewModelSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </DesignData>
     <DesignData Include="SampleData\SearchViewModelSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </DesignData>
     <DesignData Include="SampleData\SessionDetailsViewModelSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </DesignData>
     <DesignData Include="SampleData\SessionEvaluationViewModelSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </DesignData>
     <DesignData Include="SampleData\SettingsViewModelSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </DesignData>
     <DesignData Include="SampleData\SlotViewModelSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </DesignData>
     <DesignData Include="SampleData\SpeakerViewModelSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </DesignData>
     <DesignData Include="SampleData\TrackSessionViewModelSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </DesignData>
     <DesignData Include="SampleData\TracksViewModelSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </DesignData>
   </ItemGroup>
   <ItemGroup />

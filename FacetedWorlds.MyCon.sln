@@ -1,11 +1,26 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Silverlight4", "Silverlight4", "{8DBA6D95-E81A-4D49-A3B7-DFB691415108}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacetedWorlds.MyCon.Model", "Silverlight4\FacetedWorlds.MyCon.Model\FacetedWorlds.MyCon.Model.csproj", "{835D447C-0578-49D3-8B9E-F4DA84CBED06}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WP7", "WP7", "{31F5FDD7-C2CE-473F-9A4E-2209EE213A61}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{BEB87237-5D9C-4EF9-95BE-7758430926AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{4133F23C-383B-4D1E-9F39-53FF383CB94D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{B9BA4761-2F68-4776-9707-205A2E0499AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Silverlight5", "Silverlight5", "{BFFA02B7-2B72-412A-81A0-C3589003D581}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{806EF137-4A0B-4CE6-ADFE-3C1575AF4FA5}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacetedWorlds.MyCon.Model", "Silverlight4\FacetedWorlds.MyCon.Model\FacetedWorlds.MyCon.Model.csproj", "{835D447C-0578-49D3-8B9E-F4DA84CBED06}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacetedWorlds.MyCon.Model", "WP7\FacetedWorlds.MyCon.Model\FacetedWorlds.MyCon.Model.csproj", "{C2A15C3B-BA6E-4FE4-9E69-B3CDE6CD8B75}"
 EndProject
@@ -14,8 +29,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiTouch.Behaviors.WP7", "WP7\MultiTouch.Behaviors.WP7\MultiTouch.Behaviors.WP7.csproj", "{FADADBA6-1C7C-4790-B28A-742B003A5AC1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacetedWorlds.MyCon", "Silverlight4\FacetedWorlds.MyCon\FacetedWorlds.MyCon.csproj", "{EFE864C3-6C11-4A06-9E9A-BD084AA82E96}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{BEB87237-5D9C-4EF9-95BE-7758430926AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacetedWorlds.MyCon.Model", "Desktop\FacetedWorlds.MyCon.Model\FacetedWorlds.MyCon.Model.csproj", "{D2108D96-F5AB-4E8A-AA79-986006EB4393}"
 EndProject
@@ -27,24 +40,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SL_Drag_Drop_BaseClasses", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacetedWorlds.MyCon.SurveyDump", "Desktop\FacetedWorlds.MyCon.SurveyDump\FacetedWorlds.MyCon.SurveyDump.csproj", "{01AE2D18-D96C-4231-91DA-186C2678E4BC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{4133F23C-383B-4D1E-9F39-53FF383CB94D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacetedWorlds.MyCon.Web", "Web\FacetedWorlds.MyCon.Web\FacetedWorlds.MyCon.Web.csproj", "{58DEEB22-8E6B-4113-976D-EBE78C054519}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{B9BA4761-2F68-4776-9707-205A2E0499AF}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Silverlight5", "Silverlight5", "{BFFA02B7-2B72-412A-81A0-C3589003D581}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacetedWorlds.MyCon.Model", "Silverlight5\FacetedWorlds.MyCon.Model\FacetedWorlds.MyCon.Model.csproj", "{FC9FC1B0-B358-4701-AA29-0F69A2F1C784}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacetedWorlds.MyCon", "Silverlight5\FacetedWorlds.MyCon\FacetedWorlds.MyCon.csproj", "{36E28D61-1801-4F16-A25A-891018D119A5}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{806EF137-4A0B-4CE6-ADFE-3C1575AF4FA5}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,7 +1,7 @@
 ﻿<#@ template language="C#" hostspecific="True" debug="True" #>
 <#@ assembly name="System.Core"#>
-<#@ assembly name="$(SolutionDir)packages\Correspondence.Model.1.4.0.8\tools\UpdateControls.Correspondence.Factual.dll"#>
-<#@ assembly name="$(SolutionDir)packages\Correspondence.Model.1.4.0.8\tools\QEDCode.LLOne.dll"#>
+<#@ assembly name="$(SolutionDir)packages\Correspondence.Model.1.4.1.4\tools\UpdateControls.Correspondence.Factual.dll"#>
+<#@ assembly name="$(SolutionDir)packages\Correspondence.Model.1.4.1.4\tools\QEDCode.LLOne.dll"#>
 <#@ import namespace="System.IO"#>
 <#@ import namespace="System.Collections.Generic"#>
 <#@ import namespace="System.Linq"#>
@@ -249,7 +249,7 @@ namespace <#=targetNamespace.Name#>
 
         // Query result access
 <# foreach (Result result in c.Results.OfType<ResultDirect>()) { #>
-        public IEnumerable<<#=result.Type#>> <#=Capitalize(result.Query.Name)#>
+        public <#=ResultClass(result)#> <#=Capitalize(result.Query.Name)#>
         {
             get { return _<#=result.Query.Name#>; }
         }
@@ -257,12 +257,13 @@ namespace <#=targetNamespace.Name#>
 
         // Mutable property access
 <# foreach (ResultValueNative result in c.Results.OfType<ResultValueNative>()) { #>
-        public Disputable<<#=ResultTypeNative(result)#>> <#=Capitalize(result.Query.Name)#>
+        public TransientDisputable<<#=result.Type#>, <#=ResultTypeNative(result)#>> <#=Capitalize(result.Query.Name)#>
         {
-            get { return _<#=result.Query.Name#>.Select(fact => fact.Value).AsDisputable(); }
+            get { return _<#=result.Query.Name#>.AsTransientDisputable(fact => fact.Value); }
 			set
 			{
-				if (_<#=result.Query.Name#>.Count() != 1 || !object.Equals(_<#=result.Query.Name#>.Single().Value, value.Value))
+				var current = _<#=result.Query.Name#>.Ensure().ToList();
+				if (current.Count != 1 || !object.Equals(current[0].Value, value.Value))
 				{
 					Community.AddFact(new <#=result.Type#>(this, _<#=result.Query.Name#>, value.Value));
 				}
@@ -271,12 +272,13 @@ namespace <#=targetNamespace.Name#>
 <#}#>
 
 <# foreach (ResultValueFact result in c.Results.OfType<ResultValueFact>()) { #>
-        public Disputable<<#=ResultTypeFact(result)#>> <#=Capitalize(result.Query.Name)#>
+        public TransientDisputable<<#=result.Type#>, <#=ResultTypeFact(result)#>> <#=Capitalize(result.Query.Name)#>
         {
-            get { return _<#=result.Query.Name#>.Select(fact => fact.Value).AsDisputable(); }
+            get { return _<#=result.Query.Name#>.AsTransientDisputable(fact => fact.Value); }
 			set
 			{
-				if (_<#=result.Query.Name#>.Count() != 1 || !object.Equals(_<#=result.Query.Name#>.Single().Value, value.Value))
+				var current = _<#=result.Query.Name#>.Ensure().ToList();
+				if (current.Count != 1 || !object.Equals(current[0].Value, value.Value))
 				{
 					Community.AddFact(new <#=result.Type#>(this, _<#=result.Query.Name#>, value.Value));
 				}

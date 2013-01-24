@@ -1,72 +1,36 @@
-﻿<UserControl
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:FacetedWorlds_MyCon_Views="clr-namespace:FacetedWorlds.MyCon.Views" x:Class="FacetedWorlds.MyCon.MainPage"
-    mc:Ignorable="d"
-    d:DesignHeight="343" d:DesignWidth="572"
-    xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation" 
-    xmlns:uriMapper="clr-namespace:System.Windows.Navigation;assembly=System.Windows.Controls.Navigation"
-    DataContext="{Binding Main, Source={StaticResource Locator}}">
-
-    <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootGridStyle}">
-
-        <Border x:Name="ContentBorder" Style="{StaticResource ContentBorderStyle}">
-
-            <navigation:Frame x:Name="ContentFrame" Style="{StaticResource ContentFrameStyle}" 
-                              Source="/ConferenceView" Navigated="ContentFrame_Navigated" NavigationFailed="ContentFrame_NavigationFailed">
-                <navigation:Frame.UriMapper>
-                    <uriMapper:UriMapper>
-                        <uriMapper:UriMapping Uri="" MappedUri="/Views/ScheduleView.xaml"/>
-                        <uriMapper:UriMapping Uri="/{pageName}" MappedUri="/Views/{pageName}.xaml"/>
-                    </uriMapper:UriMapper>
-                </navigation:Frame.UriMapper>
-            </navigation:Frame>
-        </Border>
-
-        <Grid x:Name="NavigationGrid" Style="{StaticResource NavigationGridStyle}">
-
-            <Border x:Name="BrandingBorder" Style="{StaticResource BrandingBorderStyle}">
-                <StackPanel x:Name="BrandingStackPanel" Style="{StaticResource BrandingStackPanelStyle}">
-
-                    <ContentControl Style="{StaticResource LogoIcon}"/>
-                    <TextBlock x:Name="ApplicationNameTextBlock" Style="{StaticResource ApplicationNameStyle}" 
-                               Text="{Binding ConferenceName}"/>
-
-                </StackPanel>
-            </Border>
-
-            <Border x:Name="LinksBorder" Style="{StaticResource LinksBorderStyle}">
-                <StackPanel x:Name="LinksStackPanel" Style="{StaticResource LinksStackPanelStyle}">
-
-                    <HyperlinkButton x:Name="Link1" Style="{StaticResource LinkStyle}" 
-                                     NavigateUri="/ConferenceView" TargetName="ContentFrame" Content="home"/>
-
-                    <Rectangle Style="{StaticResource DividerStyle}"/>
-
-                    <HyperlinkButton Style="{StaticResource LinkStyle}" 
-                                     NavigateUri="/SpeakersView" TargetName="ContentFrame" Content="speakers"/>
-
-                    <Rectangle Style="{StaticResource DividerStyle}"/>
-
-                    <HyperlinkButton Style="{StaticResource LinkStyle}" 
-                                     NavigateUri="/SessionsView" TargetName="ContentFrame" Content="sessions"/>
-
-                    <Rectangle Style="{StaticResource DividerStyle}"/>
-
-                    <HyperlinkButton Style="{StaticResource LinkStyle}" 
-                                     NavigateUri="/ScheduleView" TargetName="ContentFrame" Content="schedule"/>
-
-                    <Rectangle x:Name="Divider1" Style="{StaticResource DividerStyle}"/>
-
-                    <HyperlinkButton x:Name="Link2" Style="{StaticResource LinkStyle}" 
-                                     NavigateUri="/About" TargetName="ContentFrame" Content="about"/>
-
-                </StackPanel>
-            </Border>
-
-        </Grid>
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:FacetedWorlds_MyCon_Views="clr-namespace:FacetedWorlds.MyCon.Views" x:Class="FacetedWorlds.MyCon.MainPage" mc:Ignorable="d" d:DesignHeight="343" d:DesignWidth="572" xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation" xmlns:uriMapper="clr-namespace:System.Windows.Navigation;assembly=System.Windows.Controls.Navigation" DataContext="{Binding Main, Source={StaticResource Locator}}">
+  <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootGridStyle}">
+    <Border x:Name="ContentBorder" Style="{StaticResource ContentBorderStyle}">
+      <navigation:Frame x:Name="ContentFrame" Style="{StaticResource ContentFrameStyle}" Source="/ConferenceView" Navigated="ContentFrame_Navigated" NavigationFailed="ContentFrame_NavigationFailed">
+        <navigation:Frame.UriMapper>
+          <uriMapper:UriMapper>
+            <uriMapper:UriMapping Uri="" MappedUri="/Views/ScheduleView.xaml" />
+            <uriMapper:UriMapping Uri="/{pageName}" MappedUri="/Views/{pageName}.xaml" />
+          </uriMapper:UriMapper>
+        </navigation:Frame.UriMapper>
+      </navigation:Frame>
+    </Border>
+    <Grid x:Name="NavigationGrid" Style="{StaticResource NavigationGridStyle}">
+      <Border x:Name="BrandingBorder" Style="{StaticResource BrandingBorderStyle}">
+        <StackPanel x:Name="BrandingStackPanel" Style="{StaticResource BrandingStackPanelStyle}">
+          <ContentControl Style="{StaticResource LogoIcon}" />
+          <TextBlock x:Name="ApplicationNameTextBlock" Style="{StaticResource ApplicationNameStyle}" Text="{Binding ConferenceName}" />
+        </StackPanel>
+      </Border>
+      <Border x:Name="LinksBorder" Style="{StaticResource LinksBorderStyle}">
+        <StackPanel x:Name="LinksStackPanel" Style="{StaticResource LinksStackPanelStyle}">
+          <HyperlinkButton x:Name="Link1" Style="{StaticResource LinkStyle}" NavigateUri="/ConferenceView" TargetName="ContentFrame" Content="home" />
+          <Rectangle Style="{StaticResource DividerStyle}" />
+          <HyperlinkButton Style="{StaticResource LinkStyle}" NavigateUri="/SpeakersView" TargetName="ContentFrame" Content="speakers" />
+          <Rectangle Style="{StaticResource DividerStyle}" />
+          <HyperlinkButton Style="{StaticResource LinkStyle}" NavigateUri="/SessionsView" TargetName="ContentFrame" Content="sessions" />
+          <Rectangle Style="{StaticResource DividerStyle}" />
+          <HyperlinkButton Style="{StaticResource LinkStyle}" NavigateUri="/ScheduleView" TargetName="ContentFrame" Content="schedule" />
+          <Rectangle x:Name="Divider1" Style="{StaticResource DividerStyle}" />
+          <HyperlinkButton x:Name="Link2" Style="{StaticResource LinkStyle}" NavigateUri="/About" TargetName="ContentFrame" Content="about" />
+        </StackPanel>
+      </Border>
     </Grid>
+  </Grid>
 </UserControl>

@@ -43,31 +43,31 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UpdateControls, Version=2.2.1.2, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls, Version=2.2.2.1, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UpdateControls.2.2.1.2\lib\Net40\UpdateControls.dll</HintPath>
+      <HintPath>..\..\packages\updatecontrols.2.2.2.1\lib\Net40\UpdateControls.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence, Version=1.4.0.8, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls.Correspondence">
+      <HintPath>..\..\packages\Correspondence.1.4.1.4\lib\NET4\UpdateControls.Correspondence.dll</HintPath>
+    </Reference>
+    <Reference Include="UpdateControls.Correspondence.BinaryHTTPClient">
+      <HintPath>..\..\packages\Correspondence.App.1.4.1.4\lib\NET40\UpdateControls.Correspondence.BinaryHTTPClient.dll</HintPath>
+    </Reference>
+    <Reference Include="UpdateControls.Correspondence.Data">
+      <HintPath>..\..\packages\Correspondence.App.1.4.1.4\lib\NET40\UpdateControls.Correspondence.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="UpdateControls.Correspondence.FileStream">
+      <HintPath>..\..\packages\Correspondence.App.1.4.1.4\lib\NET40\UpdateControls.Correspondence.FileStream.dll</HintPath>
+    </Reference>
+    <Reference Include="UpdateControls.Correspondence.SQL">
+      <HintPath>..\..\packages\Correspondence.App.1.4.1.4\lib\NET40\UpdateControls.Correspondence.SQL.dll</HintPath>
+    </Reference>
+    <Reference Include="UpdateControls.Correspondence.SSCE">
+      <HintPath>..\..\packages\Correspondence.App.1.4.1.4\lib\NET40\UpdateControls.Correspondence.SSCE.dll</HintPath>
+    </Reference>
+    <Reference Include="UpdateControls.XAML, Version=2.2.2.1, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.1.4.0.8\lib\NET4\UpdateControls.Correspondence.dll</HintPath>
-    </Reference>
-    <Reference Include="UpdateControls.Correspondence.BinaryHTTPClient, Version=1.0.0.0, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Correspondence.Desktop.App.1.4.0.8\lib\NET40\UpdateControls.Correspondence.BinaryHTTPClient.dll</HintPath>
-    </Reference>
-    <Reference Include="UpdateControls.Correspondence.Data, Version=1.4.0.8, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.Desktop.App.1.4.0.8\lib\NET40\UpdateControls.Correspondence.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="UpdateControls.Correspondence.FileStream, Version=1.0.0.0, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Correspondence.Desktop.App.1.4.0.8\lib\NET40\UpdateControls.Correspondence.FileStream.dll</HintPath>
-    </Reference>
-    <Reference Include="UpdateControls.Correspondence.SSCE, Version=1.4.0.8, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.Desktop.App.1.4.0.8\lib\NET40\UpdateControls.Correspondence.SSCE.dll</HintPath>
-    </Reference>
-    <Reference Include="UpdateControls.XAML, Version=2.2.1.2, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UpdateControls.2.2.1.2\lib\Net40\UpdateControls.XAML.dll</HintPath>
+      <HintPath>..\..\packages\updatecontrols.2.2.2.1\lib\Net40\UpdateControls.XAML.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -91,9 +91,6 @@
       <Project>{D2108D96-F5AB-4E8A-AA79-986006EB4393}</Project>
       <Name>FacetedWorlds.MyCon.Model %28Desktop\FacetedWorlds.MyCon.Model%29</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Readme_Correspondence.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

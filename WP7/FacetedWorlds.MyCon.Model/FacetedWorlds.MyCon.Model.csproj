@@ -13,13 +13,18 @@
     <AssemblyName>FacetedWorlds.MyCon.Model</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
-    <TargetFrameworkProfile>WindowsPhone</TargetFrameworkProfile>
+    <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <SilverlightApplication>false</SilverlightApplication>
     <ValidateXaml>true</ValidateXaml>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,19 +53,18 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Net" />
-    <Reference Include="UpdateControls, Version=2.2.1.2, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls, Version=2.2.2.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UpdateControls.2.2.1.2\lib\sl4-windowsphone71\UpdateControls.dll</HintPath>
+      <HintPath>..\..\packages\updatecontrols.2.2.2.1\lib\sl4-windowsphone71\UpdateControls.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.Correspondence">
-      <HintPath>..\..\packages\Correspondence.1.4.0.8\lib\SL4-wp\UpdateControls.Correspondence.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.1.4.1.4\lib\SL4-windowsphone71\UpdateControls.Correspondence.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attendee.cs" />
     <Compile Include="Conference.cs" />
     <Compile Include="Identity.cs" />
-    <Compile Include="Individual.cs" />
     <Compile Include="MessageBoard.cs" />
     <Compile Include="Model.generated.cs">
       <AutoGen>True</AutoGen>
