@@ -1,0 +1,459 @@
+namespace FacetedWorlds.MyCon.Model;
+
+fact Identity {
+key:
+    string anonymousId;
+
+query:
+    EnableToastNotification* isToastNotificationEnabled {
+        EnableToastNotification d : d.identity = this
+            where not d.isDisabled
+    }
+}
+
+fact EnableToastNotification {
+key:
+    unique;
+    Identity identity;
+
+query:
+    bool isDisabled {
+        exists DisableToastNotification e : e.enable = this
+    }
+}
+
+fact DisableToastNotification {
+key:
+    EnableToastNotification* enable;
+}
+
+fact Conference {
+key:
+	string id;
+
+mutable:
+    publish string name;
+	publish Survey conferenceSurvey;
+	publish string mapUrl;
+
+query:
+	Day* days {
+		Day d : d.conference = this
+			where d.hasTimes
+	}
+
+	Track* allTracks {
+		Track t : t.conference = this
+	}
+
+	Track* tracks {
+		Track t : t.conference = this
+			where t.hasSessions
+	}
+
+	Session* sessions {
+		Session s : s.conference = this
+			where not s.isDeleted
+	}
+
+	Session* unscheduledSessions {
+		Session s : s.conference = this
+			where not s.isDeleted
+			and not s.isScheduled
+	}
+
+	Speaker* speakers {
+		Speaker s : s.conference = this
+	}
+
+	ConferenceNotice* notices {
+		ConferenceNotice n : n.conference = this
+	}
+
+	ConferenceSessionSurvey* currentSessionSurveys {
+		ConferenceSessionSurvey s : s.conference = this
+			where s.isCurrent
+	}
+
+	ConferenceSessionSurvey* allSessionSurveys {
+		ConferenceSessionSurvey s : s.conference = this
+	}
+
+	Room* rooms {
+		Room r : r.conference = this
+	}
+}
+
+fact ConferenceSessionSurvey {
+key:
+	publish Conference conference;
+	Survey sessionSurvey;
+	ConferenceSessionSurvey* prior;
+
+query:
+	bool isCurrent {
+		not exists ConferenceSessionSurvey next : next.prior = this
+	}
+
+	SessionEvaluationCompleted* completed {
+		SessionEvaluationCompleted c : c.sessionSurvey = this
+	}
+}
+
+fact Attendee {
+key:
+    Identity identity;
+    Conference conference;
+
+query:
+	Schedule* currentSchedules {
+		Schedule s : s.slot.attendee = this
+			where s.isCurrent
+	}
+
+	Schedule* allSchedules {
+		Schedule s : s.slot.attendee = this
+	}
+
+	Session* scheduledSessions {
+		Schedule s : s.slot.attendee = this
+			where s.isCurrent
+		Session session : s.sessionPlace.session = session
+	}
+}
+
+fact Day {
+key:
+	publish Conference conference;
+	date conferenceDate;
+
+query:
+	Time* times {
+		Time t : t.day = this
+			where not t.isDeleted
+	}
+
+	bool hasTimes {
+		exists Time t : t.day = this
+			where not t.isDeleted
+	}
+}
+
+fact Time {
+key:
+    Day day;
+    time start;
+
+query:
+	SessionPlace* availableSessions {
+		SessionPlace sp : sp.place.placeTime = this
+			where sp.isCurrent
+			and not sp.isDeleted
+	}
+
+	TimeDelete* deletes {
+		TimeDelete d : d.deleted = this
+			where not d.isUndeleted
+	}
+
+	bool isDeleted {
+		exists TimeDelete d : d.deleted = this
+			where not d.isUndeleted
+	}
+}
+
+fact TimeDelete {
+key:
+	unique;
+	Time deleted;
+
+query:
+	bool isUndeleted {
+		exists TimeUndelete u : u.undeleted = this
+	}
+}
+
+fact TimeUndelete {
+key:
+	TimeDelete undeleted;
+}
+
+fact Slot {
+key:
+    Attendee attendee;
+    publish Time slotTime;
+
+query:
+	Schedule* currentSchedules {
+		Schedule s : s.slot = this
+			where s.isCurrent
+	}
+}
+
+fact Room {
+key:
+	unique;
+    publish Conference conference;
+
+mutable:
+    string roomNumber;
+}
+
+fact Track {
+key:
+    publish Conference conference;
+    string name;
+
+query:
+	SessionPlace* currentSessionPlaces {
+		Session s : s.track = this
+			where not s.isDeleted
+		SessionPlace sp : sp.session = s
+			where sp.isCurrent
+	}
+
+	bool hasSessions {
+		exists Session s : s.track = this
+			where not s.isDeleted
+	}
+}
+
+fact Speaker {
+key:
+    publish Conference conference;
+    string name;
+
+mutable:
+	string imageUrl;
+	string contact;
+	DocumentSegment* bio;
+
+query:
+	SessionPlace* availableSessions {
+		Session s : s.speaker = this
+			where not s.isDeleted
+		SessionPlace sp : sp.session = s
+			where sp.isCurrent
+	}
+}
+
+fact ConferenceNotice {
+key:
+	publish Conference conference;
+	time timeSent;
+	string text;
+}
+
+fact Place {
+key:
+    Time placeTime;
+    Room room;
+
+query:
+	SessionPlace* currentSessionPlaces {
+		SessionPlace sp : sp.place = this
+			where sp.isCurrent
+	}
+}
+
+fact Level {
+key:
+	string name;
+}
+
+fact Session {
+key:
+    unique;
+    publish Conference conference;
+    Speaker speaker;
+    Track? track;
+
+mutable:
+    string name;
+	DocumentSegment* description;
+	Level level;
+
+query:
+	SessionPlace* currentSessionPlaces {
+		SessionPlace sp : sp.session = this
+			where sp.isCurrent
+	}
+
+	SessionNotice* notices {
+		SessionNotice n : n.session = this
+	}
+
+	bool isDeleted {
+		exists SessionDelete d : d.deleted = this
+			where not d.isUndeleted
+	}
+
+	SessionDelete* sessionDeletes {
+		SessionDelete d : d.deleted = this
+			where not d.isUndeleted
+	}
+
+	bool isScheduled {
+		exists SessionPlace sp : sp.session = this
+	}
+}
+
+fact SessionDelete {
+key:
+	unique;
+	Session deleted;
+
+query:
+	bool isUndeleted {
+		exists SessionUndelete u : u.undeleted = this
+	}
+}
+
+fact SessionUndelete {
+key:
+	SessionDelete undeleted;
+}
+
+fact SessionNotice {
+key:
+	publish Session session;
+	time timeSent;
+	string text;
+}
+
+fact SessionPlace {
+key:
+    Session session;
+    Place place;
+    SessionPlace* prior;
+
+query:
+	bool isCurrent {
+		not exists SessionPlace next : next.prior = this
+	}
+
+	bool isDeleted {
+		exists SessionDelete d : d.deleted = this.session
+			where not d.isUndeleted
+	}
+}
+
+fact Schedule {
+key:
+	unique;
+    Slot slot;
+    publish SessionPlace sessionPlace;
+
+query:
+	bool isCurrent {
+		not exists ScheduleRemove r : r.schedule = this
+	}
+
+	SessionEvaluation* completedEvaluations {
+		SessionEvaluation e : e.schedule = this
+			where e.isCompleted
+	}
+}
+
+fact ScheduleRemove {
+key:
+	Schedule schedule;
+}
+
+fact RatingQuestion {
+key:
+	string text;
+}
+
+fact EssayQuestion {
+key:
+	string text;
+}
+
+fact Survey {
+key:
+	RatingQuestion *ratingQuestions;
+	EssayQuestion *essayQuestions;
+}
+
+fact SessionEvaluation {
+key:
+    Schedule schedule;
+	Survey survey;
+
+query:
+	SessionEvaluationRatingAnswer* ratingAnswers {
+		SessionEvaluationRatingAnswer a : a.rating.evaluation = this
+			where a.isCurrent
+	}
+
+	SessionEvaluationEssayAnswer* essayAnswers {
+		SessionEvaluationEssayAnswer a : a.essay.evaluation = this
+			where a.isCurrent
+	}
+
+	bool isCompleted {
+		exists SessionEvaluationCompleted c : c.sessionEvaluation = this
+	}
+}
+
+fact SessionEvaluationCompleted {
+key:
+	publish ConferenceSessionSurvey sessionSurvey;
+	SessionEvaluation sessionEvaluation;
+	SessionEvaluationRatingAnswer* ratingAnswers;
+	SessionEvaluationEssayAnswer* essayAnswers;
+}
+
+fact SessionEvaluationRating {
+key:
+	SessionEvaluation evaluation;
+	RatingQuestion question;
+
+query:
+	SessionEvaluationRatingAnswer* currentAnswers {
+		SessionEvaluationRatingAnswer a : a.rating = this
+			where a.isCurrent
+	}
+}
+
+fact SessionEvaluationRatingAnswer {
+key:
+	SessionEvaluationRating rating;
+	int value;
+	SessionEvaluationRatingAnswer* prior;
+
+query:
+	bool isCurrent {
+		not exists SessionEvaluationRatingAnswer next : next.prior = this
+	}
+}
+
+fact SessionEvaluationEssay {
+key:
+	SessionEvaluation evaluation;
+	EssayQuestion question;
+
+query:
+	SessionEvaluationEssayAnswer* currentAnswers {
+		SessionEvaluationEssayAnswer a : a.essay = this
+			where a.isCurrent
+	}
+}
+
+fact SessionEvaluationEssayAnswer {
+key:
+	SessionEvaluationEssay essay;
+	string value;
+	SessionEvaluationEssayAnswer* prior;
+
+query:
+	bool isCurrent {
+		not exists SessionEvaluationEssayAnswer next : next.prior = this
+	}
+}
+
+fact DocumentSegment {
+key:
+	string text;
+}
