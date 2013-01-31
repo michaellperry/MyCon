@@ -27,6 +27,18 @@ namespace FacetedWorlds.MyCon.Web.ViewModels
             }
         }
 
+        public string Speaker
+        {
+            get
+            {
+                if (_sessionPlace.Session == null ||
+                    _sessionPlace.Session.Speaker == null)
+                    return null;
+
+                return _sessionPlace.Session.Speaker.Name;
+            }
+        }
+
         public string Day
         {
             get
