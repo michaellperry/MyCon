@@ -101,6 +101,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Attendee.cs" />
     <Compile Include="Model.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

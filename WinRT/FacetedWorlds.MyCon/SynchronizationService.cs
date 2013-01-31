@@ -22,6 +22,7 @@ namespace FacetedWorlds.MyCon
 
         private Community _community;
         private Independent<Identity> _identity = new Independent<Identity>();
+        private Independent<Attendee> _attendee = new Independent<Attendee>();
 
         public async void Initialize()
         {
@@ -51,9 +52,12 @@ namespace FacetedWorlds.MyCon
                 identity = await _community.AddFactAsync(new Identity(randomId));
                 await _community.SetFactAsync(ThisIdentity, identity);
             }
+            var conference = await _community.AddFactAsync(new Conference(CommonSettings.ConferenceID));
+            var attendee = await _community.AddFactAsync(new Attendee(identity, conference));
             lock (this)
             {
                 _identity.Value = identity;
+                _attendee.Value = attendee;
             }
 
             // Synchronize whenever the user has something to send.
@@ -85,6 +89,17 @@ namespace FacetedWorlds.MyCon
                 lock (this)
                 {
                     return _identity;
+                }
+            }
+        }
+
+        public Attendee Attendee
+        {
+            get
+            {
+                lock (this)
+                {
+                    return _attendee;
                 }
             }
         }
