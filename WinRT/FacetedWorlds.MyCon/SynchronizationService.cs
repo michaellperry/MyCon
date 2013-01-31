@@ -34,6 +34,11 @@ namespace FacetedWorlds.MyCon
             _community.AddAsynchronousCommunicationStrategy(communication);
             _community.Register<CorrespondenceModel>();
             _community.Subscribe(() => _identity.Value);
+            _community.Subscribe(() =>
+                _attendee.Value == null
+                    ? null
+                    : _attendee.Value.Conference
+            );
 
             // Synchronize periodically.
             DispatcherTimer timer = new DispatcherTimer();
