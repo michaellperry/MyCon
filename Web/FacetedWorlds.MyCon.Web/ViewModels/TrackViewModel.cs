@@ -24,6 +24,7 @@ namespace FacetedWorlds.MyCon.Web.ViewModels
             get
             {
                 var speakers = _track.CurrentSessionPlaces
+                    .Where(sessionPlace => sessionPlace.Session != null)
                     .Select(sessionPlace => sessionPlace.Session.Speaker)
                     .Distinct();
                 return

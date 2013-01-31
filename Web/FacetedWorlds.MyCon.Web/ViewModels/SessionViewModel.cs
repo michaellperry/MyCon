@@ -18,33 +18,70 @@ namespace FacetedWorlds.MyCon.Web.ViewModels
 
         public string Name
         {
-            get { return _sessionPlace.Session.Name; }
+            get
+            {
+                if (_sessionPlace.Session == null)
+                    return null;
+
+                return _sessionPlace.Session.Name;
+            }
         }
 
         public string Day
         {
-            get { return string.Format("{0:ddd}", _sessionPlace.Place.PlaceTime.Start.ConvertTo("Central Standard Time")); }
+            get
+            {
+                if (_sessionPlace.Place == null ||
+                    _sessionPlace.Place.PlaceTime == null)
+                    return null;
+
+                return string.Format("{0:ddd}", _sessionPlace.Place.PlaceTime.Start.ConvertTo("Central Standard Time"));
+            }
         }
 
         public string Time
         {
-            get { return string.Format("{0:h:mm}", _sessionPlace.Place.PlaceTime.Start.ConvertTo("Central Standard Time")); }
+            get
+            {
+                if (_sessionPlace.Place == null ||
+                    _sessionPlace.Place.PlaceTime == null)
+                    return null;
+
+                return string.Format("{0:h:mm}", _sessionPlace.Place.PlaceTime.Start.ConvertTo("Central Standard Time"));
+            }
         }
 
         public string Track
         {
-            get { return _sessionPlace.Session.Track.Name; }
+            get
+            {
+                if (_sessionPlace.Session == null ||
+                    _sessionPlace.Session.Track == null)
+                    return null;
+
+                return _sessionPlace.Session.Track.Name;
+            }
         }
 
         public string Room
         {
-            get { return _sessionPlace.Place.Room.RoomNumber; }
+            get
+            {
+                if (_sessionPlace.Place == null ||
+                    _sessionPlace.Place.Room == null)
+                    return null;
+
+                return _sessionPlace.Place.Room.RoomNumber;
+            }
         }
 
         public string Description
         {
             get
             {
+                if (_sessionPlace.Session == null)
+                    return null;
+
                 IEnumerable<DocumentSegment> segments = _sessionPlace.Session.Description.Value;
                 if (segments == null)
                     return string.Empty;

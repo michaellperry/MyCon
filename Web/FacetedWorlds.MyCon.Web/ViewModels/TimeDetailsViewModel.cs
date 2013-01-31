@@ -27,7 +27,8 @@ namespace FacetedWorlds.MyCon.Web.ViewModels
             {
                 return
                     from sessionPlace in _time.AvailableSessions
-                    orderby sessionPlace.Session.Name.Value
+                    where sessionPlace.Session != null
+                    orderby sessionPlace.Session.Name.Ensure().Value
                     select new SessionViewModel(sessionPlace);
             }
         }

@@ -25,7 +25,10 @@ namespace FacetedWorlds.MyCon.Web.ViewModels
             {
                 return
                     from sessionPlace in _track.CurrentSessionPlaces
-                    orderby sessionPlace.Place.PlaceTime.Start, sessionPlace.Place.Room.RoomNumber.Value
+                    where sessionPlace.Place != null
+                       && sessionPlace.Place.PlaceTime != null
+                       && sessionPlace.Place.Room != null
+                    orderby sessionPlace.Place.PlaceTime.Start, sessionPlace.Place.Room.RoomNumber.Ensure().Value
                     select new SessionViewModel(sessionPlace);
             }
         }
