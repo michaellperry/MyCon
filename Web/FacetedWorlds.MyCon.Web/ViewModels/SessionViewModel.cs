@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using FacetedWorlds.MyCon.Model;
 using FacetedWorlds.MyCon.Web.Extensions;
@@ -120,14 +117,7 @@ namespace FacetedWorlds.MyCon.Web.ViewModels
                     return null;
 
                 IEnumerable<DocumentSegment> segments = _sessionPlace.Session.Description.Value;
-                if (segments == null)
-                    return new MvcHtmlString(String.Empty);
-
-                string raw = string.Join("", segments.Select(segment => segment.Text).ToArray());
-                var lines = raw.Split('\r').Where(l => !String.IsNullOrWhiteSpace(l));
-                var paragraphs = lines.Select(l => String.Format("<p>{0}</p>", HttpUtility.HtmlEncode(l)));
-                var html = string.Join("", paragraphs.ToArray());
-                return new MvcHtmlString(html);
+                return segments.AsHtml();
             }
         }
     }
