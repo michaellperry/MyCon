@@ -1,6 +1,8 @@
 using FacetedWorlds.MyCon.Model;
 using System.Linq;
 using System.Collections.Generic;
+using System.Web.Mvc;
+using FacetedWorlds.MyCon.Web.Extensions;
 
 namespace FacetedWorlds.MyCon.Web.ViewModels
 {
@@ -23,15 +25,12 @@ namespace FacetedWorlds.MyCon.Web.ViewModels
             get { return _speaker.ImageUrl; }
         }
 
-        public string Bio
+        public MvcHtmlString Bio
         {
             get
             {
                 IEnumerable<DocumentSegment> segments = _speaker.Bio.Value;
-                if (segments == null)
-                    return string.Empty;
-
-                return string.Join("", segments.Select(segment => segment.Text).ToArray());
+                return segments.AsHtml();
             }
         }
     }
