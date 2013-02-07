@@ -117,6 +117,11 @@ header ul li a:hover
     margin-left: 86px;
 }
 
+.session a
+{
+    font-weight: bold;
+}
+
 .calendar
 {
     width: 80px;
@@ -130,6 +135,13 @@ header ul li a:hover
     font-size: 1.2em;
     color: White;
     margin: 8px auto;
+}
+
+.thumbnail
+{
+    width: 80px;
+    float: left;
+    margin-bottom: 20px;
 }
 
 /* Tracks

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Web;
+using System.Web.Mvc;
 using FacetedWorlds.MyCon.Model;
 using FacetedWorlds.MyCon.Web.Extensions;
 
@@ -39,6 +40,18 @@ namespace FacetedWorlds.MyCon.Web.ViewModels
             }
         }
 
+        public string SpeakerImageUrl
+        {
+            get
+            {
+                if (_sessionPlace.Session == null ||
+                    _sessionPlace.Session.Speaker == null)
+                    return null;
+
+                return _sessionPlace.Session.Speaker.ImageUrl;
+            }
+        }
+
         public string Day
         {
             get
@@ -60,6 +73,18 @@ namespace FacetedWorlds.MyCon.Web.ViewModels
                     return null;
 
                 return string.Format("{0:h:mm}", _sessionPlace.Place.PlaceTime.Start.ConvertTo("Central Standard Time"));
+            }
+        }
+
+        public string TimeSlot
+        {
+            get
+            {
+                if (_sessionPlace.Place == null ||
+                    _sessionPlace.Place.PlaceTime == null)
+                    return null;
+
+                return string.Format("{0:yyyyMMddHHmm}", _sessionPlace.Place.PlaceTime.Start.ConvertTo("Central Standard Time"));
             }
         }
 
@@ -87,7 +112,7 @@ namespace FacetedWorlds.MyCon.Web.ViewModels
             }
         }
 
-        public string Description
+        public MvcHtmlString Description
         {
             get
             {
@@ -96,9 +121,13 @@ namespace FacetedWorlds.MyCon.Web.ViewModels
 
                 IEnumerable<DocumentSegment> segments = _sessionPlace.Session.Description.Value;
                 if (segments == null)
-                    return string.Empty;
+                    return new MvcHtmlString(String.Empty);
 
-                return string.Join("", segments.Select(segment => segment.Text).ToArray());
+                string raw = string.Join("", segments.Select(segment => segment.Text).ToArray());
+                var lines = raw.Split('\r').Where(l => !String.IsNullOrWhiteSpace(l));
+                var paragraphs = lines.Select(l => String.Format("<p>{0}</p>", HttpUtility.HtmlEncode(l)));
+                var html = string.Join("", paragraphs.ToArray());
+                return new MvcHtmlString(html);
             }
         }
     }
