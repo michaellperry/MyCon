@@ -11,13 +11,14 @@ namespace FacetedWorlds.MyCon
         {
             get
             {
-                if (_conferenceID == "<<Your conference ID>>")
+                string conferenceID = _conferenceID;
+                if (conferenceID == "<<Your conference ID>>")
                 {
                     Regex punctuation = new Regex("[{}-]");
                     throw new InvalidOperationException(String.Format("Set the conference ID to \"{0}\".",
                         punctuation.Replace(Guid.NewGuid().ToString().ToUpper(), "")));
                 }
-                return _conferenceID;
+                return conferenceID;
             }
         }
     }

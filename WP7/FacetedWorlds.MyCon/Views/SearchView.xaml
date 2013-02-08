@@ -7,7 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:FacetedWorlds_MyCon="clr-namespace:FacetedWorlds.MyCon.Views"
     xmlns:Custom="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-    xmlns:Itzben="clr-namespace:Itzben;assembly=Itzben" 
     x:Class="FacetedWorlds.MyCon.Views.SearchView"
     SupportedOrientations="PortraitOrLandscape" Orientation="Landscape"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
@@ -70,9 +69,6 @@
         		<RowDefinition Height="0.891*"/>
         	</Grid.RowDefinitions>
         	<TextBox x:Name="SearchTermTextBox" Text="{Binding SearchTerm, Mode=TwoWay}" Height="72" KeyDown="SearchTermTextBox_KeyDown">
-        		<Custom:Interaction.Behaviors>
-        			<Itzben:UpdateOnTextChangedBehavior/>
-        		</Custom:Interaction.Behaviors>
         	</TextBox>
         	<ScrollViewer Margin="12,0" Grid.Row="1" >
         		<ItemsControl ItemTemplate="{StaticResource SearchDayViewModelTemplate}" ItemsSource="{Binding Days}"/>
