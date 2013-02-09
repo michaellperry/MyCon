@@ -76,25 +76,25 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\updatecontrols.2.2.2.1\lib\sl4-windowsphone71\UpdateControls.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence, Version=1.4.1.3, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls.Correspondence, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.1.4.1.14\lib\SL4-windowsphone71\UpdateControls.Correspondence.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.1.4.2.0\lib\SL4-windowsphone71\UpdateControls.Correspondence.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.BinaryHTTPClient, Version=1.4.1.3, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls.Correspondence.BinaryHTTPClient, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.App.1.4.1.19\lib\SL4-windowsphone71\UpdateControls.Correspondence.BinaryHTTPClient.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.App.1.4.2.1\lib\SL4-windowsphone71\UpdateControls.Correspondence.BinaryHTTPClient.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.BinaryHTTPClient.Notification, Version=1.4.1.3, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls.Correspondence.BinaryHTTPClient.Notification, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.App.1.4.1.19\lib\SL4-windowsphone71\UpdateControls.Correspondence.BinaryHTTPClient.Notification.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.App.1.4.2.1\lib\SL4-windowsphone71\UpdateControls.Correspondence.BinaryHTTPClient.Notification.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.Data, Version=1.4.1.3, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls.Correspondence.Data, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.App.1.4.1.19\lib\SL4-windowsphone71\UpdateControls.Correspondence.Data.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.App.1.4.2.1\lib\SL4-windowsphone71\UpdateControls.Correspondence.Data.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.IsolatedStorage, Version=1.4.1.3, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls.Correspondence.IsolatedStorage, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.App.1.4.1.19\lib\SL4-windowsphone71\UpdateControls.Correspondence.IsolatedStorage.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.App.1.4.2.1\lib\SL4-windowsphone71\UpdateControls.Correspondence.IsolatedStorage.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -347,7 +347,6 @@
     <Content Include="Images\map.png" />
     <Content Include="Images\unknown.big.png" />
     <Content Include="Images\unknown.small.png" />
-    <Content Include="Readme_Correspondence.txt" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>

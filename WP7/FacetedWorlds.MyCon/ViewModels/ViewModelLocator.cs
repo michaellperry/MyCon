@@ -87,10 +87,10 @@ namespace FacetedWorlds.MyCon.ViewModels
         {
             Attendee attendee = _synchronizationService.Attendee;
             Guid sessionGuid = new Guid(sessionId);
-            Session session = attendee.Conference.Sessions.FirstOrDefault(s => s.Unique == sessionGuid);
+            Session session = attendee.Conference.Sessions.Ensure().FirstOrDefault(s => s.Unique == sessionGuid);
             if (session == null)
                 return null;
-            if (session.CurrentSessionPlaces.Count() != 1)
+            if (session.CurrentSessionPlaces.Ensure().Count() != 1)
                 return null;
 
             SessionPlace sessionPlace = session.CurrentSessionPlaces.Single();
@@ -105,11 +105,11 @@ namespace FacetedWorlds.MyCon.ViewModels
             if (!DateTime.TryParse(startTime, out start))
                 return null;
 
-            Day day = attendee.Conference.Days.FirstOrDefault(d => d.ConferenceDate == start.Date);
+            Day day = attendee.Conference.Days.Ensure().FirstOrDefault(d => d.ConferenceDate == start.Date);
             if (day == null)
                 return null;
 
-            Time time = day.Times.FirstOrDefault(t => t.Start == start);
+            Time time = day.Times.Ensure().FirstOrDefault(t => t.Start == start);
             if (time == null)
                 return null;
 
@@ -120,7 +120,7 @@ namespace FacetedWorlds.MyCon.ViewModels
         public object GetSpeakerViewModel(string speakerId)
         {
             Attendee attendee = _synchronizationService.Attendee;
-            Speaker speaker = attendee.Conference.Speakers.FirstOrDefault(s => s.Name == speakerId);
+            Speaker speaker = attendee.Conference.Speakers.Ensure().FirstOrDefault(s => s.Name == speakerId);
             if (speaker == null)
                 return null;
 
@@ -131,15 +131,15 @@ namespace FacetedWorlds.MyCon.ViewModels
         {
             Guid sessionGuid = new Guid(sessionId);
             Attendee attendee = _synchronizationService.Attendee;
-            List<Session> sessions = attendee.Conference.Sessions.Where(s => s.Unique == sessionGuid).ToList();
+            List<Session> sessions = attendee.Conference.Sessions.Ensure().Where(s => s.Unique == sessionGuid).ToList();
             if (sessions.Count != 1)
                 return null;
 
             Session session = sessions[0];
-            if (session.CurrentSessionPlaces.Count() != 1)
+            if (session.CurrentSessionPlaces.Ensure().Count() != 1)
                 return null;
 
-            List<Schedule> schedules = attendee.CurrentSchedules.Where(s => s.SessionPlace.Session.Unique == sessionGuid).ToList();
+            List<Schedule> schedules = attendee.CurrentSchedules.Ensure().Where(s => s.SessionPlace.Session.Unique == sessionGuid).ToList();
             if (schedules.Count != 1)
                 return null;
 
