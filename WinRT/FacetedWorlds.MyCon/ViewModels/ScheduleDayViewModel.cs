@@ -8,12 +8,12 @@ namespace FacetedWorlds.MyCon.ViewModels
     public class ScheduleDayViewModel
     {
         private readonly Day _day;
-        private readonly Attendee _attendee;
-
-        public ScheduleDayViewModel(Day day, Attendee attendee)
+        private readonly Individual _individual;
+        
+        public ScheduleDayViewModel(Day day, Individual individual)
         {
             _day = day;
-            _attendee = attendee;
+            _individual = individual;
         }
 
         public string Day
@@ -28,7 +28,7 @@ namespace FacetedWorlds.MyCon.ViewModels
                 return
                     from time in _day.Times
                     orderby time.Start
-                    select new ScheduleTimeViewModel(time, _attendee);
+                    select new ScheduleTimeViewModel(time, _individual);
             }
         }
     }

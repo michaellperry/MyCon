@@ -71,8 +71,8 @@
     <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Conference.cs">
       <Link>Conference.cs</Link>
     </Compile>
-    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Identity.cs">
-      <Link>Identity.cs</Link>
+    <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Individual.cs">
+      <Link>Individual.cs</Link>
     </Compile>
     <Compile Include="..\..\WP7\FacetedWorlds.MyCon.Model\Model.generated.cs">
       <Link>Model.generated.cs</Link>

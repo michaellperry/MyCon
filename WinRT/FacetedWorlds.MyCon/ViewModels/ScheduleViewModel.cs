@@ -2,19 +2,26 @@
 using System.Linq;
 using FacetedWorlds.MyCon.Model;
 using FacetedWorlds.MyCon.Models;
+using System;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {
     public class ScheduleViewModel
     {
         private readonly SynchronizationService _synchronizationService;
-        private readonly Attendee _attendee;
+        private readonly Conference _conference;
+        private readonly Individual _individual;
         private readonly SearchModel _searchModel;
-
-        public ScheduleViewModel(SynchronizationService synchronizationService, Attendee attendee, SearchModel searchModel)
+        
+        public ScheduleViewModel(
+            SynchronizationService synchronizationService, 
+            Conference conference, 
+            Individual individual, 
+            SearchModel searchModel)
         {
             _synchronizationService = synchronizationService;
-            _attendee = attendee;
+            _conference = conference;
+            _individual = individual;
             _searchModel = searchModel;
         }
 
@@ -32,10 +39,7 @@ namespace FacetedWorlds.MyCon.ViewModels
         {
             get
             {
-                if (_attendee.Conference == null)
-                    return null;
-
-                return _attendee.Conference.Name.Value;
+                return _conference.Name.Value;
             }
         }
 
@@ -44,9 +48,9 @@ namespace FacetedWorlds.MyCon.ViewModels
             get
             {
                 return
-                    from day in _attendee.Conference.Days
+                    from day in _conference.Days
                     orderby day.ConferenceDate
-                    select new ScheduleDayViewModel(day, _attendee);
+                    select new ScheduleDayViewModel(day, _individual);
             }
         }
 

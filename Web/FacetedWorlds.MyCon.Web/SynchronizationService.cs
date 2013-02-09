@@ -66,10 +66,5 @@ namespace FacetedWorlds.MyCon.Web
         {
             get { return _community.LastException; }
         }
-
-        public Identity GetIdentity(string userName)
-        {
-            return _community.AddFact(new Identity(userName));
-        }
     }
 }

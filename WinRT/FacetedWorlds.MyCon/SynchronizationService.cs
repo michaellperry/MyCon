@@ -17,12 +17,12 @@ namespace FacetedWorlds.MyCon
 {
     public class SynchronizationService
     {
-        private const string ThisIdentity = "FacetedWorlds.MyCon.Identity.this";
+        private const string ThisIndividual = "FacetedWorlds.MyCon.Individual.this";
         private static readonly Regex Punctuation = new Regex(@"[{}\-]");
 
         private Community _community;
-        private Independent<Identity> _identity = new Independent<Identity>();
-        private Independent<Attendee> _attendee = new Independent<Attendee>();
+        private Independent<Individual> _individual = new Independent<Individual>();
+        private Independent<Conference> _conference = new Independent<Conference>();
 
         public async void Initialize()
         {
@@ -33,12 +33,8 @@ namespace FacetedWorlds.MyCon
             _community = new Community(storage);
             _community.AddAsynchronousCommunicationStrategy(communication);
             _community.Register<CorrespondenceModel>();
-            _community.Subscribe(() => _identity.Value);
-            _community.Subscribe(() =>
-                _attendee.Value == null
-                    ? null
-                    : _attendee.Value.Conference
-            );
+            _community.Subscribe(() => _individual.Value);
+            _community.Subscribe(() => _conference.Value);
 
             // Synchronize periodically.
             DispatcherTimer timer = new DispatcherTimer();
@@ -50,19 +46,18 @@ namespace FacetedWorlds.MyCon
             };
             timer.Start();
 
-            Identity identity = await _community.LoadFactAsync<Identity>(ThisIdentity);
-            if (identity == null)
+            Individual individual = await _community.LoadFactAsync<Individual>(ThisIndividual);
+            if (individual == null)
             {
                 string randomId = Punctuation.Replace(Guid.NewGuid().ToString(), String.Empty).ToLower();
-                identity = await _community.AddFactAsync(new Identity(randomId));
-                await _community.SetFactAsync(ThisIdentity, identity);
+                individual = await _community.AddFactAsync(new Individual(randomId));
+                await _community.SetFactAsync(ThisIndividual, individual);
             }
             var conference = await _community.AddFactAsync(new Conference(CommonSettings.ConferenceID));
-            var attendee = await _community.AddFactAsync(new Attendee(identity, conference));
             lock (this)
             {
-                _identity.Value = identity;
-                _attendee.Value = attendee;
+                _individual.Value = individual;
+                _conference.Value = conference;
             }
 
             // Synchronize whenever the user has something to send.
@@ -87,24 +82,24 @@ namespace FacetedWorlds.MyCon
             get { return _community; }
         }
 
-        public Identity Identity
+        public Conference Conference
         {
             get
             {
                 lock (this)
                 {
-                    return _identity;
+                    return _conference;
                 }
             }
         }
 
-        public Attendee Attendee
+        public Individual Individual
         {
             get
             {
                 lock (this)
                 {
-                    return _attendee;
+                    return _individual;
                 }
             }
         }

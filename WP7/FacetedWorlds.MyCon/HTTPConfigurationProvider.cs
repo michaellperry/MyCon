@@ -6,12 +6,12 @@ namespace FacetedWorlds.MyCon
 {
     public class HTTPConfigurationProvider : IHTTPConfigurationProvider
     {
-        private Independent<Identity> _identity = new Independent<Identity>();
+        private Independent<Individual> _individual = new Independent<Individual>();
 
-        public Identity Identity
+        public Individual Individual
         {
-            get { return _identity; }
-            set { _identity.Value = value; }
+            get { return _individual; }
+            set { _individual.Value = value; }
         }
 
         public HTTPConfiguration Configuration
@@ -26,7 +26,7 @@ namespace FacetedWorlds.MyCon
 
         public bool IsToastEnabled
         {
-            get { return Identity == null ? false : Identity.ToastNotificationEnabled; }
+            get { return Individual == null ? false : Individual.ToastNotificationEnabled; }
         }
     }
 }

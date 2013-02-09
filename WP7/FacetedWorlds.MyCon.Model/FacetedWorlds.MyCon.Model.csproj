@@ -65,7 +65,7 @@
   <ItemGroup>
     <Compile Include="Attendee.cs" />
     <Compile Include="Conference.cs" />
-    <Compile Include="Identity.cs" />
+    <Compile Include="Individual.cs" />
     <Compile Include="MessageBoard.cs" />
     <Compile Include="Model.generated.cs">
       <AutoGen>True</AutoGen>

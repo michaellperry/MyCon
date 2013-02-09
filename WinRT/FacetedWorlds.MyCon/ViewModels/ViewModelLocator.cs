@@ -23,11 +23,11 @@ namespace FacetedWorlds.MyCon.ViewModels
         {
             get
             {
-                return ViewModel(() => _synchronizationService.Identity == null
+                return ViewModel(() => _synchronizationService.Individual == null
                     ? null :
                     new MainViewModel(
                         _synchronizationService.Community,
-                        _synchronizationService.Identity));
+                        _synchronizationService.Individual));
             }
         }
 
@@ -35,13 +35,20 @@ namespace FacetedWorlds.MyCon.ViewModels
         {
             get
             {
-                return ViewModel(() => _synchronizationService.Attendee == null
-                    ? null
-                    : new ScheduleViewModel(
+                return ViewModel(() =>
+                {
+                    var conference = _synchronizationService.Conference;
+                    var individual = _synchronizationService.Individual;
+                    if (conference == null &&
+                        individual == null)
+                        return null;
+
+                    return new ScheduleViewModel(
                         _synchronizationService,
-                        _synchronizationService.Attendee,
-                        _searchModel)
-                );
+                        conference,
+                        individual,
+                        _searchModel);
+                });
             }
         }
     }

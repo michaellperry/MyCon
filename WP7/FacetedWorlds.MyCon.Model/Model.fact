@@ -1,12 +1,17 @@
 namespace FacetedWorlds.MyCon.Model;
 
-fact Identity {
+fact Individual {
 key:
     string anonymousId;
 
 query:
+	Attendee* attendees {
+		IndividualAttendee ia : ia.individual = this
+		Attendee a : a = ia.attendee
+	}
+
     EnableToastNotification* isToastNotificationEnabled {
-        EnableToastNotification d : d.identity = this
+        EnableToastNotification d : d.individual = this
             where not d.isDisabled
     }
 }
@@ -14,7 +19,7 @@ query:
 fact EnableToastNotification {
 key:
     unique;
-    Identity identity;
+    Individual individual;
 
 query:
     bool isDisabled {
@@ -102,7 +107,7 @@ query:
 
 fact Attendee {
 key:
-    Identity identity;
+    string identifier;
     Conference conference;
 
 query:
@@ -120,6 +125,30 @@ query:
 			where s.isCurrent
 		Session session : s.sessionPlace.session = session
 	}
+}
+
+fact IndividualAttendee {
+key:
+	publish Individual individual;
+	Attendee attendee;
+}
+
+fact Profile {
+key:
+	Conference conference;
+	string name;
+}
+
+fact ProfileAttendee {
+key:
+	publish Profile profile;
+	Attendee attendee;
+}
+
+fact Follow {
+key:
+	publish Individual individual;
+	ProfileAttendee profileAttendee;
 }
 
 fact Day {

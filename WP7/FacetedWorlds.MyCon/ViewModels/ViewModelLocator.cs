@@ -40,7 +40,7 @@ namespace FacetedWorlds.MyCon.ViewModels
             _search = new SearchViewModel(_synchronizationService.Attendee, _imageCache, _searchModel);
             _map = new MapViewModel(_synchronizationService.Attendee, _imageCache, _clock);
             _notices = new NoticesViewModel(_synchronizationService.Attendee, _imageCache, _clock);
-            _settings = new SettingsViewModel(_synchronizationService.Attendee);
+            _settings = new SettingsViewModel(_synchronizationService.Individual, _synchronizationService.Attendee);
         }
 
         public SearchModel SearchModel

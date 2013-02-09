@@ -11,12 +11,12 @@ namespace FacetedWorlds.MyCon.ViewModels
     public class MainViewModel
     {
         private Community _community;
-        private Identity _identity;
+        private Individual _individual;
 
-        public MainViewModel(Community community, Identity identity)
+        public MainViewModel(Community community, Individual individual)
         {
             _community = community;
-            _identity = identity;
+            _individual = individual;
         }
 
         public bool Synchronizing

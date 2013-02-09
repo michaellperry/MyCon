@@ -16,6 +16,7 @@ namespace FacetedWorlds.MyCon
     public class SynchronizationService
     {
         private Community _community;
+        private Individual _individual;
         private Attendee _attendee;
 
         public void Initialize()
@@ -27,13 +28,13 @@ namespace FacetedWorlds.MyCon
                 .AddAsynchronousCommunicationStrategy(new BinaryHTTPAsynchronousCommunicationStrategy(configurationProvider))
                 .Register<CorrespondenceModel>()
                 .Subscribe(() => _attendee.Conference)
+                .Subscribe(() => _individual)
                 .Subscribe(() => _attendee.ScheduledSessions)
                 ;
 
-            Identity identity = _community.AddFact(new Identity(GetAnonymousUserId()));
-            Conference conference = _community.AddFact(new Conference(CommonSettings.ConferenceID));
-            _attendee = _community.AddFact(new Attendee(identity, conference));
-            configurationProvider.Identity = identity;
+            Individual identity = _community.AddFact(new Individual(GetAnonymousUserId()));
+            _attendee = identity.GetAttendee(CommonSettings.ConferenceID);
+            configurationProvider.Individual = identity;
 
             // Synchronize whenever the user has something to send.
             _community.FactAdded += delegate
@@ -57,6 +58,11 @@ namespace FacetedWorlds.MyCon
         public Community Community
         {
             get { return _community; }
+        }
+
+        public Individual Individual
+        {
+            get { return _individual; }
         }
 
         public Attendee Attendee

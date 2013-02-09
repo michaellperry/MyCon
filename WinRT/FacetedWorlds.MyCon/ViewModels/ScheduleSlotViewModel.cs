@@ -9,15 +9,15 @@ namespace FacetedWorlds.MyCon.ViewModels
     public class ScheduleSlotViewModel : SessionViewModelBase
     {
         private readonly Time _time;
-        private readonly Attendee _attendee;
         private readonly Schedule _schedule;
 
         private Dependent<SessionPlace> _sessionPlace;
+        private readonly Individual _individual;
         
-        public ScheduleSlotViewModel(Time time, Attendee attendee, Schedule schedule)
+        public ScheduleSlotViewModel(Time time, Individual individual, Schedule schedule)
         {
             _time = time;
-            _attendee = attendee;
+            _individual = individual;
             _schedule = schedule;
 
             _sessionPlace = new Dependent<SessionPlace>(() => SessionPlace);

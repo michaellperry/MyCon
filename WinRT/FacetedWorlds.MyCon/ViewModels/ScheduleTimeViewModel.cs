@@ -9,25 +9,26 @@ namespace FacetedWorlds.MyCon.ViewModels
     public class ScheduleTimeViewModel
     {
         private readonly Time _time;
-        private readonly Attendee _attendee;
-
-        public ScheduleTimeViewModel(Time time, Attendee attendee)
+        private readonly Individual _individual;
+        
+        public ScheduleTimeViewModel(Time time, Individual individual)
         {
             _time = time;
-            _attendee = attendee;
+            _individual = individual;
         }
 
         public IEnumerable<ScheduleSlotViewModel> Schedules
         {
             get
             {
-                var schedules = _attendee.CurrentSchedules
+                var schedules = _individual.Attendees
+                    .SelectMany(a => a.CurrentSchedules)
                     .Where(schedule =>
                         schedule.Slot != null &&
                         schedule.Slot.SlotTime == _time)
                     .DefaultIfEmpty();
                 return schedules
-                    .Select(schedule => new ScheduleSlotViewModel(_time, _attendee, schedule));
+                    .Select(schedule => new ScheduleSlotViewModel(_time, _individual, schedule));
             }
         }
     }
