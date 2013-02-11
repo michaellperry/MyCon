@@ -131,6 +131,7 @@
     <Compile Include="ViewModels\MySchedule\ScheduleTimeViewModel.cs" />
     <Compile Include="ViewModels\MySchedule\ScheduleViewModel.cs" />
     <Compile Include="ViewModels\SessionViewModelBase.cs" />
+    <Compile Include="ViewModels\Tracks\SessionHeaderViewModel.cs" />
     <Compile Include="ViewModels\Tracks\TracksViewModel.cs" />
     <Compile Include="ViewModels\Tracks\TrackViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />

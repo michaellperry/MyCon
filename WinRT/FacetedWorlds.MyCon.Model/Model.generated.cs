@@ -339,13 +339,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				DisableToastNotification newFact = new DisableToastNotification(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -864,13 +857,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				Conference__conferenceSurvey newFact = new Conference__conferenceSurvey(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -1118,13 +1104,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				ConferenceSessionSurvey newFact = new ConferenceSessionSurvey(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -1410,13 +1389,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				IndividualAttendee newFact = new IndividualAttendee(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -1622,13 +1594,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				ProfileAttendee newFact = new ProfileAttendee(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -1730,13 +1695,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				Follow newFact = new Follow(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -2219,13 +2177,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				TimeUndelete newFact = new TimeUndelete(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -2314,13 +2265,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				Slot newFact = new Slot(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -3267,13 +3211,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				Speaker__bio newFact = new Speaker__bio(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -3509,13 +3446,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				Place newFact = new Place(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -4112,13 +4042,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				Session__description newFact = new Session__description(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -4241,13 +4164,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				Session__level newFact = new Session__level(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -4481,13 +4397,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				SessionUndelete newFact = new SessionUndelete(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -4689,13 +4598,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				SessionPlace newFact = new SessionPlace(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -4966,13 +4868,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				ScheduleRemove newFact = new ScheduleRemove(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -5243,13 +5138,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				Survey newFact = new Survey(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -5351,13 +5239,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				SessionEvaluation newFact = new SessionEvaluation(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -5497,13 +5378,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				SessionEvaluationCompleted newFact = new SessionEvaluationCompleted(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -5631,13 +5505,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				SessionEvaluationRating newFact = new SessionEvaluationRating(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -5878,13 +5745,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				SessionEvaluationEssay newFact = new SessionEvaluationEssay(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}

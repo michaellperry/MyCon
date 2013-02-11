@@ -88,6 +88,7 @@ namespace <#=targetNamespace.Name#>
 			{
 				<#=c.Name#> newFact = new <#=c.Name#>(memento);
 
+<# if (c.Unique || c.Fields.Any()) {#>
 				// Create a memory stream from the memento data.
 				using (MemoryStream data = new MemoryStream(memento.Data))
 				{
@@ -101,6 +102,7 @@ namespace <#=targetNamespace.Name#>
 <#}#>
 					}
 				}
+<#}#>
 
 				return newFact;
 			}

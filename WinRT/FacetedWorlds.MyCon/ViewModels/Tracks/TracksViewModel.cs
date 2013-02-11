@@ -47,6 +47,7 @@ namespace FacetedWorlds.MyCon.ViewModels.Tracks
 
                 return
                     from track in _synchronizationService.Conference.Tracks
+                    orderby track.Name
                     select new TrackViewModel(track);
             }
         }
