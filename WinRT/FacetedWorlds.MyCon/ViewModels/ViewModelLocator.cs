@@ -51,5 +51,23 @@ namespace FacetedWorlds.MyCon.ViewModels
                 });
             }
         }
+
+        public SampleData.SampleDataSource _source = new SampleData.SampleDataSource();
+        public object Tracks
+        {
+            get
+            {
+//                return _source;
+                return ViewModel(delegate()
+                {
+                    //if (_synchronizationService.Conference == null)
+                    //    return null;
+                    //if (!_synchronizationService.Conference.Tracks.Any())
+                    //    return null;
+
+                    return new TracksViewModel(_synchronizationService);
+                });
+            }
+        }
     }
 }

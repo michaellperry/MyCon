@@ -98,7 +98,6 @@ Global
 		{232FB19D-F176-4299-B196-B01F77B50D39}.Debug|ARM.ActiveCfg = Debug|Any CPU
 		{232FB19D-F176-4299-B196-B01F77B50D39}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{232FB19D-F176-4299-B196-B01F77B50D39}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{232FB19D-F176-4299-B196-B01F77B50D39}.Debug|Mixed Platforms.Deploy.0 = Debug|Any CPU
 		{232FB19D-F176-4299-B196-B01F77B50D39}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{232FB19D-F176-4299-B196-B01F77B50D39}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{232FB19D-F176-4299-B196-B01F77B50D39}.Release|Any CPU.ActiveCfg = Release|Any CPU

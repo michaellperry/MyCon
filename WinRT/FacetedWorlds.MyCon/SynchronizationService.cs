@@ -31,7 +31,7 @@ namespace FacetedWorlds.MyCon
             var communication = new BinaryHTTPAsynchronousCommunicationStrategy(http);
 
             _community = new Community(storage);
-            _community.AddAsynchronousCommunicationStrategy(communication);
+            //_community.AddAsynchronousCommunicationStrategy(communication);
             _community.Register<CorrespondenceModel>();
             _community.Subscribe(() => _individual.Value);
             _community.Subscribe(() => _conference.Value);
@@ -106,8 +106,8 @@ namespace FacetedWorlds.MyCon
 
         public void Synchronize()
         {
-            _community.BeginSending();
-            _community.BeginReceiving();
+            //_community.BeginSending();
+            //_community.BeginReceiving();
         }
     }
 }

@@ -79,7 +79,7 @@
     <Reference Include="System.Windows.Browser" />
     <Reference Include="UpdateControls, Version=2.2.2.1, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\updatecontrols.2.2.2.1\lib\sl4\UpdateControls.dll</HintPath>
+      <HintPath>..\..\packages\UpdateControls.2.2.2.2\lib\sl4\UpdateControls.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
