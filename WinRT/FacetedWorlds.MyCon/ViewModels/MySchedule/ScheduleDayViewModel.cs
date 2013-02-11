@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FacetedWorlds.MyCon.Model;
 
-namespace FacetedWorlds.MyCon.ViewModels
+namespace FacetedWorlds.MyCon.ViewModels.MySchedule
 {
     public class ScheduleDayViewModel
     {

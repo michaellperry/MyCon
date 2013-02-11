@@ -5,7 +5,7 @@ using System.Text;
 using FacetedWorlds.MyCon.Model;
 using FacetedWorlds.MyCon.SampleData;
 
-namespace FacetedWorlds.MyCon.ViewModels
+namespace FacetedWorlds.MyCon.ViewModels.Tracks
 {
     public class TrackViewModel
     {

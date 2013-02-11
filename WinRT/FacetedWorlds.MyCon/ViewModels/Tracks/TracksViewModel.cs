@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FacetedWorlds.MyCon.ViewModels
+namespace FacetedWorlds.MyCon.ViewModels.Tracks
 {
     public class TracksViewModel
     {

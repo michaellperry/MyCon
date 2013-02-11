@@ -4,7 +4,7 @@ using System.Linq;
 using FacetedWorlds.MyCon.Model;
 using UpdateControls.Fields;
 
-namespace FacetedWorlds.MyCon.ViewModels
+namespace FacetedWorlds.MyCon.ViewModels.MySchedule
 {
     public class ScheduleSlotViewModel : SessionViewModelBase
     {

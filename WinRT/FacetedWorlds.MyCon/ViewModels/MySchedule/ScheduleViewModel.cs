@@ -4,7 +4,7 @@ using FacetedWorlds.MyCon.Model;
 using FacetedWorlds.MyCon.Models;
 using System;
 
-namespace FacetedWorlds.MyCon.ViewModels
+namespace FacetedWorlds.MyCon.ViewModels.MySchedule
 {
     public class ScheduleViewModel
     {

@@ -1,8 +1,7 @@
-using System;
-using System.ComponentModel;
-using System.Linq;
-using UpdateControls.XAML;
 using FacetedWorlds.MyCon.Models;
+using FacetedWorlds.MyCon.ViewModels.MySchedule;
+using FacetedWorlds.MyCon.ViewModels.Tracks;
+using UpdateControls.XAML;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {
@@ -17,18 +16,6 @@ namespace FacetedWorlds.MyCon.ViewModels
         {
             if (!Windows.ApplicationModel.DesignMode.DesignModeEnabled)
                 _synchronizationService.Initialize();
-        }
-
-        public object Main
-        {
-            get
-            {
-                return ViewModel(() => _synchronizationService.Individual == null
-                    ? null :
-                    new MainViewModel(
-                        _synchronizationService.Community,
-                        _synchronizationService.Individual));
-            }
         }
 
         public object Schedule
@@ -52,19 +39,12 @@ namespace FacetedWorlds.MyCon.ViewModels
             }
         }
 
-        public SampleData.SampleDataSource _source = new SampleData.SampleDataSource();
         public object Tracks
         {
             get
             {
-//                return _source;
                 return ViewModel(delegate()
                 {
-                    //if (_synchronizationService.Conference == null)
-                    //    return null;
-                    //if (!_synchronizationService.Conference.Tracks.Any())
-                    //    return null;
-
                     return new TracksViewModel(_synchronizationService);
                 });
             }
