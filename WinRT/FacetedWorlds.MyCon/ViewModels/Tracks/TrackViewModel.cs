@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FacetedWorlds.MyCon.Model;
@@ -25,11 +26,31 @@ namespace FacetedWorlds.MyCon.ViewModels.Tracks
                 var sessionPlaces = _track.CurrentSessionPlaces.ToList();
                 return
                     from sessionPlace in sessionPlaces
-                    where sessionPlace.Place != null
-                       && sessionPlace.Place.PlaceTime != null
+                    where CanDisplay(sessionPlace)
                     orderby sessionPlace.Place.PlaceTime.Start
                     select new SessionHeaderViewModel(sessionPlace);
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == this)
+                return true;
+            TrackViewModel that = obj as TrackViewModel;
+            if (that == null)
+                return false;
+            return Object.Equals(this._track, that._track);
+        }
+
+        public override int GetHashCode()
+        {
+            return _track.GetHashCode();
+        }
+
+        public static bool CanDisplay(SessionPlace sessionPlace)
+        {
+            return sessionPlace.Place != null
+                && sessionPlace.Place.PlaceTime != null;
         }
     }
 }

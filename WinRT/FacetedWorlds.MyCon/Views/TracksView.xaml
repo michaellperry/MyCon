@@ -61,25 +61,10 @@
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate>
-                            <Grid
-                                Margin="1,0,0,6">
-                                <Button
-                                    AutomationProperties.Name="Group Title"
-                                    Style="{StaticResource TextPrimaryButtonStyle}">
-                                    <StackPanel
-                                        Orientation="Horizontal">
-                                        <TextBlock
-                                            Text="{Binding Name}"
-                                            Margin="3,-7,10,10"
-                                            Style="{StaticResource GroupHeaderTextStyle}" />
-                                        <TextBlock
-                                            Text="{StaticResource ChevronGlyph}"
-                                            FontFamily="Segoe UI Symbol"
-                                            Margin="0,-7,0,10"
-                                            Style="{StaticResource GroupHeaderTextStyle}" />
-                                    </StackPanel>
-                                </Button>
-                            </Grid>
+                            <TextBlock
+                                Text="{Binding Name}"
+                                Margin="4,-7,10,16"
+                                Style="{StaticResource GroupHeaderTextStyle}" />
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
                     <GroupStyle.Panel>

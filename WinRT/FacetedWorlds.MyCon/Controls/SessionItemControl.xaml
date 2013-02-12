@@ -16,8 +16,15 @@
             <RowDefinition
                 Height="90" />
         </Grid.RowDefinitions>
-        <Rectangle
-            Fill="#FFAAAAAA" />
+        <Rectangle RenderTransformOrigin="0.5,0.5" >
+        	<Rectangle.Fill>
+        		<ImageBrush Stretch="UniformToFill" ImageSource="http://qedcode.com/extras/Perry_Headshot_Medium.jpg">
+        			<ImageBrush.RelativeTransform>
+        				<CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="1"/>
+        			</ImageBrush.RelativeTransform>
+        		</ImageBrush>
+        	</Rectangle.Fill>
+        </Rectangle>
         <StackPanel
             Grid.Row="1"
             VerticalAlignment="Bottom"
