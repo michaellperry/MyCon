@@ -26,9 +26,8 @@ namespace FacetedWorlds.MyCon.ViewModels.Tracks
         {
             get
             {
-                var sessionPlaces = _track.CurrentSessionPlaces.ToList();
                 return
-                    from sessionPlace in sessionPlaces
+                    from sessionPlace in _track.CurrentSessionPlaces
                     where CanDisplay(sessionPlace)
                     orderby sessionPlace.Place.PlaceTime.Start
                     select _newSessionHeaderViewModel(sessionPlace);
