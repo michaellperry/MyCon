@@ -16,9 +16,9 @@ using Windows.UI.Xaml.Navigation;
 
 namespace FacetedWorlds.MyCon.Controls
 {
-    public sealed partial class SessionItemControl : UserControl
+    public sealed partial class SessionControl : UserControl
     {
-        public SessionItemControl()
+        public SessionControl()
         {
             this.InitializeComponent();
         }

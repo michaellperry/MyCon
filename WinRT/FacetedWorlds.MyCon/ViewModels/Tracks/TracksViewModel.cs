@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FacetedWorlds.MyCon.Models;
 
 namespace FacetedWorlds.MyCon.ViewModels.Tracks
 {
     public class TracksViewModel
     {
         private readonly SynchronizationService _synchronizationService;
-
-        public TracksViewModel(SynchronizationService synchronizationService)
+        private readonly SelectionModel _selectionModel;
+        
+        public TracksViewModel(SynchronizationService synchronizationService, SelectionModel selectionModel)
         {
             _synchronizationService = synchronizationService;
+            _selectionModel = selectionModel;
         }
 
         public bool Synchronizing
@@ -49,7 +52,7 @@ namespace FacetedWorlds.MyCon.ViewModels.Tracks
                     from track in _synchronizationService.Conference.Tracks
                     where track.CurrentSessionPlaces.Any(sp => TrackViewModel.CanDisplay(sp))
                     orderby track.Name
-                    select new TrackViewModel(track);
+                    select new TrackViewModel(track, _selectionModel);
             }
         }
     }

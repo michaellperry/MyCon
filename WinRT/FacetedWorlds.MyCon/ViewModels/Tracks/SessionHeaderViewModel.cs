@@ -2,16 +2,19 @@ using System;
 using FacetedWorlds.MyCon.Model;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
+using FacetedWorlds.MyCon.Models;
 
 namespace FacetedWorlds.MyCon.ViewModels.Tracks
 {
     public class SessionHeaderViewModel
     {
         private readonly SessionPlace _sessionPlace;
-
-        public SessionHeaderViewModel(SessionPlace sessionPlace)
+        private readonly SelectionModel _selectionModel;
+        
+        public SessionHeaderViewModel(SessionPlace sessionPlace, SelectionModel selectionModel)
         {
             _sessionPlace = sessionPlace;
+            _selectionModel = selectionModel;
         }
 
         public string Name
@@ -48,6 +51,11 @@ namespace FacetedWorlds.MyCon.ViewModels.Tracks
 
                 return new BitmapImage(new Uri(_sessionPlace.Session.Speaker.ImageUrl.Value, UriKind.Absolute));
             }
+        }
+
+        public void Select()
+        {
+            _selectionModel.SelectedSessionPlace = _sessionPlace;
         }
 
         public override bool Equals(object obj)

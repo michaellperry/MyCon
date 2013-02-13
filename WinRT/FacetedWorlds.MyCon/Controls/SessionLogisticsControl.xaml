@@ -1,0 +1,25 @@
+﻿<UserControl
+    x:Class="FacetedWorlds.MyCon.Controls.SessionLogisticsControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FacetedWorlds.MyCon.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="295.522"
+    d:DesignWidth="210.448">
+    
+    <StackPanel Margin="0">
+		<local:CalendarControl HorizontalAlignment="Center" Margin="10"/>
+
+		<TextBlock
+			HorizontalAlignment="Center"
+			Margin="10"
+			Text="{Binding Room}" FontSize="26.667" />
+		<TextBlock
+			HorizontalAlignment="Center"
+			Margin="10"
+			Text="{Binding Track}" FontSize="26.667" />
+
+	</StackPanel>
+</UserControl>

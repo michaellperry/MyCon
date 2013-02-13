@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using FacetedWorlds.MyCon.ViewModels.Tracks;
-using UpdateControls.XAML;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -16,23 +14,13 @@ using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace FacetedWorlds.MyCon.Views
+namespace FacetedWorlds.MyCon.Controls
 {
-    public sealed partial class TracksView : UserControl
+    public sealed partial class SessionDescriptionControl : UserControl
     {
-        public event Action SessionSelected;
-
-        public TracksView()
+        public SessionDescriptionControl()
         {
             this.InitializeComponent();
-        }
-
-        private void Session_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var viewModel = ForView.Unwrap<SessionHeaderViewModel>(e.ClickedItem);
-            viewModel.Select();
-            if (SessionSelected != null)
-                SessionSelected();
         }
     }
 }

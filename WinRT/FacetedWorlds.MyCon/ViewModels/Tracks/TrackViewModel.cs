@@ -2,16 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FacetedWorlds.MyCon.Model;
+using FacetedWorlds.MyCon.Models;
 
 namespace FacetedWorlds.MyCon.ViewModels.Tracks
 {
     public class TrackViewModel
     {
         private readonly Track _track;
-
-        public TrackViewModel(Track track)
+        private readonly SelectionModel _selectionModel;
+        
+        public TrackViewModel(Track track, SelectionModel selectionModel)
         {
             _track = track;
+            _selectionModel = selectionModel;
         }
 
         public string Name
@@ -28,7 +31,7 @@ namespace FacetedWorlds.MyCon.ViewModels.Tracks
                     from sessionPlace in sessionPlaces
                     where CanDisplay(sessionPlace)
                     orderby sessionPlace.Place.PlaceTime.Start
-                    select new SessionHeaderViewModel(sessionPlace);
+                    select new SessionHeaderViewModel(sessionPlace, _selectionModel);
             }
         }
 

@@ -1,5 +1,6 @@
 using FacetedWorlds.MyCon.Models;
 using FacetedWorlds.MyCon.ViewModels.MySchedule;
+using FacetedWorlds.MyCon.ViewModels.Session;
 using FacetedWorlds.MyCon.ViewModels.Tracks;
 using UpdateControls.XAML;
 
@@ -11,6 +12,8 @@ namespace FacetedWorlds.MyCon.ViewModels
             new SynchronizationService();
         private readonly SearchModel _searchModel =
             new SearchModel();
+        private readonly SelectionModel _selectionModel =
+            new SelectionModel();
 
         public ViewModelLocator()
         {
@@ -43,9 +46,23 @@ namespace FacetedWorlds.MyCon.ViewModels
         {
             get
             {
-                return ViewModel(delegate()
+                return ViewModel(() =>
                 {
-                    return new TracksViewModel(_synchronizationService);
+                    return new TracksViewModel(_synchronizationService, _selectionModel);
+                });
+            }
+        }
+
+        public object Session
+        {
+            get
+            {
+                return ViewModel(() =>
+                {
+                    if (_selectionModel.SelectedSessionPlace == null)
+                        return null;
+
+                    return new SessionViewModel(_selectionModel.SelectedSessionPlace);
                 });
             }
         }

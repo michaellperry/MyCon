@@ -49,7 +49,8 @@
             ItemTemplate="{StaticResource Standard250x250ItemTemplate}"
             SelectionMode="None"
             IsSwipeEnabled="false"
-            IsItemClickEnabled="True">
+            IsItemClickEnabled="True"
+            ItemClick="Session_ItemClick">
 
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
