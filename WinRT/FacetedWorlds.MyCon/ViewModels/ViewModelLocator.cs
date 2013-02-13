@@ -1,7 +1,6 @@
 using FacetedWorlds.MyCon.Models;
 using FacetedWorlds.MyCon.ViewModels.MySchedule;
 using FacetedWorlds.MyCon.ViewModels.Session;
-using FacetedWorlds.MyCon.ViewModels.Tracks;
 using UpdateControls.XAML;
 
 namespace FacetedWorlds.MyCon.ViewModels
@@ -48,7 +47,9 @@ namespace FacetedWorlds.MyCon.ViewModels
             {
                 return ViewModel(() =>
                 {
-                    return new TracksViewModel(_synchronizationService, _selectionModel);
+                    return ViewModels.Tracks.Container.CreateViewModel(
+                        _selectionModel,
+                        _synchronizationService);
                 });
             }
         }

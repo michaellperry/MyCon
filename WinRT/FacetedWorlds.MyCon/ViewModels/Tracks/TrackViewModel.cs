@@ -9,12 +9,12 @@ namespace FacetedWorlds.MyCon.ViewModels.Tracks
     public class TrackViewModel
     {
         private readonly Track _track;
-        private readonly SelectionModel _selectionModel;
-        
-        public TrackViewModel(Track track, SelectionModel selectionModel)
+        private readonly Func<SessionPlace, SessionHeaderViewModel> _newSessionHeaderViewModel;
+
+        public TrackViewModel(Track track, Func<SessionPlace, SessionHeaderViewModel> newSessionHeaderViewModel)
         {
             _track = track;
-            _selectionModel = selectionModel;
+            _newSessionHeaderViewModel = newSessionHeaderViewModel;
         }
 
         public string Name
@@ -31,7 +31,7 @@ namespace FacetedWorlds.MyCon.ViewModels.Tracks
                     from sessionPlace in sessionPlaces
                     where CanDisplay(sessionPlace)
                     orderby sessionPlace.Place.PlaceTime.Start
-                    select new SessionHeaderViewModel(sessionPlace, _selectionModel);
+                    select _newSessionHeaderViewModel(sessionPlace);
             }
         }
 

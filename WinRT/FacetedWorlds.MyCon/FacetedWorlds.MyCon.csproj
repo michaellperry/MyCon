@@ -143,6 +143,7 @@
     <Compile Include="ViewModels\SegmentExtensions.cs" />
     <Compile Include="ViewModels\SessionViewModelBase.cs" />
     <Compile Include="ViewModels\Session\SessionViewModel.cs" />
+    <Compile Include="ViewModels\Tracks\Container.cs" />
     <Compile Include="ViewModels\Tracks\SessionHeaderViewModel.cs" />
     <Compile Include="ViewModels\Tracks\TracksViewModel.cs" />
     <Compile Include="ViewModels\Tracks\TrackViewModel.cs" />
