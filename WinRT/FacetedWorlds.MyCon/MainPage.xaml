@@ -1,6 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Page x:Class="FacetedWorlds.MyCon.MainPage" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="using:FacetedWorlds.MyCon" xmlns:views="using:FacetedWorlds.MyCon.Views" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" DataContext="{Binding Main, Source={StaticResource Locator}}">
-  <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-    <views:TracksView SessionSelected="SessionSelected" />
-  </Grid>
+<Page
+    x:Class="FacetedWorlds.MyCon.MainPage"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FacetedWorlds.MyCon"
+    xmlns:views="using:FacetedWorlds.MyCon.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    DataContext="{Binding Main, Source={StaticResource Locator}}">
+    <Page.TopAppBar>
+        <AppBar>
+            <StackPanel
+                Orientation="Horizontal">
+                <Button
+                    Style="{StaticResource TextPrimaryButtonStyle}"
+                    Content="My Schedule"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center" FontSize="26.667" />
+                <Button
+                    Style="{StaticResource TextPrimaryButtonStyle}"
+                    Content="All Sessions"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center" FontSize="26.667" />
+
+            </StackPanel>
+
+        </AppBar>
+    </Page.TopAppBar>
+    <Grid
+        Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <views:TracksView
+            SessionSelected="SessionSelected" />
+    </Grid>
 </Page>

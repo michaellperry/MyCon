@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -31,6 +33,33 @@ namespace FacetedWorlds.MyCon
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            this.UnhandledException += App_UnhandledException;
+
+            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+        }
+
+        void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        {
+            LogUnhandledException(e.Exception);
+        }
+
+        private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            LogUnhandledException(e.Exception);
+        }                                                                                           
+
+        public static async void LogUnhandledException(Exception e)
+        {
+            var logsFolder = await ApplicationData.Current.LocalFolder
+                .CreateFolderAsync("Logs", CreationCollisionOption.OpenIfExists);
+            var file = await logsFolder.CreateFileAsync(String.Format("{0}.log", DateTime.Now.Ticks));
+            var stream = await file.OpenStreamForWriteAsync();
+            using (var writer = new StreamWriter(stream))
+            {
+                await writer.WriteLineAsync(e.Message);
+                if (e.StackTrace != null)
+                    await writer.WriteLineAsync(e.StackTrace);
+            }
         }
 
         /// <summary>

@@ -136,6 +136,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleData\SampleDataSource.cs" />
     <Compile Include="SynchronizationService.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MySchedule\ScheduleDayViewModel.cs" />
     <Compile Include="ViewModels\MySchedule\ScheduleSlotViewModel.cs" />
     <Compile Include="ViewModels\MySchedule\ScheduleTimeViewModel.cs" />
@@ -224,19 +225,19 @@
     </Reference>
     <Reference Include="UpdateControls.Correspondence.BinaryHTTPClient, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.App.1.4.2.2\lib\windows8\UpdateControls.Correspondence.BinaryHTTPClient.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.App.1.4.2.3\lib\windows8\UpdateControls.Correspondence.BinaryHTTPClient.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.Correspondence.BinaryHTTPClient.Notification, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.App.1.4.2.2\lib\windows8\UpdateControls.Correspondence.BinaryHTTPClient.Notification.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.App.1.4.2.3\lib\windows8\UpdateControls.Correspondence.BinaryHTTPClient.Notification.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.Correspondence.Data, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.App.1.4.2.2\lib\windows8\UpdateControls.Correspondence.Data.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.App.1.4.2.3\lib\windows8\UpdateControls.Correspondence.Data.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.Correspondence.FileStream, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.App.1.4.2.2\lib\windows8\UpdateControls.Correspondence.FileStream.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.App.1.4.2.3\lib\windows8\UpdateControls.Correspondence.FileStream.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.XAML, Version=2.2.2.1, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

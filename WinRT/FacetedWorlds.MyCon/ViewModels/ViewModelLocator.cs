@@ -20,6 +20,11 @@ namespace FacetedWorlds.MyCon.ViewModels
                 _synchronizationService.Initialize();
         }
 
+        public object Main
+        {
+            get { return null; }
+        }
+
         public object Schedule
         {
             get

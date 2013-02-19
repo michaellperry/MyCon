@@ -3,6 +3,7 @@ using FacetedWorlds.MyCon.Model;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using FacetedWorlds.MyCon.Models;
+using Windows.UI.Xaml;
 
 namespace FacetedWorlds.MyCon.ViewModels.Tracks
 {
