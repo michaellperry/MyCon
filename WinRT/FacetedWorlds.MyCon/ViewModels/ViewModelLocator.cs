@@ -33,15 +33,13 @@ namespace FacetedWorlds.MyCon.ViewModels
                 {
                     var conference = _synchronizationService.Conference;
                     var individual = _synchronizationService.Individual;
-                    if (conference == null &&
+                    if (conference == null ||
                         individual == null)
                         return null;
 
-                    return new MyScheduleViewModel(
-                        _synchronizationService,
+                    return ViewModels.MySchedule.Container.CreateViewModel(
                         conference,
-                        individual,
-                        _searchModel);
+                        individual);
                 });
             }
         }

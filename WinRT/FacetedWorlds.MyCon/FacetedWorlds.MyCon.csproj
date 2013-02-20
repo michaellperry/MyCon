@@ -118,6 +118,9 @@
     <Compile Include="Controls\CalendarControl.xaml.cs">
       <DependentUpon>CalendarControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MySchedule\ScheduleControl.xaml.cs">
+      <DependentUpon>ScheduleControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SessionControl.xaml.cs">
       <DependentUpon>SessionControl.xaml</DependentUpon>
     </Compile>
@@ -138,6 +141,7 @@
     <Compile Include="SynchronizationService.cs" />
     <Compile Include="Update.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\MySchedule\Container.cs" />
     <Compile Include="ViewModels\MySchedule\ScheduleDayViewModel.cs" />
     <Compile Include="ViewModels\MySchedule\ScheduleSlotViewModel.cs" />
     <Compile Include="ViewModels\MySchedule\ScheduleTimeViewModel.cs" />
@@ -183,6 +187,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\CalendarControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MySchedule\ScheduleControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

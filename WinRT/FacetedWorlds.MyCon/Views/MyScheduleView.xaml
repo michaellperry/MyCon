@@ -5,6 +5,7 @@
     xmlns:local="using:FacetedWorlds.MyCon.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:c="using:FacetedWorlds.MyCon.Controls.MySchedule"
     mc:Ignorable="d"
     DataContext="{Binding MySchedule, Source={StaticResource Locator}}"
     d:DesignHeight="768"
@@ -12,5 +13,10 @@
     Margin="0,2,0,-2">
 
     <Grid>
+    	<Grid.ColumnDefinitions>
+    		<ColumnDefinition Width="469*"/>
+    		<ColumnDefinition Width="897*"/>
+    	</Grid.ColumnDefinitions>
+        <c:ScheduleControl />
     </Grid>
 </UserControl>

@@ -10,11 +10,13 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
     {
         private readonly Time _time;
         private readonly Individual _individual;
+        private readonly Func<Time, Schedule, ScheduleSlotViewModel> _newScheduleSlot;
         
-        public ScheduleTimeViewModel(Time time, Individual individual)
+        public ScheduleTimeViewModel(Time time, Individual individual, Func<Time, Schedule, ScheduleSlotViewModel> newScheduleSlot)
         {
             _time = time;
             _individual = individual;
+            _newScheduleSlot = newScheduleSlot;
         }
 
         public IEnumerable<ScheduleSlotViewModel> Schedules
@@ -28,7 +30,7 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
                         schedule.Slot.SlotTime == _time)
                     .DefaultIfEmpty();
                 return schedules
-                    .Select(schedule => new ScheduleSlotViewModel(_time, _individual, schedule));
+                    .Select(schedule => _newScheduleSlot(_time, schedule));
             }
         }
     }
