@@ -2,11 +2,11 @@
 using FacetedWorlds.MyCon.Model;
 using FacetedWorlds.MyCon.Models;
 
-namespace FacetedWorlds.MyCon.ViewModels.Tracks
+namespace FacetedWorlds.MyCon.ViewModels.AllSessions
 {
     public static class Container
     {
-        public static TracksViewModel CreateViewModel(
+        public static AllSessionsViewModel CreateViewModel(
             SelectionModel selectionModel,
             SynchronizationService synchronizationService)
         {
@@ -16,7 +16,7 @@ namespace FacetedWorlds.MyCon.ViewModels.Tracks
             Func<Track, TrackViewModel> newTrackViewModel = t =>
                 new TrackViewModel(t, newSessionHeaderViewModel);
 
-            return new TracksViewModel(synchronizationService, newTrackViewModel);
+            return new AllSessionsViewModel(synchronizationService, newTrackViewModel);
         }
     }
 }

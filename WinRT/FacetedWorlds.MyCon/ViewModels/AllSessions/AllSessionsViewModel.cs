@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using FacetedWorlds.MyCon.Model;
-using FacetedWorlds.MyCon.Models;
 
-namespace FacetedWorlds.MyCon.ViewModels.Tracks
+namespace FacetedWorlds.MyCon.ViewModels.AllSessions
 {
-    public class TracksViewModel
+    public class AllSessionsViewModel
     {
         private readonly SynchronizationService _synchronizationService;
         private readonly Func<Track, TrackViewModel> _newTrackViewModel;
 
-        public TracksViewModel(SynchronizationService synchronizationService, Func<Track, TrackViewModel> newTrackViewModel)
+        public AllSessionsViewModel(SynchronizationService synchronizationService, Func<Track, TrackViewModel> newTrackViewModel)
         {
             _synchronizationService = synchronizationService;
             _newTrackViewModel = newTrackViewModel;

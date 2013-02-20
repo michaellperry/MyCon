@@ -3,7 +3,6 @@
     x:Class="FacetedWorlds.MyCon.MainPage"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:FacetedWorlds.MyCon"
-    xmlns:views="using:FacetedWorlds.MyCon.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -17,20 +16,22 @@
                     Style="{StaticResource TextPrimaryButtonStyle}"
                     Content="My Schedule"
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Center" FontSize="26.667" />
+                    VerticalAlignment="Center"
+                    FontSize="26.667"
+                    Click="MySchedule_Click"/>
                 <Button
                     Style="{StaticResource TextPrimaryButtonStyle}"
                     Content="All Sessions"
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Center" FontSize="26.667" />
-
+                    VerticalAlignment="Center"
+                    FontSize="26.667"
+                    Click="AllSessions_Click"/>
             </StackPanel>
-
         </AppBar>
     </Page.TopAppBar>
     <Grid
+        x:Name="Container"
         Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <views:TracksView
-            SessionSelected="SessionSelected" />
+        <!--<views:TracksView SessionSelected="SessionSelected" />-->
     </Grid>
 </Page>

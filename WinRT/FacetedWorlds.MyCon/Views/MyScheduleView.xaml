@@ -1,12 +1,12 @@
 ﻿<UserControl
-    x:Class="FacetedWorlds.MyCon.Views.ScheduleView"
+    x:Class="FacetedWorlds.MyCon.Views.MyScheduleView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:FacetedWorlds.MyCon.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    DataContext="{Binding Schedule, Source={StaticResource Locator}}"
+    DataContext="{Binding MySchedule, Source={StaticResource Locator}}"
     d:DesignHeight="300"
     d:DesignWidth="400">
     

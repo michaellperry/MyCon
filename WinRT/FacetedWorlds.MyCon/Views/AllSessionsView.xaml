@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="FacetedWorlds.MyCon.Views.TracksView"
+    x:Class="FacetedWorlds.MyCon.Views.AllSessionsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:FacetedWorlds.MyCon.Views"
@@ -10,7 +10,7 @@
     mc:Ignorable="d"
     d:DesignHeight="768"
     d:DesignWidth="1366"
-    DataContext="{Binding Tracks, Source={StaticResource Locator}}"
+    DataContext="{Binding AllSessions, Source={StaticResource Locator}}"
     d:DataContext="{d:DesignInstance Type=data:SampleDataSource, IsDesignTimeCreatable=True}">
     
     <UserControl.Resources>

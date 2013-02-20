@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using FacetedWorlds.MyCon.Models;
 using Windows.UI.Xaml;
 
-namespace FacetedWorlds.MyCon.ViewModels.Tracks
+namespace FacetedWorlds.MyCon.ViewModels.AllSessions
 {
     public class SessionHeaderViewModel
     {

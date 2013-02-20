@@ -4,7 +4,7 @@ using System.Linq;
 using FacetedWorlds.MyCon.Model;
 using FacetedWorlds.MyCon.Models;
 
-namespace FacetedWorlds.MyCon.ViewModels.Tracks
+namespace FacetedWorlds.MyCon.ViewModels.AllSessions
 {
     public class TrackViewModel
     {

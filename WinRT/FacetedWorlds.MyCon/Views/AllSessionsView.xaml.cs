@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using FacetedWorlds.MyCon.ViewModels.AllSessions;
+using UpdateControls.XAML;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -16,11 +18,21 @@ using Windows.UI.Xaml.Navigation;
 
 namespace FacetedWorlds.MyCon.Views
 {
-    public sealed partial class ScheduleView : UserControl
+    public sealed partial class AllSessionsView : UserControl
     {
-        public ScheduleView()
+        public event Action SessionSelected;
+
+        public AllSessionsView()
         {
             this.InitializeComponent();
+        }
+
+        private void Session_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var viewModel = ForView.Unwrap<SessionHeaderViewModel>(e.ClickedItem);
+            viewModel.Select();
+            if (SessionSelected != null)
+                SessionSelected();
         }
     }
 }

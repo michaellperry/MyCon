@@ -6,14 +6,14 @@ using System;
 
 namespace FacetedWorlds.MyCon.ViewModels.MySchedule
 {
-    public class ScheduleViewModel
+    public class MyScheduleViewModel
     {
         private readonly SynchronizationService _synchronizationService;
         private readonly Conference _conference;
         private readonly Individual _individual;
         private readonly SearchModel _searchModel;
         
-        public ScheduleViewModel(
+        public MyScheduleViewModel(
             SynchronizationService synchronizationService, 
             Conference conference, 
             Individual individual, 

@@ -136,27 +136,28 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleData\SampleDataSource.cs" />
     <Compile Include="SynchronizationService.cs" />
+    <Compile Include="Update.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MySchedule\ScheduleDayViewModel.cs" />
     <Compile Include="ViewModels\MySchedule\ScheduleSlotViewModel.cs" />
     <Compile Include="ViewModels\MySchedule\ScheduleTimeViewModel.cs" />
-    <Compile Include="ViewModels\MySchedule\ScheduleViewModel.cs" />
+    <Compile Include="ViewModels\MySchedule\MyScheduleViewModel.cs" />
     <Compile Include="ViewModels\SegmentExtensions.cs" />
     <Compile Include="ViewModels\SessionViewModelBase.cs" />
     <Compile Include="ViewModels\Session\SessionViewModel.cs" />
-    <Compile Include="ViewModels\Tracks\Container.cs" />
-    <Compile Include="ViewModels\Tracks\SessionHeaderViewModel.cs" />
-    <Compile Include="ViewModels\Tracks\TracksViewModel.cs" />
-    <Compile Include="ViewModels\Tracks\TrackViewModel.cs" />
+    <Compile Include="ViewModels\AllSessions\Container.cs" />
+    <Compile Include="ViewModels\AllSessions\SessionHeaderViewModel.cs" />
+    <Compile Include="ViewModels\AllSessions\AllSessionsViewModel.cs" />
+    <Compile Include="ViewModels\AllSessions\TrackViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
-    <Compile Include="Views\ScheduleView.xaml.cs">
-      <DependentUpon>ScheduleView.xaml</DependentUpon>
+    <Compile Include="Views\MyScheduleView.xaml.cs">
+      <DependentUpon>MyScheduleView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SessionView.xaml.cs">
       <DependentUpon>SessionView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TracksView.xaml.cs">
-      <DependentUpon>TracksView.xaml</DependentUpon>
+    <Compile Include="Views\AllSessionsView.xaml.cs">
+      <DependentUpon>AllSessionsView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -201,7 +202,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ScheduleView.xaml">
+    <Page Include="Views\MyScheduleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -209,7 +210,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\TracksView.xaml">
+    <Page Include="Views\AllSessionsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -225,19 +226,19 @@
     </Reference>
     <Reference Include="UpdateControls.Correspondence.BinaryHTTPClient, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.App.1.4.2.3\lib\windows8\UpdateControls.Correspondence.BinaryHTTPClient.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.App.1.4.2.4\lib\windows8\UpdateControls.Correspondence.BinaryHTTPClient.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.Correspondence.BinaryHTTPClient.Notification, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.App.1.4.2.3\lib\windows8\UpdateControls.Correspondence.BinaryHTTPClient.Notification.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.App.1.4.2.4\lib\windows8\UpdateControls.Correspondence.BinaryHTTPClient.Notification.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.Correspondence.Data, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.App.1.4.2.3\lib\windows8\UpdateControls.Correspondence.Data.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.App.1.4.2.4\lib\windows8\UpdateControls.Correspondence.Data.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.Correspondence.FileStream, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.App.1.4.2.3\lib\windows8\UpdateControls.Correspondence.FileStream.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.App.1.4.2.4\lib\windows8\UpdateControls.Correspondence.FileStream.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.XAML, Version=2.2.2.1, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

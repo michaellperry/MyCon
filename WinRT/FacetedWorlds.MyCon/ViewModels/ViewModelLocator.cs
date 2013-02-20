@@ -22,10 +22,10 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public object Main
         {
-            get { return null; }
+            get { return ViewModel(() => new MainViewModel()); }
         }
 
-        public object Schedule
+        public object MySchedule
         {
             get
             {
@@ -37,7 +37,7 @@ namespace FacetedWorlds.MyCon.ViewModels
                         individual == null)
                         return null;
 
-                    return new ScheduleViewModel(
+                    return new MyScheduleViewModel(
                         _synchronizationService,
                         conference,
                         individual,
@@ -46,13 +46,13 @@ namespace FacetedWorlds.MyCon.ViewModels
             }
         }
 
-        public object Tracks
+        public object AllSessions
         {
             get
             {
                 return ViewModel(() =>
                 {
-                    return ViewModels.Tracks.Container.CreateViewModel(
+                    return ViewModels.AllSessions.Container.CreateViewModel(
                         _selectionModel,
                         _synchronizationService);
                 });
