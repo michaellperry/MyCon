@@ -18,20 +18,57 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     FontSize="26.667"
-                    Click="MySchedule_Click"/>
+                    Click="MySchedule_Click" />
                 <Button
                     Style="{StaticResource TextPrimaryButtonStyle}"
                     Content="All Sessions"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     FontSize="26.667"
-                    Click="AllSessions_Click"/>
+                    Click="AllSessions_Click" />
             </StackPanel>
         </AppBar>
     </Page.TopAppBar>
     <Grid
-        x:Name="Container"
+        Style="{StaticResource LayoutRootStyle}"
         Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <!--<views:TracksView SessionSelected="SessionSelected" />-->
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="140" />
+            <RowDefinition
+                Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition
+                    Width="Auto" />
+                <ColumnDefinition
+                    Width="*" />
+            </Grid.ColumnDefinitions>
+            <ProgressRing
+                IsActive="{Binding Synchronizing}"
+                Width="48"
+                Height="48"
+                Margin="36,0,36,36"
+                VerticalAlignment="Bottom" />
+            <TextBlock
+                x:Name="pageTitle"
+                Grid.Column="1"
+                IsHitTestVisible="false"
+                Style="{StaticResource PageHeaderTextStyle}"
+                Text="{Binding Conference}" />
+        </Grid>
+
+        <Grid
+            x:Name="Container"
+            Grid.Row="1" />
+
+        <TextBlock
+            Grid.Row="1"
+            Text="{Binding LastException}"
+            FontSize="22"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Right" />
     </Grid>
 </Page>

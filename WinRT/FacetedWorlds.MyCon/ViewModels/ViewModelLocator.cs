@@ -22,7 +22,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public object Main
         {
-            get { return ViewModel(() => new MainViewModel()); }
+            get { return ViewModel(() => new MainViewModel(_synchronizationService)); }
         }
 
         public object MySchedule

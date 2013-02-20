@@ -16,31 +16,6 @@ namespace FacetedWorlds.MyCon.ViewModels.AllSessions
             _newTrackViewModel = newTrackViewModel;
         }
 
-        public bool Synchronizing
-        {
-            get { return _synchronizationService.Community.Synchronizing; }
-        }
-
-        public string LastException
-        {
-            get
-            {
-                Exception exception = _synchronizationService.Community.LastException;
-                return exception == null ? null : exception.Message;
-            }
-        }
-
-        public string Conference
-        {
-            get
-            {
-                if (_synchronizationService.Conference == null)
-                    return null;
-
-                return _synchronizationService.Conference.Name;
-            }
-        }
-
         public IEnumerable<TrackViewModel> Tracks
         {
             get

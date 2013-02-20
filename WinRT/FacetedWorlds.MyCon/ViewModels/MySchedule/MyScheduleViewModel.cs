@@ -25,7 +25,7 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
             _searchModel = searchModel;
         }
 
-        public bool Loading
+        public bool Synchronizing
         {
             get
             {

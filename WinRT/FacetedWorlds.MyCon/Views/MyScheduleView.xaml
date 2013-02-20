@@ -7,14 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     DataContext="{Binding MySchedule, Source={StaticResource Locator}}"
-    d:DesignHeight="300"
-    d:DesignWidth="400">
-    
+    d:DesignHeight="768"
+    d:DesignWidth="1366"
+    Margin="0,2,0,-2">
+
     <Grid>
-        <TextBlock
-            Text="{Binding ConferenceName}"
-            FontSize="48"
-            VerticalAlignment="Top"
-            HorizontalAlignment="Left" />
     </Grid>
 </UserControl>
