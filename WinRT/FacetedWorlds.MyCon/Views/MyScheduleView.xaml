@@ -8,15 +8,30 @@
     xmlns:c="using:FacetedWorlds.MyCon.Controls.MySchedule"
     mc:Ignorable="d"
     DataContext="{Binding MySchedule, Source={StaticResource Locator}}"
-    d:DesignHeight="768"
+    d:DesignHeight="791.881"
     d:DesignWidth="1366"
     Margin="0,2,0,-2">
 
-    <Grid>
-    	<Grid.ColumnDefinitions>
-    		<ColumnDefinition Width="469*"/>
-    		<ColumnDefinition Width="897*"/>
-    	</Grid.ColumnDefinitions>
-        <c:ScheduleControl />
-    </Grid>
+    <ScrollViewer
+        Padding="116,0,40,46"
+        VerticalScrollBarVisibility="Disabled"
+        VerticalScrollMode="Disabled"
+        HorizontalScrollBarVisibility="Auto"
+        HorizontalScrollMode="Auto"
+        ZoomMode="Disabled"
+        IsHorizontalRailEnabled="True"
+        IsVerticalRailEnabled="False" VerticalContentAlignment="Top">
+        <Grid>
+        	<Grid.RowDefinitions>
+        		<RowDefinition/>
+        	</Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition
+                    Width="469*" />
+                <ColumnDefinition
+                    Width="897*" />
+            </Grid.ColumnDefinitions>
+            <c:ScheduleControl />
+        </Grid>
+    </ScrollViewer>
 </UserControl>

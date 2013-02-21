@@ -121,6 +121,15 @@
     <Compile Include="Controls\MySchedule\ScheduleControl.xaml.cs">
       <DependentUpon>ScheduleControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MySchedule\ScheduleDayControl.xaml.cs">
+      <DependentUpon>ScheduleDayControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MySchedule\ScheduleSlotControl.xaml.cs">
+      <DependentUpon>ScheduleSlotControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MySchedule\ScheduleTimeControl.xaml.cs">
+      <DependentUpon>ScheduleTimeControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SessionControl.xaml.cs">
       <DependentUpon>SessionControl.xaml</DependentUpon>
     </Compile>
@@ -191,6 +200,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\MySchedule\ScheduleControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MySchedule\ScheduleDayControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MySchedule\ScheduleSlotControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MySchedule\ScheduleTimeControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

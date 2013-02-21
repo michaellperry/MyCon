@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using FacetedWorlds.MyCon.Model;
 using UpdateControls.Fields;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace FacetedWorlds.MyCon.ViewModels.MySchedule
 {
@@ -23,22 +25,21 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
             _sessionPlace = new Dependent<SessionPlace>(() => SessionPlace);
         }
 
-        public string Time
-        {
-            get { return String.Format("{0:h:mm}", _time.Start); }
-        }
-
-        public string ImageUrl
+        public ImageSource Image
         {
             get
             {
                 SessionPlace sessionPlace = _sessionPlace;
-                if (sessionPlace != null &&
-                    sessionPlace.Session != null &&
-                    sessionPlace.Session.Speaker != null)
-                    return sessionPlace.Session.Speaker.ImageUrl;
-                else
-                    return "/Images/unknown.small.png";
+                if (sessionPlace == null ||
+                    sessionPlace.Session == null ||
+                    sessionPlace.Session.Speaker == null)
+                    return null;
+
+                string url = sessionPlace.Session.Speaker.ImageUrl;
+                if (String.IsNullOrWhiteSpace(url))
+                    return null;
+
+                return new BitmapImage(new Uri(url, UriKind.Absolute));
             }
         }
 

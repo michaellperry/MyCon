@@ -6,13 +6,25 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="628"
+    d:DesignHeight="608"
     d:DesignWidth="400">
-    
+
     <Grid>
-        <ScrollViewer>
-            <ItemsControl
-                ItemsSource="{Binding }" />
-        </ScrollViewer>
+    	<Grid.RowDefinitions>
+    		<RowDefinition/>
+    	</Grid.RowDefinitions>
+    	<ScrollViewer
+    		ZoomMode="Disabled"
+    		IsHorizontalRailEnabled="False"
+    		IsVerticalRailEnabled="True">
+    		<ItemsControl
+    			ItemsSource="{Binding Days}" VerticalAlignment="Top">
+    			<ItemsControl.ItemTemplate>
+    				<DataTemplate>
+    					<local:ScheduleDayControl />
+    				</DataTemplate>
+    			</ItemsControl.ItemTemplate>
+    		</ItemsControl>
+    	</ScrollViewer>
     </Grid>
 </UserControl>

@@ -13,7 +13,7 @@ namespace FacetedWorlds.MyCon.ViewModels
             AllSessionsView
         };
 
-        private Independent<ViewOption> _selectedView = new Independent<ViewOption>(ViewOption.AllSessionsView);
+        private Independent<ViewOption> _selectedView = new Independent<ViewOption>(ViewOption.MyScheduleView);
 
         public MainViewModel(SynchronizationService synchronizationService)
         {

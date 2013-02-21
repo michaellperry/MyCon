@@ -19,6 +19,11 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
             _newScheduleSlot = newScheduleSlot;
         }
 
+        public string Time
+        {
+            get { return String.Format("{0:h:mm}", _time.Start); }
+        }
+
         public IEnumerable<ScheduleSlotViewModel> Schedules
         {
             get
