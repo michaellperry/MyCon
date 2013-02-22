@@ -14,10 +14,10 @@
             Text="{Binding Day}"
             FontSize="18"/>
         <ItemsControl
-            ItemsSource="{Binding Slots}">
+            ItemsSource="{Binding Slots}" HorizontalContentAlignment="Stretch">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <local:ScheduleTimeControl />
+                    <local:ScheduleTimeControl HorizontalContentAlignment="Stretch" Height="Auto" Width="Auto" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

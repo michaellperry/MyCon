@@ -39,7 +39,8 @@ namespace FacetedWorlds.MyCon.ViewModels
 
                     return ViewModels.MySchedule.Container.CreateViewModel(
                         conference,
-                        individual);
+                        individual,
+                        _selectionModel);
                 });
             }
         }

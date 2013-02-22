@@ -63,7 +63,7 @@ namespace FacetedWorlds.MyCon.ViewModels.Session
                     _sessionPlace.Place.PlaceTime == null)
                     return null;
 
-                DateTime start = _sessionPlace.Place.PlaceTime.Start;
+                DateTime start = _sessionPlace.Place.PlaceTime.Start.ToLocalTime();
                 return start.ToString("h:mm");
             }
         }

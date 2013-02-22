@@ -14,12 +14,12 @@
             Text="{Binding Time}"
             FontSize="20"/>
         <ItemsControl
-            ItemsSource="{Binding Schedules}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <local:ScheduleSlotControl />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
+        	ItemsSource="{Binding Schedules}" HorizontalContentAlignment="Stretch">
+        	<ItemsControl.ItemTemplate>
+        		<DataTemplate>
+        			<local:ScheduleSlotControl HorizontalContentAlignment="Stretch" />
+        		</DataTemplate>
+        	</ItemsControl.ItemTemplate>
         </ItemsControl>
     </StackPanel>
 </UserControl>

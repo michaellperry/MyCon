@@ -8,37 +8,63 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-    
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition
-                Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition
-                Width="Auto" />
-            <ColumnDefinition Width="171" />
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <TextBlock
-            FontSize="26.667" Text="{Binding Title}" Grid.Column="1" TextWrapping="Wrap" Margin="6" Grid.ColumnSpan="2" />
-        <TextBlock
-            FontSize="22" Text="{Binding Speaker}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6" Foreground="#FF959595" TextWrapping="Wrap" />
-        <TextBlock
-            FontSize="22" Text="{Binding Room}" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Margin="6" Grid.Row="1" Foreground="#FF959595" TextWrapping="Wrap" />
-        <Border
-            BorderBrush="Black"
-            BorderThickness="4"
-            Height="120"
-            VerticalAlignment="Top"
-            Margin="6"
-            Grid.RowSpan="2" Width="120">
-            <Border.Background>
-                <ImageBrush
-                    ImageSource="{Binding Image}"
-                    Stretch="UniformToFill" />
-            </Border.Background>
-        </Border>
-    </Grid>
+
+    <Button
+        Command="{Binding SelectSlot}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" BorderThickness="0">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition
+                    Width="Auto" />
+                <ColumnDefinition
+                    Width="171" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                FontSize="26.667"
+                Text="{Binding Title}"
+                Grid.Column="1"
+                TextWrapping="Wrap"
+                Margin="6"
+                Grid.ColumnSpan="2" />
+            <TextBlock
+                FontSize="22"
+                Text="{Binding Speaker}"
+                Grid.Row="1"
+                Grid.Column="1"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="6"
+                Foreground="#FF959595"
+                TextWrapping="Wrap" />
+            <TextBlock
+                FontSize="22"
+                Text="{Binding Room}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Grid.Column="2"
+                Margin="6"
+                Grid.Row="1"
+                Foreground="#FF959595"
+                TextWrapping="Wrap" />
+            <Border
+                BorderBrush="Black"
+                BorderThickness="4"
+                Height="120"
+                VerticalAlignment="Top"
+                Margin="6"
+                Grid.RowSpan="2"
+                Width="120">
+                <Border.Background>
+                    <ImageBrush
+                        ImageSource="{Binding Image}"
+                        Stretch="UniformToFill" />
+                </Border.Background>
+            </Border>
+        </Grid>
+    </Button>
 </UserControl>

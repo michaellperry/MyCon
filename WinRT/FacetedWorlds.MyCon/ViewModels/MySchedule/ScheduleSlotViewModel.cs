@@ -1,26 +1,30 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
 using FacetedWorlds.MyCon.Model;
 using UpdateControls.Fields;
+using UpdateControls.XAML;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace FacetedWorlds.MyCon.ViewModels.MySchedule
 {
-    public class ScheduleSlotViewModel : SessionViewModelBase
+    public class ScheduleSlotViewModel
     {
         private readonly Time _time;
         private readonly Schedule _schedule;
 
         private Dependent<SessionPlace> _sessionPlace;
         private readonly Individual _individual;
+        private readonly Action<Time> _showTime;
         
-        public ScheduleSlotViewModel(Time time, Individual individual, Schedule schedule)
+        public ScheduleSlotViewModel(Time time, Individual individual, Schedule schedule, Action<Time> showTime)
         {
             _time = time;
             _individual = individual;
             _schedule = schedule;
+            _showTime = showTime;
 
             _sessionPlace = new Dependent<SessionPlace>(() => SessionPlace);
         }
@@ -100,25 +104,15 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
             }
         }
 
-        public override string TargetUri
+        public ICommand SelectSlot
         {
             get
             {
-                SessionPlace sessionPlace = SessionPlace;
-                if (sessionPlace != null)
-                {
-                    if (sessionPlace.Session != null)
-                        return String.Format(
-                            "/Views/SessionDetailsView.xaml?SessionId={0}",
-                            sessionPlace.Session.Unique);
-                    else
-                        return String.Empty;
-                }
-                else
-                {
-                    return String.Format("/Views/SlotView.xaml?StartTime={0}",
-                        _time.Start);
-                }
+                return MakeCommand
+                    .Do(delegate
+                    {
+                        _showTime(_time);
+                    });
             }
         }
 

@@ -18,10 +18,10 @@
     		IsHorizontalRailEnabled="False"
     		IsVerticalRailEnabled="True">
     		<ItemsControl
-    			ItemsSource="{Binding Days}" VerticalAlignment="Top">
+    			ItemsSource="{Binding Days}" VerticalAlignment="Top" HorizontalContentAlignment="Stretch" Margin="0,0,18,0">
     			<ItemsControl.ItemTemplate>
     				<DataTemplate>
-    					<local:ScheduleDayControl />
+    					<local:ScheduleDayControl HorizontalContentAlignment="Stretch" />
     				</DataTemplate>
     			</ItemsControl.ItemTemplate>
     		</ItemsControl>

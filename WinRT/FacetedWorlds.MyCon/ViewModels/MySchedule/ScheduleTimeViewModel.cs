@@ -21,7 +21,7 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
 
         public string Time
         {
-            get { return String.Format("{0:h:mm}", _time.Start); }
+            get { return String.Format("{0:h:mm}", _time.Start.ToLocalTime()); }
         }
 
         public IEnumerable<ScheduleSlotViewModel> Schedules
