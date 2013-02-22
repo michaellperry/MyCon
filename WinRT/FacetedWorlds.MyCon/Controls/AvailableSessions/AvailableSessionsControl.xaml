@@ -1,0 +1,23 @@
+﻿<UserControl
+    x:Class="FacetedWorlds.MyCon.Controls.AvailableSessions.AvailableSessionsControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FacetedWorlds.MyCon.Controls.AvailableSessions"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding AvailableSessions, Source={StaticResource Locator}}"
+    d:DesignHeight="696"
+    d:DesignWidth="400">
+    
+    <ScrollViewer ZoomMode="Disabled" IsHorizontalRailEnabled="False">
+    
+		<ItemsControl ItemsSource="{Binding Sessions}">
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<local:SessionHeaderControl HorizontalContentAlignment="Stretch" Margin="0,0,18,0" />
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
+	</ScrollViewer>
+</UserControl>

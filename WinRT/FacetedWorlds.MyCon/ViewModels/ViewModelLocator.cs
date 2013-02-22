@@ -1,5 +1,4 @@
 using FacetedWorlds.MyCon.Models;
-using FacetedWorlds.MyCon.ViewModels.MySchedule;
 using FacetedWorlds.MyCon.ViewModels.Session;
 using UpdateControls.XAML;
 
@@ -39,6 +38,27 @@ namespace FacetedWorlds.MyCon.ViewModels
 
                     return ViewModels.MySchedule.Container.CreateViewModel(
                         conference,
+                        individual,
+                        _selectionModel);
+                });
+            }
+        }
+
+        public object AvailableSessions
+        {
+            get
+            {
+                return ViewModel(() =>
+                {
+                    var time = _selectionModel.SelectedTime;
+                    var individual = _synchronizationService.Individual;
+
+                    if (time == null ||
+                        individual == null)
+                        return null;
+
+                    return ViewModels.AvailableSessions.Container.CreateViewModel(
+                        time,
                         individual,
                         _selectionModel);
                 });

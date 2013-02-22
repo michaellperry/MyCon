@@ -17,14 +17,13 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
         {
             var frame = Window.Current.Content as Frame;
                         
-            Action<Time> showTime = time =>
+            Action showSession = () =>
             {
-                selection.SelectedSessionPlace = time.AvailableSessions.FirstOrDefault();
                 frame.Navigate(typeof(SessionView));
             };
 
             Func<Time, Schedule, ScheduleSlotViewModel> newScheduleSlot = (time, schedule) =>
-                new ScheduleSlotViewModel(time, individual, schedule, showTime);
+                new ScheduleSlotViewModel(time, individual, schedule, selection, showSession);
 
             Func<Time, ScheduleTimeViewModel> newScheduleTime = time =>
                 new ScheduleTimeViewModel(time, individual, newScheduleSlot);

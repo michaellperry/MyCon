@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:c="using:FacetedWorlds.MyCon.Controls.MySchedule"
+    xmlns:a="using:FacetedWorlds.MyCon.Controls.AvailableSessions"
     mc:Ignorable="d"
     DataContext="{Binding MySchedule, Source={StaticResource Locator}}"
     d:DesignHeight="791.881"
@@ -27,11 +28,13 @@
         	</Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition
-                    Width="469*" />
-                <ColumnDefinition
-                    Width="897*" />
+                    Width="590" />
+                <ColumnDefinition Width="590" />
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <c:ScheduleControl />
+            <a:AvailableSessionsControl
+                Grid.Column="1" />
         </Grid>
     </ScrollViewer>
 </UserControl>

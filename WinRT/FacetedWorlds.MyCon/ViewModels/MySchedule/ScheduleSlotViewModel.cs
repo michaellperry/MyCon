@@ -7,6 +7,7 @@ using UpdateControls.Fields;
 using UpdateControls.XAML;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
+using FacetedWorlds.MyCon.Models;
 
 namespace FacetedWorlds.MyCon.ViewModels.MySchedule
 {
@@ -17,14 +18,16 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
 
         private Dependent<SessionPlace> _sessionPlace;
         private readonly Individual _individual;
-        private readonly Action<Time> _showTime;
+        private readonly SelectionModel _selection;
+        private readonly Action _showSession;
         
-        public ScheduleSlotViewModel(Time time, Individual individual, Schedule schedule, Action<Time> showTime)
+        public ScheduleSlotViewModel(Time time, Individual individual, Schedule schedule, SelectionModel selection, Action showSession)
         {
             _time = time;
             _individual = individual;
             _schedule = schedule;
-            _showTime = showTime;
+            _selection = selection;
+            _showSession = showSession;
 
             _sessionPlace = new Dependent<SessionPlace>(() => SessionPlace);
         }
@@ -111,7 +114,14 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
                 return MakeCommand
                     .Do(delegate
                     {
-                        _showTime(_time);
+                        var sessionPlace = SessionPlace;
+                        if (sessionPlace != null)
+                        {
+                            _selection.SelectedSessionPlace = sessionPlace;
+                            _showSession();
+                        }
+                        else
+                            _selection.SelectedTime = _time;
                     });
             }
         }
