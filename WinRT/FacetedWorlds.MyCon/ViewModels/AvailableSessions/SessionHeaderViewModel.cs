@@ -3,6 +3,7 @@ using System.Windows.Input;
 using FacetedWorlds.MyCon.Model;
 using FacetedWorlds.MyCon.Models;
 using UpdateControls.XAML;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -11,12 +12,16 @@ namespace FacetedWorlds.MyCon.ViewModels.AvailableSessions
     public class SessionHeaderViewModel
     {
         private readonly SessionPlace _sessionPlace;
+        private readonly Individual _individual;
         private readonly SelectionModel _selectionModel;
-
-        public SessionHeaderViewModel(SessionPlace sessionPlace, SelectionModel selectionModel)
+        private readonly Action _showSession;
+        
+        public SessionHeaderViewModel(SessionPlace sessionPlace, Individual individual, SelectionModel selectionModel, Action showSession)
         {
             _sessionPlace = sessionPlace;
+            _individual = individual;
             _selectionModel = selectionModel;
+            _showSession = showSession;
         }
 
         public string Title
@@ -68,6 +73,19 @@ namespace FacetedWorlds.MyCon.ViewModels.AvailableSessions
             }
         }
 
+        public Brush StatusBrush
+        {
+            get
+            {
+                string status;
+                if (_individual.IsScheduled(_sessionPlace))
+                    status = "ScheduledStatusBrush";
+                else
+                    status = "UnscheduledStatusBrush";
+                return Application.Current.Resources[status] as Brush;
+            }
+        }
+
         public ICommand SelectSession
         {
             get
@@ -76,6 +94,7 @@ namespace FacetedWorlds.MyCon.ViewModels.AvailableSessions
                     .Do(() =>
                     {
                         _selectionModel.SelectedSessionPlace = _sessionPlace;
+                        _showSession();
                     });
             }
         }

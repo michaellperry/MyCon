@@ -21,48 +21,55 @@
                 <ColumnDefinition
                     Width="415" />
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="1">
-            	<Grid.RowDefinitions>
-            		<RowDefinition Height="Auto"/>
-            		<RowDefinition/>
-            	</Grid.RowDefinitions>
-            	<Grid.ColumnDefinitions>
-            		<ColumnDefinition Width="220"/>
-            		<ColumnDefinition/>
-            	</Grid.ColumnDefinitions>
-        		<TextBlock
-        			FontSize="26.667"
-        			Text="{Binding Title}"
-        			TextWrapping="Wrap"
-        			Margin="6" Grid.ColumnSpan="2"
-                />
-        		<TextBlock
-        			Grid.Row="1"
-        			Grid.Column="0"
-        			FontSize="22"
-        			Text="{Binding Speaker}"
-        			Foreground="#FF959595"
-        			TextWrapping="Wrap" VerticalAlignment="Top" Margin="6" HorizontalAlignment="Left" />
-        		<TextBlock
-        			Grid.Column="1"
-        			Grid.Row="1"
-        			FontSize="22"
-        			Text="{Binding Room}"
-        			Foreground="#FF959595"
-        			TextWrapping="Wrap" VerticalAlignment="Top" Margin="6" HorizontalAlignment="Left" />
-        	</Grid>
+            <Grid
+                Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition
+                        Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+                        Width="220" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    FontSize="26.667"
+                    Text="{Binding Title}"
+                    TextWrapping="Wrap"
+                    Margin="6"
+                    Grid.ColumnSpan="2" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    FontSize="22"
+                    Text="{Binding Speaker}"
+                    Foreground="#FF959595"
+                    TextWrapping="Wrap"
+                    VerticalAlignment="Top"
+                    Margin="6"
+                    HorizontalAlignment="Left" />
+                <TextBlock
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    FontSize="22"
+                    Text="{Binding Room}"
+                    Foreground="#FF959595"
+                    TextWrapping="Wrap"
+                    VerticalAlignment="Top"
+                    Margin="6"
+                    HorizontalAlignment="Left" />
+            </Grid>
             <Border
-                BorderBrush="Black"
+                BorderBrush="{Binding StatusBrush}"
                 BorderThickness="4"
                 Height="120"
                 VerticalAlignment="Top"
                 Margin="6"
                 Width="120">
-                <Border.Background>
-                    <ImageBrush
-                        ImageSource="{Binding Image}"
-                        Stretch="UniformToFill" />
-                </Border.Background>
+                <Image
+                    Source="{Binding Image}"
+                    Stretch="UniformToFill" />
             </Border>
         </Grid>
     </Button>

@@ -21,6 +21,7 @@
                 <ColumnDefinition
                     Width="415" />
             </Grid.ColumnDefinitions>
+            <Rectangle Fill="#FF1E361B" Grid.ColumnSpan="2" Margin="0,0,30,0" Visibility="{Binding IsSelected}"/>
             <Grid Grid.Column="1">
             	<Grid.RowDefinitions>
             		<RowDefinition Height="Auto"/>
@@ -58,11 +59,9 @@
                 VerticalAlignment="Top"
                 Margin="6"
                 Width="120">
-                <Border.Background>
-                    <ImageBrush
-                        ImageSource="{Binding Image}"
-                        Stretch="UniformToFill" />
-                </Border.Background>
+                <Image
+                    Source="{Binding Image}"
+                    Stretch="UniformToFill" />
             </Border>
         </Grid>
     </Button>

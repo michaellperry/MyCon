@@ -84,10 +84,13 @@ namespace FacetedWorlds.MyCon.ViewModels
             {
                 return ViewModel(() =>
                 {
-                    if (_selectionModel.SelectedSessionPlace == null)
+                    var sessionPlace = _selectionModel.SelectedSessionPlace;
+                    var individual = _synchronizationService.Individual;
+                    if (sessionPlace == null ||
+                        individual == null)
                         return null;
 
-                    return new SessionViewModel(_selectionModel.SelectedSessionPlace);
+                    return new SessionViewModel(sessionPlace, individual);
                 });
             }
         }

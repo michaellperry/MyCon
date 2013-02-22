@@ -1292,17 +1292,16 @@ namespace FacetedWorlds.MyCon.Model
             ;
 		}
         public static Query QueryAllSchedules = MakeQueryAllSchedules();
-        public static Query MakeQueryScheduledSessions()
+        public static Query MakeQueryScheduledSessionPlaces()
 		{
 			return new Query()
 				.JoinSuccessors(Slot.RoleAttendee)
 				.JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.MakeQueryIsCurrent())
 				)
 				.JoinPredecessors(Schedule.RoleSessionPlace)
-				.JoinPredecessors(SessionPlace.RoleSession)
             ;
 		}
-        public static Query QueryScheduledSessions = MakeQueryScheduledSessions();
+        public static Query QueryScheduledSessionPlaces = MakeQueryScheduledSessionPlaces();
 
         // Predicates
 
@@ -1315,7 +1314,7 @@ namespace FacetedWorlds.MyCon.Model
         // Results
         private Result<Schedule> _currentSchedules;
         private Result<Schedule> _allSchedules;
-        private Result<Session> _scheduledSessions;
+        private Result<SessionPlace> _scheduledSessionPlaces;
 
         // Business constructor
         public Attendee(
@@ -1340,7 +1339,7 @@ namespace FacetedWorlds.MyCon.Model
         {
             _currentSchedules = new Result<Schedule>(this, QueryCurrentSchedules);
             _allSchedules = new Result<Schedule>(this, QueryAllSchedules);
-            _scheduledSessions = new Result<Session>(this, QueryScheduledSessions);
+            _scheduledSessionPlaces = new Result<SessionPlace>(this, QueryScheduledSessionPlaces);
         }
 
         // Predecessor access
@@ -1364,9 +1363,9 @@ namespace FacetedWorlds.MyCon.Model
         {
             get { return _allSchedules; }
         }
-        public Result<Session> ScheduledSessions
+        public Result<SessionPlace> ScheduledSessionPlaces
         {
-            get { return _scheduledSessions; }
+            get { return _scheduledSessionPlaces; }
         }
 
         // Mutable property access
@@ -6172,7 +6171,7 @@ namespace FacetedWorlds.MyCon.Model
 				Attendee.QueryAllSchedules.QueryDefinition);
 			community.AddQuery(
 				Attendee._correspondenceFactType,
-				Attendee.QueryScheduledSessions.QueryDefinition);
+				Attendee.QueryScheduledSessionPlaces.QueryDefinition);
 			community.AddType(
 				IndividualAttendee._correspondenceFactType,
 				new IndividualAttendee.CorrespondenceFactFactory(fieldSerializerByType),

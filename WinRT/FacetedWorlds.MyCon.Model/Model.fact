@@ -120,10 +120,10 @@ query:
 		Schedule s : s.slot.attendee = this
 	}
 
-	Session* scheduledSessions {
+	SessionPlace* scheduledSessionPlaces {
 		Schedule s : s.slot.attendee = this
 			where s.isCurrent
-		Session session : s.sessionPlace.session = session
+		SessionPlace sessionPlace : s.sessionPlace = sessionPlace
 	}
 }
 

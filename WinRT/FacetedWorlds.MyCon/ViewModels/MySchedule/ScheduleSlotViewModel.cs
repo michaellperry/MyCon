@@ -8,6 +8,7 @@ using UpdateControls.XAML;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using FacetedWorlds.MyCon.Models;
+using Windows.UI.Xaml;
 
 namespace FacetedWorlds.MyCon.ViewModels.MySchedule
 {
@@ -84,8 +85,9 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
                 SessionPlace sessionPlace = _sessionPlace;
                 if (sessionPlace != null &&
                     sessionPlace.Place != null &&
-                    sessionPlace.Place.Room != null)
-                    return sessionPlace.Place.Room.RoomNumber;
+                    sessionPlace.Place.Room != null &&
+                    sessionPlace.Place.Room.RoomNumber.Value != null)
+                    return "Room " + sessionPlace.Place.Room.RoomNumber.Value;
                 else
                     return String.Empty;
             }
@@ -114,16 +116,21 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
                 return MakeCommand
                     .Do(delegate
                     {
+                        _selection.SelectedTime = _time;
+
                         var sessionPlace = SessionPlace;
                         if (sessionPlace != null)
                         {
                             _selection.SelectedSessionPlace = sessionPlace;
                             _showSession();
                         }
-                        else
-                            _selection.SelectedTime = _time;
                     });
             }
+        }
+
+        public Visibility IsSelected
+        {
+            get { return _selection.SelectedTime == _time ? Visibility.Visible : Visibility.Collapsed; }
         }
 
         private SessionPlace SessionPlace

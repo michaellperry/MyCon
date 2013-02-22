@@ -25,12 +25,12 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Margin="0,0,10,0" Orientation="Vertical" VerticalAlignment="Top">
-    		<Border BorderBrush="Black" BorderThickness="4" Height="240" VerticalAlignment="Top" Width="240" HorizontalAlignment="Left" Margin="10">
-    			<Border.Background>
-    				<ImageBrush ImageSource="{Binding Image}" Stretch="UniformToFill"/>
-    			</Border.Background>
+    		<Border BorderThickness="4" Height="240" VerticalAlignment="Top" Width="240" HorizontalAlignment="Left" Margin="10" BorderBrush="{Binding StatusBrush}">
+    			<Image Source="{Binding Image}" Stretch="UniformToFill"/>
     		</Border>
     		<local:SessionLogisticsControl VerticalAlignment="Top"/>
+    		<Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource AddAppBarButtonStyle}" Visibility="{Binding AddVisible}" Command="{Binding Add}"/>
+    		<Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource RemoveAppBarButtonStyle}" Visibility="{Binding RemoveVisible}" Command="{Binding Remove}"/>
 
     	</StackPanel>
         <ScrollViewer Grid.Column="1" Style="{StaticResource VerticalScrollViewerStyle}">

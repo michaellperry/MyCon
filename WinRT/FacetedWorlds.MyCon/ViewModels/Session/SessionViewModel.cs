@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Input;
 using FacetedWorlds.MyCon.Model;
+using UpdateControls.XAML;
+using Windows.UI;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -9,10 +14,12 @@ namespace FacetedWorlds.MyCon.ViewModels.Session
     public class SessionViewModel
     {
         private readonly SessionPlace _sessionPlace;
+        private readonly Individual _individual;
 
-        public SessionViewModel(SessionPlace sessionPlace)
+        public SessionViewModel(SessionPlace sessionPlace, Individual individual)
         {
             _sessionPlace = sessionPlace;
+            _individual = individual;
         }
 
         public string Title
@@ -132,6 +139,53 @@ namespace FacetedWorlds.MyCon.ViewModels.Session
                     return null;
 
                 return segments.JoinSegments();
+            }
+        }
+
+        public Visibility AddVisible
+        {
+            get { return _individual.IsScheduled(_sessionPlace) ? Visibility.Collapsed : Visibility.Visible; }
+        }
+
+        public ICommand Add
+        {
+            get
+            {
+                return MakeCommand
+                    .Do(async () =>
+                    {
+                        await _individual.AddScheduleAsync(_sessionPlace);
+                    });
+            }
+        }
+
+        public Visibility RemoveVisible
+        {
+            get { return _individual.IsScheduled(_sessionPlace) ? Visibility.Visible : Visibility.Collapsed; }
+        }
+
+        public ICommand Remove
+        {
+            get
+            {
+                return MakeCommand
+                    .Do(async () =>
+                    {
+                        await _individual.RemoveScheduleAsync(_sessionPlace);
+                    });
+            }
+        }
+
+        public Brush StatusBrush
+        {
+            get
+            {
+                string status;
+                if (_individual.IsScheduled(_sessionPlace))
+                    status = "ScheduledStatusBrush";
+                else
+                    status = "UnscheduledStatusBrush";
+                return Application.Current.Resources[status] as Brush;
             }
         }
     }
