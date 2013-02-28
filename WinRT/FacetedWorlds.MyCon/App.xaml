@@ -23,7 +23,10 @@
                 Color="Black" />
             <SolidColorBrush
                 x:Key="ScheduledStatusBrush"
-                Color="#0C7A0A" />
+                Color="#2F8923" />
+            <SolidColorBrush x:Key="BackgroundBrush" Color="#FF1F0C03"/>
+            <SolidColorBrush x:Key="SelectedSlotBrush" Color="#FF1E361B"/>
+            <SolidColorBrush x:Key="CalendarBackgroundBrush" Color="#FF610909"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

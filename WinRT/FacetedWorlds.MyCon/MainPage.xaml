@@ -34,7 +34,7 @@
     </Page.TopAppBar>
     <Grid
         Style="{StaticResource LayoutRootStyle}"
-        Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        Background="{StaticResource BackgroundBrush}">
     	<VisualStateManager.VisualStateGroups>
             <!-- Visual states reflect the application's view state -->
             <VisualStateGroup

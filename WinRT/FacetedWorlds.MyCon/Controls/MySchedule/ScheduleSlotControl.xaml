@@ -21,7 +21,7 @@
                 <ColumnDefinition
                     Width="415" />
             </Grid.ColumnDefinitions>
-            <Rectangle Fill="#FF1E361B" Grid.ColumnSpan="2" Margin="0" Visibility="{Binding IsSelected}"/>
+            <Rectangle Fill="{StaticResource SelectedSlotBrush}" Grid.ColumnSpan="2" Margin="0" Visibility="{Binding IsSelected}"/>
             <Grid Grid.Column="1">
             	<Grid.RowDefinitions>
             		<RowDefinition Height="Auto"/>

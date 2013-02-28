@@ -10,7 +10,7 @@
     d:DesignWidth="125">
 
     <Grid
-        Background="#FF852B2B" Width="125" Height="125">
+        Background="{StaticResource CalendarBackgroundBrush}" Width="125" Height="125">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>

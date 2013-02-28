@@ -10,7 +10,7 @@
     mc:Ignorable="d">
 
     <Grid
-        Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        Background="{StaticResource BackgroundBrush}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition
                 Width="Auto" />
