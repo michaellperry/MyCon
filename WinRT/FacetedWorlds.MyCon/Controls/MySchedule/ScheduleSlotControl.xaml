@@ -7,13 +7,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="547">
+    d:DesignWidth="615.667">
 
     <Button
         Command="{Binding SelectSlot}"
         HorizontalAlignment="Stretch"
         HorizontalContentAlignment="Stretch"
-        BorderThickness="0">
+        BorderThickness="0" Padding="4">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition
@@ -21,7 +21,7 @@
                 <ColumnDefinition
                     Width="415" />
             </Grid.ColumnDefinitions>
-            <Rectangle Fill="#FF1E361B" Grid.ColumnSpan="2" Margin="0,0,30,0" Visibility="{Binding IsSelected}"/>
+            <Rectangle Fill="#FF1E361B" Grid.ColumnSpan="2" Margin="0" Visibility="{Binding IsSelected}"/>
             <Grid Grid.Column="1">
             	<Grid.RowDefinitions>
             		<RowDefinition Height="Auto"/>

@@ -18,11 +18,14 @@ namespace FacetedWorlds.MyCon.ViewModels.AvailableSessions
             Individual individual,
             SelectionModel selectionModel)
         {
-            var frame = Window.Current.Content as Frame;
+            Frame frame = null;
+            if (Window.Current != null)
+                frame = Window.Current.Content as Frame;
 
             Action showSession = () =>
             {
-                frame.Navigate(typeof(SessionView));
+                if (frame != null)
+                    frame.Navigate(typeof(SessionView));
             };
 
             Func<SessionPlace, SessionHeaderViewModel> newSessionHeaderViewModel = sessionPlace =>

@@ -115,8 +115,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\AvailableSessions\AvailableSessionsControl.xaml.cs">
-      <DependentUpon>AvailableSessionsControl.xaml</DependentUpon>
+    <Compile Include="Common\LayoutAwarePage.cs" />
+    <Compile Include="Controls\AvailableSessions\SnappedSessionHeaderControl.xaml.cs">
+      <DependentUpon>SnappedSessionHeaderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\AvailableSessions\SessionHeaderControl.xaml.cs">
       <DependentUpon>SessionHeaderControl.xaml</DependentUpon>
@@ -124,8 +125,14 @@
     <Compile Include="Controls\CalendarControl.xaml.cs">
       <DependentUpon>CalendarControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\MySchedule\ScheduleControl.xaml.cs">
-      <DependentUpon>ScheduleControl.xaml</DependentUpon>
+    <Compile Include="Controls\MySchedule\SnappedScheduleSlotControl.xaml.cs">
+      <DependentUpon>SnappedScheduleSlotControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MySchedule\SnappedScheduleTimeControl.xaml.cs">
+      <DependentUpon>SnappedScheduleTimeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MySchedule\SnappedScheduleDayControl.xaml.cs">
+      <DependentUpon>SnappedScheduleDayControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\MySchedule\ScheduleDayControl.xaml.cs">
       <DependentUpon>ScheduleDayControl.xaml</DependentUpon>
@@ -158,6 +165,7 @@
     <Compile Include="ViewModels\AvailableSessions\AvailableSessionsViewModel.cs" />
     <Compile Include="ViewModels\AvailableSessions\Container.cs" />
     <Compile Include="ViewModels\AvailableSessions\SessionHeaderViewModel.cs" />
+    <Compile Include="ViewModels\DesignTimeData.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MySchedule\Container.cs" />
     <Compile Include="ViewModels\MySchedule\ScheduleDayViewModel.cs" />
@@ -203,9 +211,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\AvailableSessions\AvailableSessionsControl.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Controls\AvailableSessions\SnappedSessionHeaderControl.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\AvailableSessions\SessionHeaderControl.xaml">
       <SubType>Designer</SubType>
@@ -215,9 +223,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\MySchedule\ScheduleControl.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Controls\MySchedule\SnappedScheduleSlotControl.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MySchedule\SnappedScheduleTimeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MySchedule\SnappedScheduleDayControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\MySchedule\ScheduleDayControl.xaml">
       <SubType>Designer</SubType>
@@ -284,6 +300,9 @@
     <Reference Include="UpdateControls.Correspondence.FileStream, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Correspondence.App.1.4.2.4\lib\windows8\UpdateControls.Correspondence.FileStream.dll</HintPath>
+    </Reference>
+    <Reference Include="UpdateControls.Correspondence.Memory">
+      <HintPath>..\..\packages\Correspondence.UnitTest.1.4.1.4\lib\windows8\UpdateControls.Correspondence.Memory.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.XAML, Version=2.2.2.1, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

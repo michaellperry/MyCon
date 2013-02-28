@@ -1,3 +1,5 @@
+using System;
+using System.Runtime.CompilerServices;
 using FacetedWorlds.MyCon.Models;
 using FacetedWorlds.MyCon.ViewModels.Session;
 using UpdateControls.XAML;

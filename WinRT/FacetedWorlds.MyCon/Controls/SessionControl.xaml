@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition
-                Width="Auto" />
+                Width="270" />
             <ColumnDefinition Width="600" />
         </Grid.ColumnDefinitions>
 

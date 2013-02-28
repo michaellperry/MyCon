@@ -3481,6 +3481,7 @@ namespace FacetedWorlds.MyCon.Model
 		{
 			return new Query()
 				.JoinSuccessors(SessionPlace.RolePlace, Condition.WhereIsEmpty(SessionPlace.MakeQueryIsCurrent())
+					.And().IsEmpty(SessionPlace.MakeQueryIsDeleted())
 				)
             ;
 		}

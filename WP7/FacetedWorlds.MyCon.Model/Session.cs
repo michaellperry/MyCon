@@ -23,7 +23,7 @@ namespace FacetedWorlds.MyCon.Model
 
         public void SetPlace(Place place)
         {
-            List<SessionPlace> currentSessionPlaces = CurrentSessionPlaces.ToList();
+            List<SessionPlace> currentSessionPlaces = CurrentSessionPlaces.Ensure().ToList();
             if (currentSessionPlaces.Count != 1 || currentSessionPlaces[0].Place != place)
                 Community.AddFact(new SessionPlace(this, place, CurrentSessionPlaces));
         }

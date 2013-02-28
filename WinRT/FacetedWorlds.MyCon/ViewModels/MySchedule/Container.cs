@@ -15,11 +15,15 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
             Individual individual,
             SelectionModel selection)
         {
-            var frame = Window.Current.Content as Frame;
+            Frame frame = null;
+            //if (Window.Current != null &&
+            //    Window.Current.Content != null)
+            //    frame = Window.Current.Content as Frame;
                         
             Action showSession = () =>
             {
-                frame.Navigate(typeof(SessionView));
+                if (frame != null)
+                    frame.Navigate(typeof(SessionView));
             };
 
             Func<Time, Schedule, ScheduleSlotViewModel> newScheduleSlot = (time, schedule) =>

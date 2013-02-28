@@ -56,7 +56,7 @@ namespace FacetedWorlds.MyCon.ViewModels.AvailableSessions
                     _sessionPlace.Place.Room.RoomNumber.Value == null)
                     return null;
 
-                return "Room " + _sessionPlace.Place.Room.RoomNumber.Value;
+                return "Room: " + _sessionPlace.Place.Room.RoomNumber.Value;
             }
         }
 

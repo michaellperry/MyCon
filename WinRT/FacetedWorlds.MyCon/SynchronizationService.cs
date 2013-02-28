@@ -9,6 +9,7 @@ using FacetedWorlds.MyCon.Model;
 using UpdateControls.Correspondence;
 using UpdateControls.Correspondence.BinaryHTTPClient;
 using UpdateControls.Correspondence.FileStream;
+using UpdateControls.Correspondence.Memory;
 using UpdateControls.Fields;
 using Windows.Storage;
 using Windows.UI.Xaml;
@@ -75,6 +76,19 @@ namespace FacetedWorlds.MyCon
 
             // And synchronize on startup or resume.
             Synchronize();
+        }
+
+        public void InitializeForDesignTime()
+        {
+            var storage = new MemoryStorageStrategy();
+
+            _community = new Community(storage);
+            _community.Register<CorrespondenceModel>();
+
+            Individual individual = _community.AddFactAsync(new Individual("DesignTimeUser")).Result;
+            var conference = _community.AddFactAsync(new Conference(CommonSettings.ConferenceID)).Result;
+            _individual.Value = individual;
+            _conference.Value = conference;
         }
 
         public Community Community

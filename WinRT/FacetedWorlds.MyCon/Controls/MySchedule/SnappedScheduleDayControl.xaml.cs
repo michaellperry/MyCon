@@ -16,9 +16,9 @@ using Windows.UI.Xaml.Navigation;
 
 namespace FacetedWorlds.MyCon.Controls.MySchedule
 {
-    public sealed partial class ScheduleControl : UserControl
+    public sealed partial class SnappedScheduleDayControl : UserControl
     {
-        public ScheduleControl()
+        public SnappedScheduleDayControl()
         {
             this.InitializeComponent();
         }

@@ -87,7 +87,7 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
                     sessionPlace.Place != null &&
                     sessionPlace.Place.Room != null &&
                     sessionPlace.Place.Room.RoomNumber.Value != null)
-                    return "Room " + sessionPlace.Place.Room.RoomNumber.Value;
+                    return "Room: " + sessionPlace.Place.Room.RoomNumber.Value;
                 else
                     return String.Empty;
             }

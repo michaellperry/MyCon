@@ -282,6 +282,7 @@ query:
 	SessionPlace* currentSessionPlaces {
 		SessionPlace sp : sp.place = this
 			where sp.isCurrent
+			  and not sp.isDeleted
 	}
 }
 

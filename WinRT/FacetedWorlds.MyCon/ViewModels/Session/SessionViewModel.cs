@@ -83,7 +83,7 @@ namespace FacetedWorlds.MyCon.ViewModels.Session
                     _sessionPlace.Place.Room == null)
                     return null;
 
-                return String.Format("Room {0}", _sessionPlace.Place.Room.RoomNumber.Value);
+                return String.Format("Room: {0}", _sessionPlace.Place.Room.RoomNumber.Value);
             }
         }
 

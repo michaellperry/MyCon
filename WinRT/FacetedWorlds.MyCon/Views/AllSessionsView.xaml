@@ -21,6 +21,21 @@
             ItemsPath="Items"
             d:Source="{Binding Tracks, Source={d:DesignInstance Type=data:SampleDataSource, IsDesignTimeCreatable=True}}" />
     </UserControl.Resources>
+    <VisualStateManager.VisualStateGroups>
+        <!-- Visual states reflect the application's view state -->
+        <VisualStateGroup
+            x:Name="ApplicationViewStates">
+            <VisualState
+                x:Name="FullScreenLandscape" />
+            <VisualState
+                x:Name="Filled" />
+            <VisualState
+                x:Name="FullScreenPortrait" />
+            <VisualState
+                x:Name="Snapped">
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
 
     <GridView
         x:Name="itemGridView"
