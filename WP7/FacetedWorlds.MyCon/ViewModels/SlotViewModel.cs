@@ -23,8 +23,8 @@ namespace FacetedWorlds.MyCon.ViewModels
             {
                 return String.Format(
                     "{0:dddd, MMMM d} at {1:h:mm tt}",
-                    _slot.SlotTime.Day.ConferenceDate,
-                    _slot.SlotTime.Start);
+                    _slot.SlotTime.Day.ConferenceDate.ToLocalTime(),
+                    _slot.SlotTime.Start.ToLocalTime());
             }
         }
 

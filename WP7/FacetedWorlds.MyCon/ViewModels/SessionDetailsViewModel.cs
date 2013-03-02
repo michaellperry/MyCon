@@ -29,8 +29,8 @@ namespace FacetedWorlds.MyCon.ViewModels
             {
                 return String.Format(
                     "{0:dddd, MMMM d} at {1:h:mm tt}",
-                    _sessionPlace.Place.PlaceTime.Day.ConferenceDate,
-                    _sessionPlace.Place.PlaceTime.Start);
+                    _sessionPlace.Place.PlaceTime.Day.ConferenceDate.ToLocalTime(),
+                    _sessionPlace.Place.PlaceTime.Start.ToLocalTime());
             }
         }
 
@@ -220,7 +220,7 @@ namespace FacetedWorlds.MyCon.ViewModels
             {
                 return _sessionPlace.Session.Track == null
                     ? "Other sessions at this time"
-                    : String.Format("Other sessions at {0:h:mm}", _sessionPlace.Place.PlaceTime.Start);
+                    : String.Format("Other sessions at {0:h:mm}", _sessionPlace.Place.PlaceTime.Start.ToLocalTime());
             }
         }
 
@@ -251,7 +251,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         private bool SessionHasStarted
         {
-            get { return _sessionPlace.Place.PlaceTime.Start.AddMinutes(30.0) < _clock.Time; }
+            get { return _sessionPlace.Place.PlaceTime.Start.ToLocalTime().AddMinutes(30.0) < _clock.Time; }
         }
 
         private bool EvalIsCompleted

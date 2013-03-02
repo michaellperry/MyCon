@@ -35,15 +35,17 @@ namespace FacetedWorlds.MyCon.ViewModels
                     select schedule.SessionPlace.Place;
                 var currentPlaces =
                     from place in generalSessionPlaces.Union(breakoutSessionPlaces)
+                    let start = place.PlaceTime.Start.ToLocalTime()
                     where
-                        place.PlaceTime.Start < now.AddMinutes(60.0) &&
-                        place.PlaceTime.Start > now.AddMinutes(-30.0)
-                    orderby place.PlaceTime.Start
+                        start < now.AddMinutes(60.0) &&
+                        start > now.AddMinutes(-30.0)
+                    orderby start
                     select place;
                 var nextPlace = currentPlaces.FirstOrDefault();
                 if (nextPlace != null)
                 {
-                    int minutes = (int)(nextPlace.PlaceTime.Start - now).TotalMinutes;
+                    DateTime start = nextPlace.PlaceTime.Start.ToLocalTime();
+                    int minutes = (int)(start - now).TotalMinutes;
                     if (minutes <= -2)
                     {
                         return String.Format("Your next session in {0} {1} minutes ago",

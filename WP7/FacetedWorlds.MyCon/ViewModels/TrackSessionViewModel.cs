@@ -20,7 +20,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public DateTime Time
         {
-            get { return _slot.SlotTime.Start; }
+            get { return _slot.SlotTime.Start.ToLocalTime(); }
         }
 
         public CachedImage ImageUrl
