@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using FacetedWorlds.MyCon.Common;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -19,7 +20,7 @@ namespace FacetedWorlds.MyCon.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class SessionView : Page
+    public sealed partial class SessionView : LayoutAwarePage
     {
         public SessionView()
         {

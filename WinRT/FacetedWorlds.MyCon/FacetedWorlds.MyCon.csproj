@@ -160,6 +160,7 @@
     <Compile Include="Models\SelectionModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleData\SampleDataSource.cs" />
+    <Compile Include="SampleData\SampleSessionDataSource.cs" />
     <Compile Include="SynchronizationService.cs" />
     <Compile Include="Update.cs" />
     <Compile Include="ViewModels\AvailableSessions\AvailableSessionsViewModel.cs" />

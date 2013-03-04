@@ -115,7 +115,7 @@
             SelectionMode="None"
             IsSwipeEnabled="false"
             IsItemClickEnabled="True"
-            ItemClick="Session_ItemClick" Visibility="Collapsed" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+            ItemClick="Session_ItemClick" Visibility="Collapsed" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
 
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
