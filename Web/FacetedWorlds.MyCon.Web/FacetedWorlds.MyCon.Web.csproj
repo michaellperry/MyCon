@@ -261,6 +261,9 @@
   <ItemGroup>
     <None Include="Properties\PublishProfiles\awesomefest - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\awesomefest - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\CTCCSchedule - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\CTCCSchedule - Web Deploy.pubxml" />
+    <Content Include="Views\Home\PrivacyPolicy.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

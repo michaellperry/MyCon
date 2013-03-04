@@ -1,21 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
-using UpdateControls.XAML;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Storage;
+using Windows.UI.ApplicationSettings;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
 
@@ -101,6 +92,8 @@ namespace FacetedWorlds.MyCon
             }
             // Ensure the current window is active
             Window.Current.Activate();
+
+            SettingsPane.GetForCurrentView().CommandsRequested += DisplayPrivacyPolicy;
         }
 
         /// <summary>
@@ -112,9 +105,23 @@ namespace FacetedWorlds.MyCon
         /// <param name="e">Details about the suspend request.</param>
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
+            SettingsPane.GetForCurrentView().CommandsRequested -= DisplayPrivacyPolicy;
+
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        private void DisplayPrivacyPolicy(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
+        {
+            SettingsCommand privacyPolicyCommand = new SettingsCommand("privacyPolicy", "Privacy Policy", (uiCommand) => { LaunchPrivacyPolicyUrl(); });
+            args.Request.ApplicationCommands.Add(privacyPolicyCommand);
+        }
+
+        async void LaunchPrivacyPolicyUrl()
+        {
+            Uri privacyPolicyUrl = new Uri("<<Your privacy policy URL here>>");
+            var result = await Windows.System.Launcher.LaunchUriAsync(privacyPolicyUrl);
         }
     }
 }

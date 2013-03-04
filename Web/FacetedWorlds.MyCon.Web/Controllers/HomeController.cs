@@ -17,5 +17,9 @@ namespace FacetedWorlds.MyCon.Web.Controllers
             return View(new HomeViewModel(MvcApplication.SynchronizationService.Conference));
         }
 
+        public ActionResult PrivacyPolicy()
+        {
+            return View();
+        }
     }
 }
