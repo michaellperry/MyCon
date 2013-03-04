@@ -20,7 +20,21 @@
             IsSourceGrouped="true"
             ItemsPath="Items"
             d:Source="{Binding Tracks, Source={d:DesignInstance Type=data:SampleDataSource, IsDesignTimeCreatable=True}}" />
+        <DataTemplate x:Key="SnappedItemTemplate">
+        	<Grid HorizontalAlignment="Left" Width="250" Height="90">
+        		<Border Height="90" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80">
+        			<Border.Background>
+        				<ImageBrush ImageSource="{Binding Image}" Stretch="UniformToFill"/>
+        			</Border.Background>
+        		</Border>
+        		<StackPanel VerticalAlignment="Top" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}" Margin="80,0,0,0">
+        			<TextBlock Text="{Binding Name}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Height="60" Margin="15,0,15,0"/>
+        			<TextBlock Text="{Binding Subtitle}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+        		</StackPanel>
+        	</Grid>
+        </DataTemplate>
     </UserControl.Resources>
+    <Grid>
     <VisualStateManager.VisualStateGroups>
         <!-- Visual states reflect the application's view state -->
         <VisualStateGroup
@@ -33,6 +47,22 @@
                 x:Name="FullScreenPortrait" />
             <VisualState
                 x:Name="Snapped">
+            	<Storyboard>
+            		<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="snappedItemGridView">
+            			<DiscreteObjectKeyFrame KeyTime="0">
+            				<DiscreteObjectKeyFrame.Value>
+            					<Visibility>Visible</Visibility>
+            				</DiscreteObjectKeyFrame.Value>
+            			</DiscreteObjectKeyFrame>
+            		</ObjectAnimationUsingKeyFrames>
+            		<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="itemGridView">
+            			<DiscreteObjectKeyFrame KeyTime="0">
+            				<DiscreteObjectKeyFrame.Value>
+            					<Visibility>Collapsed</Visibility>
+            				</DiscreteObjectKeyFrame.Value>
+            			</DiscreteObjectKeyFrame>
+            		</ObjectAnimationUsingKeyFrames>
+            	</Storyboard>
             </VisualState>
         </VisualStateGroup>
     </VisualStateManager.VisualStateGroups>
@@ -41,7 +71,6 @@
         x:Name="itemGridView"
         AutomationProperties.AutomationId="ItemGridView"
         AutomationProperties.Name="Grouped Items"
-        Grid.RowSpan="2"
         Padding="116,0,40,46"
         ItemsSource="{Binding Source={StaticResource groupedItemsViewSource}}"
         ItemTemplate="{StaticResource Standard250x250ItemTemplate}"
@@ -76,4 +105,43 @@
             </GroupStyle>
         </GridView.GroupStyle>
     </GridView>
+        <GridView
+            x:Name="snappedItemGridView"
+            AutomationProperties.AutomationId="SnappedItemGridView"
+            AutomationProperties.Name="Grouped Items"
+            Padding="32,0"
+            ItemsSource="{Binding Source={StaticResource groupedItemsViewSource}}"
+            ItemTemplate="{StaticResource SnappedItemTemplate}"
+            SelectionMode="None"
+            IsSwipeEnabled="false"
+            IsItemClickEnabled="True"
+            ItemClick="Session_ItemClick" Visibility="Collapsed" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel
+                        Orientation="Vertical" />
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+            <GridView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock
+                                Text="{Binding Name}"
+                                Margin="4,-7,10,16"
+                                Style="{StaticResource GroupHeaderTextStyle}" />
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                    <GroupStyle.Panel>
+                        <ItemsPanelTemplate>
+                            <VariableSizedWrapGrid
+                                Orientation="Vertical"
+                                Margin="0,0,80,0" />
+                        </ItemsPanelTemplate>
+                    </GroupStyle.Panel>
+                </GroupStyle>
+            </GridView.GroupStyle>
+        </GridView>
+    </Grid>
 </UserControl>
