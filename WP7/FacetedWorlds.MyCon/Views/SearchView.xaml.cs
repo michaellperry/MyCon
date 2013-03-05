@@ -23,5 +23,10 @@ namespace FacetedWorlds.MyCon.Views
             if (e.Key == Key.Enter)
                 Focus();
         }
+
+        private void Search_Click(object sender, EventArgs e)
+        {
+            Focus();
+        }
     }
 }

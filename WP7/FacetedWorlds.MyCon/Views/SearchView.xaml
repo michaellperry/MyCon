@@ -8,7 +8,8 @@
     xmlns:FacetedWorlds_MyCon="clr-namespace:FacetedWorlds.MyCon.Views"
     xmlns:Custom="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     x:Class="FacetedWorlds.MyCon.Views.SearchView"
-    SupportedOrientations="PortraitOrLandscape" Orientation="Landscape"
+    SupportedOrientations="PortraitOrLandscape"
+    Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True"
     Loaded="PhoneApplicationPage_Loaded"
@@ -68,12 +69,35 @@
         		<RowDefinition Height="Auto"/>
         		<RowDefinition Height="0.891*"/>
         	</Grid.RowDefinitions>
-        	<TextBox x:Name="SearchTermTextBox" Text="{Binding SearchTerm, Mode=TwoWay}" Height="72" KeyDown="SearchTermTextBox_KeyDown">
-        	</TextBox>
-        	<ScrollViewer Margin="12,0" Grid.Row="1" >
+            <TextBox
+                x:Name="SearchTermTextBox"
+                Text="{Binding SearchTerm, Mode=TwoWay}"
+                Height="72"
+                KeyDown="SearchTermTextBox_KeyDown" />
+            <ScrollViewer Margin="12,0" Grid.Row="1" >
         		<ItemsControl ItemTemplate="{StaticResource SearchDayViewModelTemplate}" ItemsSource="{Binding Days}"/>
         	</ScrollViewer>
+            <TextBlock
+                Visibility="{Binding NoResults}"
+                Grid.Row="1"
+                FontSize="28"
+                Margin="80"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                TextWrapping="Wrap"
+                TextAlignment="Center"
+                Text="No sessions matched your search." />
         </Grid>
     </Grid>
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar
+            IsVisible="True"
+            IsMenuEnabled="False">
+            <shell:ApplicationBarIconButton
+                IconUri="/Images/appbar.feature.search.rest.png"
+                Text="search"
+                Click="Search_Click"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>
