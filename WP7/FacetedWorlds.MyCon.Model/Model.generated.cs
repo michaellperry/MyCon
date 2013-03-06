@@ -1268,6 +1268,7 @@ namespace FacetedWorlds.MyCon.Model
 			return new Query()
 				.JoinSuccessors(Slot.RoleAttendee)
 				.JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.MakeQueryIsCurrent())
+					.And().IsEmpty(Schedule.MakeQueryIsDeleted())
 				)
             ;
 		}
@@ -1276,7 +1277,8 @@ namespace FacetedWorlds.MyCon.Model
 		{
 			return new Query()
 				.JoinSuccessors(Slot.RoleAttendee)
-				.JoinSuccessors(Schedule.RoleSlot)
+				.JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.MakeQueryIsDeleted())
+				)
             ;
 		}
         public static Query QueryAllSchedules = MakeQueryAllSchedules();
@@ -1291,6 +1293,16 @@ namespace FacetedWorlds.MyCon.Model
             ;
 		}
         public static Query QueryScheduledSessions = MakeQueryScheduledSessions();
+        public static Query MakeQueryScheduledSessionPlaces()
+		{
+			return new Query()
+				.JoinSuccessors(Slot.RoleAttendee)
+				.JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.MakeQueryIsCurrent())
+				)
+				.JoinPredecessors(Schedule.RoleSessionPlace)
+            ;
+		}
+        public static Query QueryScheduledSessionPlaces = MakeQueryScheduledSessionPlaces();
 
         // Predicates
 
@@ -1304,6 +1316,7 @@ namespace FacetedWorlds.MyCon.Model
         private Result<Schedule> _currentSchedules;
         private Result<Schedule> _allSchedules;
         private Result<Session> _scheduledSessions;
+        private Result<SessionPlace> _scheduledSessionPlaces;
 
         // Business constructor
         public Attendee(
@@ -1329,6 +1342,7 @@ namespace FacetedWorlds.MyCon.Model
             _currentSchedules = new Result<Schedule>(this, QueryCurrentSchedules);
             _allSchedules = new Result<Schedule>(this, QueryAllSchedules);
             _scheduledSessions = new Result<Session>(this, QueryScheduledSessions);
+            _scheduledSessionPlaces = new Result<SessionPlace>(this, QueryScheduledSessionPlaces);
         }
 
         // Predecessor access
@@ -1355,6 +1369,10 @@ namespace FacetedWorlds.MyCon.Model
         public Result<Session> ScheduledSessions
         {
             get { return _scheduledSessions; }
+        }
+        public Result<SessionPlace> ScheduledSessionPlaces
+        {
+            get { return _scheduledSessionPlaces; }
         }
 
         // Mutable property access
@@ -2289,6 +2307,7 @@ namespace FacetedWorlds.MyCon.Model
 		{
 			return new Query()
 				.JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.MakeQueryIsCurrent())
+					.And().IsEmpty(Schedule.MakeQueryIsDeleted())
 				)
             ;
 		}
@@ -4739,6 +4758,16 @@ namespace FacetedWorlds.MyCon.Model
             ;
 		}
         public static Query QueryIsCurrent = MakeQueryIsCurrent();
+        public static Query MakeQueryIsDeleted()
+		{
+			return new Query()
+				.JoinPredecessors(Schedule.RoleSessionPlace)
+				.JoinPredecessors(SessionPlace.RoleSession)
+				.JoinSuccessors(SessionDelete.RoleDeleted, Condition.WhereIsEmpty(SessionDelete.MakeQueryIsUndeleted())
+				)
+            ;
+		}
+        public static Query QueryIsDeleted = MakeQueryIsDeleted();
         public static Query MakeQueryCompletedEvaluations()
 		{
 			return new Query()
@@ -4750,6 +4779,7 @@ namespace FacetedWorlds.MyCon.Model
 
         // Predicates
         public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
+        public static Condition IsDeleted = Condition.WhereIsNotEmpty(QueryIsDeleted);
 
         // Predecessors
         private PredecessorObj<Slot> _slot;
@@ -6134,6 +6164,9 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				Attendee._correspondenceFactType,
 				Attendee.QueryScheduledSessions.QueryDefinition);
+			community.AddQuery(
+				Attendee._correspondenceFactType,
+				Attendee.QueryScheduledSessionPlaces.QueryDefinition);
 			community.AddType(
 				IndividualAttendee._correspondenceFactType,
 				new IndividualAttendee.CorrespondenceFactFactory(fieldSerializerByType),
@@ -6348,6 +6381,9 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				Schedule._correspondenceFactType,
 				Schedule.QueryIsCurrent.QueryDefinition);
+			community.AddQuery(
+				Schedule._correspondenceFactType,
+				Schedule.QueryIsDeleted.QueryDefinition);
 			community.AddQuery(
 				Schedule._correspondenceFactType,
 				Schedule.QueryCompletedEvaluations.QueryDefinition);

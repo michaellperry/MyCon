@@ -114,15 +114,27 @@ query:
 	Schedule* currentSchedules {
 		Schedule s : s.slot.attendee = this
 			where s.isCurrent
+			  and s.sessionPlaceIsCurrent
+			  and not s.isDeleted
 	}
 
 	Schedule* allSchedules {
 		Schedule s : s.slot.attendee = this
+			where s.sessionPlaceIsCurrent
+			  and not s.isDeleted
+	}
+
+	Session* scheduledSessions {
+		Schedule s : s.slot.attendee = this
+			where s.isCurrent
+			  and s.sessionPlaceIsCurrent
+		Session session : s.sessionPlace.session = session
 	}
 
 	SessionPlace* scheduledSessionPlaces {
 		Schedule s : s.slot.attendee = this
 			where s.isCurrent
+			  and s.sessionPlaceIsCurrent
 		SessionPlace sessionPlace : s.sessionPlace = sessionPlace
 	}
 }
@@ -216,6 +228,8 @@ query:
 	Schedule* currentSchedules {
 		Schedule s : s.slot = this
 			where s.isCurrent
+			  and s.sessionPlaceIsCurrent
+			  and not s.isDeleted
 	}
 }
 
@@ -377,6 +391,15 @@ key:
 query:
 	bool isCurrent {
 		not exists ScheduleRemove r : r.schedule = this
+	}
+
+	bool sessionPlaceIsCurrent {
+		not exists SessionPlace next : next.prior = this.sessionPlace
+	}
+
+	bool isDeleted {
+		exists SessionDelete d : d.deleted = this.sessionPlace.session
+			where not d.isUndeleted
 	}
 
 	SessionEvaluation* completedEvaluations {
