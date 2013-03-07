@@ -194,6 +194,15 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <EmbeddedResource Include="Data\FactTree.bin" />
+    <EmbeddedResource Include="Data\FactTypeTable.bin" />
+    <EmbeddedResource Include="Data\IncomingTimestampTable.bin" />
+    <EmbeddedResource Include="Data\Index.bin" />
+    <EmbeddedResource Include="Data\MessageTable.bin" />
+    <EmbeddedResource Include="Data\PeerTable.bin" />
+    <EmbeddedResource Include="Data\RoleTable.bin" />
+    <None Include="Data\OutgoingTimestampTable.bin" />
+    <None Include="FacetedWorlds.MyCon_StoreKey.pfx" />
     <None Include="FacetedWorlds.MyCon_TemporaryKey.pfx" />
     <None Include="packages.config" />
   </ItemGroup>

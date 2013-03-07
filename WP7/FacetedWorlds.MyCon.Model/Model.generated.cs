@@ -1268,6 +1268,7 @@ namespace FacetedWorlds.MyCon.Model
 			return new Query()
 				.JoinSuccessors(Slot.RoleAttendee)
 				.JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.MakeQueryIsCurrent())
+					.And().IsEmpty(Schedule.MakeQuerySessionPlaceIsCurrent())
 					.And().IsEmpty(Schedule.MakeQueryIsDeleted())
 				)
             ;
@@ -1277,7 +1278,8 @@ namespace FacetedWorlds.MyCon.Model
 		{
 			return new Query()
 				.JoinSuccessors(Slot.RoleAttendee)
-				.JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.MakeQueryIsDeleted())
+				.JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.MakeQuerySessionPlaceIsCurrent())
+					.And().IsEmpty(Schedule.MakeQueryIsDeleted())
 				)
             ;
 		}
@@ -1287,6 +1289,7 @@ namespace FacetedWorlds.MyCon.Model
 			return new Query()
 				.JoinSuccessors(Slot.RoleAttendee)
 				.JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.MakeQueryIsCurrent())
+					.And().IsEmpty(Schedule.MakeQuerySessionPlaceIsCurrent())
 				)
 				.JoinPredecessors(Schedule.RoleSessionPlace)
 				.JoinPredecessors(SessionPlace.RoleSession)
@@ -1298,6 +1301,7 @@ namespace FacetedWorlds.MyCon.Model
 			return new Query()
 				.JoinSuccessors(Slot.RoleAttendee)
 				.JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.MakeQueryIsCurrent())
+					.And().IsEmpty(Schedule.MakeQuerySessionPlaceIsCurrent())
 				)
 				.JoinPredecessors(Schedule.RoleSessionPlace)
             ;
@@ -2307,6 +2311,7 @@ namespace FacetedWorlds.MyCon.Model
 		{
 			return new Query()
 				.JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.MakeQueryIsCurrent())
+					.And().IsEmpty(Schedule.MakeQuerySessionPlaceIsCurrent())
 					.And().IsEmpty(Schedule.MakeQueryIsDeleted())
 				)
             ;
@@ -2679,6 +2684,7 @@ namespace FacetedWorlds.MyCon.Model
 				.JoinSuccessors(Session.RoleTrack, Condition.WhereIsEmpty(Session.MakeQueryIsDeleted())
 				)
 				.JoinSuccessors(SessionPlace.RoleSession, Condition.WhereIsEmpty(SessionPlace.MakeQueryIsCurrent())
+					.And().IsEmpty(SessionPlace.MakeQueryTimeIsDeleted())
 				)
             ;
 		}
@@ -4631,10 +4637,20 @@ namespace FacetedWorlds.MyCon.Model
             ;
 		}
         public static Query QueryIsDeleted = MakeQueryIsDeleted();
+        public static Query MakeQueryTimeIsDeleted()
+		{
+			return new Query()
+				.JoinPredecessors(SessionPlace.RolePlace)
+				.JoinPredecessors(Place.RolePlaceTime)
+				.JoinSuccessors(TimeDelete.RoleDeleted)
+            ;
+		}
+        public static Query QueryTimeIsDeleted = MakeQueryTimeIsDeleted();
 
         // Predicates
         public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
         public static Condition IsDeleted = Condition.WhereIsNotEmpty(QueryIsDeleted);
+        public static Condition TimeIsDeleted = Condition.WhereIsNotEmpty(QueryTimeIsDeleted);
 
         // Predecessors
         private PredecessorObj<Session> _session;
@@ -4758,6 +4774,14 @@ namespace FacetedWorlds.MyCon.Model
             ;
 		}
         public static Query QueryIsCurrent = MakeQueryIsCurrent();
+        public static Query MakeQuerySessionPlaceIsCurrent()
+		{
+			return new Query()
+				.JoinPredecessors(Schedule.RoleSessionPlace)
+				.JoinSuccessors(SessionPlace.RolePrior)
+            ;
+		}
+        public static Query QuerySessionPlaceIsCurrent = MakeQuerySessionPlaceIsCurrent();
         public static Query MakeQueryIsDeleted()
 		{
 			return new Query()
@@ -4779,6 +4803,7 @@ namespace FacetedWorlds.MyCon.Model
 
         // Predicates
         public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
+        public static Condition SessionPlaceIsCurrent = Condition.WhereIsEmpty(QuerySessionPlaceIsCurrent);
         public static Condition IsDeleted = Condition.WhereIsNotEmpty(QueryIsDeleted);
 
         // Predecessors
@@ -6374,6 +6399,9 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				SessionPlace._correspondenceFactType,
 				SessionPlace.QueryIsDeleted.QueryDefinition);
+			community.AddQuery(
+				SessionPlace._correspondenceFactType,
+				SessionPlace.QueryTimeIsDeleted.QueryDefinition);
 			community.AddType(
 				Schedule._correspondenceFactType,
 				new Schedule.CorrespondenceFactFactory(fieldSerializerByType),
@@ -6381,6 +6409,9 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				Schedule._correspondenceFactType,
 				Schedule.QueryIsCurrent.QueryDefinition);
+			community.AddQuery(
+				Schedule._correspondenceFactType,
+				Schedule.QuerySessionPlaceIsCurrent.QueryDefinition);
 			community.AddQuery(
 				Schedule._correspondenceFactType,
 				Schedule.QueryIsDeleted.QueryDefinition);

@@ -253,6 +253,7 @@ query:
 			where not s.isDeleted
 		SessionPlace sp : sp.session = s
 			where sp.isCurrent
+			  and not sp.timeIsDeleted
 	}
 
 	bool hasSessions {
@@ -379,6 +380,10 @@ query:
 	bool isDeleted {
 		exists SessionDelete d : d.deleted = this.session
 			where not d.isUndeleted
+	}
+
+	bool timeIsDeleted {
+		exists TimeDelete d : d.deleted = this.place.placeTime
 	}
 }
 
