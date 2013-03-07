@@ -278,6 +278,7 @@ query:
 			where not s.isDeleted
 		SessionPlace sp : sp.session = s
 			where sp.isCurrent
+			  and not sp.timeIsDeleted
 	}
 }
 

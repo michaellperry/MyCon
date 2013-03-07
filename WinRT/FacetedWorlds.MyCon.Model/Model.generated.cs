@@ -2854,6 +2854,7 @@ namespace FacetedWorlds.MyCon.Model
 				.JoinSuccessors(Session.RoleSpeaker, Condition.WhereIsEmpty(Session.MakeQueryIsDeleted())
 				)
 				.JoinSuccessors(SessionPlace.RoleSession, Condition.WhereIsEmpty(SessionPlace.MakeQueryIsCurrent())
+					.And().IsEmpty(SessionPlace.MakeQueryTimeIsDeleted())
 				)
             ;
 		}
