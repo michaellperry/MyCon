@@ -23,7 +23,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public object Main
         {
-            get { return ViewModel(() => new MainViewModel(_synchronizationService)); }
+            get { return ViewModel(() => new MainViewModel(_synchronizationService, _searchModel)); }
         }
 
         public object MySchedule
@@ -75,6 +75,7 @@ namespace FacetedWorlds.MyCon.ViewModels
                 {
                     return ViewModels.AllSessions.Container.CreateViewModel(
                         _selectionModel,
+                        _searchModel,
                         _synchronizationService);
                 });
             }

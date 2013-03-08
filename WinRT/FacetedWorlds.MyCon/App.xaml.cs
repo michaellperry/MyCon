@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
@@ -62,24 +64,9 @@ namespace FacetedWorlds.MyCon
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            Frame rootFrame = Window.Current.Content as Frame;
+            InitializeAnalytics();
 
-            // Do not repeat app initialization when the Window already has content,
-            // just ensure that the window is active
-            if (rootFrame == null)
-            {
-                // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
-
-                if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
-                    //TODO: Load state from previously suspended application
-                }
-
-                // Place the frame in the current Window
-                Window.Current.Content = rootFrame;
-            }
-
+            Frame rootFrame = ActivateRootFrame(args);
             if (rootFrame.Content == null)
             {
                 // When the navigation stack isn't restored navigate to the first page,
@@ -90,8 +77,6 @@ namespace FacetedWorlds.MyCon
                     throw new Exception("Failed to create initial page");
                 }
             }
-            // Ensure the current window is active
-            Window.Current.Activate();
 
             SettingsPane.GetForCurrentView().CommandsRequested += DisplayPrivacyPolicy;
         }
@@ -122,6 +107,50 @@ namespace FacetedWorlds.MyCon
         {
             Uri privacyPolicyUrl = new Uri("<<Your privacy policy URL here>>");
             var result = await Windows.System.Launcher.LaunchUriAsync(privacyPolicyUrl);
+        }
+
+        protected override void OnSearchActivated(SearchActivatedEventArgs args)
+        {
+            // TODO: Register the Windows.ApplicationModel.Search.SearchPane.GetForCurrentView().QuerySubmitted
+            // event in OnWindowCreated to speed up searches once the application is already running
+
+            InitializeAnalytics();
+            var rootFrame = ActivateRootFrame(args);
+
+            rootFrame.Navigate(typeof(MainPage), args.QueryText);
+        }
+
+        private static Frame ActivateRootFrame(IActivatedEventArgs args)
+        {
+            Frame rootFrame = Window.Current.Content as Frame;
+
+            // Do not repeat app initialization when the Window already has content,
+            // just ensure that the window is active
+            if (rootFrame == null)
+            {
+                // Create a Frame to act as the navigation context and navigate to the first page
+                rootFrame = new Frame();
+
+                if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                {
+                    //TODO: Load state from previously suspended application
+                }
+
+                // Place the frame in the current Window
+                Window.Current.Content = rootFrame;
+            }
+            // Ensure the current window is active
+            Window.Current.Activate();
+            return rootFrame;
+        }
+
+        private void InitializeAnalytics()
+        {
+            //MarkedUp.AnalyticClient.Initialize("Get your own key.");
+            //this.UnhandledException += (s, e) =>
+            //    MarkedUp.AnalyticClient.LogLastChanceException(e);
+            //TaskScheduler.UnobservedTaskException += (s, e) =>
+            //    MarkedUp.AnalyticClient.Error("UnobservedTaskException", e.Exception);
         }
     }
 }

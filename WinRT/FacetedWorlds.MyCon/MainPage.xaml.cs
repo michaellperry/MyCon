@@ -1,4 +1,5 @@
-﻿using FacetedWorlds.MyCon.Common;
+﻿using System.Collections.Generic;
+using FacetedWorlds.MyCon.Common;
 using FacetedWorlds.MyCon.ViewModels;
 using FacetedWorlds.MyCon.Views;
 using UpdateControls;
@@ -26,6 +27,11 @@ namespace FacetedWorlds.MyCon
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            if (e.Parameter != null)
+            {
+                var viewModel = ForView.Unwrap<MainViewModel>(DataContext);
+                viewModel.PerformSearch(e.Parameter.ToString());
+            }
             _depAllSessionsView.OnGet();
             _depMyScheduleView.OnGet();
         }
@@ -55,6 +61,7 @@ namespace FacetedWorlds.MyCon
                 return;
 
             viewModel.SelectedView = MainViewModel.ViewOption.AllSessionsView;
+            viewModel.ClearSearch();
         }
 
         private void UpdateAllSessionsView()

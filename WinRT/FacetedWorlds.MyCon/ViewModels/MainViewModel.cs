@@ -1,4 +1,5 @@
 using System;
+using FacetedWorlds.MyCon.Models;
 using UpdateControls.Fields;
 
 namespace FacetedWorlds.MyCon.ViewModels
@@ -6,6 +7,7 @@ namespace FacetedWorlds.MyCon.ViewModels
     public class MainViewModel
     {
         private readonly SynchronizationService _synchronizationService;
+        private readonly SearchModel _search;
 
         public enum ViewOption
         {
@@ -15,9 +17,10 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         private Independent<ViewOption> _selectedView = new Independent<ViewOption>(ViewOption.MyScheduleView);
 
-        public MainViewModel(SynchronizationService synchronizationService)
+        public MainViewModel(SynchronizationService synchronizationService, SearchModel search)
         {
             _synchronizationService = synchronizationService;
+            _search = search;
         }
 
         public ViewOption SelectedView
@@ -49,6 +52,20 @@ namespace FacetedWorlds.MyCon.ViewModels
 
                 return _synchronizationService.Conference.Name;
             }
+        }
+
+        public void PerformSearch(string searchTerm)
+        {
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                _search.SearchTerm = searchTerm;
+                _selectedView.Value = ViewOption.AllSessionsView;
+            }
+        }
+
+        public void ClearSearch()
+        {
+            _search.SearchTerm = null;
         }
     }
 }

@@ -8,15 +8,16 @@ namespace FacetedWorlds.MyCon.ViewModels.AllSessions
     {
         public static AllSessionsViewModel CreateViewModel(
             SelectionModel selectionModel,
+            SearchModel search,
             SynchronizationService synchronizationService)
         {
             Func<SessionPlace, SessionHeaderViewModel> newSessionHeaderViewModel = s =>
                 new SessionHeaderViewModel(s, selectionModel);
 
             Func<Track, TrackViewModel> newTrackViewModel = t =>
-                new TrackViewModel(t, newSessionHeaderViewModel);
+                new TrackViewModel(t, search, newSessionHeaderViewModel);
 
-            return new AllSessionsViewModel(synchronizationService, newTrackViewModel);
+            return new AllSessionsViewModel(synchronizationService, search, newTrackViewModel);
         }
     }
 }

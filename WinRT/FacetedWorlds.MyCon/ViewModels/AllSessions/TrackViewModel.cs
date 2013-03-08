@@ -9,11 +9,16 @@ namespace FacetedWorlds.MyCon.ViewModels.AllSessions
     public class TrackViewModel
     {
         private readonly Track _track;
+        private readonly SearchModel _search;
         private readonly Func<SessionPlace, SessionHeaderViewModel> _newSessionHeaderViewModel;
 
-        public TrackViewModel(Track track, Func<SessionPlace, SessionHeaderViewModel> newSessionHeaderViewModel)
+        public TrackViewModel(
+            Track track,
+            SearchModel search,
+            Func<SessionPlace, SessionHeaderViewModel> newSessionHeaderViewModel)
         {
             _track = track;
+            _search = search;
             _newSessionHeaderViewModel = newSessionHeaderViewModel;
         }
 
@@ -26,9 +31,13 @@ namespace FacetedWorlds.MyCon.ViewModels.AllSessions
         {
             get
             {
+                string searchTerm = _search.SearchTerm;
+                if (searchTerm != null)
+                    searchTerm = searchTerm.ToLower();
+
                 return
                     from sessionPlace in _track.CurrentSessionPlaces
-                    where CanDisplay(sessionPlace)
+                    where CanDisplay(sessionPlace, searchTerm)
                     orderby sessionPlace.Place.PlaceTime.Start
                     select _newSessionHeaderViewModel(sessionPlace);
             }
@@ -49,10 +58,33 @@ namespace FacetedWorlds.MyCon.ViewModels.AllSessions
             return _track.GetHashCode();
         }
 
-        public static bool CanDisplay(SessionPlace sessionPlace)
+        public static bool CanDisplay(SessionPlace sessionPlace, string searchTerm)
         {
-            return sessionPlace.Place != null
-                && sessionPlace.Place.PlaceTime != null;
+            bool hasPlaceTime =
+                sessionPlace.Place != null &&
+                sessionPlace.Place.PlaceTime != null;
+            if (!hasPlaceTime)
+                return false;
+
+            if (string.IsNullOrEmpty(searchTerm))
+                return true;
+
+            bool hasSessionInfo =
+                sessionPlace.Session != null &&
+                sessionPlace.Session.Name.Value != null &&
+                sessionPlace.Session.Speaker != null &&
+                sessionPlace.Session.Speaker.Name != null &&
+                sessionPlace.Session.Track != null &&
+                sessionPlace.Session.Track.Name != null &&
+                sessionPlace.Session.Description.Value != null;
+            if (!hasSessionInfo)
+                return false;
+
+            return
+                sessionPlace.Session.Speaker.Name.ToLower().Contains(searchTerm) ||
+                sessionPlace.Session.Name.Value.ToLower().Contains(searchTerm) ||
+                sessionPlace.Session.Track.Name.ToLower().Contains(searchTerm) ||
+                sessionPlace.Session.Description.Value.JoinSegments().ToLower().Contains(searchTerm);
         }
     }
 }
