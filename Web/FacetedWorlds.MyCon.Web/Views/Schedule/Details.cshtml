@@ -12,7 +12,13 @@
         <img class="thumbnail" src="@session.SpeakerImageUrl" alt="@session.Speaker" />
         <h3>@session.Name</h3>
         <p>@Html.ActionLink(session.Speaker, "Details", "Speakers", new { id = session.Speaker }, new { })</p>
-        <p>Room: @session.Room Track: @Html.ActionLink(session.Track, "Details", "Tracks", new { id = session.Track }, new { })</p>
+        <p>
+            Room: @session.Room
+            @if (session.Track != null)
+            {
+                @:Track: @Html.ActionLink(session.Track, "Details", "Tracks", new { id = session.Track }, new { })
+            }
+        </p>
         <p>@session.Description</p>
         <div class="clear"></div>
     </div>
