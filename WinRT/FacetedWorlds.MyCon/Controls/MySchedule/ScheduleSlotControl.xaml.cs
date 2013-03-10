@@ -1,26 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using FacetedWorlds.MyCon.ViewModels.MySchedule;
+using UpdateControls;
+using UpdateControls.XAML;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace FacetedWorlds.MyCon.Controls.MySchedule
 {
     public sealed partial class ScheduleSlotControl : UserControl
     {
+        private Dependent _visualState;
+
         public ScheduleSlotControl()
         {
             this.InitializeComponent();
+
+            Loaded += ScheduleSlotControl_Loaded;
+        }
+
+        void ScheduleSlotControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            _visualState = Update.WhenNecessary(UpdateVisualState);
+        }
+
+        private void UpdateVisualState()
+        {
+            var viewModel = ForView.Unwrap<ScheduleSlotViewModel>(DataContext);
+            if (viewModel == null)
+                return;
+
+            if (viewModel.IsSelected)
+                VisualStateManager.GoToState(this, "Selected", true);
+            else
+                VisualStateManager.GoToState(this, "Unselected", true);
         }
     }
 }

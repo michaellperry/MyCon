@@ -25,7 +25,7 @@
                 FontSize="18"
                 Text="{Binding Title}"
                 TextWrapping="Wrap"
-                Margin="6" />
+                Margin="6" Foreground="Black" />
             <Grid
                 Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -50,7 +50,7 @@
                     <TextBlock
                         FontSize="14"
                         Text="{Binding Speaker}"
-                        Foreground="#FF959595"
+                        Foreground="{StaticResource SelectedSubtleBrush}"
                         TextWrapping="Wrap"
                         VerticalAlignment="Top"
                         Margin="6"
@@ -58,7 +58,7 @@
                     <TextBlock
                         FontSize="14"
                         Text="{Binding Room}"
-                        Foreground="#FF959595"
+                        Foreground="{StaticResource SelectedSubtleBrush}"
                         TextWrapping="Wrap"
                         VerticalAlignment="Top"
                         Margin="6"

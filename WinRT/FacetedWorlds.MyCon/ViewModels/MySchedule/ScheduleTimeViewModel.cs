@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FacetedWorlds.MyCon.Model;
+using FacetedWorlds.MyCon.Models;
 
 namespace FacetedWorlds.MyCon.ViewModels.MySchedule
 {
@@ -10,12 +11,18 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
     {
         private readonly Time _time;
         private readonly Individual _individual;
+        private readonly SelectionModel _selection;
         private readonly Func<Time, Schedule, ScheduleSlotViewModel> _newScheduleSlot;
-        
-        public ScheduleTimeViewModel(Time time, Individual individual, Func<Time, Schedule, ScheduleSlotViewModel> newScheduleSlot)
+
+        public ScheduleTimeViewModel(
+            Time time,
+            Individual individual,
+            SelectionModel selection,
+            Func<Time, Schedule, ScheduleSlotViewModel> newScheduleSlot)
         {
             _time = time;
             _individual = individual;
+            _selection = selection;
             _newScheduleSlot = newScheduleSlot;
         }
 
@@ -37,6 +44,11 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
                 return schedules
                     .Select(schedule => _newScheduleSlot(_time, schedule));
             }
+        }
+
+        public bool IsSelected
+        {
+            get { return _selection.SelectedTime == _time; }
         }
     }
 }

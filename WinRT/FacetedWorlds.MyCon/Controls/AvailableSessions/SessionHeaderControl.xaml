@@ -38,13 +38,13 @@
                     Text="{Binding Title}"
                     TextWrapping="Wrap"
                     Margin="6"
-                    Grid.ColumnSpan="2" />
+                    Grid.ColumnSpan="2" Foreground="Black" />
                 <TextBlock
                     Grid.Row="1"
                     Grid.Column="0"
                     FontSize="22"
                     Text="{Binding Speaker}"
-                    Foreground="#FF959595"
+                    Foreground="{StaticResource SelectedSubtleBrush}"
                     TextWrapping="Wrap"
                     VerticalAlignment="Top"
                     Margin="6"
@@ -54,7 +54,7 @@
                     Grid.Row="1"
                     FontSize="22"
                     Text="{Binding Room}"
-                    Foreground="#FF959595"
+                    Foreground="{StaticResource SelectedSubtleBrush}"
                     TextWrapping="Wrap"
                     VerticalAlignment="Top"
                     Margin="6"

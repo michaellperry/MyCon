@@ -9,17 +9,44 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
     
-    <StackPanel>
-        <TextBlock
-            Text="{Binding Time}"
-            FontSize="20"/>
-        <ItemsControl
-        	ItemsSource="{Binding Schedules}" HorizontalContentAlignment="Stretch">
-        	<ItemsControl.ItemTemplate>
-        		<DataTemplate>
-        			<local:SnappedScheduleSlotControl HorizontalContentAlignment="Stretch" />
-        		</DataTemplate>
-        	</ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </StackPanel>
+    <Grid>
+    	<VisualStateManager.VisualStateGroups>
+    		<VisualStateGroup x:Name="VisualStateGroup">
+    			<VisualStateGroup.Transitions>
+    				<VisualTransition GeneratedDuration="0:0:0.4">
+    					<VisualTransition.GeneratedEasingFunction>
+    						<CubicEase EasingMode="EaseIn"/>
+    					</VisualTransition.GeneratedEasingFunction>
+    				</VisualTransition>
+    			</VisualStateGroup.Transitions>
+    			<VisualState x:Name="Selected">
+    				<Storyboard>
+    					<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="rectangle" d:IsOptimized="True"/>
+    					<ColorAnimation Duration="0" To="Black" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="textBlock" d:IsOptimized="True"/>
+    				</Storyboard>
+    			</VisualState>
+    			<VisualState x:Name="Unselected"/>
+    		</VisualStateGroup>
+    	</VisualStateManager.VisualStateGroups>
+    
+		<Rectangle x:Name="rectangle" Fill="{StaticResource SelectedSlotBrush}" RenderTransformOrigin="1,0.5">
+			<Rectangle.RenderTransform>
+				<CompositeTransform ScaleX="0"/>
+			</Rectangle.RenderTransform>
+		</Rectangle>
+    
+		<StackPanel>
+			<TextBlock x:Name="textBlock"
+				Text="{Binding Time}"
+				FontSize="20"/>
+			<ItemsControl
+				ItemsSource="{Binding Schedules}" HorizontalContentAlignment="Stretch">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<local:SnappedScheduleSlotControl HorizontalContentAlignment="Stretch" />
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</StackPanel>
+	</Grid>
 </UserControl>

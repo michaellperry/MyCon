@@ -25,6 +25,7 @@ namespace FacetedWorlds.MyCon
             {
                 UpdateScheduler.ScheduleUpdate(update);
             };
+            dependent.OnGet();
             return dependent;
         }
     }

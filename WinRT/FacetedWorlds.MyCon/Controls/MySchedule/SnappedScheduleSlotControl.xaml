@@ -14,6 +14,22 @@
         HorizontalAlignment="Stretch"
         HorizontalContentAlignment="Stretch"
         BorderThickness="0">
+    	<VisualStateManager.VisualStateGroups>
+    		<VisualStateGroup x:Name="VisualStateGroup">
+    			<VisualState x:Name="Selected">
+    				<Storyboard>
+    					<ColorAnimation Duration="0" To="Black" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="textBlock" d:IsOptimized="True"/>
+    					<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(TextBlock.Foreground)" Storyboard.TargetName="textBlock1">
+    						<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SelectedSubtleBrush}"/>
+    					</ObjectAnimationUsingKeyFrames>
+    					<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(TextBlock.Foreground)" Storyboard.TargetName="textBlock2">
+    						<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SelectedSubtleBrush}"/>
+    					</ObjectAnimationUsingKeyFrames>
+    				</Storyboard>
+    			</VisualState>
+    			<VisualState x:Name="Unselected"/>
+    		</VisualStateGroup>
+    	</VisualStateManager.VisualStateGroups>
         <Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition
@@ -21,8 +37,7 @@
 				<RowDefinition
 					Height="Auto"/>
 			</Grid.RowDefinitions>
-            <Rectangle Fill="#FF1E361B" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="0,0,30,0" Visibility="{Binding IsSelected}"/>
-        	<TextBlock
+        	<TextBlock x:Name="textBlock"
         		FontSize="18"
         		Text="{Binding Title}"
         		TextWrapping="Wrap"
@@ -35,29 +50,29 @@
 					<ColumnDefinition
 						Width="Auto" />
 				</Grid.ColumnDefinitions>
-				<Border
-					BorderBrush="Black"
-					BorderThickness="3"
-					Height="60"
-					VerticalAlignment="Top"
-					Margin="6"
-					Width="60">
-					<Image
-						Source="{Binding Image}"
-						Stretch="UniformToFill" />
-				</Border>
-				<StackPanel Grid.Column="1">
-        			<TextBlock
-        				FontSize="14"
-        				Text="{Binding Speaker}"
-        				Foreground="#FF959595"
-        				TextWrapping="Wrap" VerticalAlignment="Top" Margin="6" HorizontalAlignment="Left" />
-        			<TextBlock
-        				FontSize="14"
-        				Text="{Binding Room}"
-        				Foreground="#FF959595"
-        				TextWrapping="Wrap" VerticalAlignment="Top" Margin="6" HorizontalAlignment="Left" />
-				</StackPanel>
+            	<Border
+            		BorderBrush="Black"
+            		BorderThickness="3"
+            		Height="60"
+            		VerticalAlignment="Top"
+            		Margin="6"
+            		Width="60">
+            		<Image
+            			Source="{Binding Image}"
+            			Stretch="UniformToFill" />
+            	</Border>
+            	<StackPanel Grid.Column="1">
+            		<TextBlock x:Name="textBlock1"
+            			FontSize="14"
+            			Text="{Binding Speaker}"
+            			Foreground="{StaticResource UnselectedSubtleBrush}"
+            			TextWrapping="Wrap" VerticalAlignment="Top" Margin="6" HorizontalAlignment="Left" />
+            		<TextBlock x:Name="textBlock2"
+            			FontSize="14"
+            			Text="{Binding Room}"
+            			Foreground="{StaticResource UnselectedSubtleBrush}"
+            			TextWrapping="Wrap" VerticalAlignment="Top" Margin="6" HorizontalAlignment="Left" />
+            	</StackPanel>
         	</Grid>
         </Grid>
     </Button>

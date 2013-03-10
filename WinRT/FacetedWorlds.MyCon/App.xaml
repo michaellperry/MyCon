@@ -27,9 +27,15 @@
             <SolidColorBrush
                 x:Key="ScheduledStatusBrush"
                 Color="#2F8923" />
-            <SolidColorBrush x:Key="BackgroundBrush" Color="#FF1F0C03"/>
-            <SolidColorBrush x:Key="SelectedSlotBrush" Color="#FF1E361B"/>
+            <SolidColorBrush
+                x:Key="BackgroundBrush"
+                Color="#FF19283C"/>
+            <SolidColorBrush
+                x:Key="SelectedSlotBrush"
+                Color="#DBDBDB"/>
             <SolidColorBrush x:Key="CalendarBackgroundBrush" Color="#FF610909"/>
+            <SolidColorBrush x:Key="SelectedSubtleBrush" Color="#FF686868"/>
+            <SolidColorBrush x:Key="UnselectedSubtleBrush" Color="#FF959595"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

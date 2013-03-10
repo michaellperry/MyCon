@@ -14,6 +14,22 @@
         HorizontalAlignment="Stretch"
         HorizontalContentAlignment="Stretch"
         BorderThickness="0" Padding="4">
+    	<VisualStateManager.VisualStateGroups>
+    		<VisualStateGroup x:Name="VisualStateGroup">
+    			<VisualState x:Name="Selected">
+    				<Storyboard>
+    					<ColorAnimation Duration="0" To="Black" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="textBlock" d:IsOptimized="True"/>
+    					<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(TextBlock.Foreground)" Storyboard.TargetName="textBlock2">
+    						<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SelectedSubtleBrush}"/>
+    					</ObjectAnimationUsingKeyFrames>
+    					<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(TextBlock.Foreground)" Storyboard.TargetName="textBlock1">
+    						<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SelectedSubtleBrush}"/>
+    					</ObjectAnimationUsingKeyFrames>
+    				</Storyboard>
+    			</VisualState>
+    			<VisualState x:Name="Unselected"/>
+    		</VisualStateGroup>
+    	</VisualStateManager.VisualStateGroups>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition
@@ -21,7 +37,6 @@
                 <ColumnDefinition
                     Width="415" />
             </Grid.ColumnDefinitions>
-            <Rectangle Fill="{StaticResource SelectedSlotBrush}" Grid.ColumnSpan="2" Margin="0" Visibility="{Binding IsSelected}"/>
             <Grid Grid.Column="1">
             	<Grid.RowDefinitions>
             		<RowDefinition Height="Auto"/>
@@ -31,25 +46,25 @@
             		<ColumnDefinition Width="220"/>
             		<ColumnDefinition/>
             	</Grid.ColumnDefinitions>
-        		<TextBlock
+        		<TextBlock x:Name="textBlock"
         			FontSize="26.667"
         			Text="{Binding Title}"
         			TextWrapping="Wrap"
         			Margin="6" Grid.ColumnSpan="2"
                 />
-        		<TextBlock
+        		<TextBlock x:Name="textBlock1"
         			Grid.Row="1"
         			Grid.Column="0"
         			FontSize="22"
         			Text="{Binding Speaker}"
-        			Foreground="#FF959595"
+        			Foreground="{StaticResource UnselectedSubtleBrush}"
         			TextWrapping="Wrap" VerticalAlignment="Top" Margin="6" HorizontalAlignment="Left" />
-        		<TextBlock
+        		<TextBlock x:Name="textBlock2"
         			Grid.Column="1"
         			Grid.Row="1"
         			FontSize="22"
         			Text="{Binding Room}"
-        			Foreground="#FF959595"
+        			Foreground="{StaticResource UnselectedSubtleBrush}"
         			TextWrapping="Wrap" VerticalAlignment="Top" Margin="6" HorizontalAlignment="Left" />
         	</Grid>
             <Border

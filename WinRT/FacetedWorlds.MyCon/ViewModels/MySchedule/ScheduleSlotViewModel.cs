@@ -116,21 +116,17 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
                 return MakeCommand
                     .Do(delegate
                     {
-                        _selection.SelectedTime = _time;
-
-                        var sessionPlace = SessionPlace;
-                        if (sessionPlace != null)
-                        {
-                            _selection.SelectedSessionPlace = sessionPlace;
-                            _showSession();
-                        }
+                        _selection.SelectedTime =
+                            _selection.SelectedTime == _time
+                                ? null
+                                : _time;
                     });
             }
         }
 
-        public Visibility IsSelected
+        public bool IsSelected
         {
-            get { return _selection.SelectedTime == _time ? Visibility.Visible : Visibility.Collapsed; }
+            get { return _selection.SelectedTime == _time; }
         }
 
         private SessionPlace SessionPlace

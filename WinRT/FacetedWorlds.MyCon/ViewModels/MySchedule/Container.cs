@@ -30,7 +30,7 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
                 new ScheduleSlotViewModel(time, individual, schedule, selection, showSession);
 
             Func<Time, ScheduleTimeViewModel> newScheduleTime = time =>
-                new ScheduleTimeViewModel(time, individual, newScheduleSlot);
+                new ScheduleTimeViewModel(time, individual, selection, newScheduleSlot);
 
             Func<Day, ScheduleDayViewModel> newScheduleDay = day =>
                 new ScheduleDayViewModel(day, newScheduleTime);

@@ -32,8 +32,8 @@ namespace FacetedWorlds.MyCon
                 var viewModel = ForView.Unwrap<MainViewModel>(DataContext);
                 viewModel.PerformSearch(e.Parameter.ToString());
             }
-            _depAllSessionsView.OnGet();
-            _depMyScheduleView.OnGet();
+            //_depAllSessionsView.OnGet();
+            //_depMyScheduleView.OnGet();
         }
 
         private void SessionSelected()

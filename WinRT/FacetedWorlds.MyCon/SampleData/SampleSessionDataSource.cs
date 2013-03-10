@@ -47,5 +47,133 @@ namespace FacetedWorlds.MyCon.SampleData
         }
 
         public SessionData Session { get; private set; }
+
+        public static object MySchedule
+        {
+            get
+            {
+                return new
+                {
+                    Test = "Hello!",
+                    Days = new object[]
+                    {
+                        new
+                        {
+                            Day = "Saturday, March 16",
+                            Slots = new object[]
+                            {
+                                new
+                                {
+                                    Time = "8:30",
+                                    Schedules = new object[]
+                                    {
+                                        new
+                                        {
+                                            Title = "The Awesomeness Factor: Taking your Greatness to 11",
+                                            Speaker = "Michael L Perry",
+                                            Room = "Room: Vestibule on the Square",
+                                            Scheduled = true,
+                                            Overbooked = false,
+                                            IsSelected = Visibility.Visible
+                                        }
+                                    }
+                                },
+                                new
+                                {
+                                    Time = "10:00",
+                                    Schedules = new object[]
+                                    {
+                                        new
+                                        {
+                                            Title = "Another Awesome Session",
+                                            Speaker = "Caleb Jenkins",
+                                            Room = "Room: The Slarty Bart Fast",
+                                            Scheduled = true,
+                                            Overbooked = false,
+                                            IsSelected = Visibility.Collapsed
+                                        }
+                                    }
+                                },
+                                new
+                                {
+                                    Time = "11:30",
+                                    Schedules = new object[]
+                                    {
+                                        new
+                                        {
+                                            Title = "Lunch",
+                                            Speaker = "Lunch",
+                                            Room = "Room: The lunch room",
+                                            Scheduled = false,
+                                            Overbooked = false,
+                                            IsSelected = Visibility.Collapsed
+                                        }
+                                    }
+                                },
+                                new
+                                {
+                                    Time = "1:00",
+                                    Schedules = new object[]
+                                    {
+                                        new
+                                        {
+                                            Title = "Awesome Choice The First",
+                                            Speaker = "Teresa Burger",
+                                            Room = "Room: The OMG!",
+                                            Scheduled = true,
+                                            Overbooked = true,
+                                            IsSelected = Visibility.Collapsed
+                                        },
+                                        new
+                                        {
+                                            Title = "Awesome Choice The Second",
+                                            Speaker = "Robert Burger",
+                                            Room = "Room: The WAT!",
+                                            Scheduled = true,
+                                            Overbooked = true,
+                                            IsSelected = Visibility.Collapsed
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                };
+            }
+        }
+
+        public static object AvailableSessions
+        {
+            get
+            {
+                return new
+                {
+                    Sessions = new object[]
+                    {
+                        new
+                        {
+                            Title = "The Awesomeness Factor: Taking your Greatness to 11",
+                            Speaker = "Michael L Perry",
+                            Room = "Room: Vestibule on the Square",
+                            StatusBrush = Application.Current.Resources["ScheduledStatusBrush"] as Brush
+                        },
+                        new
+                        {
+                            Title = "Some Other Session",
+                            Speaker = "That Guy",
+                            Room = "Room: Somewhere Else",
+                            StatusBrush = Application.Current.Resources["UnscheduledStatusBrush"] as Brush
+                        },
+                        new
+                        {
+                            Title = "Where Do They Get These People?!?",
+                            Speaker = "OMG Stanley",
+                            Room = "Room: The Other Side",
+                            StatusBrush = Application.Current.Resources["UnscheduledStatusBrush"] as Brush
+                        }
+                    }
+                };
+            }
+        }
     }
 }

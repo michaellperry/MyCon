@@ -1,6 +1,7 @@
 using System;
 using System.Runtime.CompilerServices;
 using FacetedWorlds.MyCon.Models;
+using FacetedWorlds.MyCon.SampleData;
 using FacetedWorlds.MyCon.ViewModels.Session;
 using UpdateControls.XAML;
 
@@ -30,6 +31,9 @@ namespace FacetedWorlds.MyCon.ViewModels
         {
             get
             {
+                if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
+                    return SampleSessionDataSource.MySchedule;
+
                 return ViewModel(() =>
                 {
                     var conference = _synchronizationService.Conference;
@@ -50,6 +54,9 @@ namespace FacetedWorlds.MyCon.ViewModels
         {
             get
             {
+                if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
+                    return SampleSessionDataSource.AvailableSessions;
+
                 return ViewModel(() =>
                 {
                     var time = _selectionModel.SelectedTime;

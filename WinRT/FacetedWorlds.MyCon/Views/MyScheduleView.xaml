@@ -66,14 +66,14 @@
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="availableSessionsControl">
                         	<DiscreteObjectKeyFrame KeyTime="0">
                         		<DiscreteObjectKeyFrame.Value>
-                        			<x:Double>340</x:Double>
+                        			<x:Double>300</x:Double>
                         		</DiscreteObjectKeyFrame.Value>
                         	</DiscreteObjectKeyFrame>
                         </ObjectAnimationUsingKeyFrames>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="grid">
                         	<DiscreteObjectKeyFrame KeyTime="0">
                         		<DiscreteObjectKeyFrame.Value>
-                        			<x:Double>340</x:Double>
+                        			<x:Double>280</x:Double>
                         		</DiscreteObjectKeyFrame.Value>
                         	</DiscreteObjectKeyFrame>
                         </ObjectAnimationUsingKeyFrames>
@@ -88,6 +88,13 @@
                         	<DiscreteObjectKeyFrame KeyTime="0">
                         		<DiscreteObjectKeyFrame.Value>
                         			<Visibility>Visible</Visibility>
+                        		</DiscreteObjectKeyFrame.Value>
+                        	</DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="itemsControl">
+                        	<DiscreteObjectKeyFrame KeyTime="0">
+                        		<DiscreteObjectKeyFrame.Value>
+                        			<Thickness>0</Thickness>
                         		</DiscreteObjectKeyFrame.Value>
                         	</DiscreteObjectKeyFrame>
                         </ObjectAnimationUsingKeyFrames>
@@ -112,12 +119,12 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition
-                        Width="Auto" />
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition
                         Width="Auto" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
+                <Rectangle Fill="{StaticResource SelectedSlotBrush}" Grid.Column="1"/>
                 <Grid x:Name="grid" Width="590">
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -131,22 +138,19 @@
                             ItemsSource="{Binding Days}"
                             VerticalAlignment="Top"
                             HorizontalContentAlignment="Stretch"
-                            Margin="0,0,18,0"
-                            ItemTemplate="{StaticResource FullScheduleDay}">
-                        </ItemsControl>
+                            ItemTemplate="{StaticResource FullScheduleDay}"/>
                     </ScrollViewer>
                     <ScrollViewer x:Name="scrollViewer1"
                         ZoomMode="Disabled"
                         IsHorizontalRailEnabled="False"
                         IsVerticalRailEnabled="True"
                         HorizontalScrollMode="Disabled" Visibility="Collapsed">
-                        <ItemsControl
+                        <ItemsControl x:Name="itemsControl"
                             ItemsSource="{Binding Days}"
                             VerticalAlignment="Top"
                             HorizontalContentAlignment="Stretch"
                             Margin="0,0,18,0"
-                            ItemTemplate="{StaticResource SnappedScheduleDay}">
-                        </ItemsControl>
+                            ItemTemplate="{StaticResource SnappedScheduleDay}"/>
                     </ScrollViewer>
                 </Grid>
                 <Grid
