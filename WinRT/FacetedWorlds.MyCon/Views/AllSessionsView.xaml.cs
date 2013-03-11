@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using FacetedWorlds.MyCon.Common;
 using FacetedWorlds.MyCon.ViewModels.AllSessions;
 using UpdateControls.XAML;
 using Windows.Foundation;
@@ -18,7 +19,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace FacetedWorlds.MyCon.Views
 {
-    public sealed partial class AllSessionsView : UserControl
+    public sealed partial class AllSessionsView : UserControl, ILayoutAwareControl
     {
         public event Action SessionSelected;
 
@@ -33,6 +34,11 @@ namespace FacetedWorlds.MyCon.Views
             viewModel.Select();
             if (SessionSelected != null)
                 SessionSelected();
+        }
+
+        public void SetLayout(Windows.UI.ViewManagement.ApplicationViewState viewState)
+        {
+            throw new NotImplementedException();
         }
     }
 }

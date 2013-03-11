@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.ViewManagement;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -39,6 +40,16 @@ namespace FacetedWorlds.MyCon.Views
         private void GoBack(object sender, RoutedEventArgs e)
         {
             Frame.GoBack();
+        }
+
+        public override void SetLayout(ApplicationViewState viewState)
+        {
+            SnappedView.Visibility = viewState == ApplicationViewState.Snapped
+                ? Visibility.Visible
+                : Visibility.Collapsed;
+            FullView.Visibility = viewState == ApplicationViewState.Snapped
+                ? Visibility.Collapsed
+                : Visibility.Visible;
         }
     }
 }

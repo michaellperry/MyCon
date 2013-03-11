@@ -3,12 +3,13 @@ using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using System;
 
 namespace FacetedWorlds.MyCon.Common
 {
-    public class LayoutAwarePage : Page
+    public abstract class LayoutAwarePage : Page, ILayoutAwareControl
     {
-        private List<Control> _layoutAwareControls;
+        private List<ILayoutAwareControl> _layoutAwareControls;
 
         public LayoutAwarePage()
         {
@@ -16,28 +17,30 @@ namespace FacetedWorlds.MyCon.Common
 
             this.Loaded += (sender, e) =>
             {
-                this.StartLayoutUpdates(sender as Control);
+                this.StartLayoutUpdates(this);
             };
 
             this.Unloaded += (sender, e) =>
             {
-                this.StopLayoutUpdates(sender as Control);
+                this.StopLayoutUpdates(this);
             };
         }
 
-        public void StartLayoutUpdates(Control control)
+        public abstract void SetLayout(ApplicationViewState viewState);
+
+        public void StartLayoutUpdates(ILayoutAwareControl control)
         {
             if (control == null) return;
             if (this._layoutAwareControls == null)
             {
                 // Start listening to view state changes when there are controls interested in updates
                 Window.Current.SizeChanged += this.WindowSizeChanged;
-                this._layoutAwareControls = new List<Control>();
+                this._layoutAwareControls = new List<ILayoutAwareControl>();
             }
             this._layoutAwareControls.Add(control);
 
             // Set the initial visual state of the control
-            VisualStateManager.GoToState(control, DetermineVisualState(ApplicationView.Value), false);
+            control.SetLayout(ApplicationView.Value);
         }
 
         private void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
@@ -45,7 +48,7 @@ namespace FacetedWorlds.MyCon.Common
             this.InvalidateVisualState();
         }
 
-        public void StopLayoutUpdates(Control control)
+        public void StopLayoutUpdates(ILayoutAwareControl control)
         {
             if (control == null || this._layoutAwareControls == null) return;
             this._layoutAwareControls.Remove(control);
@@ -57,19 +60,13 @@ namespace FacetedWorlds.MyCon.Common
             }
         }
 
-        protected virtual string DetermineVisualState(ApplicationViewState viewState)
-        {
-            return viewState.ToString();
-        }
-
         public void InvalidateVisualState()
         {
             if (this._layoutAwareControls != null)
             {
-                string visualState = DetermineVisualState(ApplicationView.Value);
                 foreach (var layoutAwareControl in this._layoutAwareControls)
                 {
-                    VisualStateManager.GoToState(layoutAwareControl, visualState, false);
+                    layoutAwareControl.SetLayout(ApplicationView.Value);
                 }
             }
         }

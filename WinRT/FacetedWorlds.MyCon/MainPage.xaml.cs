@@ -6,6 +6,7 @@ using UpdateControls;
 using UpdateControls.XAML;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.ViewManagement;
 
 namespace FacetedWorlds.MyCon
 {
@@ -32,8 +33,6 @@ namespace FacetedWorlds.MyCon
                 var viewModel = ForView.Unwrap<MainViewModel>(DataContext);
                 viewModel.PerformSearch(e.Parameter.ToString());
             }
-            //_depAllSessionsView.OnGet();
-            //_depMyScheduleView.OnGet();
         }
 
         private void SessionSelected()
@@ -114,6 +113,21 @@ namespace FacetedWorlds.MyCon
                 Container.Children.Remove(_myScheduleView);
                 _myScheduleView = null;
             }
+        }
+
+        public override void SetLayout(ApplicationViewState viewState)
+        {
+            Visibility snappedVisibility = viewState == ApplicationViewState.Snapped
+                ? Windows.UI.Xaml.Visibility.Visible
+                : Windows.UI.Xaml.Visibility.Collapsed;
+            Visibility fullVisibility = viewState != ApplicationViewState.Snapped
+                ? Windows.UI.Xaml.Visibility.Visible
+                : Windows.UI.Xaml.Visibility.Collapsed;
+
+            SnappedAppBar.Visibility = snappedVisibility;
+            SnappedHeader.Visibility = snappedVisibility;
+            FullAppBar.Visibility = fullVisibility;
+            FullHeader.Visibility = fullVisibility;
         }
     }
 }

@@ -115,6 +115,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\ILayoutAwareControl.cs" />
     <Compile Include="Common\LayoutAwarePage.cs" />
     <Compile Include="Controls\AvailableSessions\SnappedSessionHeaderControl.xaml.cs">
       <DependentUpon>SnappedSessionHeaderControl.xaml</DependentUpon>
