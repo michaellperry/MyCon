@@ -20,15 +20,13 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
         private Dependent<SessionPlace> _sessionPlace;
         private readonly Individual _individual;
         private readonly SelectionModel _selection;
-        private readonly Action _showSession;
         
-        public ScheduleSlotViewModel(Time time, Individual individual, Schedule schedule, SelectionModel selection, Action showSession)
+        public ScheduleSlotViewModel(Time time, Individual individual, Schedule schedule, SelectionModel selection)
         {
             _time = time;
             _individual = individual;
             _schedule = schedule;
             _selection = selection;
-            _showSession = showSession;
 
             _sessionPlace = new Dependent<SessionPlace>(() => SessionPlace);
         }

@@ -24,7 +24,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public object Main
         {
-            get { return ViewModel(() => new MainViewModel(_synchronizationService, _searchModel)); }
+            get { return ViewModel(() => new MainViewModel(_synchronizationService, _searchModel, _selectionModel)); }
         }
 
         public object MySchedule

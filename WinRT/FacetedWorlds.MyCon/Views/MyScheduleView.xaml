@@ -26,6 +26,31 @@
     </UserControl.Resources>
 
     <Grid>
+    	<VisualStateManager.VisualStateGroups>
+    		<VisualStateGroup x:Name="VisualStateGroup">
+    			<VisualStateGroup.Transitions>
+    				<VisualTransition GeneratedDuration="0:0:0.4">
+    					<VisualTransition.GeneratedEasingFunction>
+    						<CubicEase EasingMode="EaseIn"/>
+    					</VisualTransition.GeneratedEasingFunction>
+    				</VisualTransition>
+    			</VisualStateGroup.Transitions>
+    			<VisualState x:Name="Selection">
+    				<Storyboard>
+    					<DoubleAnimation Duration="0" To="590" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="grid" d:IsOptimized="True"/>
+    					<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="grid" d:IsOptimized="True"/>
+    					<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="scrollViewer">
+    						<DiscreteObjectKeyFrame KeyTime="0">
+    							<DiscreteObjectKeyFrame.Value>
+    								<Visibility>Visible</Visibility>
+    							</DiscreteObjectKeyFrame.Value>
+    						</DiscreteObjectKeyFrame>
+    					</ObjectAnimationUsingKeyFrames>
+    				</Storyboard>
+    			</VisualState>
+    			<VisualState x:Name="NoSelection"/>
+    		</VisualStateGroup>
+    	</VisualStateManager.VisualStateGroups>
         <Grid x:Name="FullView">
             <ScrollViewer
                 Padding="116,0,40,46"
@@ -48,9 +73,6 @@
                             Width="Auto" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Rectangle
-                        Fill="{StaticResource SelectedSlotBrush}"
-                        Grid.Column="1" />
                     <Grid
                         Width="590">
                         <Grid.RowDefinitions>
@@ -81,14 +103,17 @@
                                 ItemTemplate="{StaticResource SnappedScheduleDay}" />
                         </ScrollViewer>
                     </Grid>
-                    <Grid
+                    <Grid x:Name="grid"
                         Grid.Column="1"
                         Width="590"
-                        DataContext="{Binding AvailableSessions, Source={StaticResource Locator}}">
-                        <ScrollViewer
+                        DataContext="{Binding AvailableSessions, Source={StaticResource Locator}}" Background="{StaticResource SelectedSlotBrush}" RenderTransformOrigin="0,0.5">
+                    	<Grid.RenderTransform>
+                    		<CompositeTransform ScaleX="0"/>
+                    	</Grid.RenderTransform>
+                        <ScrollViewer x:Name="scrollViewer"
                             ZoomMode="Disabled"
                             IsHorizontalRailEnabled="False"
-                            HorizontalScrollMode="Disabled">
+                            HorizontalScrollMode="Disabled" Visibility="Collapsed">
 
                             <ItemsControl
                                 ItemsSource="{Binding Sessions}">
@@ -105,72 +130,48 @@
                 </Grid>
             </ScrollViewer>
         </Grid>
-        <Grid x:Name="SnappedView">
-            <ScrollViewer
-                Padding="36,0,0,46"
-                VerticalScrollBarVisibility="Disabled"
-                VerticalScrollMode="Disabled"
-                HorizontalScrollBarVisibility="Auto"
-                HorizontalScrollMode="Auto"
-                ZoomMode="Disabled"
-                IsHorizontalRailEnabled="True"
-                IsVerticalRailEnabled="False"
-                VerticalContentAlignment="Top">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition
-                            Width="Auto" />
-                        <ColumnDefinition
-                            Width="Auto" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Rectangle
-                        Fill="{StaticResource SelectedSlotBrush}"
-                        Grid.Column="1" />
-                    <Grid
-                        Width="280">
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <ScrollViewer
-                            ZoomMode="Disabled"
-                            IsHorizontalRailEnabled="False"
-                            IsVerticalRailEnabled="True"
-                            HorizontalScrollMode="Disabled">
-                            <ItemsControl
-                                ItemsSource="{Binding Days}"
-                                VerticalAlignment="Top"
-                                HorizontalContentAlignment="Stretch"
-                                Margin="0"
-                                ItemTemplate="{StaticResource SnappedScheduleDay}" />
-                        </ScrollViewer>
-                    </Grid>
-                    <Grid
-                        Grid.Column="1"
-                        Width="300"
-                        DataContext="{Binding AvailableSessions, Source={StaticResource Locator}}">
-                        <ScrollViewer
-                            ZoomMode="Disabled"
-                            IsHorizontalRailEnabled="False"
-                            HorizontalScrollMode="Disabled">
+        <Grid x:Name="SnappedView" d:IsHidden="True">
+            <Grid
+                Visibility="{Binding VisibleWhenNoSelection}"
+                Margin="36,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <ScrollViewer
+                    ZoomMode="Disabled"
+                    IsHorizontalRailEnabled="False"
+                    IsVerticalRailEnabled="True"
+                    HorizontalScrollMode="Disabled">
+                    <ItemsControl
+                        ItemsSource="{Binding Days}"
+                        VerticalAlignment="Top"
+                        HorizontalContentAlignment="Stretch"
+                        Margin="0"
+                        ItemTemplate="{StaticResource SnappedScheduleDay}" />
+                </ScrollViewer>
+            </Grid>
+            <Grid
+                Visibility="{Binding VisibleWhenSelection}"
+                Margin="36,0,0,0"
+                Background="{StaticResource SelectedSlotBrush}">
+                <ScrollViewer
+                    DataContext="{Binding AvailableSessions, Source={StaticResource Locator}}"
+                    ZoomMode="Disabled"
+                    IsHorizontalRailEnabled="False"
+                    HorizontalScrollMode="Disabled">
 
-                            <ItemsControl
-                                ItemsSource="{Binding Sessions}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <a:SnappedSessionHeaderControl
-                                            HorizontalContentAlignment="Stretch"
-                                            Margin="0,0,18,0" />
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
-                    </Grid>
-                </Grid>
-            </ScrollViewer>
+                    <ItemsControl
+                        ItemsSource="{Binding Sessions}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <a:SnappedSessionHeaderControl
+                                    HorizontalContentAlignment="Stretch"
+                                    Margin="0,0,18,0" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>

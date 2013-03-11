@@ -1,6 +1,9 @@
 using System;
+using System.Windows.Input;
 using FacetedWorlds.MyCon.Models;
 using UpdateControls.Fields;
+using UpdateControls.XAML;
+using Windows.UI.Xaml;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {
@@ -8,6 +11,7 @@ namespace FacetedWorlds.MyCon.ViewModels
     {
         private readonly SynchronizationService _synchronizationService;
         private readonly SearchModel _search;
+        private readonly SelectionModel _selection;
 
         public enum ViewOption
         {
@@ -17,10 +21,14 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         private Independent<ViewOption> _selectedView = new Independent<ViewOption>(ViewOption.MyScheduleView);
 
-        public MainViewModel(SynchronizationService synchronizationService, SearchModel search)
+        public MainViewModel(
+            SynchronizationService synchronizationService,
+            SearchModel search,
+            SelectionModel selection)
         {
             _synchronizationService = synchronizationService;
             _search = search;
+            _selection = selection;
         }
 
         public ViewOption SelectedView
@@ -51,6 +59,38 @@ namespace FacetedWorlds.MyCon.ViewModels
                     return null;
 
                 return _synchronizationService.Conference.Name;
+            }
+        }
+
+        public Visibility VisibleWhenNoSelection
+        {
+            get
+            {
+                return _selection.SelectedTime == null
+                    ? Visibility.Visible
+                    : Visibility.Collapsed;
+            }
+        }
+
+        public Visibility VisibleWhenSelection
+        {
+            get
+            {
+                return _selection.SelectedTime == null
+                    ? Visibility.Collapsed
+                    : Visibility.Visible;
+            }
+        }
+
+        public ICommand ClearSelection
+        {
+            get
+            {
+                return MakeCommand
+                    .Do(delegate
+                    {
+                        _selection.SelectedTime = null;
+                    });
             }
         }
 

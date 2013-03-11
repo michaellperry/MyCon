@@ -82,16 +82,20 @@
         <Grid x:Name="SnappedHeader">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition
-                    Width="Auto" />
-                <ColumnDefinition
-                    Width="*" />
+                    Width="60" />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <ProgressRing
                 IsActive="{Binding Synchronizing}"
                 Width="28"
                 Height="28"
-                Margin="36,56,36,36"
-                VerticalAlignment="Bottom" />
+                Margin="8,56,0,36"
+                VerticalAlignment="Bottom"
+                Visibility="{Binding VisibleWhenNoSelection}"/>
+            <Button
+                Style="{StaticResource SnappedBackButtonStyle}"
+                Visibility="{Binding VisibleWhenSelection}"
+                Command="{Binding ClearSelection}"/>
             <TextBlock
                 Grid.Column="1"
                 IsHitTestVisible="false"
