@@ -26,15 +26,6 @@ namespace FacetedWorlds.MyCon
             _depMyScheduleView = Update.WhenNecessary(UpdateMyScheduleView);
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            if (e.Parameter != null)
-            {
-                var viewModel = ForView.Unwrap<MainViewModel>(DataContext);
-                viewModel.PerformSearch(e.Parameter.ToString());
-            }
-        }
-
         private void SessionSelected()
         {
             this.Frame.Navigate(typeof(SessionView));

@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.ViewManagement;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -36,9 +37,14 @@ namespace FacetedWorlds.MyCon.Views
                 SessionSelected();
         }
 
-        public void SetLayout(Windows.UI.ViewManagement.ApplicationViewState viewState)
+        public void SetLayout(ApplicationViewState viewState)
         {
-            throw new NotImplementedException();
+            FullItemGridView.Visibility = viewState == ApplicationViewState.Snapped
+                ? Visibility.Collapsed
+                : Visibility.Visible;
+            SnappedItemGridView.Visibility = viewState == ApplicationViewState.Snapped
+                ? Visibility.Visible
+                : Visibility.Collapsed;
         }
     }
 }

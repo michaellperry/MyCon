@@ -36,14 +36,14 @@
                         Content="My Schedule"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        FontSize="26.667"
+                        FontSize="18"
                         Click="MySchedule_Click" />
                     <Button
                         Style="{StaticResource TextPrimaryButtonStyle}"
                         Content="All Sessions"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        FontSize="26.667"
+                        FontSize="18"
                         Click="AllSessions_Click" />
                 </StackPanel>
             </Grid>

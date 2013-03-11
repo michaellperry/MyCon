@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using FacetedWorlds.MyCon.ViewModels;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Storage;
@@ -117,7 +118,11 @@ namespace FacetedWorlds.MyCon
             InitializeAnalytics();
             var rootFrame = ActivateRootFrame(args);
 
-            rootFrame.Navigate(typeof(MainPage), args.QueryText);
+            var locator = Resources["Locator"] as ViewModelLocator;
+            if (locator != null)
+                locator.PerformSearch(args.QueryText);
+
+            rootFrame.Navigate(typeof(MainPage));
         }
 
         private static Frame ActivateRootFrame(IActivatedEventArgs args)

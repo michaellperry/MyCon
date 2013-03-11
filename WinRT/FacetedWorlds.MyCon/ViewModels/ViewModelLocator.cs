@@ -104,5 +104,11 @@ namespace FacetedWorlds.MyCon.ViewModels
                 });
             }
         }
+
+        public void PerformSearch(string searchTerm)
+        {
+            var viewModel = ForView.Unwrap<MainViewModel>(Main);
+            viewModel.PerformSearch(searchTerm);
+        }
     }
 }
