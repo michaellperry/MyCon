@@ -202,7 +202,6 @@
     <EmbeddedResource Include="Data\MessageTable.bin" />
     <EmbeddedResource Include="Data\PeerTable.bin" />
     <EmbeddedResource Include="Data\RoleTable.bin" />
-    <None Include="Data\OutgoingTimestampTable.bin" />
     <None Include="FacetedWorlds.MyCon_StoreKey.pfx" />
     <None Include="FacetedWorlds.MyCon_TemporaryKey.pfx" />
     <None Include="packages.config" />

@@ -213,7 +213,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <None Include="Data\OutgoingTimestampTable.bin" />
     <None Include="FacetedWorlds.MyCon_2013_03_04_22_57_42.sap" />
     <None Include="MainPage.xaml">
       <SubType>Designer</SubType>
