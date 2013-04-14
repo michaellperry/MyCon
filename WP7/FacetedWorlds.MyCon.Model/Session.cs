@@ -11,7 +11,7 @@ namespace FacetedWorlds.MyCon.Model
             string[] terms = searchTerm.Split(' ');
             return Name.Value.AnyPartMatches(terms)
                 || Speaker.Name.AnyPartMatches(terms)
-                || (Track != null && Track.Name.AnyPartMatches(terms));
+                || Track.Name.AnyPartMatches(terms);
         }
 
         public void SetSessionPlace(Time time, string roomNumber)

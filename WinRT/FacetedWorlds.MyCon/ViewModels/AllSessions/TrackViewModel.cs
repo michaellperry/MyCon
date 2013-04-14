@@ -60,23 +60,14 @@ namespace FacetedWorlds.MyCon.ViewModels.AllSessions
 
         public static bool CanDisplay(SessionPlace sessionPlace, string searchTerm)
         {
-            bool hasPlaceTime =
-                sessionPlace.Place != null &&
-                sessionPlace.Place.PlaceTime != null;
-            if (!hasPlaceTime)
-                return false;
-
             if (string.IsNullOrEmpty(searchTerm))
                 return true;
 
             bool hasSessionInfo =
-                sessionPlace.Session != null &&
                 sessionPlace.Session.Name.Value != null &&
-                sessionPlace.Session.Speaker != null &&
                 sessionPlace.Session.Speaker.Name != null &&
-                sessionPlace.Session.Track != null &&
                 sessionPlace.Session.Track.Name != null &&
-                sessionPlace.Session.Description.Value != null;
+                sessionPlace.Session.Description.Value.Any();
             if (!hasSessionInfo)
                 return false;
 

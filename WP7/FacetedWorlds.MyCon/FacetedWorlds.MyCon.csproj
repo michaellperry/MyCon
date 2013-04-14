@@ -74,27 +74,30 @@
     <Reference Include="System.Xml" />
     <Reference Include="UpdateControls, Version=2.2.2.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\UpdateControls.2.2.2.2\lib\sl4-windowsphone71\UpdateControls.dll</HintPath>
+      <HintPath>..\..\packages\updatecontrols.2.2.2.3\lib\sl4-windowsphone71\UpdateControls.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls.Correspondence, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.1.4.2.0\lib\SL4-windowsphone71\UpdateControls.Correspondence.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.2.0.0.0\lib\SL4-windowsphone71\UpdateControls.Correspondence.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.BinaryHTTPClient, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls.Correspondence.BinaryHTTPClient, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.App.1.4.2.6\lib\SL4-windowsphone71\UpdateControls.Correspondence.BinaryHTTPClient.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.App.2.0.0.0\lib\SL4-windowsphone71\UpdateControls.Correspondence.BinaryHTTPClient.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.BinaryHTTPClient.Notification, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls.Correspondence.BinaryHTTPClient.Notification, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.App.1.4.2.6\lib\SL4-windowsphone71\UpdateControls.Correspondence.BinaryHTTPClient.Notification.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.App.2.0.0.0\lib\SL4-windowsphone71\UpdateControls.Correspondence.BinaryHTTPClient.Notification.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.Data, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls.Correspondence.Data, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.App.1.4.2.6\lib\SL4-windowsphone71\UpdateControls.Correspondence.Data.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.App.2.0.0.0\lib\SL4-windowsphone71\UpdateControls.Correspondence.Data.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.IsolatedStorage, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UpdateControls.Correspondence.IsolatedStorage, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.App.1.4.2.6\lib\SL4-windowsphone71\UpdateControls.Correspondence.IsolatedStorage.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.App.2.0.0.0\lib\SL4-windowsphone71\UpdateControls.Correspondence.IsolatedStorage.dll</HintPath>
+    </Reference>
+    <Reference Include="UpdateControls.Correspondence.Memory">
+      <HintPath>..\..\packages\Correspondence.App.2.0.0.0\lib\SL4-windowsphone71\UpdateControls.Correspondence.Memory.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

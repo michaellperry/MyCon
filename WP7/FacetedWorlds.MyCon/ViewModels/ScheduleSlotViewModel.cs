@@ -113,7 +113,7 @@ namespace FacetedWorlds.MyCon.ViewModels
                     if (availableSessions.Count == 1)
                     {
                         SessionPlace sessionPlace = availableSessions[0];
-                        if (sessionPlace.Session.Track == null)
+                        if (sessionPlace.Session.Track.IsNull)
                             return sessionPlace;
                     }
                 }

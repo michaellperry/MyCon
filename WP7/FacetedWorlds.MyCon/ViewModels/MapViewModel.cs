@@ -27,7 +27,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
                 var generalSessionPlaces =
                     from session in _attendee.Conference.Sessions
-                    where session.Track == null
+                    where session.Track.IsNull
                     from sessionPlace in session.CurrentSessionPlaces
                     select sessionPlace.Place;
                 var breakoutSessionPlaces =

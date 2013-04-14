@@ -26,50 +26,28 @@ namespace FacetedWorlds.MyCon.ViewModels.AvailableSessions
 
         public string Title
         {
-            get
-            {
-                if (_sessionPlace.Session == null)
-                    return null;
-
-                return _sessionPlace.Session.Name;
-            }
+            get { return _sessionPlace.Session.Name; }
         }
 
         public string Speaker
         {
-            get
-            {
-                if (_sessionPlace.Session == null ||
-                    _sessionPlace.Session.Speaker == null)
-                    return null;
-
-                return _sessionPlace.Session.Speaker.Name;
-            }
+            get { return _sessionPlace.Session.Speaker.Name; }
         }
 
         public string Room
         {
-            get
-            {
-                if (_sessionPlace.Place == null ||
-                    _sessionPlace.Place.Room == null ||
-                    _sessionPlace.Place.Room.RoomNumber.Value == null)
-                    return null;
-
-                return "Room: " + _sessionPlace.Place.Room.RoomNumber.Value;
-            }
+            get { return "Room: " + _sessionPlace.Place.Room.RoomNumber.Value; }
         }
 
         public ImageSource Image
         {
             get
             {
-                if (_sessionPlace.Session == null ||
-                    _sessionPlace.Session.Speaker == null ||
-                    String.IsNullOrEmpty(_sessionPlace.Session.Speaker.ImageUrl.Value))
+                string url = _sessionPlace.Session.Speaker.ImageUrl.Value;
+                if (String.IsNullOrEmpty(url))
                     return null;
 
-                return new BitmapImage(new Uri(_sessionPlace.Session.Speaker.ImageUrl.Value, UriKind.Absolute));
+                return new BitmapImage(new Uri(url, UriKind.Absolute));
             }
         }
 

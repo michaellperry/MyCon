@@ -94,7 +94,7 @@ namespace FacetedWorlds.MyCon.ViewModels
             get
             {
                 Track track = _sessionPlace.Session.Track;
-                return track == null ? String.Empty : String.Format("Track: {0}", track.Name);
+                return track.IsNull ? String.Empty : String.Format("Track: {0}", track.Name);
             }
         }
 
@@ -139,7 +139,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public bool CanAdd
         {
-            get { return _sessionPlace.Session.Track != null && !_slot.IsScheduled(_sessionPlace); }
+            get { return !_sessionPlace.Session.Track.IsNull && !_slot.IsScheduled(_sessionPlace); }
         }
 
         public void Add()
@@ -197,7 +197,7 @@ namespace FacetedWorlds.MyCon.ViewModels
         {
             get
             {
-                return _sessionPlace.Session.Track == null
+                return _sessionPlace.Session.Track.IsNull
                     ? "Other sessions in track"
                     : String.Format("Other sessions in {0}", _sessionPlace.Session.Track.Name);
             }
@@ -205,12 +205,12 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public bool CanSearchByTrack
         {
-            get { return _sessionPlace.Session.Track != null; }
+            get { return !_sessionPlace.Session.Track.IsNull; }
         }
 
         public void SearchByTrack()
         {
-            if (_sessionPlace.Session.Track != null)
+            if (!_sessionPlace.Session.Track.IsNull)
                 _searchModel.SelectedTrack = _sessionPlace.Session.Track.Name;
         }
 
@@ -218,7 +218,7 @@ namespace FacetedWorlds.MyCon.ViewModels
         {
             get
             {
-                return _sessionPlace.Session.Track == null
+                return _sessionPlace.Session.Track.IsNull
                     ? "Other sessions at this time"
                     : String.Format("Other sessions at {0:h:mm}", _sessionPlace.Place.PlaceTime.Start.ToLocalTime());
             }
@@ -241,7 +241,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         private bool IsGeneralSession
         {
-            get { return _sessionPlace.Session.Track == null; }
+            get { return _sessionPlace.Session.Track.IsNull; }
         }
 
         private bool SessionIsScheduled

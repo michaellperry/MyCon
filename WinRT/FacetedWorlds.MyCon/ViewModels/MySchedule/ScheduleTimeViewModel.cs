@@ -38,7 +38,6 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
                 var schedules = _individual.Attendees
                     .SelectMany(a => a.CurrentSchedules)
                     .Where(schedule =>
-                        schedule.Slot != null &&
                         schedule.Slot.SlotTime == _time)
                     .DefaultIfEmpty();
                 return schedules

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UpdateControls.Correspondence;
 using UpdateControls.Correspondence.Mementos;
 using UpdateControls.Correspondence.Strategy;
@@ -126,6 +127,16 @@ namespace FacetedWorlds.MyCon.Model
 				Individual fact = (Individual)obj;
 				_fieldSerializerByType[typeof(string)].WriteData(output, fact._anonymousId);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Individual.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Individual.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -137,25 +148,55 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static Individual GetUnloadedInstance()
+        {
+            return new Individual((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Individual GetNullInstance()
+        {
+            return new Individual((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Individual> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Individual)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
 
         // Queries
-        public static Query MakeQueryAttendees()
+        private static Query _cacheQueryAttendees;
+
+        public static Query GetQueryAttendees()
 		{
-			return new Query()
-				.JoinSuccessors(IndividualAttendee.RoleIndividual)
-				.JoinPredecessors(IndividualAttendee.RoleAttendee)
-            ;
+            if (_cacheQueryAttendees == null)
+            {
+			    _cacheQueryAttendees = new Query()
+		    		.JoinSuccessors(IndividualAttendee.GetRoleIndividual())
+		    		.JoinPredecessors(IndividualAttendee.GetRoleAttendee())
+                ;
+            }
+            return _cacheQueryAttendees;
 		}
-        public static Query QueryAttendees = MakeQueryAttendees();
-        public static Query MakeQueryIsToastNotificationEnabled()
+        private static Query _cacheQueryIsToastNotificationEnabled;
+
+        public static Query GetQueryIsToastNotificationEnabled()
 		{
-			return new Query()
-				.JoinSuccessors(EnableToastNotification.RoleIndividual, Condition.WhereIsEmpty(EnableToastNotification.MakeQueryIsDisabled())
+            if (_cacheQueryIsToastNotificationEnabled == null)
+            {
+			    _cacheQueryIsToastNotificationEnabled = new Query()
+    				.JoinSuccessors(EnableToastNotification.GetRoleIndividual(), Condition.WhereIsEmpty(EnableToastNotification.GetQueryIsDisabled())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryIsToastNotificationEnabled;
 		}
-        public static Query QueryIsToastNotificationEnabled = MakeQueryIsToastNotificationEnabled();
 
         // Predicates
 
@@ -186,8 +227,8 @@ namespace FacetedWorlds.MyCon.Model
         // Result initializer
         private void InitializeResults()
         {
-            _attendees = new Result<Attendee>(this, QueryAttendees);
-            _isToastNotificationEnabled = new Result<EnableToastNotification>(this, QueryIsToastNotificationEnabled);
+            _attendees = new Result<Attendee>(this, GetQueryAttendees(), Attendee.GetUnloadedInstance, Attendee.GetNullInstance);
+            _isToastNotificationEnabled = new Result<EnableToastNotification>(this, GetQueryIsToastNotificationEnabled(), EnableToastNotification.GetUnloadedInstance, EnableToastNotification.GetNullInstance);
         }
 
         // Predecessor access
@@ -245,6 +286,16 @@ namespace FacetedWorlds.MyCon.Model
 				EnableToastNotification fact = (EnableToastNotification)obj;
 				_fieldSerializerByType[typeof(Guid)].WriteData(output, fact._unique);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return EnableToastNotification.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return EnableToastNotification.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -256,24 +307,57 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static EnableToastNotification GetUnloadedInstance()
+        {
+            return new EnableToastNotification((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static EnableToastNotification GetNullInstance()
+        {
+            return new EnableToastNotification((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<EnableToastNotification> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (EnableToastNotification)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleIndividual = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"individual",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Individual", 1),
-			false));
+        private static Role _cacheRoleIndividual;
+        public static Role GetRoleIndividual()
+        {
+            if (_cacheRoleIndividual == null)
+            {
+                _cacheRoleIndividual = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "individual",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Individual", 1),
+			        false));
+            }
+            return _cacheRoleIndividual;
+        }
 
         // Queries
-        public static Query MakeQueryIsDisabled()
+        private static Query _cacheQueryIsDisabled;
+
+        public static Query GetQueryIsDisabled()
 		{
-			return new Query()
-				.JoinSuccessors(DisableToastNotification.RoleEnable)
-            ;
+            if (_cacheQueryIsDisabled == null)
+            {
+			    _cacheQueryIsDisabled = new Query()
+		    		.JoinSuccessors(DisableToastNotification.GetRoleEnable())
+                ;
+            }
+            return _cacheQueryIsDisabled;
 		}
-        public static Query QueryIsDisabled = MakeQueryIsDisabled();
 
         // Predicates
-        public static Condition IsDisabled = Condition.WhereIsNotEmpty(QueryIsDisabled);
+        public static Condition IsDisabled = Condition.WhereIsNotEmpty(GetQueryIsDisabled());
 
         // Predecessors
         private PredecessorObj<Individual> _individual;
@@ -292,14 +376,14 @@ namespace FacetedWorlds.MyCon.Model
         {
             _unique = Guid.NewGuid();
             InitializeResults();
-            _individual = new PredecessorObj<Individual>(this, RoleIndividual, individual);
+            _individual = new PredecessorObj<Individual>(this, GetRoleIndividual(), individual);
         }
 
         // Hydration constructor
         private EnableToastNotification(FactMemento memento)
         {
             InitializeResults();
-            _individual = new PredecessorObj<Individual>(this, RoleIndividual, memento);
+            _individual = new PredecessorObj<Individual>(this, GetRoleIndividual(), memento, Individual.GetUnloadedInstance, Individual.GetNullInstance);
         }
 
         // Result initializer
@@ -310,7 +394,7 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public Individual Individual
         {
-            get { return _individual.Fact; }
+            get { return IsNull ? Individual.GetNullInstance() : _individual.Fact; }
         }
 
         // Field access
@@ -347,6 +431,16 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				DisableToastNotification fact = (DisableToastNotification)obj;
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return DisableToastNotification.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return DisableToastNotification.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -358,12 +452,40 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static DisableToastNotification GetUnloadedInstance()
+        {
+            return new DisableToastNotification((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static DisableToastNotification GetNullInstance()
+        {
+            return new DisableToastNotification((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<DisableToastNotification> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (DisableToastNotification)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleEnable = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"enable",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.EnableToastNotification", 1),
-			false));
+        private static Role _cacheRoleEnable;
+        public static Role GetRoleEnable()
+        {
+            if (_cacheRoleEnable == null)
+            {
+                _cacheRoleEnable = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "enable",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.EnableToastNotification", 1),
+			        false));
+            }
+            return _cacheRoleEnable;
+        }
 
         // Queries
 
@@ -382,14 +504,14 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _enable = new PredecessorList<EnableToastNotification>(this, RoleEnable, enable);
+            _enable = new PredecessorList<EnableToastNotification>(this, GetRoleEnable(), enable);
         }
 
         // Hydration constructor
         private DisableToastNotification(FactMemento memento)
         {
             InitializeResults();
-            _enable = new PredecessorList<EnableToastNotification>(this, RoleEnable, memento);
+            _enable = new PredecessorList<EnableToastNotification>(this, GetRoleEnable(), memento, EnableToastNotification.GetUnloadedInstance, EnableToastNotification.GetNullInstance);
         }
 
         // Result initializer
@@ -398,11 +520,11 @@ namespace FacetedWorlds.MyCon.Model
         }
 
         // Predecessor access
-        public IEnumerable<EnableToastNotification> Enable
+        public PredecessorList<EnableToastNotification> Enable
         {
             get { return _enable; }
         }
-     
+
         // Field access
 
         // Query result access
@@ -444,6 +566,16 @@ namespace FacetedWorlds.MyCon.Model
 				Conference fact = (Conference)obj;
 				_fieldSerializerByType[typeof(string)].WriteData(output, fact._id);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Conference.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Conference.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -455,109 +587,194 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static Conference GetUnloadedInstance()
+        {
+            return new Conference((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Conference GetNullInstance()
+        {
+            return new Conference((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Conference> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Conference)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
 
         // Queries
-        public static Query MakeQueryName()
+        private static Query _cacheQueryName;
+
+        public static Query GetQueryName()
 		{
-			return new Query()
-				.JoinSuccessors(Conference__name.RoleConference, Condition.WhereIsEmpty(Conference__name.MakeQueryIsCurrent())
+            if (_cacheQueryName == null)
+            {
+			    _cacheQueryName = new Query()
+    				.JoinSuccessors(Conference__name.GetRoleConference(), Condition.WhereIsEmpty(Conference__name.GetQueryIsCurrent())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryName;
 		}
-        public static Query QueryName = MakeQueryName();
-        public static Query MakeQueryConferenceSurvey()
+        private static Query _cacheQueryConferenceSurvey;
+
+        public static Query GetQueryConferenceSurvey()
 		{
-			return new Query()
-				.JoinSuccessors(Conference__conferenceSurvey.RoleConference, Condition.WhereIsEmpty(Conference__conferenceSurvey.MakeQueryIsCurrent())
+            if (_cacheQueryConferenceSurvey == null)
+            {
+			    _cacheQueryConferenceSurvey = new Query()
+    				.JoinSuccessors(Conference__conferenceSurvey.GetRoleConference(), Condition.WhereIsEmpty(Conference__conferenceSurvey.GetQueryIsCurrent())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryConferenceSurvey;
 		}
-        public static Query QueryConferenceSurvey = MakeQueryConferenceSurvey();
-        public static Query MakeQueryMapUrl()
+        private static Query _cacheQueryMapUrl;
+
+        public static Query GetQueryMapUrl()
 		{
-			return new Query()
-				.JoinSuccessors(Conference__mapUrl.RoleConference, Condition.WhereIsEmpty(Conference__mapUrl.MakeQueryIsCurrent())
+            if (_cacheQueryMapUrl == null)
+            {
+			    _cacheQueryMapUrl = new Query()
+    				.JoinSuccessors(Conference__mapUrl.GetRoleConference(), Condition.WhereIsEmpty(Conference__mapUrl.GetQueryIsCurrent())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryMapUrl;
 		}
-        public static Query QueryMapUrl = MakeQueryMapUrl();
-        public static Query MakeQueryDays()
+        private static Query _cacheQueryDays;
+
+        public static Query GetQueryDays()
 		{
-			return new Query()
-				.JoinSuccessors(Day.RoleConference, Condition.WhereIsNotEmpty(Day.MakeQueryHasTimes())
+            if (_cacheQueryDays == null)
+            {
+			    _cacheQueryDays = new Query()
+    				.JoinSuccessors(Day.GetRoleConference(), Condition.WhereIsNotEmpty(Day.GetQueryHasTimes())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryDays;
 		}
-        public static Query QueryDays = MakeQueryDays();
-        public static Query MakeQueryAllTracks()
+        private static Query _cacheQueryAllTracks;
+
+        public static Query GetQueryAllTracks()
 		{
-			return new Query()
-				.JoinSuccessors(Track.RoleConference)
-            ;
+            if (_cacheQueryAllTracks == null)
+            {
+			    _cacheQueryAllTracks = new Query()
+		    		.JoinSuccessors(Track.GetRoleConference())
+                ;
+            }
+            return _cacheQueryAllTracks;
 		}
-        public static Query QueryAllTracks = MakeQueryAllTracks();
-        public static Query MakeQueryTracks()
+        private static Query _cacheQueryTracks;
+
+        public static Query GetQueryTracks()
 		{
-			return new Query()
-				.JoinSuccessors(Track.RoleConference, Condition.WhereIsNotEmpty(Track.MakeQueryHasSessions())
+            if (_cacheQueryTracks == null)
+            {
+			    _cacheQueryTracks = new Query()
+    				.JoinSuccessors(Track.GetRoleConference(), Condition.WhereIsNotEmpty(Track.GetQueryHasSessions())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryTracks;
 		}
-        public static Query QueryTracks = MakeQueryTracks();
-        public static Query MakeQuerySessions()
+        private static Query _cacheQuerySessions;
+
+        public static Query GetQuerySessions()
 		{
-			return new Query()
-				.JoinSuccessors(Session.RoleConference, Condition.WhereIsEmpty(Session.MakeQueryIsDeleted())
+            if (_cacheQuerySessions == null)
+            {
+			    _cacheQuerySessions = new Query()
+    				.JoinSuccessors(Session.GetRoleConference(), Condition.WhereIsEmpty(Session.GetQueryIsDeleted())
 				)
-            ;
+                ;
+            }
+            return _cacheQuerySessions;
 		}
-        public static Query QuerySessions = MakeQuerySessions();
-        public static Query MakeQueryUnscheduledSessions()
+        private static Query _cacheQueryUnscheduledSessions;
+
+        public static Query GetQueryUnscheduledSessions()
 		{
-			return new Query()
-				.JoinSuccessors(Session.RoleConference, Condition.WhereIsEmpty(Session.MakeQueryIsDeleted())
-					.And().IsEmpty(Session.MakeQueryIsScheduled())
+            if (_cacheQueryUnscheduledSessions == null)
+            {
+			    _cacheQueryUnscheduledSessions = new Query()
+    				.JoinSuccessors(Session.GetRoleConference(), Condition.WhereIsEmpty(Session.GetQueryIsDeleted())
+	    				.And().IsEmpty(Session.GetQueryIsScheduled())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryUnscheduledSessions;
 		}
-        public static Query QueryUnscheduledSessions = MakeQueryUnscheduledSessions();
-        public static Query MakeQuerySpeakers()
+        private static Query _cacheQuerySpeakers;
+
+        public static Query GetQuerySpeakers()
 		{
-			return new Query()
-				.JoinSuccessors(Speaker.RoleConference)
-            ;
+            if (_cacheQuerySpeakers == null)
+            {
+			    _cacheQuerySpeakers = new Query()
+		    		.JoinSuccessors(Speaker.GetRoleConference())
+                ;
+            }
+            return _cacheQuerySpeakers;
 		}
-        public static Query QuerySpeakers = MakeQuerySpeakers();
-        public static Query MakeQueryNotices()
+        private static Query _cacheQueryNotices;
+
+        public static Query GetQueryNotices()
 		{
-			return new Query()
-				.JoinSuccessors(ConferenceNotice.RoleConference)
-            ;
+            if (_cacheQueryNotices == null)
+            {
+			    _cacheQueryNotices = new Query()
+		    		.JoinSuccessors(ConferenceNotice.GetRoleConference())
+                ;
+            }
+            return _cacheQueryNotices;
 		}
-        public static Query QueryNotices = MakeQueryNotices();
-        public static Query MakeQueryCurrentSessionSurveys()
+        private static Query _cacheQueryCurrentSessionSurveys;
+
+        public static Query GetQueryCurrentSessionSurveys()
 		{
-			return new Query()
-				.JoinSuccessors(ConferenceSessionSurvey.RoleConference, Condition.WhereIsEmpty(ConferenceSessionSurvey.MakeQueryIsCurrent())
+            if (_cacheQueryCurrentSessionSurveys == null)
+            {
+			    _cacheQueryCurrentSessionSurveys = new Query()
+    				.JoinSuccessors(ConferenceSessionSurvey.GetRoleConference(), Condition.WhereIsEmpty(ConferenceSessionSurvey.GetQueryIsCurrent())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryCurrentSessionSurveys;
 		}
-        public static Query QueryCurrentSessionSurveys = MakeQueryCurrentSessionSurveys();
-        public static Query MakeQueryAllSessionSurveys()
+        private static Query _cacheQueryAllSessionSurveys;
+
+        public static Query GetQueryAllSessionSurveys()
 		{
-			return new Query()
-				.JoinSuccessors(ConferenceSessionSurvey.RoleConference)
-            ;
+            if (_cacheQueryAllSessionSurveys == null)
+            {
+			    _cacheQueryAllSessionSurveys = new Query()
+		    		.JoinSuccessors(ConferenceSessionSurvey.GetRoleConference())
+                ;
+            }
+            return _cacheQueryAllSessionSurveys;
 		}
-        public static Query QueryAllSessionSurveys = MakeQueryAllSessionSurveys();
-        public static Query MakeQueryRooms()
+        private static Query _cacheQueryRooms;
+
+        public static Query GetQueryRooms()
 		{
-			return new Query()
-				.JoinSuccessors(Room.RoleConference)
-            ;
+            if (_cacheQueryRooms == null)
+            {
+			    _cacheQueryRooms = new Query()
+		    		.JoinSuccessors(Room.GetRoleConference())
+                ;
+            }
+            return _cacheQueryRooms;
 		}
-        public static Query QueryRooms = MakeQueryRooms();
 
         // Predicates
 
@@ -599,19 +816,19 @@ namespace FacetedWorlds.MyCon.Model
         // Result initializer
         private void InitializeResults()
         {
-            _name = new Result<Conference__name>(this, QueryName);
-            _conferenceSurvey = new Result<Conference__conferenceSurvey>(this, QueryConferenceSurvey);
-            _mapUrl = new Result<Conference__mapUrl>(this, QueryMapUrl);
-            _days = new Result<Day>(this, QueryDays);
-            _allTracks = new Result<Track>(this, QueryAllTracks);
-            _tracks = new Result<Track>(this, QueryTracks);
-            _sessions = new Result<Session>(this, QuerySessions);
-            _unscheduledSessions = new Result<Session>(this, QueryUnscheduledSessions);
-            _speakers = new Result<Speaker>(this, QuerySpeakers);
-            _notices = new Result<ConferenceNotice>(this, QueryNotices);
-            _currentSessionSurveys = new Result<ConferenceSessionSurvey>(this, QueryCurrentSessionSurveys);
-            _allSessionSurveys = new Result<ConferenceSessionSurvey>(this, QueryAllSessionSurveys);
-            _rooms = new Result<Room>(this, QueryRooms);
+            _name = new Result<Conference__name>(this, GetQueryName(), Conference__name.GetUnloadedInstance, Conference__name.GetNullInstance);
+            _conferenceSurvey = new Result<Conference__conferenceSurvey>(this, GetQueryConferenceSurvey(), Conference__conferenceSurvey.GetUnloadedInstance, Conference__conferenceSurvey.GetNullInstance);
+            _mapUrl = new Result<Conference__mapUrl>(this, GetQueryMapUrl(), Conference__mapUrl.GetUnloadedInstance, Conference__mapUrl.GetNullInstance);
+            _days = new Result<Day>(this, GetQueryDays(), Day.GetUnloadedInstance, Day.GetNullInstance);
+            _allTracks = new Result<Track>(this, GetQueryAllTracks(), Track.GetUnloadedInstance, Track.GetNullInstance);
+            _tracks = new Result<Track>(this, GetQueryTracks(), Track.GetUnloadedInstance, Track.GetNullInstance);
+            _sessions = new Result<Session>(this, GetQuerySessions(), Session.GetUnloadedInstance, Session.GetNullInstance);
+            _unscheduledSessions = new Result<Session>(this, GetQueryUnscheduledSessions(), Session.GetUnloadedInstance, Session.GetNullInstance);
+            _speakers = new Result<Speaker>(this, GetQuerySpeakers(), Speaker.GetUnloadedInstance, Speaker.GetNullInstance);
+            _notices = new Result<ConferenceNotice>(this, GetQueryNotices(), ConferenceNotice.GetUnloadedInstance, ConferenceNotice.GetNullInstance);
+            _currentSessionSurveys = new Result<ConferenceSessionSurvey>(this, GetQueryCurrentSessionSurveys(), ConferenceSessionSurvey.GetUnloadedInstance, ConferenceSessionSurvey.GetNullInstance);
+            _allSessionSurveys = new Result<ConferenceSessionSurvey>(this, GetQueryAllSessionSurveys(), ConferenceSessionSurvey.GetUnloadedInstance, ConferenceSessionSurvey.GetNullInstance);
+            _rooms = new Result<Room>(this, GetQueryRooms(), Room.GetUnloadedInstance, Room.GetNullInstance);
         }
 
         // Predecessor access
@@ -700,7 +917,7 @@ namespace FacetedWorlds.MyCon.Model
 
         public TransientDisputable<Conference__conferenceSurvey, Survey> ConferenceSurvey
         {
-            get { return _conferenceSurvey.AsTransientDisputable(fact => fact.Value); }
+            get { return _conferenceSurvey.AsTransientDisputable(fact => (Survey)fact.Value); }
 			set
 			{
 				Action setter = async delegate()
@@ -749,6 +966,16 @@ namespace FacetedWorlds.MyCon.Model
 				Conference__name fact = (Conference__name)obj;
 				_fieldSerializerByType[typeof(string)].WriteData(output, fact._value);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Conference__name.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Conference__name.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -760,29 +987,70 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static Conference__name GetUnloadedInstance()
+        {
+            return new Conference__name((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Conference__name GetNullInstance()
+        {
+            return new Conference__name((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Conference__name> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Conference__name)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleConference = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"conference",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
-			true));
-        public static Role RolePrior = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"prior",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference__name", 1),
-			false));
+        private static Role _cacheRoleConference;
+        public static Role GetRoleConference()
+        {
+            if (_cacheRoleConference == null)
+            {
+                _cacheRoleConference = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "conference",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			        true));
+            }
+            return _cacheRoleConference;
+        }
+        private static Role _cacheRolePrior;
+        public static Role GetRolePrior()
+        {
+            if (_cacheRolePrior == null)
+            {
+                _cacheRolePrior = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "prior",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference__name", 1),
+			        false));
+            }
+            return _cacheRolePrior;
+        }
 
         // Queries
-        public static Query MakeQueryIsCurrent()
+        private static Query _cacheQueryIsCurrent;
+
+        public static Query GetQueryIsCurrent()
 		{
-			return new Query()
-				.JoinSuccessors(Conference__name.RolePrior)
-            ;
+            if (_cacheQueryIsCurrent == null)
+            {
+			    _cacheQueryIsCurrent = new Query()
+		    		.JoinSuccessors(Conference__name.GetRolePrior())
+                ;
+            }
+            return _cacheQueryIsCurrent;
 		}
-        public static Query QueryIsCurrent = MakeQueryIsCurrent();
 
         // Predicates
-        public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
+        public static Condition IsCurrent = Condition.WhereIsEmpty(GetQueryIsCurrent());
 
         // Predecessors
         private PredecessorObj<Conference> _conference;
@@ -801,8 +1069,8 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, conference);
-            _prior = new PredecessorList<Conference__name>(this, RolePrior, prior);
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), conference);
+            _prior = new PredecessorList<Conference__name>(this, GetRolePrior(), prior);
             _value = value;
         }
 
@@ -810,8 +1078,8 @@ namespace FacetedWorlds.MyCon.Model
         private Conference__name(FactMemento memento)
         {
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, memento);
-            _prior = new PredecessorList<Conference__name>(this, RolePrior, memento);
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), memento, Conference.GetUnloadedInstance, Conference.GetNullInstance);
+            _prior = new PredecessorList<Conference__name>(this, GetRolePrior(), memento, Conference__name.GetUnloadedInstance, Conference__name.GetNullInstance);
         }
 
         // Result initializer
@@ -822,13 +1090,13 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public Conference Conference
         {
-            get { return _conference.Fact; }
+            get { return IsNull ? Conference.GetNullInstance() : _conference.Fact; }
         }
-        public IEnumerable<Conference__name> Prior
+        public PredecessorList<Conference__name> Prior
         {
             get { return _prior; }
         }
-     
+
         // Field access
         public string Value
         {
@@ -865,6 +1133,16 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				Conference__conferenceSurvey fact = (Conference__conferenceSurvey)obj;
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Conference__conferenceSurvey.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Conference__conferenceSurvey.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -876,34 +1154,83 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static Conference__conferenceSurvey GetUnloadedInstance()
+        {
+            return new Conference__conferenceSurvey((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Conference__conferenceSurvey GetNullInstance()
+        {
+            return new Conference__conferenceSurvey((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Conference__conferenceSurvey> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Conference__conferenceSurvey)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleConference = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"conference",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
-			true));
-        public static Role RolePrior = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"prior",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference__conferenceSurvey", 1),
-			false));
-        public static Role RoleValue = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"value",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Survey", 1),
-			false));
+        private static Role _cacheRoleConference;
+        public static Role GetRoleConference()
+        {
+            if (_cacheRoleConference == null)
+            {
+                _cacheRoleConference = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "conference",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			        true));
+            }
+            return _cacheRoleConference;
+        }
+        private static Role _cacheRolePrior;
+        public static Role GetRolePrior()
+        {
+            if (_cacheRolePrior == null)
+            {
+                _cacheRolePrior = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "prior",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference__conferenceSurvey", 1),
+			        false));
+            }
+            return _cacheRolePrior;
+        }
+        private static Role _cacheRoleValue;
+        public static Role GetRoleValue()
+        {
+            if (_cacheRoleValue == null)
+            {
+                _cacheRoleValue = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "value",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Survey", 1),
+			        false));
+            }
+            return _cacheRoleValue;
+        }
 
         // Queries
-        public static Query MakeQueryIsCurrent()
+        private static Query _cacheQueryIsCurrent;
+
+        public static Query GetQueryIsCurrent()
 		{
-			return new Query()
-				.JoinSuccessors(Conference__conferenceSurvey.RolePrior)
-            ;
+            if (_cacheQueryIsCurrent == null)
+            {
+			    _cacheQueryIsCurrent = new Query()
+		    		.JoinSuccessors(Conference__conferenceSurvey.GetRolePrior())
+                ;
+            }
+            return _cacheQueryIsCurrent;
 		}
-        public static Query QueryIsCurrent = MakeQueryIsCurrent();
 
         // Predicates
-        public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
+        public static Condition IsCurrent = Condition.WhereIsEmpty(GetQueryIsCurrent());
 
         // Predecessors
         private PredecessorObj<Conference> _conference;
@@ -922,18 +1249,18 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, conference);
-            _prior = new PredecessorList<Conference__conferenceSurvey>(this, RolePrior, prior);
-            _value = new PredecessorObj<Survey>(this, RoleValue, value);
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), conference);
+            _prior = new PredecessorList<Conference__conferenceSurvey>(this, GetRolePrior(), prior);
+            _value = new PredecessorObj<Survey>(this, GetRoleValue(), value);
         }
 
         // Hydration constructor
         private Conference__conferenceSurvey(FactMemento memento)
         {
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, memento);
-            _prior = new PredecessorList<Conference__conferenceSurvey>(this, RolePrior, memento);
-            _value = new PredecessorObj<Survey>(this, RoleValue, memento);
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), memento, Conference.GetUnloadedInstance, Conference.GetNullInstance);
+            _prior = new PredecessorList<Conference__conferenceSurvey>(this, GetRolePrior(), memento, Conference__conferenceSurvey.GetUnloadedInstance, Conference__conferenceSurvey.GetNullInstance);
+            _value = new PredecessorObj<Survey>(this, GetRoleValue(), memento, Survey.GetUnloadedInstance, Survey.GetNullInstance);
         }
 
         // Result initializer
@@ -944,15 +1271,15 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public Conference Conference
         {
-            get { return _conference.Fact; }
+            get { return IsNull ? Conference.GetNullInstance() : _conference.Fact; }
         }
-        public IEnumerable<Conference__conferenceSurvey> Prior
+        public PredecessorList<Conference__conferenceSurvey> Prior
         {
             get { return _prior; }
         }
-             public Survey Value
+        public Survey Value
         {
-            get { return _value.Fact; }
+            get { return IsNull ? Survey.GetNullInstance() : _value.Fact; }
         }
 
         // Field access
@@ -996,6 +1323,16 @@ namespace FacetedWorlds.MyCon.Model
 				Conference__mapUrl fact = (Conference__mapUrl)obj;
 				_fieldSerializerByType[typeof(string)].WriteData(output, fact._value);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Conference__mapUrl.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Conference__mapUrl.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -1007,29 +1344,70 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static Conference__mapUrl GetUnloadedInstance()
+        {
+            return new Conference__mapUrl((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Conference__mapUrl GetNullInstance()
+        {
+            return new Conference__mapUrl((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Conference__mapUrl> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Conference__mapUrl)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleConference = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"conference",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
-			true));
-        public static Role RolePrior = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"prior",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference__mapUrl", 1),
-			false));
+        private static Role _cacheRoleConference;
+        public static Role GetRoleConference()
+        {
+            if (_cacheRoleConference == null)
+            {
+                _cacheRoleConference = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "conference",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			        true));
+            }
+            return _cacheRoleConference;
+        }
+        private static Role _cacheRolePrior;
+        public static Role GetRolePrior()
+        {
+            if (_cacheRolePrior == null)
+            {
+                _cacheRolePrior = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "prior",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference__mapUrl", 1),
+			        false));
+            }
+            return _cacheRolePrior;
+        }
 
         // Queries
-        public static Query MakeQueryIsCurrent()
+        private static Query _cacheQueryIsCurrent;
+
+        public static Query GetQueryIsCurrent()
 		{
-			return new Query()
-				.JoinSuccessors(Conference__mapUrl.RolePrior)
-            ;
+            if (_cacheQueryIsCurrent == null)
+            {
+			    _cacheQueryIsCurrent = new Query()
+		    		.JoinSuccessors(Conference__mapUrl.GetRolePrior())
+                ;
+            }
+            return _cacheQueryIsCurrent;
 		}
-        public static Query QueryIsCurrent = MakeQueryIsCurrent();
 
         // Predicates
-        public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
+        public static Condition IsCurrent = Condition.WhereIsEmpty(GetQueryIsCurrent());
 
         // Predecessors
         private PredecessorObj<Conference> _conference;
@@ -1048,8 +1426,8 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, conference);
-            _prior = new PredecessorList<Conference__mapUrl>(this, RolePrior, prior);
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), conference);
+            _prior = new PredecessorList<Conference__mapUrl>(this, GetRolePrior(), prior);
             _value = value;
         }
 
@@ -1057,8 +1435,8 @@ namespace FacetedWorlds.MyCon.Model
         private Conference__mapUrl(FactMemento memento)
         {
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, memento);
-            _prior = new PredecessorList<Conference__mapUrl>(this, RolePrior, memento);
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), memento, Conference.GetUnloadedInstance, Conference.GetNullInstance);
+            _prior = new PredecessorList<Conference__mapUrl>(this, GetRolePrior(), memento, Conference__mapUrl.GetUnloadedInstance, Conference__mapUrl.GetNullInstance);
         }
 
         // Result initializer
@@ -1069,13 +1447,13 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public Conference Conference
         {
-            get { return _conference.Fact; }
+            get { return IsNull ? Conference.GetNullInstance() : _conference.Fact; }
         }
-        public IEnumerable<Conference__mapUrl> Prior
+        public PredecessorList<Conference__mapUrl> Prior
         {
             get { return _prior; }
         }
-     
+
         // Field access
         public string Value
         {
@@ -1112,6 +1490,16 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				ConferenceSessionSurvey fact = (ConferenceSessionSurvey)obj;
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return ConferenceSessionSurvey.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return ConferenceSessionSurvey.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -1123,41 +1511,95 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static ConferenceSessionSurvey GetUnloadedInstance()
+        {
+            return new ConferenceSessionSurvey((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static ConferenceSessionSurvey GetNullInstance()
+        {
+            return new ConferenceSessionSurvey((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<ConferenceSessionSurvey> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (ConferenceSessionSurvey)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleConference = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"conference",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
-			true));
-        public static Role RoleSessionSurvey = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"sessionSurvey",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Survey", 1),
-			false));
-        public static Role RolePrior = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"prior",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.ConferenceSessionSurvey", 1),
-			false));
+        private static Role _cacheRoleConference;
+        public static Role GetRoleConference()
+        {
+            if (_cacheRoleConference == null)
+            {
+                _cacheRoleConference = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "conference",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			        true));
+            }
+            return _cacheRoleConference;
+        }
+        private static Role _cacheRoleSessionSurvey;
+        public static Role GetRoleSessionSurvey()
+        {
+            if (_cacheRoleSessionSurvey == null)
+            {
+                _cacheRoleSessionSurvey = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "sessionSurvey",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Survey", 1),
+			        false));
+            }
+            return _cacheRoleSessionSurvey;
+        }
+        private static Role _cacheRolePrior;
+        public static Role GetRolePrior()
+        {
+            if (_cacheRolePrior == null)
+            {
+                _cacheRolePrior = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "prior",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.ConferenceSessionSurvey", 1),
+			        false));
+            }
+            return _cacheRolePrior;
+        }
 
         // Queries
-        public static Query MakeQueryIsCurrent()
+        private static Query _cacheQueryIsCurrent;
+
+        public static Query GetQueryIsCurrent()
 		{
-			return new Query()
-				.JoinSuccessors(ConferenceSessionSurvey.RolePrior)
-            ;
+            if (_cacheQueryIsCurrent == null)
+            {
+			    _cacheQueryIsCurrent = new Query()
+		    		.JoinSuccessors(ConferenceSessionSurvey.GetRolePrior())
+                ;
+            }
+            return _cacheQueryIsCurrent;
 		}
-        public static Query QueryIsCurrent = MakeQueryIsCurrent();
-        public static Query MakeQueryCompleted()
+        private static Query _cacheQueryCompleted;
+
+        public static Query GetQueryCompleted()
 		{
-			return new Query()
-				.JoinSuccessors(SessionEvaluationCompleted.RoleSessionSurvey)
-            ;
+            if (_cacheQueryCompleted == null)
+            {
+			    _cacheQueryCompleted = new Query()
+		    		.JoinSuccessors(SessionEvaluationCompleted.GetRoleSessionSurvey())
+                ;
+            }
+            return _cacheQueryCompleted;
 		}
-        public static Query QueryCompleted = MakeQueryCompleted();
 
         // Predicates
-        public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
+        public static Condition IsCurrent = Condition.WhereIsEmpty(GetQueryIsCurrent());
 
         // Predecessors
         private PredecessorObj<Conference> _conference;
@@ -1177,40 +1619,40 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, conference);
-            _sessionSurvey = new PredecessorObj<Survey>(this, RoleSessionSurvey, sessionSurvey);
-            _prior = new PredecessorList<ConferenceSessionSurvey>(this, RolePrior, prior);
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), conference);
+            _sessionSurvey = new PredecessorObj<Survey>(this, GetRoleSessionSurvey(), sessionSurvey);
+            _prior = new PredecessorList<ConferenceSessionSurvey>(this, GetRolePrior(), prior);
         }
 
         // Hydration constructor
         private ConferenceSessionSurvey(FactMemento memento)
         {
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, memento);
-            _sessionSurvey = new PredecessorObj<Survey>(this, RoleSessionSurvey, memento);
-            _prior = new PredecessorList<ConferenceSessionSurvey>(this, RolePrior, memento);
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), memento, Conference.GetUnloadedInstance, Conference.GetNullInstance);
+            _sessionSurvey = new PredecessorObj<Survey>(this, GetRoleSessionSurvey(), memento, Survey.GetUnloadedInstance, Survey.GetNullInstance);
+            _prior = new PredecessorList<ConferenceSessionSurvey>(this, GetRolePrior(), memento, ConferenceSessionSurvey.GetUnloadedInstance, ConferenceSessionSurvey.GetNullInstance);
         }
 
         // Result initializer
         private void InitializeResults()
         {
-            _completed = new Result<SessionEvaluationCompleted>(this, QueryCompleted);
+            _completed = new Result<SessionEvaluationCompleted>(this, GetQueryCompleted(), SessionEvaluationCompleted.GetUnloadedInstance, SessionEvaluationCompleted.GetNullInstance);
         }
 
         // Predecessor access
         public Conference Conference
         {
-            get { return _conference.Fact; }
+            get { return IsNull ? Conference.GetNullInstance() : _conference.Fact; }
         }
         public Survey SessionSurvey
         {
-            get { return _sessionSurvey.Fact; }
+            get { return IsNull ? Survey.GetNullInstance() : _sessionSurvey.Fact; }
         }
-        public IEnumerable<ConferenceSessionSurvey> Prior
+        public PredecessorList<ConferenceSessionSurvey> Prior
         {
             get { return _prior; }
         }
-     
+
         // Field access
 
         // Query result access
@@ -1256,6 +1698,16 @@ namespace FacetedWorlds.MyCon.Model
 				Attendee fact = (Attendee)obj;
 				_fieldSerializerByType[typeof(string)].WriteData(output, fact._identifier);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Attendee.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Attendee.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -1267,58 +1719,106 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static Attendee GetUnloadedInstance()
+        {
+            return new Attendee((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Attendee GetNullInstance()
+        {
+            return new Attendee((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Attendee> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Attendee)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleConference = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"conference",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
-			false));
+        private static Role _cacheRoleConference;
+        public static Role GetRoleConference()
+        {
+            if (_cacheRoleConference == null)
+            {
+                _cacheRoleConference = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "conference",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			        false));
+            }
+            return _cacheRoleConference;
+        }
 
         // Queries
-        public static Query MakeQueryCurrentSchedules()
+        private static Query _cacheQueryCurrentSchedules;
+
+        public static Query GetQueryCurrentSchedules()
 		{
-			return new Query()
-				.JoinSuccessors(Slot.RoleAttendee)
-				.JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.MakeQueryIsCurrent())
-					.And().IsEmpty(Schedule.MakeQuerySessionPlaceIsCurrent())
-					.And().IsEmpty(Schedule.MakeQueryIsDeleted())
+            if (_cacheQueryCurrentSchedules == null)
+            {
+			    _cacheQueryCurrentSchedules = new Query()
+		    		.JoinSuccessors(Slot.GetRoleAttendee())
+    				.JoinSuccessors(Schedule.GetRoleSlot(), Condition.WhereIsEmpty(Schedule.GetQueryIsCurrent())
+	    				.And().IsEmpty(Schedule.GetQuerySessionPlaceIsCurrent())
+	    				.And().IsEmpty(Schedule.GetQueryIsDeleted())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryCurrentSchedules;
 		}
-        public static Query QueryCurrentSchedules = MakeQueryCurrentSchedules();
-        public static Query MakeQueryAllSchedules()
+        private static Query _cacheQueryAllSchedules;
+
+        public static Query GetQueryAllSchedules()
 		{
-			return new Query()
-				.JoinSuccessors(Slot.RoleAttendee)
-				.JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.MakeQuerySessionPlaceIsCurrent())
-					.And().IsEmpty(Schedule.MakeQueryIsDeleted())
+            if (_cacheQueryAllSchedules == null)
+            {
+			    _cacheQueryAllSchedules = new Query()
+		    		.JoinSuccessors(Slot.GetRoleAttendee())
+    				.JoinSuccessors(Schedule.GetRoleSlot(), Condition.WhereIsEmpty(Schedule.GetQuerySessionPlaceIsCurrent())
+	    				.And().IsEmpty(Schedule.GetQueryIsDeleted())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryAllSchedules;
 		}
-        public static Query QueryAllSchedules = MakeQueryAllSchedules();
-        public static Query MakeQueryScheduledSessions()
+        private static Query _cacheQueryScheduledSessions;
+
+        public static Query GetQueryScheduledSessions()
 		{
-			return new Query()
-				.JoinSuccessors(Slot.RoleAttendee)
-				.JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.MakeQueryIsCurrent())
-					.And().IsEmpty(Schedule.MakeQuerySessionPlaceIsCurrent())
+            if (_cacheQueryScheduledSessions == null)
+            {
+			    _cacheQueryScheduledSessions = new Query()
+		    		.JoinSuccessors(Slot.GetRoleAttendee())
+    				.JoinSuccessors(Schedule.GetRoleSlot(), Condition.WhereIsEmpty(Schedule.GetQueryIsCurrent())
+	    				.And().IsEmpty(Schedule.GetQuerySessionPlaceIsCurrent())
 				)
-				.JoinPredecessors(Schedule.RoleSessionPlace)
-				.JoinPredecessors(SessionPlace.RoleSession)
-            ;
+		    		.JoinPredecessors(Schedule.GetRoleSessionPlace())
+		    		.JoinPredecessors(SessionPlace.GetRoleSession())
+                ;
+            }
+            return _cacheQueryScheduledSessions;
 		}
-        public static Query QueryScheduledSessions = MakeQueryScheduledSessions();
-        public static Query MakeQueryScheduledSessionPlaces()
+        private static Query _cacheQueryScheduledSessionPlaces;
+
+        public static Query GetQueryScheduledSessionPlaces()
 		{
-			return new Query()
-				.JoinSuccessors(Slot.RoleAttendee)
-				.JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.MakeQueryIsCurrent())
-					.And().IsEmpty(Schedule.MakeQuerySessionPlaceIsCurrent())
+            if (_cacheQueryScheduledSessionPlaces == null)
+            {
+			    _cacheQueryScheduledSessionPlaces = new Query()
+		    		.JoinSuccessors(Slot.GetRoleAttendee())
+    				.JoinSuccessors(Schedule.GetRoleSlot(), Condition.WhereIsEmpty(Schedule.GetQueryIsCurrent())
+	    				.And().IsEmpty(Schedule.GetQuerySessionPlaceIsCurrent())
 				)
-				.JoinPredecessors(Schedule.RoleSessionPlace)
-            ;
+		    		.JoinPredecessors(Schedule.GetRoleSessionPlace())
+                ;
+            }
+            return _cacheQueryScheduledSessionPlaces;
 		}
-        public static Query QueryScheduledSessionPlaces = MakeQueryScheduledSessionPlaces();
 
         // Predicates
 
@@ -1341,7 +1841,7 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, conference);
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), conference);
             _identifier = identifier;
         }
 
@@ -1349,22 +1849,22 @@ namespace FacetedWorlds.MyCon.Model
         private Attendee(FactMemento memento)
         {
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, memento);
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), memento, Conference.GetUnloadedInstance, Conference.GetNullInstance);
         }
 
         // Result initializer
         private void InitializeResults()
         {
-            _currentSchedules = new Result<Schedule>(this, QueryCurrentSchedules);
-            _allSchedules = new Result<Schedule>(this, QueryAllSchedules);
-            _scheduledSessions = new Result<Session>(this, QueryScheduledSessions);
-            _scheduledSessionPlaces = new Result<SessionPlace>(this, QueryScheduledSessionPlaces);
+            _currentSchedules = new Result<Schedule>(this, GetQueryCurrentSchedules(), Schedule.GetUnloadedInstance, Schedule.GetNullInstance);
+            _allSchedules = new Result<Schedule>(this, GetQueryAllSchedules(), Schedule.GetUnloadedInstance, Schedule.GetNullInstance);
+            _scheduledSessions = new Result<Session>(this, GetQueryScheduledSessions(), Session.GetUnloadedInstance, Session.GetNullInstance);
+            _scheduledSessionPlaces = new Result<SessionPlace>(this, GetQueryScheduledSessionPlaces(), SessionPlace.GetUnloadedInstance, SessionPlace.GetNullInstance);
         }
 
         // Predecessor access
         public Conference Conference
         {
-            get { return _conference.Fact; }
+            get { return IsNull ? Conference.GetNullInstance() : _conference.Fact; }
         }
 
         // Field access
@@ -1419,6 +1919,16 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				IndividualAttendee fact = (IndividualAttendee)obj;
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return IndividualAttendee.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return IndividualAttendee.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -1430,17 +1940,53 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static IndividualAttendee GetUnloadedInstance()
+        {
+            return new IndividualAttendee((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static IndividualAttendee GetNullInstance()
+        {
+            return new IndividualAttendee((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<IndividualAttendee> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (IndividualAttendee)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleIndividual = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"individual",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Individual", 1),
-			true));
-        public static Role RoleAttendee = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"attendee",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Attendee", 1),
-			false));
+        private static Role _cacheRoleIndividual;
+        public static Role GetRoleIndividual()
+        {
+            if (_cacheRoleIndividual == null)
+            {
+                _cacheRoleIndividual = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "individual",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Individual", 1),
+			        true));
+            }
+            return _cacheRoleIndividual;
+        }
+        private static Role _cacheRoleAttendee;
+        public static Role GetRoleAttendee()
+        {
+            if (_cacheRoleAttendee == null)
+            {
+                _cacheRoleAttendee = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "attendee",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Attendee", 1),
+			        false));
+            }
+            return _cacheRoleAttendee;
+        }
 
         // Queries
 
@@ -1461,16 +2007,16 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _individual = new PredecessorObj<Individual>(this, RoleIndividual, individual);
-            _attendee = new PredecessorObj<Attendee>(this, RoleAttendee, attendee);
+            _individual = new PredecessorObj<Individual>(this, GetRoleIndividual(), individual);
+            _attendee = new PredecessorObj<Attendee>(this, GetRoleAttendee(), attendee);
         }
 
         // Hydration constructor
         private IndividualAttendee(FactMemento memento)
         {
             InitializeResults();
-            _individual = new PredecessorObj<Individual>(this, RoleIndividual, memento);
-            _attendee = new PredecessorObj<Attendee>(this, RoleAttendee, memento);
+            _individual = new PredecessorObj<Individual>(this, GetRoleIndividual(), memento, Individual.GetUnloadedInstance, Individual.GetNullInstance);
+            _attendee = new PredecessorObj<Attendee>(this, GetRoleAttendee(), memento, Attendee.GetUnloadedInstance, Attendee.GetNullInstance);
         }
 
         // Result initializer
@@ -1481,11 +2027,11 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public Individual Individual
         {
-            get { return _individual.Fact; }
+            get { return IsNull ? Individual.GetNullInstance() : _individual.Fact; }
         }
         public Attendee Attendee
         {
-            get { return _attendee.Fact; }
+            get { return IsNull ? Attendee.GetNullInstance() : _attendee.Fact; }
         }
 
         // Field access
@@ -1529,6 +2075,16 @@ namespace FacetedWorlds.MyCon.Model
 				Profile fact = (Profile)obj;
 				_fieldSerializerByType[typeof(string)].WriteData(output, fact._name);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Profile.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Profile.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -1540,12 +2096,40 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static Profile GetUnloadedInstance()
+        {
+            return new Profile((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Profile GetNullInstance()
+        {
+            return new Profile((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Profile> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Profile)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleConference = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"conference",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
-			false));
+        private static Role _cacheRoleConference;
+        public static Role GetRoleConference()
+        {
+            if (_cacheRoleConference == null)
+            {
+                _cacheRoleConference = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "conference",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			        false));
+            }
+            return _cacheRoleConference;
+        }
 
         // Queries
 
@@ -1566,7 +2150,7 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, conference);
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), conference);
             _name = name;
         }
 
@@ -1574,7 +2158,7 @@ namespace FacetedWorlds.MyCon.Model
         private Profile(FactMemento memento)
         {
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, memento);
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), memento, Conference.GetUnloadedInstance, Conference.GetNullInstance);
         }
 
         // Result initializer
@@ -1585,7 +2169,7 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public Conference Conference
         {
-            get { return _conference.Fact; }
+            get { return IsNull ? Conference.GetNullInstance() : _conference.Fact; }
         }
 
         // Field access
@@ -1624,6 +2208,16 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				ProfileAttendee fact = (ProfileAttendee)obj;
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return ProfileAttendee.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return ProfileAttendee.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -1635,17 +2229,53 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static ProfileAttendee GetUnloadedInstance()
+        {
+            return new ProfileAttendee((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static ProfileAttendee GetNullInstance()
+        {
+            return new ProfileAttendee((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<ProfileAttendee> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (ProfileAttendee)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleProfile = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"profile",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Profile", 1),
-			true));
-        public static Role RoleAttendee = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"attendee",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Attendee", 1),
-			false));
+        private static Role _cacheRoleProfile;
+        public static Role GetRoleProfile()
+        {
+            if (_cacheRoleProfile == null)
+            {
+                _cacheRoleProfile = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "profile",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Profile", 1),
+			        true));
+            }
+            return _cacheRoleProfile;
+        }
+        private static Role _cacheRoleAttendee;
+        public static Role GetRoleAttendee()
+        {
+            if (_cacheRoleAttendee == null)
+            {
+                _cacheRoleAttendee = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "attendee",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Attendee", 1),
+			        false));
+            }
+            return _cacheRoleAttendee;
+        }
 
         // Queries
 
@@ -1666,16 +2296,16 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _profile = new PredecessorObj<Profile>(this, RoleProfile, profile);
-            _attendee = new PredecessorObj<Attendee>(this, RoleAttendee, attendee);
+            _profile = new PredecessorObj<Profile>(this, GetRoleProfile(), profile);
+            _attendee = new PredecessorObj<Attendee>(this, GetRoleAttendee(), attendee);
         }
 
         // Hydration constructor
         private ProfileAttendee(FactMemento memento)
         {
             InitializeResults();
-            _profile = new PredecessorObj<Profile>(this, RoleProfile, memento);
-            _attendee = new PredecessorObj<Attendee>(this, RoleAttendee, memento);
+            _profile = new PredecessorObj<Profile>(this, GetRoleProfile(), memento, Profile.GetUnloadedInstance, Profile.GetNullInstance);
+            _attendee = new PredecessorObj<Attendee>(this, GetRoleAttendee(), memento, Attendee.GetUnloadedInstance, Attendee.GetNullInstance);
         }
 
         // Result initializer
@@ -1686,11 +2316,11 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public Profile Profile
         {
-            get { return _profile.Fact; }
+            get { return IsNull ? Profile.GetNullInstance() : _profile.Fact; }
         }
         public Attendee Attendee
         {
-            get { return _attendee.Fact; }
+            get { return IsNull ? Attendee.GetNullInstance() : _attendee.Fact; }
         }
 
         // Field access
@@ -1725,6 +2355,16 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				Follow fact = (Follow)obj;
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Follow.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Follow.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -1736,17 +2376,53 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static Follow GetUnloadedInstance()
+        {
+            return new Follow((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Follow GetNullInstance()
+        {
+            return new Follow((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Follow> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Follow)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleIndividual = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"individual",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Individual", 1),
-			true));
-        public static Role RoleProfileAttendee = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"profileAttendee",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.ProfileAttendee", 1),
-			false));
+        private static Role _cacheRoleIndividual;
+        public static Role GetRoleIndividual()
+        {
+            if (_cacheRoleIndividual == null)
+            {
+                _cacheRoleIndividual = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "individual",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Individual", 1),
+			        true));
+            }
+            return _cacheRoleIndividual;
+        }
+        private static Role _cacheRoleProfileAttendee;
+        public static Role GetRoleProfileAttendee()
+        {
+            if (_cacheRoleProfileAttendee == null)
+            {
+                _cacheRoleProfileAttendee = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "profileAttendee",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.ProfileAttendee", 1),
+			        false));
+            }
+            return _cacheRoleProfileAttendee;
+        }
 
         // Queries
 
@@ -1767,16 +2443,16 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _individual = new PredecessorObj<Individual>(this, RoleIndividual, individual);
-            _profileAttendee = new PredecessorObj<ProfileAttendee>(this, RoleProfileAttendee, profileAttendee);
+            _individual = new PredecessorObj<Individual>(this, GetRoleIndividual(), individual);
+            _profileAttendee = new PredecessorObj<ProfileAttendee>(this, GetRoleProfileAttendee(), profileAttendee);
         }
 
         // Hydration constructor
         private Follow(FactMemento memento)
         {
             InitializeResults();
-            _individual = new PredecessorObj<Individual>(this, RoleIndividual, memento);
-            _profileAttendee = new PredecessorObj<ProfileAttendee>(this, RoleProfileAttendee, memento);
+            _individual = new PredecessorObj<Individual>(this, GetRoleIndividual(), memento, Individual.GetUnloadedInstance, Individual.GetNullInstance);
+            _profileAttendee = new PredecessorObj<ProfileAttendee>(this, GetRoleProfileAttendee(), memento, ProfileAttendee.GetUnloadedInstance, ProfileAttendee.GetNullInstance);
         }
 
         // Result initializer
@@ -1787,11 +2463,11 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public Individual Individual
         {
-            get { return _individual.Fact; }
+            get { return IsNull ? Individual.GetNullInstance() : _individual.Fact; }
         }
         public ProfileAttendee ProfileAttendee
         {
-            get { return _profileAttendee.Fact; }
+            get { return IsNull ? ProfileAttendee.GetNullInstance() : _profileAttendee.Fact; }
         }
 
         // Field access
@@ -1835,6 +2511,16 @@ namespace FacetedWorlds.MyCon.Model
 				Day fact = (Day)obj;
 				_fieldSerializerByType[typeof(DateTime)].WriteData(output, fact._conferenceDate);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Day.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Day.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -1846,33 +2532,71 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static Day GetUnloadedInstance()
+        {
+            return new Day((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Day GetNullInstance()
+        {
+            return new Day((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Day> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Day)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleConference = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"conference",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
-			true));
+        private static Role _cacheRoleConference;
+        public static Role GetRoleConference()
+        {
+            if (_cacheRoleConference == null)
+            {
+                _cacheRoleConference = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "conference",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			        true));
+            }
+            return _cacheRoleConference;
+        }
 
         // Queries
-        public static Query MakeQueryTimes()
+        private static Query _cacheQueryTimes;
+
+        public static Query GetQueryTimes()
 		{
-			return new Query()
-				.JoinSuccessors(Time.RoleDay, Condition.WhereIsEmpty(Time.MakeQueryIsDeleted())
+            if (_cacheQueryTimes == null)
+            {
+			    _cacheQueryTimes = new Query()
+    				.JoinSuccessors(Time.GetRoleDay(), Condition.WhereIsEmpty(Time.GetQueryIsDeleted())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryTimes;
 		}
-        public static Query QueryTimes = MakeQueryTimes();
-        public static Query MakeQueryHasTimes()
+        private static Query _cacheQueryHasTimes;
+
+        public static Query GetQueryHasTimes()
 		{
-			return new Query()
-				.JoinSuccessors(Time.RoleDay, Condition.WhereIsEmpty(Time.MakeQueryIsDeleted())
+            if (_cacheQueryHasTimes == null)
+            {
+			    _cacheQueryHasTimes = new Query()
+    				.JoinSuccessors(Time.GetRoleDay(), Condition.WhereIsEmpty(Time.GetQueryIsDeleted())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryHasTimes;
 		}
-        public static Query QueryHasTimes = MakeQueryHasTimes();
 
         // Predicates
-        public static Condition HasTimes = Condition.WhereIsNotEmpty(QueryHasTimes);
+        public static Condition HasTimes = Condition.WhereIsNotEmpty(GetQueryHasTimes());
 
         // Predecessors
         private PredecessorObj<Conference> _conference;
@@ -1890,7 +2614,7 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, conference);
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), conference);
             _conferenceDate = conferenceDate;
         }
 
@@ -1898,19 +2622,19 @@ namespace FacetedWorlds.MyCon.Model
         private Day(FactMemento memento)
         {
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, memento);
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), memento, Conference.GetUnloadedInstance, Conference.GetNullInstance);
         }
 
         // Result initializer
         private void InitializeResults()
         {
-            _times = new Result<Time>(this, QueryTimes);
+            _times = new Result<Time>(this, GetQueryTimes(), Time.GetUnloadedInstance, Time.GetNullInstance);
         }
 
         // Predecessor access
         public Conference Conference
         {
-            get { return _conference.Fact; }
+            get { return IsNull ? Conference.GetNullInstance() : _conference.Fact; }
         }
 
         // Field access
@@ -1962,6 +2686,16 @@ namespace FacetedWorlds.MyCon.Model
 				Time fact = (Time)obj;
 				_fieldSerializerByType[typeof(DateTime)].WriteData(output, fact._start);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Time.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Time.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -1973,43 +2707,86 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static Time GetUnloadedInstance()
+        {
+            return new Time((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Time GetNullInstance()
+        {
+            return new Time((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Time> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Time)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleDay = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"day",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Day", 1),
-			false));
+        private static Role _cacheRoleDay;
+        public static Role GetRoleDay()
+        {
+            if (_cacheRoleDay == null)
+            {
+                _cacheRoleDay = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "day",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Day", 1),
+			        false));
+            }
+            return _cacheRoleDay;
+        }
 
         // Queries
-        public static Query MakeQueryAvailableSessions()
+        private static Query _cacheQueryAvailableSessions;
+
+        public static Query GetQueryAvailableSessions()
 		{
-			return new Query()
-				.JoinSuccessors(Place.RolePlaceTime)
-				.JoinSuccessors(SessionPlace.RolePlace, Condition.WhereIsEmpty(SessionPlace.MakeQueryIsCurrent())
-					.And().IsEmpty(SessionPlace.MakeQueryIsDeleted())
+            if (_cacheQueryAvailableSessions == null)
+            {
+			    _cacheQueryAvailableSessions = new Query()
+		    		.JoinSuccessors(Place.GetRolePlaceTime())
+    				.JoinSuccessors(SessionPlace.GetRolePlace(), Condition.WhereIsEmpty(SessionPlace.GetQueryIsCurrent())
+	    				.And().IsEmpty(SessionPlace.GetQueryIsDeleted())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryAvailableSessions;
 		}
-        public static Query QueryAvailableSessions = MakeQueryAvailableSessions();
-        public static Query MakeQueryDeletes()
+        private static Query _cacheQueryDeletes;
+
+        public static Query GetQueryDeletes()
 		{
-			return new Query()
-				.JoinSuccessors(TimeDelete.RoleDeleted, Condition.WhereIsEmpty(TimeDelete.MakeQueryIsUndeleted())
+            if (_cacheQueryDeletes == null)
+            {
+			    _cacheQueryDeletes = new Query()
+    				.JoinSuccessors(TimeDelete.GetRoleDeleted(), Condition.WhereIsEmpty(TimeDelete.GetQueryIsUndeleted())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryDeletes;
 		}
-        public static Query QueryDeletes = MakeQueryDeletes();
-        public static Query MakeQueryIsDeleted()
+        private static Query _cacheQueryIsDeleted;
+
+        public static Query GetQueryIsDeleted()
 		{
-			return new Query()
-				.JoinSuccessors(TimeDelete.RoleDeleted, Condition.WhereIsEmpty(TimeDelete.MakeQueryIsUndeleted())
+            if (_cacheQueryIsDeleted == null)
+            {
+			    _cacheQueryIsDeleted = new Query()
+    				.JoinSuccessors(TimeDelete.GetRoleDeleted(), Condition.WhereIsEmpty(TimeDelete.GetQueryIsUndeleted())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryIsDeleted;
 		}
-        public static Query QueryIsDeleted = MakeQueryIsDeleted();
 
         // Predicates
-        public static Condition IsDeleted = Condition.WhereIsNotEmpty(QueryIsDeleted);
+        public static Condition IsDeleted = Condition.WhereIsNotEmpty(GetQueryIsDeleted());
 
         // Predecessors
         private PredecessorObj<Day> _day;
@@ -2028,7 +2805,7 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _day = new PredecessorObj<Day>(this, RoleDay, day);
+            _day = new PredecessorObj<Day>(this, GetRoleDay(), day);
             _start = start;
         }
 
@@ -2036,20 +2813,20 @@ namespace FacetedWorlds.MyCon.Model
         private Time(FactMemento memento)
         {
             InitializeResults();
-            _day = new PredecessorObj<Day>(this, RoleDay, memento);
+            _day = new PredecessorObj<Day>(this, GetRoleDay(), memento, Day.GetUnloadedInstance, Day.GetNullInstance);
         }
 
         // Result initializer
         private void InitializeResults()
         {
-            _availableSessions = new Result<SessionPlace>(this, QueryAvailableSessions);
-            _deletes = new Result<TimeDelete>(this, QueryDeletes);
+            _availableSessions = new Result<SessionPlace>(this, GetQueryAvailableSessions(), SessionPlace.GetUnloadedInstance, SessionPlace.GetNullInstance);
+            _deletes = new Result<TimeDelete>(this, GetQueryDeletes(), TimeDelete.GetUnloadedInstance, TimeDelete.GetNullInstance);
         }
 
         // Predecessor access
         public Day Day
         {
-            get { return _day.Fact; }
+            get { return IsNull ? Day.GetNullInstance() : _day.Fact; }
         }
 
         // Field access
@@ -2105,6 +2882,16 @@ namespace FacetedWorlds.MyCon.Model
 				TimeDelete fact = (TimeDelete)obj;
 				_fieldSerializerByType[typeof(Guid)].WriteData(output, fact._unique);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return TimeDelete.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return TimeDelete.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -2116,24 +2903,57 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static TimeDelete GetUnloadedInstance()
+        {
+            return new TimeDelete((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static TimeDelete GetNullInstance()
+        {
+            return new TimeDelete((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<TimeDelete> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (TimeDelete)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleDeleted = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"deleted",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Time", 1),
-			false));
+        private static Role _cacheRoleDeleted;
+        public static Role GetRoleDeleted()
+        {
+            if (_cacheRoleDeleted == null)
+            {
+                _cacheRoleDeleted = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "deleted",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Time", 1),
+			        false));
+            }
+            return _cacheRoleDeleted;
+        }
 
         // Queries
-        public static Query MakeQueryIsUndeleted()
+        private static Query _cacheQueryIsUndeleted;
+
+        public static Query GetQueryIsUndeleted()
 		{
-			return new Query()
-				.JoinSuccessors(TimeUndelete.RoleUndeleted)
-            ;
+            if (_cacheQueryIsUndeleted == null)
+            {
+			    _cacheQueryIsUndeleted = new Query()
+		    		.JoinSuccessors(TimeUndelete.GetRoleUndeleted())
+                ;
+            }
+            return _cacheQueryIsUndeleted;
 		}
-        public static Query QueryIsUndeleted = MakeQueryIsUndeleted();
 
         // Predicates
-        public static Condition IsUndeleted = Condition.WhereIsNotEmpty(QueryIsUndeleted);
+        public static Condition IsUndeleted = Condition.WhereIsNotEmpty(GetQueryIsUndeleted());
 
         // Predecessors
         private PredecessorObj<Time> _deleted;
@@ -2152,14 +2972,14 @@ namespace FacetedWorlds.MyCon.Model
         {
             _unique = Guid.NewGuid();
             InitializeResults();
-            _deleted = new PredecessorObj<Time>(this, RoleDeleted, deleted);
+            _deleted = new PredecessorObj<Time>(this, GetRoleDeleted(), deleted);
         }
 
         // Hydration constructor
         private TimeDelete(FactMemento memento)
         {
             InitializeResults();
-            _deleted = new PredecessorObj<Time>(this, RoleDeleted, memento);
+            _deleted = new PredecessorObj<Time>(this, GetRoleDeleted(), memento, Time.GetUnloadedInstance, Time.GetNullInstance);
         }
 
         // Result initializer
@@ -2170,7 +2990,7 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public Time Deleted
         {
-            get { return _deleted.Fact; }
+            get { return IsNull ? Time.GetNullInstance() : _deleted.Fact; }
         }
 
         // Field access
@@ -2207,6 +3027,16 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				TimeUndelete fact = (TimeUndelete)obj;
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return TimeUndelete.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return TimeUndelete.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -2218,12 +3048,40 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static TimeUndelete GetUnloadedInstance()
+        {
+            return new TimeUndelete((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static TimeUndelete GetNullInstance()
+        {
+            return new TimeUndelete((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<TimeUndelete> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (TimeUndelete)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleUndeleted = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"undeleted",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.TimeDelete", 1),
-			false));
+        private static Role _cacheRoleUndeleted;
+        public static Role GetRoleUndeleted()
+        {
+            if (_cacheRoleUndeleted == null)
+            {
+                _cacheRoleUndeleted = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "undeleted",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.TimeDelete", 1),
+			        false));
+            }
+            return _cacheRoleUndeleted;
+        }
 
         // Queries
 
@@ -2242,14 +3100,14 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _undeleted = new PredecessorObj<TimeDelete>(this, RoleUndeleted, undeleted);
+            _undeleted = new PredecessorObj<TimeDelete>(this, GetRoleUndeleted(), undeleted);
         }
 
         // Hydration constructor
         private TimeUndelete(FactMemento memento)
         {
             InitializeResults();
-            _undeleted = new PredecessorObj<TimeDelete>(this, RoleUndeleted, memento);
+            _undeleted = new PredecessorObj<TimeDelete>(this, GetRoleUndeleted(), memento, TimeDelete.GetUnloadedInstance, TimeDelete.GetNullInstance);
         }
 
         // Result initializer
@@ -2260,7 +3118,7 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public TimeDelete Undeleted
         {
-            get { return _undeleted.Fact; }
+            get { return IsNull ? TimeDelete.GetNullInstance() : _undeleted.Fact; }
         }
 
         // Field access
@@ -2295,6 +3153,16 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				Slot fact = (Slot)obj;
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Slot.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Slot.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -2306,29 +3174,70 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static Slot GetUnloadedInstance()
+        {
+            return new Slot((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Slot GetNullInstance()
+        {
+            return new Slot((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Slot> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Slot)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleAttendee = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"attendee",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Attendee", 1),
-			false));
-        public static Role RoleSlotTime = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"slotTime",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Time", 1),
-			true));
+        private static Role _cacheRoleAttendee;
+        public static Role GetRoleAttendee()
+        {
+            if (_cacheRoleAttendee == null)
+            {
+                _cacheRoleAttendee = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "attendee",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Attendee", 1),
+			        false));
+            }
+            return _cacheRoleAttendee;
+        }
+        private static Role _cacheRoleSlotTime;
+        public static Role GetRoleSlotTime()
+        {
+            if (_cacheRoleSlotTime == null)
+            {
+                _cacheRoleSlotTime = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "slotTime",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Time", 1),
+			        true));
+            }
+            return _cacheRoleSlotTime;
+        }
 
         // Queries
-        public static Query MakeQueryCurrentSchedules()
+        private static Query _cacheQueryCurrentSchedules;
+
+        public static Query GetQueryCurrentSchedules()
 		{
-			return new Query()
-				.JoinSuccessors(Schedule.RoleSlot, Condition.WhereIsEmpty(Schedule.MakeQueryIsCurrent())
-					.And().IsEmpty(Schedule.MakeQuerySessionPlaceIsCurrent())
-					.And().IsEmpty(Schedule.MakeQueryIsDeleted())
+            if (_cacheQueryCurrentSchedules == null)
+            {
+			    _cacheQueryCurrentSchedules = new Query()
+    				.JoinSuccessors(Schedule.GetRoleSlot(), Condition.WhereIsEmpty(Schedule.GetQueryIsCurrent())
+	    				.And().IsEmpty(Schedule.GetQuerySessionPlaceIsCurrent())
+	    				.And().IsEmpty(Schedule.GetQueryIsDeleted())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryCurrentSchedules;
 		}
-        public static Query QueryCurrentSchedules = MakeQueryCurrentSchedules();
 
         // Predicates
 
@@ -2348,32 +3257,32 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _attendee = new PredecessorObj<Attendee>(this, RoleAttendee, attendee);
-            _slotTime = new PredecessorObj<Time>(this, RoleSlotTime, slotTime);
+            _attendee = new PredecessorObj<Attendee>(this, GetRoleAttendee(), attendee);
+            _slotTime = new PredecessorObj<Time>(this, GetRoleSlotTime(), slotTime);
         }
 
         // Hydration constructor
         private Slot(FactMemento memento)
         {
             InitializeResults();
-            _attendee = new PredecessorObj<Attendee>(this, RoleAttendee, memento);
-            _slotTime = new PredecessorObj<Time>(this, RoleSlotTime, memento);
+            _attendee = new PredecessorObj<Attendee>(this, GetRoleAttendee(), memento, Attendee.GetUnloadedInstance, Attendee.GetNullInstance);
+            _slotTime = new PredecessorObj<Time>(this, GetRoleSlotTime(), memento, Time.GetUnloadedInstance, Time.GetNullInstance);
         }
 
         // Result initializer
         private void InitializeResults()
         {
-            _currentSchedules = new Result<Schedule>(this, QueryCurrentSchedules);
+            _currentSchedules = new Result<Schedule>(this, GetQueryCurrentSchedules(), Schedule.GetUnloadedInstance, Schedule.GetNullInstance);
         }
 
         // Predecessor access
         public Attendee Attendee
         {
-            get { return _attendee.Fact; }
+            get { return IsNull ? Attendee.GetNullInstance() : _attendee.Fact; }
         }
         public Time SlotTime
         {
-            get { return _slotTime.Fact; }
+            get { return IsNull ? Time.GetNullInstance() : _slotTime.Fact; }
         }
 
         // Field access
@@ -2421,6 +3330,16 @@ namespace FacetedWorlds.MyCon.Model
 				Room fact = (Room)obj;
 				_fieldSerializerByType[typeof(Guid)].WriteData(output, fact._unique);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Room.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Room.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -2432,22 +3351,55 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static Room GetUnloadedInstance()
+        {
+            return new Room((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Room GetNullInstance()
+        {
+            return new Room((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Room> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Room)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleConference = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"conference",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
-			true));
+        private static Role _cacheRoleConference;
+        public static Role GetRoleConference()
+        {
+            if (_cacheRoleConference == null)
+            {
+                _cacheRoleConference = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "conference",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			        true));
+            }
+            return _cacheRoleConference;
+        }
 
         // Queries
-        public static Query MakeQueryRoomNumber()
+        private static Query _cacheQueryRoomNumber;
+
+        public static Query GetQueryRoomNumber()
 		{
-			return new Query()
-				.JoinSuccessors(Room__roomNumber.RoleRoom, Condition.WhereIsEmpty(Room__roomNumber.MakeQueryIsCurrent())
+            if (_cacheQueryRoomNumber == null)
+            {
+			    _cacheQueryRoomNumber = new Query()
+    				.JoinSuccessors(Room__roomNumber.GetRoleRoom(), Condition.WhereIsEmpty(Room__roomNumber.GetQueryIsCurrent())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryRoomNumber;
 		}
-        public static Query QueryRoomNumber = MakeQueryRoomNumber();
 
         // Predicates
 
@@ -2469,26 +3421,26 @@ namespace FacetedWorlds.MyCon.Model
         {
             _unique = Guid.NewGuid();
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, conference);
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), conference);
         }
 
         // Hydration constructor
         private Room(FactMemento memento)
         {
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, memento);
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), memento, Conference.GetUnloadedInstance, Conference.GetNullInstance);
         }
 
         // Result initializer
         private void InitializeResults()
         {
-            _roomNumber = new Result<Room__roomNumber>(this, QueryRoomNumber);
+            _roomNumber = new Result<Room__roomNumber>(this, GetQueryRoomNumber(), Room__roomNumber.GetUnloadedInstance, Room__roomNumber.GetNullInstance);
         }
 
         // Predecessor access
         public Conference Conference
         {
-            get { return _conference.Fact; }
+            get { return IsNull ? Conference.GetNullInstance() : _conference.Fact; }
         }
 
         // Field access
@@ -2550,6 +3502,16 @@ namespace FacetedWorlds.MyCon.Model
 				Room__roomNumber fact = (Room__roomNumber)obj;
 				_fieldSerializerByType[typeof(string)].WriteData(output, fact._value);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Room__roomNumber.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Room__roomNumber.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -2561,29 +3523,70 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static Room__roomNumber GetUnloadedInstance()
+        {
+            return new Room__roomNumber((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Room__roomNumber GetNullInstance()
+        {
+            return new Room__roomNumber((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Room__roomNumber> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Room__roomNumber)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleRoom = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"room",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Room", 1),
-			false));
-        public static Role RolePrior = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"prior",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Room__roomNumber", 1),
-			false));
+        private static Role _cacheRoleRoom;
+        public static Role GetRoleRoom()
+        {
+            if (_cacheRoleRoom == null)
+            {
+                _cacheRoleRoom = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "room",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Room", 1),
+			        false));
+            }
+            return _cacheRoleRoom;
+        }
+        private static Role _cacheRolePrior;
+        public static Role GetRolePrior()
+        {
+            if (_cacheRolePrior == null)
+            {
+                _cacheRolePrior = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "prior",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Room__roomNumber", 1),
+			        false));
+            }
+            return _cacheRolePrior;
+        }
 
         // Queries
-        public static Query MakeQueryIsCurrent()
+        private static Query _cacheQueryIsCurrent;
+
+        public static Query GetQueryIsCurrent()
 		{
-			return new Query()
-				.JoinSuccessors(Room__roomNumber.RolePrior)
-            ;
+            if (_cacheQueryIsCurrent == null)
+            {
+			    _cacheQueryIsCurrent = new Query()
+		    		.JoinSuccessors(Room__roomNumber.GetRolePrior())
+                ;
+            }
+            return _cacheQueryIsCurrent;
 		}
-        public static Query QueryIsCurrent = MakeQueryIsCurrent();
 
         // Predicates
-        public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
+        public static Condition IsCurrent = Condition.WhereIsEmpty(GetQueryIsCurrent());
 
         // Predecessors
         private PredecessorObj<Room> _room;
@@ -2602,8 +3605,8 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _room = new PredecessorObj<Room>(this, RoleRoom, room);
-            _prior = new PredecessorList<Room__roomNumber>(this, RolePrior, prior);
+            _room = new PredecessorObj<Room>(this, GetRoleRoom(), room);
+            _prior = new PredecessorList<Room__roomNumber>(this, GetRolePrior(), prior);
             _value = value;
         }
 
@@ -2611,8 +3614,8 @@ namespace FacetedWorlds.MyCon.Model
         private Room__roomNumber(FactMemento memento)
         {
             InitializeResults();
-            _room = new PredecessorObj<Room>(this, RoleRoom, memento);
-            _prior = new PredecessorList<Room__roomNumber>(this, RolePrior, memento);
+            _room = new PredecessorObj<Room>(this, GetRoleRoom(), memento, Room.GetUnloadedInstance, Room.GetNullInstance);
+            _prior = new PredecessorList<Room__roomNumber>(this, GetRolePrior(), memento, Room__roomNumber.GetUnloadedInstance, Room__roomNumber.GetNullInstance);
         }
 
         // Result initializer
@@ -2623,13 +3626,13 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public Room Room
         {
-            get { return _room.Fact; }
+            get { return IsNull ? Room.GetNullInstance() : _room.Fact; }
         }
-        public IEnumerable<Room__roomNumber> Prior
+        public PredecessorList<Room__roomNumber> Prior
         {
             get { return _prior; }
         }
-     
+
         // Field access
         public string Value
         {
@@ -2675,6 +3678,16 @@ namespace FacetedWorlds.MyCon.Model
 				Track fact = (Track)obj;
 				_fieldSerializerByType[typeof(string)].WriteData(output, fact._name);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Track.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Track.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -2686,36 +3699,74 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static Track GetUnloadedInstance()
+        {
+            return new Track((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Track GetNullInstance()
+        {
+            return new Track((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Track> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Track)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleConference = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"conference",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
-			true));
+        private static Role _cacheRoleConference;
+        public static Role GetRoleConference()
+        {
+            if (_cacheRoleConference == null)
+            {
+                _cacheRoleConference = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "conference",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			        true));
+            }
+            return _cacheRoleConference;
+        }
 
         // Queries
-        public static Query MakeQueryCurrentSessionPlaces()
+        private static Query _cacheQueryCurrentSessionPlaces;
+
+        public static Query GetQueryCurrentSessionPlaces()
 		{
-			return new Query()
-				.JoinSuccessors(Session.RoleTrack, Condition.WhereIsEmpty(Session.MakeQueryIsDeleted())
+            if (_cacheQueryCurrentSessionPlaces == null)
+            {
+			    _cacheQueryCurrentSessionPlaces = new Query()
+    				.JoinSuccessors(Session.GetRoleTrack(), Condition.WhereIsEmpty(Session.GetQueryIsDeleted())
 				)
-				.JoinSuccessors(SessionPlace.RoleSession, Condition.WhereIsEmpty(SessionPlace.MakeQueryIsCurrent())
-					.And().IsEmpty(SessionPlace.MakeQueryTimeIsDeleted())
+    				.JoinSuccessors(SessionPlace.GetRoleSession(), Condition.WhereIsEmpty(SessionPlace.GetQueryIsCurrent())
+	    				.And().IsEmpty(SessionPlace.GetQueryTimeIsDeleted())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryCurrentSessionPlaces;
 		}
-        public static Query QueryCurrentSessionPlaces = MakeQueryCurrentSessionPlaces();
-        public static Query MakeQueryHasSessions()
+        private static Query _cacheQueryHasSessions;
+
+        public static Query GetQueryHasSessions()
 		{
-			return new Query()
-				.JoinSuccessors(Session.RoleTrack, Condition.WhereIsEmpty(Session.MakeQueryIsDeleted())
+            if (_cacheQueryHasSessions == null)
+            {
+			    _cacheQueryHasSessions = new Query()
+    				.JoinSuccessors(Session.GetRoleTrack(), Condition.WhereIsEmpty(Session.GetQueryIsDeleted())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryHasSessions;
 		}
-        public static Query QueryHasSessions = MakeQueryHasSessions();
 
         // Predicates
-        public static Condition HasSessions = Condition.WhereIsNotEmpty(QueryHasSessions);
+        public static Condition HasSessions = Condition.WhereIsNotEmpty(GetQueryHasSessions());
 
         // Predecessors
         private PredecessorObj<Conference> _conference;
@@ -2733,7 +3784,7 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, conference);
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), conference);
             _name = name;
         }
 
@@ -2741,19 +3792,19 @@ namespace FacetedWorlds.MyCon.Model
         private Track(FactMemento memento)
         {
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, memento);
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), memento, Conference.GetUnloadedInstance, Conference.GetNullInstance);
         }
 
         // Result initializer
         private void InitializeResults()
         {
-            _currentSessionPlaces = new Result<SessionPlace>(this, QueryCurrentSessionPlaces);
+            _currentSessionPlaces = new Result<SessionPlace>(this, GetQueryCurrentSessionPlaces(), SessionPlace.GetUnloadedInstance, SessionPlace.GetNullInstance);
         }
 
         // Predecessor access
         public Conference Conference
         {
-            get { return _conference.Fact; }
+            get { return IsNull ? Conference.GetNullInstance() : _conference.Fact; }
         }
 
         // Field access
@@ -2805,6 +3856,16 @@ namespace FacetedWorlds.MyCon.Model
 				Speaker fact = (Speaker)obj;
 				_fieldSerializerByType[typeof(string)].WriteData(output, fact._name);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Speaker.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Speaker.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -2816,49 +3877,97 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static Speaker GetUnloadedInstance()
+        {
+            return new Speaker((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Speaker GetNullInstance()
+        {
+            return new Speaker((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Speaker> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Speaker)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleConference = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"conference",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
-			true));
+        private static Role _cacheRoleConference;
+        public static Role GetRoleConference()
+        {
+            if (_cacheRoleConference == null)
+            {
+                _cacheRoleConference = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "conference",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			        true));
+            }
+            return _cacheRoleConference;
+        }
 
         // Queries
-        public static Query MakeQueryImageUrl()
+        private static Query _cacheQueryImageUrl;
+
+        public static Query GetQueryImageUrl()
 		{
-			return new Query()
-				.JoinSuccessors(Speaker__imageUrl.RoleSpeaker, Condition.WhereIsEmpty(Speaker__imageUrl.MakeQueryIsCurrent())
+            if (_cacheQueryImageUrl == null)
+            {
+			    _cacheQueryImageUrl = new Query()
+    				.JoinSuccessors(Speaker__imageUrl.GetRoleSpeaker(), Condition.WhereIsEmpty(Speaker__imageUrl.GetQueryIsCurrent())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryImageUrl;
 		}
-        public static Query QueryImageUrl = MakeQueryImageUrl();
-        public static Query MakeQueryContact()
+        private static Query _cacheQueryContact;
+
+        public static Query GetQueryContact()
 		{
-			return new Query()
-				.JoinSuccessors(Speaker__contact.RoleSpeaker, Condition.WhereIsEmpty(Speaker__contact.MakeQueryIsCurrent())
+            if (_cacheQueryContact == null)
+            {
+			    _cacheQueryContact = new Query()
+    				.JoinSuccessors(Speaker__contact.GetRoleSpeaker(), Condition.WhereIsEmpty(Speaker__contact.GetQueryIsCurrent())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryContact;
 		}
-        public static Query QueryContact = MakeQueryContact();
-        public static Query MakeQueryBio()
+        private static Query _cacheQueryBio;
+
+        public static Query GetQueryBio()
 		{
-			return new Query()
-				.JoinSuccessors(Speaker__bio.RoleSpeaker, Condition.WhereIsEmpty(Speaker__bio.MakeQueryIsCurrent())
+            if (_cacheQueryBio == null)
+            {
+			    _cacheQueryBio = new Query()
+    				.JoinSuccessors(Speaker__bio.GetRoleSpeaker(), Condition.WhereIsEmpty(Speaker__bio.GetQueryIsCurrent())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryBio;
 		}
-        public static Query QueryBio = MakeQueryBio();
-        public static Query MakeQueryAvailableSessions()
+        private static Query _cacheQueryAvailableSessions;
+
+        public static Query GetQueryAvailableSessions()
 		{
-			return new Query()
-				.JoinSuccessors(Session.RoleSpeaker, Condition.WhereIsEmpty(Session.MakeQueryIsDeleted())
+            if (_cacheQueryAvailableSessions == null)
+            {
+			    _cacheQueryAvailableSessions = new Query()
+    				.JoinSuccessors(Session.GetRoleSpeaker(), Condition.WhereIsEmpty(Session.GetQueryIsDeleted())
 				)
-				.JoinSuccessors(SessionPlace.RoleSession, Condition.WhereIsEmpty(SessionPlace.MakeQueryIsCurrent())
-					.And().IsEmpty(SessionPlace.MakeQueryTimeIsDeleted())
+    				.JoinSuccessors(SessionPlace.GetRoleSession(), Condition.WhereIsEmpty(SessionPlace.GetQueryIsCurrent())
+	    				.And().IsEmpty(SessionPlace.GetQueryTimeIsDeleted())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryAvailableSessions;
 		}
-        public static Query QueryAvailableSessions = MakeQueryAvailableSessions();
 
         // Predicates
 
@@ -2881,7 +3990,7 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, conference);
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), conference);
             _name = name;
         }
 
@@ -2889,22 +3998,22 @@ namespace FacetedWorlds.MyCon.Model
         private Speaker(FactMemento memento)
         {
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, memento);
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), memento, Conference.GetUnloadedInstance, Conference.GetNullInstance);
         }
 
         // Result initializer
         private void InitializeResults()
         {
-            _imageUrl = new Result<Speaker__imageUrl>(this, QueryImageUrl);
-            _contact = new Result<Speaker__contact>(this, QueryContact);
-            _bio = new Result<Speaker__bio>(this, QueryBio);
-            _availableSessions = new Result<SessionPlace>(this, QueryAvailableSessions);
+            _imageUrl = new Result<Speaker__imageUrl>(this, GetQueryImageUrl(), Speaker__imageUrl.GetUnloadedInstance, Speaker__imageUrl.GetNullInstance);
+            _contact = new Result<Speaker__contact>(this, GetQueryContact(), Speaker__contact.GetUnloadedInstance, Speaker__contact.GetNullInstance);
+            _bio = new Result<Speaker__bio>(this, GetQueryBio(), Speaker__bio.GetUnloadedInstance, Speaker__bio.GetNullInstance);
+            _availableSessions = new Result<SessionPlace>(this, GetQueryAvailableSessions(), SessionPlace.GetUnloadedInstance, SessionPlace.GetNullInstance);
         }
 
         // Predecessor access
         public Conference Conference
         {
-            get { return _conference.Fact; }
+            get { return IsNull ? Conference.GetNullInstance() : _conference.Fact; }
         }
 
         // Field access
@@ -2955,7 +4064,7 @@ namespace FacetedWorlds.MyCon.Model
 
         public TransientDisputable<Speaker__bio, IEnumerable<DocumentSegment>> Bio
         {
-            get { return _bio.AsTransientDisputable(fact => fact.Value); }
+            get { return _bio.AsTransientDisputable(fact => (IEnumerable<DocumentSegment>)fact.Value); }
 			set
 			{
 				Action setter = async delegate()
@@ -3004,6 +4113,16 @@ namespace FacetedWorlds.MyCon.Model
 				Speaker__imageUrl fact = (Speaker__imageUrl)obj;
 				_fieldSerializerByType[typeof(string)].WriteData(output, fact._value);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Speaker__imageUrl.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Speaker__imageUrl.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -3015,29 +4134,70 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static Speaker__imageUrl GetUnloadedInstance()
+        {
+            return new Speaker__imageUrl((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Speaker__imageUrl GetNullInstance()
+        {
+            return new Speaker__imageUrl((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Speaker__imageUrl> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Speaker__imageUrl)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleSpeaker = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"speaker",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Speaker", 1),
-			false));
-        public static Role RolePrior = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"prior",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Speaker__imageUrl", 1),
-			false));
+        private static Role _cacheRoleSpeaker;
+        public static Role GetRoleSpeaker()
+        {
+            if (_cacheRoleSpeaker == null)
+            {
+                _cacheRoleSpeaker = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "speaker",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Speaker", 1),
+			        false));
+            }
+            return _cacheRoleSpeaker;
+        }
+        private static Role _cacheRolePrior;
+        public static Role GetRolePrior()
+        {
+            if (_cacheRolePrior == null)
+            {
+                _cacheRolePrior = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "prior",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Speaker__imageUrl", 1),
+			        false));
+            }
+            return _cacheRolePrior;
+        }
 
         // Queries
-        public static Query MakeQueryIsCurrent()
+        private static Query _cacheQueryIsCurrent;
+
+        public static Query GetQueryIsCurrent()
 		{
-			return new Query()
-				.JoinSuccessors(Speaker__imageUrl.RolePrior)
-            ;
+            if (_cacheQueryIsCurrent == null)
+            {
+			    _cacheQueryIsCurrent = new Query()
+		    		.JoinSuccessors(Speaker__imageUrl.GetRolePrior())
+                ;
+            }
+            return _cacheQueryIsCurrent;
 		}
-        public static Query QueryIsCurrent = MakeQueryIsCurrent();
 
         // Predicates
-        public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
+        public static Condition IsCurrent = Condition.WhereIsEmpty(GetQueryIsCurrent());
 
         // Predecessors
         private PredecessorObj<Speaker> _speaker;
@@ -3056,8 +4216,8 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _speaker = new PredecessorObj<Speaker>(this, RoleSpeaker, speaker);
-            _prior = new PredecessorList<Speaker__imageUrl>(this, RolePrior, prior);
+            _speaker = new PredecessorObj<Speaker>(this, GetRoleSpeaker(), speaker);
+            _prior = new PredecessorList<Speaker__imageUrl>(this, GetRolePrior(), prior);
             _value = value;
         }
 
@@ -3065,8 +4225,8 @@ namespace FacetedWorlds.MyCon.Model
         private Speaker__imageUrl(FactMemento memento)
         {
             InitializeResults();
-            _speaker = new PredecessorObj<Speaker>(this, RoleSpeaker, memento);
-            _prior = new PredecessorList<Speaker__imageUrl>(this, RolePrior, memento);
+            _speaker = new PredecessorObj<Speaker>(this, GetRoleSpeaker(), memento, Speaker.GetUnloadedInstance, Speaker.GetNullInstance);
+            _prior = new PredecessorList<Speaker__imageUrl>(this, GetRolePrior(), memento, Speaker__imageUrl.GetUnloadedInstance, Speaker__imageUrl.GetNullInstance);
         }
 
         // Result initializer
@@ -3077,13 +4237,13 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public Speaker Speaker
         {
-            get { return _speaker.Fact; }
+            get { return IsNull ? Speaker.GetNullInstance() : _speaker.Fact; }
         }
-        public IEnumerable<Speaker__imageUrl> Prior
+        public PredecessorList<Speaker__imageUrl> Prior
         {
             get { return _prior; }
         }
-     
+
         // Field access
         public string Value
         {
@@ -3129,6 +4289,16 @@ namespace FacetedWorlds.MyCon.Model
 				Speaker__contact fact = (Speaker__contact)obj;
 				_fieldSerializerByType[typeof(string)].WriteData(output, fact._value);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Speaker__contact.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Speaker__contact.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -3140,29 +4310,70 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static Speaker__contact GetUnloadedInstance()
+        {
+            return new Speaker__contact((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Speaker__contact GetNullInstance()
+        {
+            return new Speaker__contact((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Speaker__contact> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Speaker__contact)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleSpeaker = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"speaker",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Speaker", 1),
-			false));
-        public static Role RolePrior = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"prior",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Speaker__contact", 1),
-			false));
+        private static Role _cacheRoleSpeaker;
+        public static Role GetRoleSpeaker()
+        {
+            if (_cacheRoleSpeaker == null)
+            {
+                _cacheRoleSpeaker = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "speaker",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Speaker", 1),
+			        false));
+            }
+            return _cacheRoleSpeaker;
+        }
+        private static Role _cacheRolePrior;
+        public static Role GetRolePrior()
+        {
+            if (_cacheRolePrior == null)
+            {
+                _cacheRolePrior = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "prior",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Speaker__contact", 1),
+			        false));
+            }
+            return _cacheRolePrior;
+        }
 
         // Queries
-        public static Query MakeQueryIsCurrent()
+        private static Query _cacheQueryIsCurrent;
+
+        public static Query GetQueryIsCurrent()
 		{
-			return new Query()
-				.JoinSuccessors(Speaker__contact.RolePrior)
-            ;
+            if (_cacheQueryIsCurrent == null)
+            {
+			    _cacheQueryIsCurrent = new Query()
+		    		.JoinSuccessors(Speaker__contact.GetRolePrior())
+                ;
+            }
+            return _cacheQueryIsCurrent;
 		}
-        public static Query QueryIsCurrent = MakeQueryIsCurrent();
 
         // Predicates
-        public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
+        public static Condition IsCurrent = Condition.WhereIsEmpty(GetQueryIsCurrent());
 
         // Predecessors
         private PredecessorObj<Speaker> _speaker;
@@ -3181,8 +4392,8 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _speaker = new PredecessorObj<Speaker>(this, RoleSpeaker, speaker);
-            _prior = new PredecessorList<Speaker__contact>(this, RolePrior, prior);
+            _speaker = new PredecessorObj<Speaker>(this, GetRoleSpeaker(), speaker);
+            _prior = new PredecessorList<Speaker__contact>(this, GetRolePrior(), prior);
             _value = value;
         }
 
@@ -3190,8 +4401,8 @@ namespace FacetedWorlds.MyCon.Model
         private Speaker__contact(FactMemento memento)
         {
             InitializeResults();
-            _speaker = new PredecessorObj<Speaker>(this, RoleSpeaker, memento);
-            _prior = new PredecessorList<Speaker__contact>(this, RolePrior, memento);
+            _speaker = new PredecessorObj<Speaker>(this, GetRoleSpeaker(), memento, Speaker.GetUnloadedInstance, Speaker.GetNullInstance);
+            _prior = new PredecessorList<Speaker__contact>(this, GetRolePrior(), memento, Speaker__contact.GetUnloadedInstance, Speaker__contact.GetNullInstance);
         }
 
         // Result initializer
@@ -3202,13 +4413,13 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public Speaker Speaker
         {
-            get { return _speaker.Fact; }
+            get { return IsNull ? Speaker.GetNullInstance() : _speaker.Fact; }
         }
-        public IEnumerable<Speaker__contact> Prior
+        public PredecessorList<Speaker__contact> Prior
         {
             get { return _prior; }
         }
-     
+
         // Field access
         public string Value
         {
@@ -3245,6 +4456,16 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				Speaker__bio fact = (Speaker__bio)obj;
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Speaker__bio.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Speaker__bio.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -3256,34 +4477,83 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static Speaker__bio GetUnloadedInstance()
+        {
+            return new Speaker__bio((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Speaker__bio GetNullInstance()
+        {
+            return new Speaker__bio((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Speaker__bio> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Speaker__bio)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleSpeaker = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"speaker",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Speaker", 1),
-			false));
-        public static Role RolePrior = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"prior",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Speaker__bio", 1),
-			false));
-        public static Role RoleValue = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"value",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.DocumentSegment", 1),
-			false));
+        private static Role _cacheRoleSpeaker;
+        public static Role GetRoleSpeaker()
+        {
+            if (_cacheRoleSpeaker == null)
+            {
+                _cacheRoleSpeaker = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "speaker",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Speaker", 1),
+			        false));
+            }
+            return _cacheRoleSpeaker;
+        }
+        private static Role _cacheRolePrior;
+        public static Role GetRolePrior()
+        {
+            if (_cacheRolePrior == null)
+            {
+                _cacheRolePrior = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "prior",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Speaker__bio", 1),
+			        false));
+            }
+            return _cacheRolePrior;
+        }
+        private static Role _cacheRoleValue;
+        public static Role GetRoleValue()
+        {
+            if (_cacheRoleValue == null)
+            {
+                _cacheRoleValue = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "value",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.DocumentSegment", 1),
+			        false));
+            }
+            return _cacheRoleValue;
+        }
 
         // Queries
-        public static Query MakeQueryIsCurrent()
+        private static Query _cacheQueryIsCurrent;
+
+        public static Query GetQueryIsCurrent()
 		{
-			return new Query()
-				.JoinSuccessors(Speaker__bio.RolePrior)
-            ;
+            if (_cacheQueryIsCurrent == null)
+            {
+			    _cacheQueryIsCurrent = new Query()
+		    		.JoinSuccessors(Speaker__bio.GetRolePrior())
+                ;
+            }
+            return _cacheQueryIsCurrent;
 		}
-        public static Query QueryIsCurrent = MakeQueryIsCurrent();
 
         // Predicates
-        public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
+        public static Condition IsCurrent = Condition.WhereIsEmpty(GetQueryIsCurrent());
 
         // Predecessors
         private PredecessorObj<Speaker> _speaker;
@@ -3302,18 +4572,18 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _speaker = new PredecessorObj<Speaker>(this, RoleSpeaker, speaker);
-            _prior = new PredecessorList<Speaker__bio>(this, RolePrior, prior);
-            _value = new PredecessorList<DocumentSegment>(this, RoleValue, value);
+            _speaker = new PredecessorObj<Speaker>(this, GetRoleSpeaker(), speaker);
+            _prior = new PredecessorList<Speaker__bio>(this, GetRolePrior(), prior);
+            _value = new PredecessorList<DocumentSegment>(this, GetRoleValue(), value);
         }
 
         // Hydration constructor
         private Speaker__bio(FactMemento memento)
         {
             InitializeResults();
-            _speaker = new PredecessorObj<Speaker>(this, RoleSpeaker, memento);
-            _prior = new PredecessorList<Speaker__bio>(this, RolePrior, memento);
-            _value = new PredecessorList<DocumentSegment>(this, RoleValue, memento);
+            _speaker = new PredecessorObj<Speaker>(this, GetRoleSpeaker(), memento, Speaker.GetUnloadedInstance, Speaker.GetNullInstance);
+            _prior = new PredecessorList<Speaker__bio>(this, GetRolePrior(), memento, Speaker__bio.GetUnloadedInstance, Speaker__bio.GetNullInstance);
+            _value = new PredecessorList<DocumentSegment>(this, GetRoleValue(), memento, DocumentSegment.GetUnloadedInstance, DocumentSegment.GetNullInstance);
         }
 
         // Result initializer
@@ -3324,17 +4594,17 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public Speaker Speaker
         {
-            get { return _speaker.Fact; }
+            get { return IsNull ? Speaker.GetNullInstance() : _speaker.Fact; }
         }
-        public IEnumerable<Speaker__bio> Prior
+        public PredecessorList<Speaker__bio> Prior
         {
             get { return _prior; }
         }
-             public IEnumerable<DocumentSegment> Value
+        public PredecessorList<DocumentSegment> Value
         {
             get { return _value; }
         }
-     
+
         // Field access
 
         // Query result access
@@ -3378,6 +4648,16 @@ namespace FacetedWorlds.MyCon.Model
 				_fieldSerializerByType[typeof(DateTime)].WriteData(output, fact._timeSent);
 				_fieldSerializerByType[typeof(string)].WriteData(output, fact._text);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return ConferenceNotice.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return ConferenceNotice.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -3389,12 +4669,40 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static ConferenceNotice GetUnloadedInstance()
+        {
+            return new ConferenceNotice((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static ConferenceNotice GetNullInstance()
+        {
+            return new ConferenceNotice((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<ConferenceNotice> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (ConferenceNotice)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleConference = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"conference",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
-			true));
+        private static Role _cacheRoleConference;
+        public static Role GetRoleConference()
+        {
+            if (_cacheRoleConference == null)
+            {
+                _cacheRoleConference = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "conference",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			        true));
+            }
+            return _cacheRoleConference;
+        }
 
         // Queries
 
@@ -3417,7 +4725,7 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, conference);
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), conference);
             _timeSent = timeSent;
             _text = text;
         }
@@ -3426,7 +4734,7 @@ namespace FacetedWorlds.MyCon.Model
         private ConferenceNotice(FactMemento memento)
         {
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, memento);
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), memento, Conference.GetUnloadedInstance, Conference.GetNullInstance);
         }
 
         // Result initializer
@@ -3437,7 +4745,7 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public Conference Conference
         {
-            get { return _conference.Fact; }
+            get { return IsNull ? Conference.GetNullInstance() : _conference.Fact; }
         }
 
         // Field access
@@ -3480,6 +4788,16 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				Place fact = (Place)obj;
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Place.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Place.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -3491,28 +4809,69 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static Place GetUnloadedInstance()
+        {
+            return new Place((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Place GetNullInstance()
+        {
+            return new Place((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Place> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Place)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RolePlaceTime = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"placeTime",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Time", 1),
-			false));
-        public static Role RoleRoom = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"room",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Room", 1),
-			false));
+        private static Role _cacheRolePlaceTime;
+        public static Role GetRolePlaceTime()
+        {
+            if (_cacheRolePlaceTime == null)
+            {
+                _cacheRolePlaceTime = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "placeTime",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Time", 1),
+			        false));
+            }
+            return _cacheRolePlaceTime;
+        }
+        private static Role _cacheRoleRoom;
+        public static Role GetRoleRoom()
+        {
+            if (_cacheRoleRoom == null)
+            {
+                _cacheRoleRoom = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "room",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Room", 1),
+			        false));
+            }
+            return _cacheRoleRoom;
+        }
 
         // Queries
-        public static Query MakeQueryCurrentSessionPlaces()
+        private static Query _cacheQueryCurrentSessionPlaces;
+
+        public static Query GetQueryCurrentSessionPlaces()
 		{
-			return new Query()
-				.JoinSuccessors(SessionPlace.RolePlace, Condition.WhereIsEmpty(SessionPlace.MakeQueryIsCurrent())
-					.And().IsEmpty(SessionPlace.MakeQueryIsDeleted())
+            if (_cacheQueryCurrentSessionPlaces == null)
+            {
+			    _cacheQueryCurrentSessionPlaces = new Query()
+    				.JoinSuccessors(SessionPlace.GetRolePlace(), Condition.WhereIsEmpty(SessionPlace.GetQueryIsCurrent())
+	    				.And().IsEmpty(SessionPlace.GetQueryIsDeleted())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryCurrentSessionPlaces;
 		}
-        public static Query QueryCurrentSessionPlaces = MakeQueryCurrentSessionPlaces();
 
         // Predicates
 
@@ -3532,32 +4891,32 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _placeTime = new PredecessorObj<Time>(this, RolePlaceTime, placeTime);
-            _room = new PredecessorObj<Room>(this, RoleRoom, room);
+            _placeTime = new PredecessorObj<Time>(this, GetRolePlaceTime(), placeTime);
+            _room = new PredecessorObj<Room>(this, GetRoleRoom(), room);
         }
 
         // Hydration constructor
         private Place(FactMemento memento)
         {
             InitializeResults();
-            _placeTime = new PredecessorObj<Time>(this, RolePlaceTime, memento);
-            _room = new PredecessorObj<Room>(this, RoleRoom, memento);
+            _placeTime = new PredecessorObj<Time>(this, GetRolePlaceTime(), memento, Time.GetUnloadedInstance, Time.GetNullInstance);
+            _room = new PredecessorObj<Room>(this, GetRoleRoom(), memento, Room.GetUnloadedInstance, Room.GetNullInstance);
         }
 
         // Result initializer
         private void InitializeResults()
         {
-            _currentSessionPlaces = new Result<SessionPlace>(this, QueryCurrentSessionPlaces);
+            _currentSessionPlaces = new Result<SessionPlace>(this, GetQueryCurrentSessionPlaces(), SessionPlace.GetUnloadedInstance, SessionPlace.GetNullInstance);
         }
 
         // Predecessor access
         public Time PlaceTime
         {
-            get { return _placeTime.Fact; }
+            get { return IsNull ? Time.GetNullInstance() : _placeTime.Fact; }
         }
         public Room Room
         {
-            get { return _room.Fact; }
+            get { return IsNull ? Room.GetNullInstance() : _room.Fact; }
         }
 
         // Field access
@@ -3605,6 +4964,16 @@ namespace FacetedWorlds.MyCon.Model
 				Level fact = (Level)obj;
 				_fieldSerializerByType[typeof(string)].WriteData(output, fact._name);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Level.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Level.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -3615,6 +4984,26 @@ namespace FacetedWorlds.MyCon.Model
 		{
 			return _correspondenceFactType;
 		}
+
+        // Null and unloaded instances
+        public static Level GetUnloadedInstance()
+        {
+            return new Level((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Level GetNullInstance()
+        {
+            return new Level((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Level> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Level)t.Result);
+            else
+                return Task.FromResult(this);
+        }
 
         // Roles
 
@@ -3696,6 +5085,16 @@ namespace FacetedWorlds.MyCon.Model
 				Session fact = (Session)obj;
 				_fieldSerializerByType[typeof(Guid)].WriteData(output, fact._unique);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Session.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Session.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -3707,90 +5106,174 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static Session GetUnloadedInstance()
+        {
+            return new Session((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Session GetNullInstance()
+        {
+            return new Session((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Session> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Session)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleConference = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"conference",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
-			true));
-        public static Role RoleSpeaker = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"speaker",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Speaker", 1),
-			false));
-        public static Role RoleTrack = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"track",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Track", 1),
-			false));
+        private static Role _cacheRoleConference;
+        public static Role GetRoleConference()
+        {
+            if (_cacheRoleConference == null)
+            {
+                _cacheRoleConference = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "conference",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			        true));
+            }
+            return _cacheRoleConference;
+        }
+        private static Role _cacheRoleSpeaker;
+        public static Role GetRoleSpeaker()
+        {
+            if (_cacheRoleSpeaker == null)
+            {
+                _cacheRoleSpeaker = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "speaker",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Speaker", 1),
+			        false));
+            }
+            return _cacheRoleSpeaker;
+        }
+        private static Role _cacheRoleTrack;
+        public static Role GetRoleTrack()
+        {
+            if (_cacheRoleTrack == null)
+            {
+                _cacheRoleTrack = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "track",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Track", 1),
+			        false));
+            }
+            return _cacheRoleTrack;
+        }
 
         // Queries
-        public static Query MakeQueryName()
+        private static Query _cacheQueryName;
+
+        public static Query GetQueryName()
 		{
-			return new Query()
-				.JoinSuccessors(Session__name.RoleSession, Condition.WhereIsEmpty(Session__name.MakeQueryIsCurrent())
+            if (_cacheQueryName == null)
+            {
+			    _cacheQueryName = new Query()
+    				.JoinSuccessors(Session__name.GetRoleSession(), Condition.WhereIsEmpty(Session__name.GetQueryIsCurrent())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryName;
 		}
-        public static Query QueryName = MakeQueryName();
-        public static Query MakeQueryDescription()
+        private static Query _cacheQueryDescription;
+
+        public static Query GetQueryDescription()
 		{
-			return new Query()
-				.JoinSuccessors(Session__description.RoleSession, Condition.WhereIsEmpty(Session__description.MakeQueryIsCurrent())
+            if (_cacheQueryDescription == null)
+            {
+			    _cacheQueryDescription = new Query()
+    				.JoinSuccessors(Session__description.GetRoleSession(), Condition.WhereIsEmpty(Session__description.GetQueryIsCurrent())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryDescription;
 		}
-        public static Query QueryDescription = MakeQueryDescription();
-        public static Query MakeQueryLevel()
+        private static Query _cacheQueryLevel;
+
+        public static Query GetQueryLevel()
 		{
-			return new Query()
-				.JoinSuccessors(Session__level.RoleSession, Condition.WhereIsEmpty(Session__level.MakeQueryIsCurrent())
+            if (_cacheQueryLevel == null)
+            {
+			    _cacheQueryLevel = new Query()
+    				.JoinSuccessors(Session__level.GetRoleSession(), Condition.WhereIsEmpty(Session__level.GetQueryIsCurrent())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryLevel;
 		}
-        public static Query QueryLevel = MakeQueryLevel();
-        public static Query MakeQueryCurrentSessionPlaces()
+        private static Query _cacheQueryCurrentSessionPlaces;
+
+        public static Query GetQueryCurrentSessionPlaces()
 		{
-			return new Query()
-				.JoinSuccessors(SessionPlace.RoleSession, Condition.WhereIsEmpty(SessionPlace.MakeQueryIsCurrent())
+            if (_cacheQueryCurrentSessionPlaces == null)
+            {
+			    _cacheQueryCurrentSessionPlaces = new Query()
+    				.JoinSuccessors(SessionPlace.GetRoleSession(), Condition.WhereIsEmpty(SessionPlace.GetQueryIsCurrent())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryCurrentSessionPlaces;
 		}
-        public static Query QueryCurrentSessionPlaces = MakeQueryCurrentSessionPlaces();
-        public static Query MakeQueryNotices()
+        private static Query _cacheQueryNotices;
+
+        public static Query GetQueryNotices()
 		{
-			return new Query()
-				.JoinSuccessors(SessionNotice.RoleSession)
-            ;
+            if (_cacheQueryNotices == null)
+            {
+			    _cacheQueryNotices = new Query()
+		    		.JoinSuccessors(SessionNotice.GetRoleSession())
+                ;
+            }
+            return _cacheQueryNotices;
 		}
-        public static Query QueryNotices = MakeQueryNotices();
-        public static Query MakeQueryIsDeleted()
+        private static Query _cacheQueryIsDeleted;
+
+        public static Query GetQueryIsDeleted()
 		{
-			return new Query()
-				.JoinSuccessors(SessionDelete.RoleDeleted, Condition.WhereIsEmpty(SessionDelete.MakeQueryIsUndeleted())
+            if (_cacheQueryIsDeleted == null)
+            {
+			    _cacheQueryIsDeleted = new Query()
+    				.JoinSuccessors(SessionDelete.GetRoleDeleted(), Condition.WhereIsEmpty(SessionDelete.GetQueryIsUndeleted())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryIsDeleted;
 		}
-        public static Query QueryIsDeleted = MakeQueryIsDeleted();
-        public static Query MakeQuerySessionDeletes()
+        private static Query _cacheQuerySessionDeletes;
+
+        public static Query GetQuerySessionDeletes()
 		{
-			return new Query()
-				.JoinSuccessors(SessionDelete.RoleDeleted, Condition.WhereIsEmpty(SessionDelete.MakeQueryIsUndeleted())
+            if (_cacheQuerySessionDeletes == null)
+            {
+			    _cacheQuerySessionDeletes = new Query()
+    				.JoinSuccessors(SessionDelete.GetRoleDeleted(), Condition.WhereIsEmpty(SessionDelete.GetQueryIsUndeleted())
 				)
-            ;
+                ;
+            }
+            return _cacheQuerySessionDeletes;
 		}
-        public static Query QuerySessionDeletes = MakeQuerySessionDeletes();
-        public static Query MakeQueryIsScheduled()
+        private static Query _cacheQueryIsScheduled;
+
+        public static Query GetQueryIsScheduled()
 		{
-			return new Query()
-				.JoinSuccessors(SessionPlace.RoleSession)
-            ;
+            if (_cacheQueryIsScheduled == null)
+            {
+			    _cacheQueryIsScheduled = new Query()
+		    		.JoinSuccessors(SessionPlace.GetRoleSession())
+                ;
+            }
+            return _cacheQueryIsScheduled;
 		}
-        public static Query QueryIsScheduled = MakeQueryIsScheduled();
 
         // Predicates
-        public static Condition IsDeleted = Condition.WhereIsNotEmpty(QueryIsDeleted);
-        public static Condition IsScheduled = Condition.WhereIsNotEmpty(QueryIsScheduled);
+        public static Condition IsDeleted = Condition.WhereIsNotEmpty(GetQueryIsDeleted());
+        public static Condition IsScheduled = Condition.WhereIsNotEmpty(GetQueryIsScheduled());
 
         // Predecessors
         private PredecessorObj<Conference> _conference;
@@ -3819,43 +5302,43 @@ namespace FacetedWorlds.MyCon.Model
         {
             _unique = Guid.NewGuid();
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, conference);
-            _speaker = new PredecessorObj<Speaker>(this, RoleSpeaker, speaker);
-            _track = new PredecessorOpt<Track>(this, RoleTrack, track);
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), conference);
+            _speaker = new PredecessorObj<Speaker>(this, GetRoleSpeaker(), speaker);
+            _track = new PredecessorOpt<Track>(this, GetRoleTrack(), track);
         }
 
         // Hydration constructor
         private Session(FactMemento memento)
         {
             InitializeResults();
-            _conference = new PredecessorObj<Conference>(this, RoleConference, memento);
-            _speaker = new PredecessorObj<Speaker>(this, RoleSpeaker, memento);
-            _track = new PredecessorOpt<Track>(this, RoleTrack, memento);
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), memento, Conference.GetUnloadedInstance, Conference.GetNullInstance);
+            _speaker = new PredecessorObj<Speaker>(this, GetRoleSpeaker(), memento, Speaker.GetUnloadedInstance, Speaker.GetNullInstance);
+            _track = new PredecessorOpt<Track>(this, GetRoleTrack(), memento, Track.GetUnloadedInstance, Track.GetNullInstance);
         }
 
         // Result initializer
         private void InitializeResults()
         {
-            _name = new Result<Session__name>(this, QueryName);
-            _description = new Result<Session__description>(this, QueryDescription);
-            _level = new Result<Session__level>(this, QueryLevel);
-            _currentSessionPlaces = new Result<SessionPlace>(this, QueryCurrentSessionPlaces);
-            _notices = new Result<SessionNotice>(this, QueryNotices);
-            _sessionDeletes = new Result<SessionDelete>(this, QuerySessionDeletes);
+            _name = new Result<Session__name>(this, GetQueryName(), Session__name.GetUnloadedInstance, Session__name.GetNullInstance);
+            _description = new Result<Session__description>(this, GetQueryDescription(), Session__description.GetUnloadedInstance, Session__description.GetNullInstance);
+            _level = new Result<Session__level>(this, GetQueryLevel(), Session__level.GetUnloadedInstance, Session__level.GetNullInstance);
+            _currentSessionPlaces = new Result<SessionPlace>(this, GetQueryCurrentSessionPlaces(), SessionPlace.GetUnloadedInstance, SessionPlace.GetNullInstance);
+            _notices = new Result<SessionNotice>(this, GetQueryNotices(), SessionNotice.GetUnloadedInstance, SessionNotice.GetNullInstance);
+            _sessionDeletes = new Result<SessionDelete>(this, GetQuerySessionDeletes(), SessionDelete.GetUnloadedInstance, SessionDelete.GetNullInstance);
         }
 
         // Predecessor access
         public Conference Conference
         {
-            get { return _conference.Fact; }
+            get { return IsNull ? Conference.GetNullInstance() : _conference.Fact; }
         }
         public Speaker Speaker
         {
-            get { return _speaker.Fact; }
+            get { return IsNull ? Speaker.GetNullInstance() : _speaker.Fact; }
         }
         public Track Track
         {
-            get { return _track.Fact; }
+            get { return IsNull ? Track.GetNullInstance() : _track.Fact; }
         }
 
         // Field access
@@ -3896,7 +5379,7 @@ namespace FacetedWorlds.MyCon.Model
 
         public TransientDisputable<Session__description, IEnumerable<DocumentSegment>> Description
         {
-            get { return _description.AsTransientDisputable(fact => fact.Value); }
+            get { return _description.AsTransientDisputable(fact => (IEnumerable<DocumentSegment>)fact.Value); }
 			set
 			{
 				Action setter = async delegate()
@@ -3912,7 +5395,7 @@ namespace FacetedWorlds.MyCon.Model
         }
         public TransientDisputable<Session__level, Level> Level
         {
-            get { return _level.AsTransientDisputable(fact => fact.Value); }
+            get { return _level.AsTransientDisputable(fact => (Level)fact.Value); }
 			set
 			{
 				Action setter = async delegate()
@@ -3961,6 +5444,16 @@ namespace FacetedWorlds.MyCon.Model
 				Session__name fact = (Session__name)obj;
 				_fieldSerializerByType[typeof(string)].WriteData(output, fact._value);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Session__name.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Session__name.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -3972,29 +5465,70 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static Session__name GetUnloadedInstance()
+        {
+            return new Session__name((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Session__name GetNullInstance()
+        {
+            return new Session__name((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Session__name> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Session__name)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleSession = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"session",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
-			false));
-        public static Role RolePrior = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"prior",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session__name", 1),
-			false));
+        private static Role _cacheRoleSession;
+        public static Role GetRoleSession()
+        {
+            if (_cacheRoleSession == null)
+            {
+                _cacheRoleSession = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "session",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
+			        false));
+            }
+            return _cacheRoleSession;
+        }
+        private static Role _cacheRolePrior;
+        public static Role GetRolePrior()
+        {
+            if (_cacheRolePrior == null)
+            {
+                _cacheRolePrior = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "prior",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session__name", 1),
+			        false));
+            }
+            return _cacheRolePrior;
+        }
 
         // Queries
-        public static Query MakeQueryIsCurrent()
+        private static Query _cacheQueryIsCurrent;
+
+        public static Query GetQueryIsCurrent()
 		{
-			return new Query()
-				.JoinSuccessors(Session__name.RolePrior)
-            ;
+            if (_cacheQueryIsCurrent == null)
+            {
+			    _cacheQueryIsCurrent = new Query()
+		    		.JoinSuccessors(Session__name.GetRolePrior())
+                ;
+            }
+            return _cacheQueryIsCurrent;
 		}
-        public static Query QueryIsCurrent = MakeQueryIsCurrent();
 
         // Predicates
-        public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
+        public static Condition IsCurrent = Condition.WhereIsEmpty(GetQueryIsCurrent());
 
         // Predecessors
         private PredecessorObj<Session> _session;
@@ -4013,8 +5547,8 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _session = new PredecessorObj<Session>(this, RoleSession, session);
-            _prior = new PredecessorList<Session__name>(this, RolePrior, prior);
+            _session = new PredecessorObj<Session>(this, GetRoleSession(), session);
+            _prior = new PredecessorList<Session__name>(this, GetRolePrior(), prior);
             _value = value;
         }
 
@@ -4022,8 +5556,8 @@ namespace FacetedWorlds.MyCon.Model
         private Session__name(FactMemento memento)
         {
             InitializeResults();
-            _session = new PredecessorObj<Session>(this, RoleSession, memento);
-            _prior = new PredecessorList<Session__name>(this, RolePrior, memento);
+            _session = new PredecessorObj<Session>(this, GetRoleSession(), memento, Session.GetUnloadedInstance, Session.GetNullInstance);
+            _prior = new PredecessorList<Session__name>(this, GetRolePrior(), memento, Session__name.GetUnloadedInstance, Session__name.GetNullInstance);
         }
 
         // Result initializer
@@ -4034,13 +5568,13 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public Session Session
         {
-            get { return _session.Fact; }
+            get { return IsNull ? Session.GetNullInstance() : _session.Fact; }
         }
-        public IEnumerable<Session__name> Prior
+        public PredecessorList<Session__name> Prior
         {
             get { return _prior; }
         }
-     
+
         // Field access
         public string Value
         {
@@ -4077,6 +5611,16 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				Session__description fact = (Session__description)obj;
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Session__description.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Session__description.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -4088,34 +5632,83 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static Session__description GetUnloadedInstance()
+        {
+            return new Session__description((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Session__description GetNullInstance()
+        {
+            return new Session__description((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Session__description> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Session__description)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleSession = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"session",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
-			false));
-        public static Role RolePrior = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"prior",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session__description", 1),
-			false));
-        public static Role RoleValue = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"value",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.DocumentSegment", 1),
-			false));
+        private static Role _cacheRoleSession;
+        public static Role GetRoleSession()
+        {
+            if (_cacheRoleSession == null)
+            {
+                _cacheRoleSession = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "session",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
+			        false));
+            }
+            return _cacheRoleSession;
+        }
+        private static Role _cacheRolePrior;
+        public static Role GetRolePrior()
+        {
+            if (_cacheRolePrior == null)
+            {
+                _cacheRolePrior = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "prior",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session__description", 1),
+			        false));
+            }
+            return _cacheRolePrior;
+        }
+        private static Role _cacheRoleValue;
+        public static Role GetRoleValue()
+        {
+            if (_cacheRoleValue == null)
+            {
+                _cacheRoleValue = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "value",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.DocumentSegment", 1),
+			        false));
+            }
+            return _cacheRoleValue;
+        }
 
         // Queries
-        public static Query MakeQueryIsCurrent()
+        private static Query _cacheQueryIsCurrent;
+
+        public static Query GetQueryIsCurrent()
 		{
-			return new Query()
-				.JoinSuccessors(Session__description.RolePrior)
-            ;
+            if (_cacheQueryIsCurrent == null)
+            {
+			    _cacheQueryIsCurrent = new Query()
+		    		.JoinSuccessors(Session__description.GetRolePrior())
+                ;
+            }
+            return _cacheQueryIsCurrent;
 		}
-        public static Query QueryIsCurrent = MakeQueryIsCurrent();
 
         // Predicates
-        public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
+        public static Condition IsCurrent = Condition.WhereIsEmpty(GetQueryIsCurrent());
 
         // Predecessors
         private PredecessorObj<Session> _session;
@@ -4134,18 +5727,18 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _session = new PredecessorObj<Session>(this, RoleSession, session);
-            _prior = new PredecessorList<Session__description>(this, RolePrior, prior);
-            _value = new PredecessorList<DocumentSegment>(this, RoleValue, value);
+            _session = new PredecessorObj<Session>(this, GetRoleSession(), session);
+            _prior = new PredecessorList<Session__description>(this, GetRolePrior(), prior);
+            _value = new PredecessorList<DocumentSegment>(this, GetRoleValue(), value);
         }
 
         // Hydration constructor
         private Session__description(FactMemento memento)
         {
             InitializeResults();
-            _session = new PredecessorObj<Session>(this, RoleSession, memento);
-            _prior = new PredecessorList<Session__description>(this, RolePrior, memento);
-            _value = new PredecessorList<DocumentSegment>(this, RoleValue, memento);
+            _session = new PredecessorObj<Session>(this, GetRoleSession(), memento, Session.GetUnloadedInstance, Session.GetNullInstance);
+            _prior = new PredecessorList<Session__description>(this, GetRolePrior(), memento, Session__description.GetUnloadedInstance, Session__description.GetNullInstance);
+            _value = new PredecessorList<DocumentSegment>(this, GetRoleValue(), memento, DocumentSegment.GetUnloadedInstance, DocumentSegment.GetNullInstance);
         }
 
         // Result initializer
@@ -4156,17 +5749,17 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public Session Session
         {
-            get { return _session.Fact; }
+            get { return IsNull ? Session.GetNullInstance() : _session.Fact; }
         }
-        public IEnumerable<Session__description> Prior
+        public PredecessorList<Session__description> Prior
         {
             get { return _prior; }
         }
-             public IEnumerable<DocumentSegment> Value
+        public PredecessorList<DocumentSegment> Value
         {
             get { return _value; }
         }
-     
+
         // Field access
 
         // Query result access
@@ -4199,6 +5792,16 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				Session__level fact = (Session__level)obj;
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Session__level.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Session__level.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -4210,34 +5813,83 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static Session__level GetUnloadedInstance()
+        {
+            return new Session__level((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Session__level GetNullInstance()
+        {
+            return new Session__level((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Session__level> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Session__level)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleSession = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"session",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
-			false));
-        public static Role RolePrior = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"prior",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session__level", 1),
-			false));
-        public static Role RoleValue = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"value",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Level", 1),
-			false));
+        private static Role _cacheRoleSession;
+        public static Role GetRoleSession()
+        {
+            if (_cacheRoleSession == null)
+            {
+                _cacheRoleSession = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "session",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
+			        false));
+            }
+            return _cacheRoleSession;
+        }
+        private static Role _cacheRolePrior;
+        public static Role GetRolePrior()
+        {
+            if (_cacheRolePrior == null)
+            {
+                _cacheRolePrior = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "prior",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session__level", 1),
+			        false));
+            }
+            return _cacheRolePrior;
+        }
+        private static Role _cacheRoleValue;
+        public static Role GetRoleValue()
+        {
+            if (_cacheRoleValue == null)
+            {
+                _cacheRoleValue = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "value",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Level", 1),
+			        false));
+            }
+            return _cacheRoleValue;
+        }
 
         // Queries
-        public static Query MakeQueryIsCurrent()
+        private static Query _cacheQueryIsCurrent;
+
+        public static Query GetQueryIsCurrent()
 		{
-			return new Query()
-				.JoinSuccessors(Session__level.RolePrior)
-            ;
+            if (_cacheQueryIsCurrent == null)
+            {
+			    _cacheQueryIsCurrent = new Query()
+		    		.JoinSuccessors(Session__level.GetRolePrior())
+                ;
+            }
+            return _cacheQueryIsCurrent;
 		}
-        public static Query QueryIsCurrent = MakeQueryIsCurrent();
 
         // Predicates
-        public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
+        public static Condition IsCurrent = Condition.WhereIsEmpty(GetQueryIsCurrent());
 
         // Predecessors
         private PredecessorObj<Session> _session;
@@ -4256,18 +5908,18 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _session = new PredecessorObj<Session>(this, RoleSession, session);
-            _prior = new PredecessorList<Session__level>(this, RolePrior, prior);
-            _value = new PredecessorObj<Level>(this, RoleValue, value);
+            _session = new PredecessorObj<Session>(this, GetRoleSession(), session);
+            _prior = new PredecessorList<Session__level>(this, GetRolePrior(), prior);
+            _value = new PredecessorObj<Level>(this, GetRoleValue(), value);
         }
 
         // Hydration constructor
         private Session__level(FactMemento memento)
         {
             InitializeResults();
-            _session = new PredecessorObj<Session>(this, RoleSession, memento);
-            _prior = new PredecessorList<Session__level>(this, RolePrior, memento);
-            _value = new PredecessorObj<Level>(this, RoleValue, memento);
+            _session = new PredecessorObj<Session>(this, GetRoleSession(), memento, Session.GetUnloadedInstance, Session.GetNullInstance);
+            _prior = new PredecessorList<Session__level>(this, GetRolePrior(), memento, Session__level.GetUnloadedInstance, Session__level.GetNullInstance);
+            _value = new PredecessorObj<Level>(this, GetRoleValue(), memento, Level.GetUnloadedInstance, Level.GetNullInstance);
         }
 
         // Result initializer
@@ -4278,15 +5930,15 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public Session Session
         {
-            get { return _session.Fact; }
+            get { return IsNull ? Session.GetNullInstance() : _session.Fact; }
         }
-        public IEnumerable<Session__level> Prior
+        public PredecessorList<Session__level> Prior
         {
             get { return _prior; }
         }
-             public Level Value
+        public Level Value
         {
-            get { return _value.Fact; }
+            get { return IsNull ? Level.GetNullInstance() : _value.Fact; }
         }
 
         // Field access
@@ -4330,6 +5982,16 @@ namespace FacetedWorlds.MyCon.Model
 				SessionDelete fact = (SessionDelete)obj;
 				_fieldSerializerByType[typeof(Guid)].WriteData(output, fact._unique);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return SessionDelete.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return SessionDelete.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -4341,24 +6003,57 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static SessionDelete GetUnloadedInstance()
+        {
+            return new SessionDelete((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static SessionDelete GetNullInstance()
+        {
+            return new SessionDelete((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<SessionDelete> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (SessionDelete)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleDeleted = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"deleted",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
-			false));
+        private static Role _cacheRoleDeleted;
+        public static Role GetRoleDeleted()
+        {
+            if (_cacheRoleDeleted == null)
+            {
+                _cacheRoleDeleted = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "deleted",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
+			        false));
+            }
+            return _cacheRoleDeleted;
+        }
 
         // Queries
-        public static Query MakeQueryIsUndeleted()
+        private static Query _cacheQueryIsUndeleted;
+
+        public static Query GetQueryIsUndeleted()
 		{
-			return new Query()
-				.JoinSuccessors(SessionUndelete.RoleUndeleted)
-            ;
+            if (_cacheQueryIsUndeleted == null)
+            {
+			    _cacheQueryIsUndeleted = new Query()
+		    		.JoinSuccessors(SessionUndelete.GetRoleUndeleted())
+                ;
+            }
+            return _cacheQueryIsUndeleted;
 		}
-        public static Query QueryIsUndeleted = MakeQueryIsUndeleted();
 
         // Predicates
-        public static Condition IsUndeleted = Condition.WhereIsNotEmpty(QueryIsUndeleted);
+        public static Condition IsUndeleted = Condition.WhereIsNotEmpty(GetQueryIsUndeleted());
 
         // Predecessors
         private PredecessorObj<Session> _deleted;
@@ -4377,14 +6072,14 @@ namespace FacetedWorlds.MyCon.Model
         {
             _unique = Guid.NewGuid();
             InitializeResults();
-            _deleted = new PredecessorObj<Session>(this, RoleDeleted, deleted);
+            _deleted = new PredecessorObj<Session>(this, GetRoleDeleted(), deleted);
         }
 
         // Hydration constructor
         private SessionDelete(FactMemento memento)
         {
             InitializeResults();
-            _deleted = new PredecessorObj<Session>(this, RoleDeleted, memento);
+            _deleted = new PredecessorObj<Session>(this, GetRoleDeleted(), memento, Session.GetUnloadedInstance, Session.GetNullInstance);
         }
 
         // Result initializer
@@ -4395,7 +6090,7 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public Session Deleted
         {
-            get { return _deleted.Fact; }
+            get { return IsNull ? Session.GetNullInstance() : _deleted.Fact; }
         }
 
         // Field access
@@ -4432,6 +6127,16 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				SessionUndelete fact = (SessionUndelete)obj;
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return SessionUndelete.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return SessionUndelete.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -4443,12 +6148,40 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static SessionUndelete GetUnloadedInstance()
+        {
+            return new SessionUndelete((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static SessionUndelete GetNullInstance()
+        {
+            return new SessionUndelete((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<SessionUndelete> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (SessionUndelete)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleUndeleted = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"undeleted",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionDelete", 1),
-			false));
+        private static Role _cacheRoleUndeleted;
+        public static Role GetRoleUndeleted()
+        {
+            if (_cacheRoleUndeleted == null)
+            {
+                _cacheRoleUndeleted = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "undeleted",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionDelete", 1),
+			        false));
+            }
+            return _cacheRoleUndeleted;
+        }
 
         // Queries
 
@@ -4467,14 +6200,14 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _undeleted = new PredecessorObj<SessionDelete>(this, RoleUndeleted, undeleted);
+            _undeleted = new PredecessorObj<SessionDelete>(this, GetRoleUndeleted(), undeleted);
         }
 
         // Hydration constructor
         private SessionUndelete(FactMemento memento)
         {
             InitializeResults();
-            _undeleted = new PredecessorObj<SessionDelete>(this, RoleUndeleted, memento);
+            _undeleted = new PredecessorObj<SessionDelete>(this, GetRoleUndeleted(), memento, SessionDelete.GetUnloadedInstance, SessionDelete.GetNullInstance);
         }
 
         // Result initializer
@@ -4485,7 +6218,7 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public SessionDelete Undeleted
         {
-            get { return _undeleted.Fact; }
+            get { return IsNull ? SessionDelete.GetNullInstance() : _undeleted.Fact; }
         }
 
         // Field access
@@ -4531,6 +6264,16 @@ namespace FacetedWorlds.MyCon.Model
 				_fieldSerializerByType[typeof(DateTime)].WriteData(output, fact._timeSent);
 				_fieldSerializerByType[typeof(string)].WriteData(output, fact._text);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return SessionNotice.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return SessionNotice.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -4542,12 +6285,40 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static SessionNotice GetUnloadedInstance()
+        {
+            return new SessionNotice((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static SessionNotice GetNullInstance()
+        {
+            return new SessionNotice((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<SessionNotice> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (SessionNotice)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleSession = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"session",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
-			true));
+        private static Role _cacheRoleSession;
+        public static Role GetRoleSession()
+        {
+            if (_cacheRoleSession == null)
+            {
+                _cacheRoleSession = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "session",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
+			        true));
+            }
+            return _cacheRoleSession;
+        }
 
         // Queries
 
@@ -4570,7 +6341,7 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _session = new PredecessorObj<Session>(this, RoleSession, session);
+            _session = new PredecessorObj<Session>(this, GetRoleSession(), session);
             _timeSent = timeSent;
             _text = text;
         }
@@ -4579,7 +6350,7 @@ namespace FacetedWorlds.MyCon.Model
         private SessionNotice(FactMemento memento)
         {
             InitializeResults();
-            _session = new PredecessorObj<Session>(this, RoleSession, memento);
+            _session = new PredecessorObj<Session>(this, GetRoleSession(), memento, Session.GetUnloadedInstance, Session.GetNullInstance);
         }
 
         // Result initializer
@@ -4590,7 +6361,7 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public Session Session
         {
-            get { return _session.Fact; }
+            get { return IsNull ? Session.GetNullInstance() : _session.Fact; }
         }
 
         // Field access
@@ -4633,6 +6404,16 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				SessionPlace fact = (SessionPlace)obj;
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return SessionPlace.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return SessionPlace.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -4644,54 +6425,113 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static SessionPlace GetUnloadedInstance()
+        {
+            return new SessionPlace((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static SessionPlace GetNullInstance()
+        {
+            return new SessionPlace((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<SessionPlace> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (SessionPlace)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleSession = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"session",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
-			false));
-        public static Role RolePlace = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"place",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Place", 1),
-			false));
-        public static Role RolePrior = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"prior",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionPlace", 1),
-			false));
+        private static Role _cacheRoleSession;
+        public static Role GetRoleSession()
+        {
+            if (_cacheRoleSession == null)
+            {
+                _cacheRoleSession = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "session",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
+			        false));
+            }
+            return _cacheRoleSession;
+        }
+        private static Role _cacheRolePlace;
+        public static Role GetRolePlace()
+        {
+            if (_cacheRolePlace == null)
+            {
+                _cacheRolePlace = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "place",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Place", 1),
+			        false));
+            }
+            return _cacheRolePlace;
+        }
+        private static Role _cacheRolePrior;
+        public static Role GetRolePrior()
+        {
+            if (_cacheRolePrior == null)
+            {
+                _cacheRolePrior = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "prior",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionPlace", 1),
+			        false));
+            }
+            return _cacheRolePrior;
+        }
 
         // Queries
-        public static Query MakeQueryIsCurrent()
+        private static Query _cacheQueryIsCurrent;
+
+        public static Query GetQueryIsCurrent()
 		{
-			return new Query()
-				.JoinSuccessors(SessionPlace.RolePrior)
-            ;
+            if (_cacheQueryIsCurrent == null)
+            {
+			    _cacheQueryIsCurrent = new Query()
+		    		.JoinSuccessors(SessionPlace.GetRolePrior())
+                ;
+            }
+            return _cacheQueryIsCurrent;
 		}
-        public static Query QueryIsCurrent = MakeQueryIsCurrent();
-        public static Query MakeQueryIsDeleted()
+        private static Query _cacheQueryIsDeleted;
+
+        public static Query GetQueryIsDeleted()
 		{
-			return new Query()
-				.JoinPredecessors(SessionPlace.RoleSession)
-				.JoinSuccessors(SessionDelete.RoleDeleted, Condition.WhereIsEmpty(SessionDelete.MakeQueryIsUndeleted())
+            if (_cacheQueryIsDeleted == null)
+            {
+			    _cacheQueryIsDeleted = new Query()
+		    		.JoinPredecessors(SessionPlace.GetRoleSession())
+    				.JoinSuccessors(SessionDelete.GetRoleDeleted(), Condition.WhereIsEmpty(SessionDelete.GetQueryIsUndeleted())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryIsDeleted;
 		}
-        public static Query QueryIsDeleted = MakeQueryIsDeleted();
-        public static Query MakeQueryTimeIsDeleted()
+        private static Query _cacheQueryTimeIsDeleted;
+
+        public static Query GetQueryTimeIsDeleted()
 		{
-			return new Query()
-				.JoinPredecessors(SessionPlace.RolePlace)
-				.JoinPredecessors(Place.RolePlaceTime)
-				.JoinSuccessors(TimeDelete.RoleDeleted)
-            ;
+            if (_cacheQueryTimeIsDeleted == null)
+            {
+			    _cacheQueryTimeIsDeleted = new Query()
+		    		.JoinPredecessors(SessionPlace.GetRolePlace())
+		    		.JoinPredecessors(Place.GetRolePlaceTime())
+		    		.JoinSuccessors(TimeDelete.GetRoleDeleted())
+                ;
+            }
+            return _cacheQueryTimeIsDeleted;
 		}
-        public static Query QueryTimeIsDeleted = MakeQueryTimeIsDeleted();
 
         // Predicates
-        public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
-        public static Condition IsDeleted = Condition.WhereIsNotEmpty(QueryIsDeleted);
-        public static Condition TimeIsDeleted = Condition.WhereIsNotEmpty(QueryTimeIsDeleted);
+        public static Condition IsCurrent = Condition.WhereIsEmpty(GetQueryIsCurrent());
+        public static Condition IsDeleted = Condition.WhereIsNotEmpty(GetQueryIsDeleted());
+        public static Condition TimeIsDeleted = Condition.WhereIsNotEmpty(GetQueryTimeIsDeleted());
 
         // Predecessors
         private PredecessorObj<Session> _session;
@@ -4710,18 +6550,18 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _session = new PredecessorObj<Session>(this, RoleSession, session);
-            _place = new PredecessorObj<Place>(this, RolePlace, place);
-            _prior = new PredecessorList<SessionPlace>(this, RolePrior, prior);
+            _session = new PredecessorObj<Session>(this, GetRoleSession(), session);
+            _place = new PredecessorObj<Place>(this, GetRolePlace(), place);
+            _prior = new PredecessorList<SessionPlace>(this, GetRolePrior(), prior);
         }
 
         // Hydration constructor
         private SessionPlace(FactMemento memento)
         {
             InitializeResults();
-            _session = new PredecessorObj<Session>(this, RoleSession, memento);
-            _place = new PredecessorObj<Place>(this, RolePlace, memento);
-            _prior = new PredecessorList<SessionPlace>(this, RolePrior, memento);
+            _session = new PredecessorObj<Session>(this, GetRoleSession(), memento, Session.GetUnloadedInstance, Session.GetNullInstance);
+            _place = new PredecessorObj<Place>(this, GetRolePlace(), memento, Place.GetUnloadedInstance, Place.GetNullInstance);
+            _prior = new PredecessorList<SessionPlace>(this, GetRolePrior(), memento, SessionPlace.GetUnloadedInstance, SessionPlace.GetNullInstance);
         }
 
         // Result initializer
@@ -4732,17 +6572,17 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public Session Session
         {
-            get { return _session.Fact; }
+            get { return IsNull ? Session.GetNullInstance() : _session.Fact; }
         }
         public Place Place
         {
-            get { return _place.Fact; }
+            get { return IsNull ? Place.GetNullInstance() : _place.Fact; }
         }
-        public IEnumerable<SessionPlace> Prior
+        public PredecessorList<SessionPlace> Prior
         {
             get { return _prior; }
         }
-     
+
         // Field access
 
         // Query result access
@@ -4784,6 +6624,16 @@ namespace FacetedWorlds.MyCon.Model
 				Schedule fact = (Schedule)obj;
 				_fieldSerializerByType[typeof(Guid)].WriteData(output, fact._unique);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Schedule.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Schedule.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -4795,57 +6645,113 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static Schedule GetUnloadedInstance()
+        {
+            return new Schedule((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Schedule GetNullInstance()
+        {
+            return new Schedule((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Schedule> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Schedule)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleSlot = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"slot",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Slot", 1),
-			false));
-        public static Role RoleSessionPlace = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"sessionPlace",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionPlace", 1),
-			true));
+        private static Role _cacheRoleSlot;
+        public static Role GetRoleSlot()
+        {
+            if (_cacheRoleSlot == null)
+            {
+                _cacheRoleSlot = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "slot",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Slot", 1),
+			        false));
+            }
+            return _cacheRoleSlot;
+        }
+        private static Role _cacheRoleSessionPlace;
+        public static Role GetRoleSessionPlace()
+        {
+            if (_cacheRoleSessionPlace == null)
+            {
+                _cacheRoleSessionPlace = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "sessionPlace",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionPlace", 1),
+			        true));
+            }
+            return _cacheRoleSessionPlace;
+        }
 
         // Queries
-        public static Query MakeQueryIsCurrent()
+        private static Query _cacheQueryIsCurrent;
+
+        public static Query GetQueryIsCurrent()
 		{
-			return new Query()
-				.JoinSuccessors(ScheduleRemove.RoleSchedule)
-            ;
+            if (_cacheQueryIsCurrent == null)
+            {
+			    _cacheQueryIsCurrent = new Query()
+		    		.JoinSuccessors(ScheduleRemove.GetRoleSchedule())
+                ;
+            }
+            return _cacheQueryIsCurrent;
 		}
-        public static Query QueryIsCurrent = MakeQueryIsCurrent();
-        public static Query MakeQuerySessionPlaceIsCurrent()
+        private static Query _cacheQuerySessionPlaceIsCurrent;
+
+        public static Query GetQuerySessionPlaceIsCurrent()
 		{
-			return new Query()
-				.JoinPredecessors(Schedule.RoleSessionPlace)
-				.JoinSuccessors(SessionPlace.RolePrior)
-            ;
+            if (_cacheQuerySessionPlaceIsCurrent == null)
+            {
+			    _cacheQuerySessionPlaceIsCurrent = new Query()
+		    		.JoinPredecessors(Schedule.GetRoleSessionPlace())
+		    		.JoinSuccessors(SessionPlace.GetRolePrior())
+                ;
+            }
+            return _cacheQuerySessionPlaceIsCurrent;
 		}
-        public static Query QuerySessionPlaceIsCurrent = MakeQuerySessionPlaceIsCurrent();
-        public static Query MakeQueryIsDeleted()
+        private static Query _cacheQueryIsDeleted;
+
+        public static Query GetQueryIsDeleted()
 		{
-			return new Query()
-				.JoinPredecessors(Schedule.RoleSessionPlace)
-				.JoinPredecessors(SessionPlace.RoleSession)
-				.JoinSuccessors(SessionDelete.RoleDeleted, Condition.WhereIsEmpty(SessionDelete.MakeQueryIsUndeleted())
+            if (_cacheQueryIsDeleted == null)
+            {
+			    _cacheQueryIsDeleted = new Query()
+		    		.JoinPredecessors(Schedule.GetRoleSessionPlace())
+		    		.JoinPredecessors(SessionPlace.GetRoleSession())
+    				.JoinSuccessors(SessionDelete.GetRoleDeleted(), Condition.WhereIsEmpty(SessionDelete.GetQueryIsUndeleted())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryIsDeleted;
 		}
-        public static Query QueryIsDeleted = MakeQueryIsDeleted();
-        public static Query MakeQueryCompletedEvaluations()
+        private static Query _cacheQueryCompletedEvaluations;
+
+        public static Query GetQueryCompletedEvaluations()
 		{
-			return new Query()
-				.JoinSuccessors(SessionEvaluation.RoleSchedule, Condition.WhereIsNotEmpty(SessionEvaluation.MakeQueryIsCompleted())
+            if (_cacheQueryCompletedEvaluations == null)
+            {
+			    _cacheQueryCompletedEvaluations = new Query()
+    				.JoinSuccessors(SessionEvaluation.GetRoleSchedule(), Condition.WhereIsNotEmpty(SessionEvaluation.GetQueryIsCompleted())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryCompletedEvaluations;
 		}
-        public static Query QueryCompletedEvaluations = MakeQueryCompletedEvaluations();
 
         // Predicates
-        public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
-        public static Condition SessionPlaceIsCurrent = Condition.WhereIsEmpty(QuerySessionPlaceIsCurrent);
-        public static Condition IsDeleted = Condition.WhereIsNotEmpty(QueryIsDeleted);
+        public static Condition IsCurrent = Condition.WhereIsEmpty(GetQueryIsCurrent());
+        public static Condition SessionPlaceIsCurrent = Condition.WhereIsEmpty(GetQuerySessionPlaceIsCurrent());
+        public static Condition IsDeleted = Condition.WhereIsNotEmpty(GetQueryIsDeleted());
 
         // Predecessors
         private PredecessorObj<Slot> _slot;
@@ -4867,32 +6773,32 @@ namespace FacetedWorlds.MyCon.Model
         {
             _unique = Guid.NewGuid();
             InitializeResults();
-            _slot = new PredecessorObj<Slot>(this, RoleSlot, slot);
-            _sessionPlace = new PredecessorObj<SessionPlace>(this, RoleSessionPlace, sessionPlace);
+            _slot = new PredecessorObj<Slot>(this, GetRoleSlot(), slot);
+            _sessionPlace = new PredecessorObj<SessionPlace>(this, GetRoleSessionPlace(), sessionPlace);
         }
 
         // Hydration constructor
         private Schedule(FactMemento memento)
         {
             InitializeResults();
-            _slot = new PredecessorObj<Slot>(this, RoleSlot, memento);
-            _sessionPlace = new PredecessorObj<SessionPlace>(this, RoleSessionPlace, memento);
+            _slot = new PredecessorObj<Slot>(this, GetRoleSlot(), memento, Slot.GetUnloadedInstance, Slot.GetNullInstance);
+            _sessionPlace = new PredecessorObj<SessionPlace>(this, GetRoleSessionPlace(), memento, SessionPlace.GetUnloadedInstance, SessionPlace.GetNullInstance);
         }
 
         // Result initializer
         private void InitializeResults()
         {
-            _completedEvaluations = new Result<SessionEvaluation>(this, QueryCompletedEvaluations);
+            _completedEvaluations = new Result<SessionEvaluation>(this, GetQueryCompletedEvaluations(), SessionEvaluation.GetUnloadedInstance, SessionEvaluation.GetNullInstance);
         }
 
         // Predecessor access
         public Slot Slot
         {
-            get { return _slot.Fact; }
+            get { return IsNull ? Slot.GetNullInstance() : _slot.Fact; }
         }
         public SessionPlace SessionPlace
         {
-            get { return _sessionPlace.Fact; }
+            get { return IsNull ? SessionPlace.GetNullInstance() : _sessionPlace.Fact; }
         }
 
         // Field access
@@ -4933,6 +6839,16 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				ScheduleRemove fact = (ScheduleRemove)obj;
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return ScheduleRemove.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return ScheduleRemove.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -4944,12 +6860,40 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static ScheduleRemove GetUnloadedInstance()
+        {
+            return new ScheduleRemove((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static ScheduleRemove GetNullInstance()
+        {
+            return new ScheduleRemove((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<ScheduleRemove> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (ScheduleRemove)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleSchedule = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"schedule",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Schedule", 1),
-			false));
+        private static Role _cacheRoleSchedule;
+        public static Role GetRoleSchedule()
+        {
+            if (_cacheRoleSchedule == null)
+            {
+                _cacheRoleSchedule = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "schedule",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Schedule", 1),
+			        false));
+            }
+            return _cacheRoleSchedule;
+        }
 
         // Queries
 
@@ -4968,14 +6912,14 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _schedule = new PredecessorObj<Schedule>(this, RoleSchedule, schedule);
+            _schedule = new PredecessorObj<Schedule>(this, GetRoleSchedule(), schedule);
         }
 
         // Hydration constructor
         private ScheduleRemove(FactMemento memento)
         {
             InitializeResults();
-            _schedule = new PredecessorObj<Schedule>(this, RoleSchedule, memento);
+            _schedule = new PredecessorObj<Schedule>(this, GetRoleSchedule(), memento, Schedule.GetUnloadedInstance, Schedule.GetNullInstance);
         }
 
         // Result initializer
@@ -4986,7 +6930,7 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public Schedule Schedule
         {
-            get { return _schedule.Fact; }
+            get { return IsNull ? Schedule.GetNullInstance() : _schedule.Fact; }
         }
 
         // Field access
@@ -5030,6 +6974,16 @@ namespace FacetedWorlds.MyCon.Model
 				RatingQuestion fact = (RatingQuestion)obj;
 				_fieldSerializerByType[typeof(string)].WriteData(output, fact._text);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return RatingQuestion.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return RatingQuestion.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -5040,6 +6994,26 @@ namespace FacetedWorlds.MyCon.Model
 		{
 			return _correspondenceFactType;
 		}
+
+        // Null and unloaded instances
+        public static RatingQuestion GetUnloadedInstance()
+        {
+            return new RatingQuestion((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static RatingQuestion GetNullInstance()
+        {
+            return new RatingQuestion((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<RatingQuestion> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (RatingQuestion)t.Result);
+            else
+                return Task.FromResult(this);
+        }
 
         // Roles
 
@@ -5121,6 +7095,16 @@ namespace FacetedWorlds.MyCon.Model
 				EssayQuestion fact = (EssayQuestion)obj;
 				_fieldSerializerByType[typeof(string)].WriteData(output, fact._text);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return EssayQuestion.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return EssayQuestion.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -5131,6 +7115,26 @@ namespace FacetedWorlds.MyCon.Model
 		{
 			return _correspondenceFactType;
 		}
+
+        // Null and unloaded instances
+        public static EssayQuestion GetUnloadedInstance()
+        {
+            return new EssayQuestion((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static EssayQuestion GetNullInstance()
+        {
+            return new EssayQuestion((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<EssayQuestion> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (EssayQuestion)t.Result);
+            else
+                return Task.FromResult(this);
+        }
 
         // Roles
 
@@ -5203,6 +7207,16 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				Survey fact = (Survey)obj;
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Survey.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Survey.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -5214,17 +7228,53 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static Survey GetUnloadedInstance()
+        {
+            return new Survey((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Survey GetNullInstance()
+        {
+            return new Survey((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<Survey> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (Survey)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleRatingQuestions = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"ratingQuestions",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.RatingQuestion", 1),
-			false));
-        public static Role RoleEssayQuestions = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"essayQuestions",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.EssayQuestion", 1),
-			false));
+        private static Role _cacheRoleRatingQuestions;
+        public static Role GetRoleRatingQuestions()
+        {
+            if (_cacheRoleRatingQuestions == null)
+            {
+                _cacheRoleRatingQuestions = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "ratingQuestions",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.RatingQuestion", 1),
+			        false));
+            }
+            return _cacheRoleRatingQuestions;
+        }
+        private static Role _cacheRoleEssayQuestions;
+        public static Role GetRoleEssayQuestions()
+        {
+            if (_cacheRoleEssayQuestions == null)
+            {
+                _cacheRoleEssayQuestions = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "essayQuestions",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.EssayQuestion", 1),
+			        false));
+            }
+            return _cacheRoleEssayQuestions;
+        }
 
         // Queries
 
@@ -5245,16 +7295,16 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _ratingQuestions = new PredecessorList<RatingQuestion>(this, RoleRatingQuestions, ratingQuestions);
-            _essayQuestions = new PredecessorList<EssayQuestion>(this, RoleEssayQuestions, essayQuestions);
+            _ratingQuestions = new PredecessorList<RatingQuestion>(this, GetRoleRatingQuestions(), ratingQuestions);
+            _essayQuestions = new PredecessorList<EssayQuestion>(this, GetRoleEssayQuestions(), essayQuestions);
         }
 
         // Hydration constructor
         private Survey(FactMemento memento)
         {
             InitializeResults();
-            _ratingQuestions = new PredecessorList<RatingQuestion>(this, RoleRatingQuestions, memento);
-            _essayQuestions = new PredecessorList<EssayQuestion>(this, RoleEssayQuestions, memento);
+            _ratingQuestions = new PredecessorList<RatingQuestion>(this, GetRoleRatingQuestions(), memento, RatingQuestion.GetUnloadedInstance, RatingQuestion.GetNullInstance);
+            _essayQuestions = new PredecessorList<EssayQuestion>(this, GetRoleEssayQuestions(), memento, EssayQuestion.GetUnloadedInstance, EssayQuestion.GetNullInstance);
         }
 
         // Result initializer
@@ -5263,15 +7313,15 @@ namespace FacetedWorlds.MyCon.Model
         }
 
         // Predecessor access
-        public IEnumerable<RatingQuestion> RatingQuestions
+        public PredecessorList<RatingQuestion> RatingQuestions
         {
             get { return _ratingQuestions; }
         }
-             public IEnumerable<EssayQuestion> EssayQuestions
+        public PredecessorList<EssayQuestion> EssayQuestions
         {
             get { return _essayQuestions; }
         }
-     
+
         // Field access
 
         // Query result access
@@ -5304,6 +7354,16 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				SessionEvaluation fact = (SessionEvaluation)obj;
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return SessionEvaluation.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return SessionEvaluation.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -5315,47 +7375,98 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static SessionEvaluation GetUnloadedInstance()
+        {
+            return new SessionEvaluation((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static SessionEvaluation GetNullInstance()
+        {
+            return new SessionEvaluation((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<SessionEvaluation> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (SessionEvaluation)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleSchedule = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"schedule",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Schedule", 1),
-			false));
-        public static Role RoleSurvey = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"survey",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Survey", 1),
-			false));
+        private static Role _cacheRoleSchedule;
+        public static Role GetRoleSchedule()
+        {
+            if (_cacheRoleSchedule == null)
+            {
+                _cacheRoleSchedule = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "schedule",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Schedule", 1),
+			        false));
+            }
+            return _cacheRoleSchedule;
+        }
+        private static Role _cacheRoleSurvey;
+        public static Role GetRoleSurvey()
+        {
+            if (_cacheRoleSurvey == null)
+            {
+                _cacheRoleSurvey = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "survey",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Survey", 1),
+			        false));
+            }
+            return _cacheRoleSurvey;
+        }
 
         // Queries
-        public static Query MakeQueryRatingAnswers()
+        private static Query _cacheQueryRatingAnswers;
+
+        public static Query GetQueryRatingAnswers()
 		{
-			return new Query()
-				.JoinSuccessors(SessionEvaluationRating.RoleEvaluation)
-				.JoinSuccessors(SessionEvaluationRatingAnswer.RoleRating, Condition.WhereIsEmpty(SessionEvaluationRatingAnswer.MakeQueryIsCurrent())
+            if (_cacheQueryRatingAnswers == null)
+            {
+			    _cacheQueryRatingAnswers = new Query()
+		    		.JoinSuccessors(SessionEvaluationRating.GetRoleEvaluation())
+    				.JoinSuccessors(SessionEvaluationRatingAnswer.GetRoleRating(), Condition.WhereIsEmpty(SessionEvaluationRatingAnswer.GetQueryIsCurrent())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryRatingAnswers;
 		}
-        public static Query QueryRatingAnswers = MakeQueryRatingAnswers();
-        public static Query MakeQueryEssayAnswers()
+        private static Query _cacheQueryEssayAnswers;
+
+        public static Query GetQueryEssayAnswers()
 		{
-			return new Query()
-				.JoinSuccessors(SessionEvaluationEssay.RoleEvaluation)
-				.JoinSuccessors(SessionEvaluationEssayAnswer.RoleEssay, Condition.WhereIsEmpty(SessionEvaluationEssayAnswer.MakeQueryIsCurrent())
+            if (_cacheQueryEssayAnswers == null)
+            {
+			    _cacheQueryEssayAnswers = new Query()
+		    		.JoinSuccessors(SessionEvaluationEssay.GetRoleEvaluation())
+    				.JoinSuccessors(SessionEvaluationEssayAnswer.GetRoleEssay(), Condition.WhereIsEmpty(SessionEvaluationEssayAnswer.GetQueryIsCurrent())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryEssayAnswers;
 		}
-        public static Query QueryEssayAnswers = MakeQueryEssayAnswers();
-        public static Query MakeQueryIsCompleted()
+        private static Query _cacheQueryIsCompleted;
+
+        public static Query GetQueryIsCompleted()
 		{
-			return new Query()
-				.JoinSuccessors(SessionEvaluationCompleted.RoleSessionEvaluation)
-            ;
+            if (_cacheQueryIsCompleted == null)
+            {
+			    _cacheQueryIsCompleted = new Query()
+		    		.JoinSuccessors(SessionEvaluationCompleted.GetRoleSessionEvaluation())
+                ;
+            }
+            return _cacheQueryIsCompleted;
 		}
-        public static Query QueryIsCompleted = MakeQueryIsCompleted();
 
         // Predicates
-        public static Condition IsCompleted = Condition.WhereIsNotEmpty(QueryIsCompleted);
+        public static Condition IsCompleted = Condition.WhereIsNotEmpty(GetQueryIsCompleted());
 
         // Predecessors
         private PredecessorObj<Schedule> _schedule;
@@ -5374,33 +7485,33 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _schedule = new PredecessorObj<Schedule>(this, RoleSchedule, schedule);
-            _survey = new PredecessorObj<Survey>(this, RoleSurvey, survey);
+            _schedule = new PredecessorObj<Schedule>(this, GetRoleSchedule(), schedule);
+            _survey = new PredecessorObj<Survey>(this, GetRoleSurvey(), survey);
         }
 
         // Hydration constructor
         private SessionEvaluation(FactMemento memento)
         {
             InitializeResults();
-            _schedule = new PredecessorObj<Schedule>(this, RoleSchedule, memento);
-            _survey = new PredecessorObj<Survey>(this, RoleSurvey, memento);
+            _schedule = new PredecessorObj<Schedule>(this, GetRoleSchedule(), memento, Schedule.GetUnloadedInstance, Schedule.GetNullInstance);
+            _survey = new PredecessorObj<Survey>(this, GetRoleSurvey(), memento, Survey.GetUnloadedInstance, Survey.GetNullInstance);
         }
 
         // Result initializer
         private void InitializeResults()
         {
-            _ratingAnswers = new Result<SessionEvaluationRatingAnswer>(this, QueryRatingAnswers);
-            _essayAnswers = new Result<SessionEvaluationEssayAnswer>(this, QueryEssayAnswers);
+            _ratingAnswers = new Result<SessionEvaluationRatingAnswer>(this, GetQueryRatingAnswers(), SessionEvaluationRatingAnswer.GetUnloadedInstance, SessionEvaluationRatingAnswer.GetNullInstance);
+            _essayAnswers = new Result<SessionEvaluationEssayAnswer>(this, GetQueryEssayAnswers(), SessionEvaluationEssayAnswer.GetUnloadedInstance, SessionEvaluationEssayAnswer.GetNullInstance);
         }
 
         // Predecessor access
         public Schedule Schedule
         {
-            get { return _schedule.Fact; }
+            get { return IsNull ? Schedule.GetNullInstance() : _schedule.Fact; }
         }
         public Survey Survey
         {
-            get { return _survey.Fact; }
+            get { return IsNull ? Survey.GetNullInstance() : _survey.Fact; }
         }
 
         // Field access
@@ -5443,6 +7554,16 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				SessionEvaluationCompleted fact = (SessionEvaluationCompleted)obj;
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return SessionEvaluationCompleted.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return SessionEvaluationCompleted.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -5454,27 +7575,79 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static SessionEvaluationCompleted GetUnloadedInstance()
+        {
+            return new SessionEvaluationCompleted((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static SessionEvaluationCompleted GetNullInstance()
+        {
+            return new SessionEvaluationCompleted((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<SessionEvaluationCompleted> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (SessionEvaluationCompleted)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleSessionSurvey = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"sessionSurvey",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.ConferenceSessionSurvey", 1),
-			true));
-        public static Role RoleSessionEvaluation = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"sessionEvaluation",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluation", 1),
-			false));
-        public static Role RoleRatingAnswers = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"ratingAnswers",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationRatingAnswer", 1),
-			false));
-        public static Role RoleEssayAnswers = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"essayAnswers",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationEssayAnswer", 1),
-			false));
+        private static Role _cacheRoleSessionSurvey;
+        public static Role GetRoleSessionSurvey()
+        {
+            if (_cacheRoleSessionSurvey == null)
+            {
+                _cacheRoleSessionSurvey = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "sessionSurvey",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.ConferenceSessionSurvey", 1),
+			        true));
+            }
+            return _cacheRoleSessionSurvey;
+        }
+        private static Role _cacheRoleSessionEvaluation;
+        public static Role GetRoleSessionEvaluation()
+        {
+            if (_cacheRoleSessionEvaluation == null)
+            {
+                _cacheRoleSessionEvaluation = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "sessionEvaluation",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluation", 1),
+			        false));
+            }
+            return _cacheRoleSessionEvaluation;
+        }
+        private static Role _cacheRoleRatingAnswers;
+        public static Role GetRoleRatingAnswers()
+        {
+            if (_cacheRoleRatingAnswers == null)
+            {
+                _cacheRoleRatingAnswers = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "ratingAnswers",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationRatingAnswer", 1),
+			        false));
+            }
+            return _cacheRoleRatingAnswers;
+        }
+        private static Role _cacheRoleEssayAnswers;
+        public static Role GetRoleEssayAnswers()
+        {
+            if (_cacheRoleEssayAnswers == null)
+            {
+                _cacheRoleEssayAnswers = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "essayAnswers",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationEssayAnswer", 1),
+			        false));
+            }
+            return _cacheRoleEssayAnswers;
+        }
 
         // Queries
 
@@ -5499,20 +7672,20 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _sessionSurvey = new PredecessorObj<ConferenceSessionSurvey>(this, RoleSessionSurvey, sessionSurvey);
-            _sessionEvaluation = new PredecessorObj<SessionEvaluation>(this, RoleSessionEvaluation, sessionEvaluation);
-            _ratingAnswers = new PredecessorList<SessionEvaluationRatingAnswer>(this, RoleRatingAnswers, ratingAnswers);
-            _essayAnswers = new PredecessorList<SessionEvaluationEssayAnswer>(this, RoleEssayAnswers, essayAnswers);
+            _sessionSurvey = new PredecessorObj<ConferenceSessionSurvey>(this, GetRoleSessionSurvey(), sessionSurvey);
+            _sessionEvaluation = new PredecessorObj<SessionEvaluation>(this, GetRoleSessionEvaluation(), sessionEvaluation);
+            _ratingAnswers = new PredecessorList<SessionEvaluationRatingAnswer>(this, GetRoleRatingAnswers(), ratingAnswers);
+            _essayAnswers = new PredecessorList<SessionEvaluationEssayAnswer>(this, GetRoleEssayAnswers(), essayAnswers);
         }
 
         // Hydration constructor
         private SessionEvaluationCompleted(FactMemento memento)
         {
             InitializeResults();
-            _sessionSurvey = new PredecessorObj<ConferenceSessionSurvey>(this, RoleSessionSurvey, memento);
-            _sessionEvaluation = new PredecessorObj<SessionEvaluation>(this, RoleSessionEvaluation, memento);
-            _ratingAnswers = new PredecessorList<SessionEvaluationRatingAnswer>(this, RoleRatingAnswers, memento);
-            _essayAnswers = new PredecessorList<SessionEvaluationEssayAnswer>(this, RoleEssayAnswers, memento);
+            _sessionSurvey = new PredecessorObj<ConferenceSessionSurvey>(this, GetRoleSessionSurvey(), memento, ConferenceSessionSurvey.GetUnloadedInstance, ConferenceSessionSurvey.GetNullInstance);
+            _sessionEvaluation = new PredecessorObj<SessionEvaluation>(this, GetRoleSessionEvaluation(), memento, SessionEvaluation.GetUnloadedInstance, SessionEvaluation.GetNullInstance);
+            _ratingAnswers = new PredecessorList<SessionEvaluationRatingAnswer>(this, GetRoleRatingAnswers(), memento, SessionEvaluationRatingAnswer.GetUnloadedInstance, SessionEvaluationRatingAnswer.GetNullInstance);
+            _essayAnswers = new PredecessorList<SessionEvaluationEssayAnswer>(this, GetRoleEssayAnswers(), memento, SessionEvaluationEssayAnswer.GetUnloadedInstance, SessionEvaluationEssayAnswer.GetNullInstance);
         }
 
         // Result initializer
@@ -5523,21 +7696,21 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public ConferenceSessionSurvey SessionSurvey
         {
-            get { return _sessionSurvey.Fact; }
+            get { return IsNull ? ConferenceSessionSurvey.GetNullInstance() : _sessionSurvey.Fact; }
         }
         public SessionEvaluation SessionEvaluation
         {
-            get { return _sessionEvaluation.Fact; }
+            get { return IsNull ? SessionEvaluation.GetNullInstance() : _sessionEvaluation.Fact; }
         }
-        public IEnumerable<SessionEvaluationRatingAnswer> RatingAnswers
+        public PredecessorList<SessionEvaluationRatingAnswer> RatingAnswers
         {
             get { return _ratingAnswers; }
         }
-             public IEnumerable<SessionEvaluationEssayAnswer> EssayAnswers
+        public PredecessorList<SessionEvaluationEssayAnswer> EssayAnswers
         {
             get { return _essayAnswers; }
         }
-     
+
         // Field access
 
         // Query result access
@@ -5570,6 +7743,16 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				SessionEvaluationRating fact = (SessionEvaluationRating)obj;
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return SessionEvaluationRating.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return SessionEvaluationRating.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -5581,27 +7764,68 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static SessionEvaluationRating GetUnloadedInstance()
+        {
+            return new SessionEvaluationRating((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static SessionEvaluationRating GetNullInstance()
+        {
+            return new SessionEvaluationRating((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<SessionEvaluationRating> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (SessionEvaluationRating)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleEvaluation = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"evaluation",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluation", 1),
-			false));
-        public static Role RoleQuestion = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"question",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.RatingQuestion", 1),
-			false));
+        private static Role _cacheRoleEvaluation;
+        public static Role GetRoleEvaluation()
+        {
+            if (_cacheRoleEvaluation == null)
+            {
+                _cacheRoleEvaluation = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "evaluation",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluation", 1),
+			        false));
+            }
+            return _cacheRoleEvaluation;
+        }
+        private static Role _cacheRoleQuestion;
+        public static Role GetRoleQuestion()
+        {
+            if (_cacheRoleQuestion == null)
+            {
+                _cacheRoleQuestion = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "question",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.RatingQuestion", 1),
+			        false));
+            }
+            return _cacheRoleQuestion;
+        }
 
         // Queries
-        public static Query MakeQueryCurrentAnswers()
+        private static Query _cacheQueryCurrentAnswers;
+
+        public static Query GetQueryCurrentAnswers()
 		{
-			return new Query()
-				.JoinSuccessors(SessionEvaluationRatingAnswer.RoleRating, Condition.WhereIsEmpty(SessionEvaluationRatingAnswer.MakeQueryIsCurrent())
+            if (_cacheQueryCurrentAnswers == null)
+            {
+			    _cacheQueryCurrentAnswers = new Query()
+    				.JoinSuccessors(SessionEvaluationRatingAnswer.GetRoleRating(), Condition.WhereIsEmpty(SessionEvaluationRatingAnswer.GetQueryIsCurrent())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryCurrentAnswers;
 		}
-        public static Query QueryCurrentAnswers = MakeQueryCurrentAnswers();
 
         // Predicates
 
@@ -5621,32 +7845,32 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _evaluation = new PredecessorObj<SessionEvaluation>(this, RoleEvaluation, evaluation);
-            _question = new PredecessorObj<RatingQuestion>(this, RoleQuestion, question);
+            _evaluation = new PredecessorObj<SessionEvaluation>(this, GetRoleEvaluation(), evaluation);
+            _question = new PredecessorObj<RatingQuestion>(this, GetRoleQuestion(), question);
         }
 
         // Hydration constructor
         private SessionEvaluationRating(FactMemento memento)
         {
             InitializeResults();
-            _evaluation = new PredecessorObj<SessionEvaluation>(this, RoleEvaluation, memento);
-            _question = new PredecessorObj<RatingQuestion>(this, RoleQuestion, memento);
+            _evaluation = new PredecessorObj<SessionEvaluation>(this, GetRoleEvaluation(), memento, SessionEvaluation.GetUnloadedInstance, SessionEvaluation.GetNullInstance);
+            _question = new PredecessorObj<RatingQuestion>(this, GetRoleQuestion(), memento, RatingQuestion.GetUnloadedInstance, RatingQuestion.GetNullInstance);
         }
 
         // Result initializer
         private void InitializeResults()
         {
-            _currentAnswers = new Result<SessionEvaluationRatingAnswer>(this, QueryCurrentAnswers);
+            _currentAnswers = new Result<SessionEvaluationRatingAnswer>(this, GetQueryCurrentAnswers(), SessionEvaluationRatingAnswer.GetUnloadedInstance, SessionEvaluationRatingAnswer.GetNullInstance);
         }
 
         // Predecessor access
         public SessionEvaluation Evaluation
         {
-            get { return _evaluation.Fact; }
+            get { return IsNull ? SessionEvaluation.GetNullInstance() : _evaluation.Fact; }
         }
         public RatingQuestion Question
         {
-            get { return _question.Fact; }
+            get { return IsNull ? RatingQuestion.GetNullInstance() : _question.Fact; }
         }
 
         // Field access
@@ -5694,6 +7918,16 @@ namespace FacetedWorlds.MyCon.Model
 				SessionEvaluationRatingAnswer fact = (SessionEvaluationRatingAnswer)obj;
 				_fieldSerializerByType[typeof(int)].WriteData(output, fact._value);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return SessionEvaluationRatingAnswer.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return SessionEvaluationRatingAnswer.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -5705,29 +7939,70 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static SessionEvaluationRatingAnswer GetUnloadedInstance()
+        {
+            return new SessionEvaluationRatingAnswer((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static SessionEvaluationRatingAnswer GetNullInstance()
+        {
+            return new SessionEvaluationRatingAnswer((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<SessionEvaluationRatingAnswer> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (SessionEvaluationRatingAnswer)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleRating = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"rating",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationRating", 1),
-			false));
-        public static Role RolePrior = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"prior",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationRatingAnswer", 1),
-			false));
+        private static Role _cacheRoleRating;
+        public static Role GetRoleRating()
+        {
+            if (_cacheRoleRating == null)
+            {
+                _cacheRoleRating = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "rating",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationRating", 1),
+			        false));
+            }
+            return _cacheRoleRating;
+        }
+        private static Role _cacheRolePrior;
+        public static Role GetRolePrior()
+        {
+            if (_cacheRolePrior == null)
+            {
+                _cacheRolePrior = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "prior",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationRatingAnswer", 1),
+			        false));
+            }
+            return _cacheRolePrior;
+        }
 
         // Queries
-        public static Query MakeQueryIsCurrent()
+        private static Query _cacheQueryIsCurrent;
+
+        public static Query GetQueryIsCurrent()
 		{
-			return new Query()
-				.JoinSuccessors(SessionEvaluationRatingAnswer.RolePrior)
-            ;
+            if (_cacheQueryIsCurrent == null)
+            {
+			    _cacheQueryIsCurrent = new Query()
+		    		.JoinSuccessors(SessionEvaluationRatingAnswer.GetRolePrior())
+                ;
+            }
+            return _cacheQueryIsCurrent;
 		}
-        public static Query QueryIsCurrent = MakeQueryIsCurrent();
 
         // Predicates
-        public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
+        public static Condition IsCurrent = Condition.WhereIsEmpty(GetQueryIsCurrent());
 
         // Predecessors
         private PredecessorObj<SessionEvaluationRating> _rating;
@@ -5746,8 +8021,8 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _rating = new PredecessorObj<SessionEvaluationRating>(this, RoleRating, rating);
-            _prior = new PredecessorList<SessionEvaluationRatingAnswer>(this, RolePrior, prior);
+            _rating = new PredecessorObj<SessionEvaluationRating>(this, GetRoleRating(), rating);
+            _prior = new PredecessorList<SessionEvaluationRatingAnswer>(this, GetRolePrior(), prior);
             _value = value;
         }
 
@@ -5755,8 +8030,8 @@ namespace FacetedWorlds.MyCon.Model
         private SessionEvaluationRatingAnswer(FactMemento memento)
         {
             InitializeResults();
-            _rating = new PredecessorObj<SessionEvaluationRating>(this, RoleRating, memento);
-            _prior = new PredecessorList<SessionEvaluationRatingAnswer>(this, RolePrior, memento);
+            _rating = new PredecessorObj<SessionEvaluationRating>(this, GetRoleRating(), memento, SessionEvaluationRating.GetUnloadedInstance, SessionEvaluationRating.GetNullInstance);
+            _prior = new PredecessorList<SessionEvaluationRatingAnswer>(this, GetRolePrior(), memento, SessionEvaluationRatingAnswer.GetUnloadedInstance, SessionEvaluationRatingAnswer.GetNullInstance);
         }
 
         // Result initializer
@@ -5767,13 +8042,13 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public SessionEvaluationRating Rating
         {
-            get { return _rating.Fact; }
+            get { return IsNull ? SessionEvaluationRating.GetNullInstance() : _rating.Fact; }
         }
-        public IEnumerable<SessionEvaluationRatingAnswer> Prior
+        public PredecessorList<SessionEvaluationRatingAnswer> Prior
         {
             get { return _prior; }
         }
-     
+
         // Field access
         public int Value
         {
@@ -5810,6 +8085,16 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				SessionEvaluationEssay fact = (SessionEvaluationEssay)obj;
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return SessionEvaluationEssay.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return SessionEvaluationEssay.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -5821,27 +8106,68 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static SessionEvaluationEssay GetUnloadedInstance()
+        {
+            return new SessionEvaluationEssay((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static SessionEvaluationEssay GetNullInstance()
+        {
+            return new SessionEvaluationEssay((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<SessionEvaluationEssay> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (SessionEvaluationEssay)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleEvaluation = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"evaluation",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluation", 1),
-			false));
-        public static Role RoleQuestion = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"question",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.EssayQuestion", 1),
-			false));
+        private static Role _cacheRoleEvaluation;
+        public static Role GetRoleEvaluation()
+        {
+            if (_cacheRoleEvaluation == null)
+            {
+                _cacheRoleEvaluation = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "evaluation",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluation", 1),
+			        false));
+            }
+            return _cacheRoleEvaluation;
+        }
+        private static Role _cacheRoleQuestion;
+        public static Role GetRoleQuestion()
+        {
+            if (_cacheRoleQuestion == null)
+            {
+                _cacheRoleQuestion = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "question",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.EssayQuestion", 1),
+			        false));
+            }
+            return _cacheRoleQuestion;
+        }
 
         // Queries
-        public static Query MakeQueryCurrentAnswers()
+        private static Query _cacheQueryCurrentAnswers;
+
+        public static Query GetQueryCurrentAnswers()
 		{
-			return new Query()
-				.JoinSuccessors(SessionEvaluationEssayAnswer.RoleEssay, Condition.WhereIsEmpty(SessionEvaluationEssayAnswer.MakeQueryIsCurrent())
+            if (_cacheQueryCurrentAnswers == null)
+            {
+			    _cacheQueryCurrentAnswers = new Query()
+    				.JoinSuccessors(SessionEvaluationEssayAnswer.GetRoleEssay(), Condition.WhereIsEmpty(SessionEvaluationEssayAnswer.GetQueryIsCurrent())
 				)
-            ;
+                ;
+            }
+            return _cacheQueryCurrentAnswers;
 		}
-        public static Query QueryCurrentAnswers = MakeQueryCurrentAnswers();
 
         // Predicates
 
@@ -5861,32 +8187,32 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _evaluation = new PredecessorObj<SessionEvaluation>(this, RoleEvaluation, evaluation);
-            _question = new PredecessorObj<EssayQuestion>(this, RoleQuestion, question);
+            _evaluation = new PredecessorObj<SessionEvaluation>(this, GetRoleEvaluation(), evaluation);
+            _question = new PredecessorObj<EssayQuestion>(this, GetRoleQuestion(), question);
         }
 
         // Hydration constructor
         private SessionEvaluationEssay(FactMemento memento)
         {
             InitializeResults();
-            _evaluation = new PredecessorObj<SessionEvaluation>(this, RoleEvaluation, memento);
-            _question = new PredecessorObj<EssayQuestion>(this, RoleQuestion, memento);
+            _evaluation = new PredecessorObj<SessionEvaluation>(this, GetRoleEvaluation(), memento, SessionEvaluation.GetUnloadedInstance, SessionEvaluation.GetNullInstance);
+            _question = new PredecessorObj<EssayQuestion>(this, GetRoleQuestion(), memento, EssayQuestion.GetUnloadedInstance, EssayQuestion.GetNullInstance);
         }
 
         // Result initializer
         private void InitializeResults()
         {
-            _currentAnswers = new Result<SessionEvaluationEssayAnswer>(this, QueryCurrentAnswers);
+            _currentAnswers = new Result<SessionEvaluationEssayAnswer>(this, GetQueryCurrentAnswers(), SessionEvaluationEssayAnswer.GetUnloadedInstance, SessionEvaluationEssayAnswer.GetNullInstance);
         }
 
         // Predecessor access
         public SessionEvaluation Evaluation
         {
-            get { return _evaluation.Fact; }
+            get { return IsNull ? SessionEvaluation.GetNullInstance() : _evaluation.Fact; }
         }
         public EssayQuestion Question
         {
-            get { return _question.Fact; }
+            get { return IsNull ? EssayQuestion.GetNullInstance() : _question.Fact; }
         }
 
         // Field access
@@ -5934,6 +8260,16 @@ namespace FacetedWorlds.MyCon.Model
 				SessionEvaluationEssayAnswer fact = (SessionEvaluationEssayAnswer)obj;
 				_fieldSerializerByType[typeof(string)].WriteData(output, fact._value);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return SessionEvaluationEssayAnswer.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return SessionEvaluationEssayAnswer.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -5945,29 +8281,70 @@ namespace FacetedWorlds.MyCon.Model
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static SessionEvaluationEssayAnswer GetUnloadedInstance()
+        {
+            return new SessionEvaluationEssayAnswer((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static SessionEvaluationEssayAnswer GetNullInstance()
+        {
+            return new SessionEvaluationEssayAnswer((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<SessionEvaluationEssayAnswer> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (SessionEvaluationEssayAnswer)t.Result);
+            else
+                return Task.FromResult(this);
+        }
+
         // Roles
-        public static Role RoleEssay = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"essay",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationEssay", 1),
-			false));
-        public static Role RolePrior = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"prior",
-			new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationEssayAnswer", 1),
-			false));
+        private static Role _cacheRoleEssay;
+        public static Role GetRoleEssay()
+        {
+            if (_cacheRoleEssay == null)
+            {
+                _cacheRoleEssay = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "essay",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationEssay", 1),
+			        false));
+            }
+            return _cacheRoleEssay;
+        }
+        private static Role _cacheRolePrior;
+        public static Role GetRolePrior()
+        {
+            if (_cacheRolePrior == null)
+            {
+                _cacheRolePrior = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "prior",
+			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationEssayAnswer", 1),
+			        false));
+            }
+            return _cacheRolePrior;
+        }
 
         // Queries
-        public static Query MakeQueryIsCurrent()
+        private static Query _cacheQueryIsCurrent;
+
+        public static Query GetQueryIsCurrent()
 		{
-			return new Query()
-				.JoinSuccessors(SessionEvaluationEssayAnswer.RolePrior)
-            ;
+            if (_cacheQueryIsCurrent == null)
+            {
+			    _cacheQueryIsCurrent = new Query()
+		    		.JoinSuccessors(SessionEvaluationEssayAnswer.GetRolePrior())
+                ;
+            }
+            return _cacheQueryIsCurrent;
 		}
-        public static Query QueryIsCurrent = MakeQueryIsCurrent();
 
         // Predicates
-        public static Condition IsCurrent = Condition.WhereIsEmpty(QueryIsCurrent);
+        public static Condition IsCurrent = Condition.WhereIsEmpty(GetQueryIsCurrent());
 
         // Predecessors
         private PredecessorObj<SessionEvaluationEssay> _essay;
@@ -5986,8 +8363,8 @@ namespace FacetedWorlds.MyCon.Model
             )
         {
             InitializeResults();
-            _essay = new PredecessorObj<SessionEvaluationEssay>(this, RoleEssay, essay);
-            _prior = new PredecessorList<SessionEvaluationEssayAnswer>(this, RolePrior, prior);
+            _essay = new PredecessorObj<SessionEvaluationEssay>(this, GetRoleEssay(), essay);
+            _prior = new PredecessorList<SessionEvaluationEssayAnswer>(this, GetRolePrior(), prior);
             _value = value;
         }
 
@@ -5995,8 +8372,8 @@ namespace FacetedWorlds.MyCon.Model
         private SessionEvaluationEssayAnswer(FactMemento memento)
         {
             InitializeResults();
-            _essay = new PredecessorObj<SessionEvaluationEssay>(this, RoleEssay, memento);
-            _prior = new PredecessorList<SessionEvaluationEssayAnswer>(this, RolePrior, memento);
+            _essay = new PredecessorObj<SessionEvaluationEssay>(this, GetRoleEssay(), memento, SessionEvaluationEssay.GetUnloadedInstance, SessionEvaluationEssay.GetNullInstance);
+            _prior = new PredecessorList<SessionEvaluationEssayAnswer>(this, GetRolePrior(), memento, SessionEvaluationEssayAnswer.GetUnloadedInstance, SessionEvaluationEssayAnswer.GetNullInstance);
         }
 
         // Result initializer
@@ -6007,13 +8384,13 @@ namespace FacetedWorlds.MyCon.Model
         // Predecessor access
         public SessionEvaluationEssay Essay
         {
-            get { return _essay.Fact; }
+            get { return IsNull ? SessionEvaluationEssay.GetNullInstance() : _essay.Fact; }
         }
-        public IEnumerable<SessionEvaluationEssayAnswer> Prior
+        public PredecessorList<SessionEvaluationEssayAnswer> Prior
         {
             get { return _prior; }
         }
-     
+
         // Field access
         public string Value
         {
@@ -6059,6 +8436,16 @@ namespace FacetedWorlds.MyCon.Model
 				DocumentSegment fact = (DocumentSegment)obj;
 				_fieldSerializerByType[typeof(string)].WriteData(output, fact._text);
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return DocumentSegment.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return DocumentSegment.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -6069,6 +8456,26 @@ namespace FacetedWorlds.MyCon.Model
 		{
 			return _correspondenceFactType;
 		}
+
+        // Null and unloaded instances
+        public static DocumentSegment GetUnloadedInstance()
+        {
+            return new DocumentSegment((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static DocumentSegment GetNullInstance()
+        {
+            return new DocumentSegment((FactMemento)null) { IsNull = true };
+        }
+
+        // Ensure
+        public Task<DocumentSegment> EnsureAsync()
+        {
+            if (_loadedTask != null)
+                return _loadedTask.ContinueWith(t => (DocumentSegment)t.Result);
+            else
+                return Task.FromResult(this);
+        }
 
         // Roles
 
@@ -6128,17 +8535,17 @@ namespace FacetedWorlds.MyCon.Model
 				new FactMetadata(new List<CorrespondenceFactType> { Individual._correspondenceFactType }));
 			community.AddQuery(
 				Individual._correspondenceFactType,
-				Individual.QueryAttendees.QueryDefinition);
+				Individual.GetQueryAttendees().QueryDefinition);
 			community.AddQuery(
 				Individual._correspondenceFactType,
-				Individual.QueryIsToastNotificationEnabled.QueryDefinition);
+				Individual.GetQueryIsToastNotificationEnabled().QueryDefinition);
 			community.AddType(
 				EnableToastNotification._correspondenceFactType,
 				new EnableToastNotification.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { EnableToastNotification._correspondenceFactType }));
 			community.AddQuery(
 				EnableToastNotification._correspondenceFactType,
-				EnableToastNotification.QueryIsDisabled.QueryDefinition);
+				EnableToastNotification.GetQueryIsDisabled().QueryDefinition);
 			community.AddType(
 				DisableToastNotification._correspondenceFactType,
 				new DisableToastNotification.CorrespondenceFactFactory(fieldSerializerByType),
@@ -6149,90 +8556,90 @@ namespace FacetedWorlds.MyCon.Model
 				new FactMetadata(new List<CorrespondenceFactType> { Conference._correspondenceFactType }));
 			community.AddQuery(
 				Conference._correspondenceFactType,
-				Conference.QueryName.QueryDefinition);
+				Conference.GetQueryName().QueryDefinition);
 			community.AddQuery(
 				Conference._correspondenceFactType,
-				Conference.QueryConferenceSurvey.QueryDefinition);
+				Conference.GetQueryConferenceSurvey().QueryDefinition);
 			community.AddQuery(
 				Conference._correspondenceFactType,
-				Conference.QueryMapUrl.QueryDefinition);
+				Conference.GetQueryMapUrl().QueryDefinition);
 			community.AddQuery(
 				Conference._correspondenceFactType,
-				Conference.QueryDays.QueryDefinition);
+				Conference.GetQueryDays().QueryDefinition);
 			community.AddQuery(
 				Conference._correspondenceFactType,
-				Conference.QueryAllTracks.QueryDefinition);
+				Conference.GetQueryAllTracks().QueryDefinition);
 			community.AddQuery(
 				Conference._correspondenceFactType,
-				Conference.QueryTracks.QueryDefinition);
+				Conference.GetQueryTracks().QueryDefinition);
 			community.AddQuery(
 				Conference._correspondenceFactType,
-				Conference.QuerySessions.QueryDefinition);
+				Conference.GetQuerySessions().QueryDefinition);
 			community.AddQuery(
 				Conference._correspondenceFactType,
-				Conference.QueryUnscheduledSessions.QueryDefinition);
+				Conference.GetQueryUnscheduledSessions().QueryDefinition);
 			community.AddQuery(
 				Conference._correspondenceFactType,
-				Conference.QuerySpeakers.QueryDefinition);
+				Conference.GetQuerySpeakers().QueryDefinition);
 			community.AddQuery(
 				Conference._correspondenceFactType,
-				Conference.QueryNotices.QueryDefinition);
+				Conference.GetQueryNotices().QueryDefinition);
 			community.AddQuery(
 				Conference._correspondenceFactType,
-				Conference.QueryCurrentSessionSurveys.QueryDefinition);
+				Conference.GetQueryCurrentSessionSurveys().QueryDefinition);
 			community.AddQuery(
 				Conference._correspondenceFactType,
-				Conference.QueryAllSessionSurveys.QueryDefinition);
+				Conference.GetQueryAllSessionSurveys().QueryDefinition);
 			community.AddQuery(
 				Conference._correspondenceFactType,
-				Conference.QueryRooms.QueryDefinition);
+				Conference.GetQueryRooms().QueryDefinition);
 			community.AddType(
 				Conference__name._correspondenceFactType,
 				new Conference__name.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Conference__name._correspondenceFactType }));
 			community.AddQuery(
 				Conference__name._correspondenceFactType,
-				Conference__name.QueryIsCurrent.QueryDefinition);
+				Conference__name.GetQueryIsCurrent().QueryDefinition);
 			community.AddType(
 				Conference__conferenceSurvey._correspondenceFactType,
 				new Conference__conferenceSurvey.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Conference__conferenceSurvey._correspondenceFactType }));
 			community.AddQuery(
 				Conference__conferenceSurvey._correspondenceFactType,
-				Conference__conferenceSurvey.QueryIsCurrent.QueryDefinition);
+				Conference__conferenceSurvey.GetQueryIsCurrent().QueryDefinition);
 			community.AddType(
 				Conference__mapUrl._correspondenceFactType,
 				new Conference__mapUrl.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Conference__mapUrl._correspondenceFactType }));
 			community.AddQuery(
 				Conference__mapUrl._correspondenceFactType,
-				Conference__mapUrl.QueryIsCurrent.QueryDefinition);
+				Conference__mapUrl.GetQueryIsCurrent().QueryDefinition);
 			community.AddType(
 				ConferenceSessionSurvey._correspondenceFactType,
 				new ConferenceSessionSurvey.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { ConferenceSessionSurvey._correspondenceFactType }));
 			community.AddQuery(
 				ConferenceSessionSurvey._correspondenceFactType,
-				ConferenceSessionSurvey.QueryIsCurrent.QueryDefinition);
+				ConferenceSessionSurvey.GetQueryIsCurrent().QueryDefinition);
 			community.AddQuery(
 				ConferenceSessionSurvey._correspondenceFactType,
-				ConferenceSessionSurvey.QueryCompleted.QueryDefinition);
+				ConferenceSessionSurvey.GetQueryCompleted().QueryDefinition);
 			community.AddType(
 				Attendee._correspondenceFactType,
 				new Attendee.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Attendee._correspondenceFactType }));
 			community.AddQuery(
 				Attendee._correspondenceFactType,
-				Attendee.QueryCurrentSchedules.QueryDefinition);
+				Attendee.GetQueryCurrentSchedules().QueryDefinition);
 			community.AddQuery(
 				Attendee._correspondenceFactType,
-				Attendee.QueryAllSchedules.QueryDefinition);
+				Attendee.GetQueryAllSchedules().QueryDefinition);
 			community.AddQuery(
 				Attendee._correspondenceFactType,
-				Attendee.QueryScheduledSessions.QueryDefinition);
+				Attendee.GetQueryScheduledSessions().QueryDefinition);
 			community.AddQuery(
 				Attendee._correspondenceFactType,
-				Attendee.QueryScheduledSessionPlaces.QueryDefinition);
+				Attendee.GetQueryScheduledSessionPlaces().QueryDefinition);
 			community.AddType(
 				IndividualAttendee._correspondenceFactType,
 				new IndividualAttendee.CorrespondenceFactFactory(fieldSerializerByType),
@@ -6255,30 +8662,30 @@ namespace FacetedWorlds.MyCon.Model
 				new FactMetadata(new List<CorrespondenceFactType> { Day._correspondenceFactType }));
 			community.AddQuery(
 				Day._correspondenceFactType,
-				Day.QueryTimes.QueryDefinition);
+				Day.GetQueryTimes().QueryDefinition);
 			community.AddQuery(
 				Day._correspondenceFactType,
-				Day.QueryHasTimes.QueryDefinition);
+				Day.GetQueryHasTimes().QueryDefinition);
 			community.AddType(
 				Time._correspondenceFactType,
 				new Time.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Time._correspondenceFactType }));
 			community.AddQuery(
 				Time._correspondenceFactType,
-				Time.QueryAvailableSessions.QueryDefinition);
+				Time.GetQueryAvailableSessions().QueryDefinition);
 			community.AddQuery(
 				Time._correspondenceFactType,
-				Time.QueryDeletes.QueryDefinition);
+				Time.GetQueryDeletes().QueryDefinition);
 			community.AddQuery(
 				Time._correspondenceFactType,
-				Time.QueryIsDeleted.QueryDefinition);
+				Time.GetQueryIsDeleted().QueryDefinition);
 			community.AddType(
 				TimeDelete._correspondenceFactType,
 				new TimeDelete.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { TimeDelete._correspondenceFactType }));
 			community.AddQuery(
 				TimeDelete._correspondenceFactType,
-				TimeDelete.QueryIsUndeleted.QueryDefinition);
+				TimeDelete.GetQueryIsUndeleted().QueryDefinition);
 			community.AddType(
 				TimeUndelete._correspondenceFactType,
 				new TimeUndelete.CorrespondenceFactFactory(fieldSerializerByType),
@@ -6289,68 +8696,68 @@ namespace FacetedWorlds.MyCon.Model
 				new FactMetadata(new List<CorrespondenceFactType> { Slot._correspondenceFactType }));
 			community.AddQuery(
 				Slot._correspondenceFactType,
-				Slot.QueryCurrentSchedules.QueryDefinition);
+				Slot.GetQueryCurrentSchedules().QueryDefinition);
 			community.AddType(
 				Room._correspondenceFactType,
 				new Room.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Room._correspondenceFactType }));
 			community.AddQuery(
 				Room._correspondenceFactType,
-				Room.QueryRoomNumber.QueryDefinition);
+				Room.GetQueryRoomNumber().QueryDefinition);
 			community.AddType(
 				Room__roomNumber._correspondenceFactType,
 				new Room__roomNumber.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Room__roomNumber._correspondenceFactType }));
 			community.AddQuery(
 				Room__roomNumber._correspondenceFactType,
-				Room__roomNumber.QueryIsCurrent.QueryDefinition);
+				Room__roomNumber.GetQueryIsCurrent().QueryDefinition);
 			community.AddType(
 				Track._correspondenceFactType,
 				new Track.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Track._correspondenceFactType }));
 			community.AddQuery(
 				Track._correspondenceFactType,
-				Track.QueryCurrentSessionPlaces.QueryDefinition);
+				Track.GetQueryCurrentSessionPlaces().QueryDefinition);
 			community.AddQuery(
 				Track._correspondenceFactType,
-				Track.QueryHasSessions.QueryDefinition);
+				Track.GetQueryHasSessions().QueryDefinition);
 			community.AddType(
 				Speaker._correspondenceFactType,
 				new Speaker.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Speaker._correspondenceFactType }));
 			community.AddQuery(
 				Speaker._correspondenceFactType,
-				Speaker.QueryImageUrl.QueryDefinition);
+				Speaker.GetQueryImageUrl().QueryDefinition);
 			community.AddQuery(
 				Speaker._correspondenceFactType,
-				Speaker.QueryContact.QueryDefinition);
+				Speaker.GetQueryContact().QueryDefinition);
 			community.AddQuery(
 				Speaker._correspondenceFactType,
-				Speaker.QueryBio.QueryDefinition);
+				Speaker.GetQueryBio().QueryDefinition);
 			community.AddQuery(
 				Speaker._correspondenceFactType,
-				Speaker.QueryAvailableSessions.QueryDefinition);
+				Speaker.GetQueryAvailableSessions().QueryDefinition);
 			community.AddType(
 				Speaker__imageUrl._correspondenceFactType,
 				new Speaker__imageUrl.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Speaker__imageUrl._correspondenceFactType }));
 			community.AddQuery(
 				Speaker__imageUrl._correspondenceFactType,
-				Speaker__imageUrl.QueryIsCurrent.QueryDefinition);
+				Speaker__imageUrl.GetQueryIsCurrent().QueryDefinition);
 			community.AddType(
 				Speaker__contact._correspondenceFactType,
 				new Speaker__contact.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Speaker__contact._correspondenceFactType }));
 			community.AddQuery(
 				Speaker__contact._correspondenceFactType,
-				Speaker__contact.QueryIsCurrent.QueryDefinition);
+				Speaker__contact.GetQueryIsCurrent().QueryDefinition);
 			community.AddType(
 				Speaker__bio._correspondenceFactType,
 				new Speaker__bio.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Speaker__bio._correspondenceFactType }));
 			community.AddQuery(
 				Speaker__bio._correspondenceFactType,
-				Speaker__bio.QueryIsCurrent.QueryDefinition);
+				Speaker__bio.GetQueryIsCurrent().QueryDefinition);
 			community.AddType(
 				ConferenceNotice._correspondenceFactType,
 				new ConferenceNotice.CorrespondenceFactFactory(fieldSerializerByType),
@@ -6361,7 +8768,7 @@ namespace FacetedWorlds.MyCon.Model
 				new FactMetadata(new List<CorrespondenceFactType> { Place._correspondenceFactType }));
 			community.AddQuery(
 				Place._correspondenceFactType,
-				Place.QueryCurrentSessionPlaces.QueryDefinition);
+				Place.GetQueryCurrentSessionPlaces().QueryDefinition);
 			community.AddType(
 				Level._correspondenceFactType,
 				new Level.CorrespondenceFactFactory(fieldSerializerByType),
@@ -6372,56 +8779,56 @@ namespace FacetedWorlds.MyCon.Model
 				new FactMetadata(new List<CorrespondenceFactType> { Session._correspondenceFactType }));
 			community.AddQuery(
 				Session._correspondenceFactType,
-				Session.QueryName.QueryDefinition);
+				Session.GetQueryName().QueryDefinition);
 			community.AddQuery(
 				Session._correspondenceFactType,
-				Session.QueryDescription.QueryDefinition);
+				Session.GetQueryDescription().QueryDefinition);
 			community.AddQuery(
 				Session._correspondenceFactType,
-				Session.QueryLevel.QueryDefinition);
+				Session.GetQueryLevel().QueryDefinition);
 			community.AddQuery(
 				Session._correspondenceFactType,
-				Session.QueryCurrentSessionPlaces.QueryDefinition);
+				Session.GetQueryCurrentSessionPlaces().QueryDefinition);
 			community.AddQuery(
 				Session._correspondenceFactType,
-				Session.QueryNotices.QueryDefinition);
+				Session.GetQueryNotices().QueryDefinition);
 			community.AddQuery(
 				Session._correspondenceFactType,
-				Session.QueryIsDeleted.QueryDefinition);
+				Session.GetQueryIsDeleted().QueryDefinition);
 			community.AddQuery(
 				Session._correspondenceFactType,
-				Session.QuerySessionDeletes.QueryDefinition);
+				Session.GetQuerySessionDeletes().QueryDefinition);
 			community.AddQuery(
 				Session._correspondenceFactType,
-				Session.QueryIsScheduled.QueryDefinition);
+				Session.GetQueryIsScheduled().QueryDefinition);
 			community.AddType(
 				Session__name._correspondenceFactType,
 				new Session__name.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Session__name._correspondenceFactType }));
 			community.AddQuery(
 				Session__name._correspondenceFactType,
-				Session__name.QueryIsCurrent.QueryDefinition);
+				Session__name.GetQueryIsCurrent().QueryDefinition);
 			community.AddType(
 				Session__description._correspondenceFactType,
 				new Session__description.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Session__description._correspondenceFactType }));
 			community.AddQuery(
 				Session__description._correspondenceFactType,
-				Session__description.QueryIsCurrent.QueryDefinition);
+				Session__description.GetQueryIsCurrent().QueryDefinition);
 			community.AddType(
 				Session__level._correspondenceFactType,
 				new Session__level.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Session__level._correspondenceFactType }));
 			community.AddQuery(
 				Session__level._correspondenceFactType,
-				Session__level.QueryIsCurrent.QueryDefinition);
+				Session__level.GetQueryIsCurrent().QueryDefinition);
 			community.AddType(
 				SessionDelete._correspondenceFactType,
 				new SessionDelete.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { SessionDelete._correspondenceFactType }));
 			community.AddQuery(
 				SessionDelete._correspondenceFactType,
-				SessionDelete.QueryIsUndeleted.QueryDefinition);
+				SessionDelete.GetQueryIsUndeleted().QueryDefinition);
 			community.AddType(
 				SessionUndelete._correspondenceFactType,
 				new SessionUndelete.CorrespondenceFactFactory(fieldSerializerByType),
@@ -6436,29 +8843,29 @@ namespace FacetedWorlds.MyCon.Model
 				new FactMetadata(new List<CorrespondenceFactType> { SessionPlace._correspondenceFactType }));
 			community.AddQuery(
 				SessionPlace._correspondenceFactType,
-				SessionPlace.QueryIsCurrent.QueryDefinition);
+				SessionPlace.GetQueryIsCurrent().QueryDefinition);
 			community.AddQuery(
 				SessionPlace._correspondenceFactType,
-				SessionPlace.QueryIsDeleted.QueryDefinition);
+				SessionPlace.GetQueryIsDeleted().QueryDefinition);
 			community.AddQuery(
 				SessionPlace._correspondenceFactType,
-				SessionPlace.QueryTimeIsDeleted.QueryDefinition);
+				SessionPlace.GetQueryTimeIsDeleted().QueryDefinition);
 			community.AddType(
 				Schedule._correspondenceFactType,
 				new Schedule.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Schedule._correspondenceFactType }));
 			community.AddQuery(
 				Schedule._correspondenceFactType,
-				Schedule.QueryIsCurrent.QueryDefinition);
+				Schedule.GetQueryIsCurrent().QueryDefinition);
 			community.AddQuery(
 				Schedule._correspondenceFactType,
-				Schedule.QuerySessionPlaceIsCurrent.QueryDefinition);
+				Schedule.GetQuerySessionPlaceIsCurrent().QueryDefinition);
 			community.AddQuery(
 				Schedule._correspondenceFactType,
-				Schedule.QueryIsDeleted.QueryDefinition);
+				Schedule.GetQueryIsDeleted().QueryDefinition);
 			community.AddQuery(
 				Schedule._correspondenceFactType,
-				Schedule.QueryCompletedEvaluations.QueryDefinition);
+				Schedule.GetQueryCompletedEvaluations().QueryDefinition);
 			community.AddType(
 				ScheduleRemove._correspondenceFactType,
 				new ScheduleRemove.CorrespondenceFactFactory(fieldSerializerByType),
@@ -6481,13 +8888,13 @@ namespace FacetedWorlds.MyCon.Model
 				new FactMetadata(new List<CorrespondenceFactType> { SessionEvaluation._correspondenceFactType }));
 			community.AddQuery(
 				SessionEvaluation._correspondenceFactType,
-				SessionEvaluation.QueryRatingAnswers.QueryDefinition);
+				SessionEvaluation.GetQueryRatingAnswers().QueryDefinition);
 			community.AddQuery(
 				SessionEvaluation._correspondenceFactType,
-				SessionEvaluation.QueryEssayAnswers.QueryDefinition);
+				SessionEvaluation.GetQueryEssayAnswers().QueryDefinition);
 			community.AddQuery(
 				SessionEvaluation._correspondenceFactType,
-				SessionEvaluation.QueryIsCompleted.QueryDefinition);
+				SessionEvaluation.GetQueryIsCompleted().QueryDefinition);
 			community.AddType(
 				SessionEvaluationCompleted._correspondenceFactType,
 				new SessionEvaluationCompleted.CorrespondenceFactFactory(fieldSerializerByType),
@@ -6498,28 +8905,28 @@ namespace FacetedWorlds.MyCon.Model
 				new FactMetadata(new List<CorrespondenceFactType> { SessionEvaluationRating._correspondenceFactType }));
 			community.AddQuery(
 				SessionEvaluationRating._correspondenceFactType,
-				SessionEvaluationRating.QueryCurrentAnswers.QueryDefinition);
+				SessionEvaluationRating.GetQueryCurrentAnswers().QueryDefinition);
 			community.AddType(
 				SessionEvaluationRatingAnswer._correspondenceFactType,
 				new SessionEvaluationRatingAnswer.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { SessionEvaluationRatingAnswer._correspondenceFactType }));
 			community.AddQuery(
 				SessionEvaluationRatingAnswer._correspondenceFactType,
-				SessionEvaluationRatingAnswer.QueryIsCurrent.QueryDefinition);
+				SessionEvaluationRatingAnswer.GetQueryIsCurrent().QueryDefinition);
 			community.AddType(
 				SessionEvaluationEssay._correspondenceFactType,
 				new SessionEvaluationEssay.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { SessionEvaluationEssay._correspondenceFactType }));
 			community.AddQuery(
 				SessionEvaluationEssay._correspondenceFactType,
-				SessionEvaluationEssay.QueryCurrentAnswers.QueryDefinition);
+				SessionEvaluationEssay.GetQueryCurrentAnswers().QueryDefinition);
 			community.AddType(
 				SessionEvaluationEssayAnswer._correspondenceFactType,
 				new SessionEvaluationEssayAnswer.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { SessionEvaluationEssayAnswer._correspondenceFactType }));
 			community.AddQuery(
 				SessionEvaluationEssayAnswer._correspondenceFactType,
-				SessionEvaluationEssayAnswer.QueryIsCurrent.QueryDefinition);
+				SessionEvaluationEssayAnswer.GetQueryIsCurrent().QueryDefinition);
 			community.AddType(
 				DocumentSegment._correspondenceFactType,
 				new DocumentSegment.CorrespondenceFactFactory(fieldSerializerByType),

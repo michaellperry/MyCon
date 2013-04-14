@@ -36,9 +36,7 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
             get
             {
                 SessionPlace sessionPlace = _sessionPlace;
-                if (sessionPlace == null ||
-                    sessionPlace.Session == null ||
-                    sessionPlace.Session.Speaker == null)
+                if (sessionPlace == null)
                     return null;
 
                 string url = sessionPlace.Session.Speaker.ImageUrl;
@@ -54,8 +52,7 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
             get
             {
                 SessionPlace sessionPlace = _sessionPlace;
-                if (sessionPlace != null &&
-                    sessionPlace.Session != null)
+                if (sessionPlace != null)
                     return sessionPlace.Session.Name;
                 else
                     return "Breakout Session";
@@ -67,9 +64,7 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
             get
             {
                 SessionPlace sessionPlace = _sessionPlace;
-                if (sessionPlace != null &&
-                    sessionPlace.Session != null &&
-                    sessionPlace.Session.Speaker != null)
+                if (sessionPlace != null)
                     return sessionPlace.Session.Speaker.Name;
                 else
                     return "Tap for choices";
@@ -81,10 +76,7 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
             get
             {
                 SessionPlace sessionPlace = _sessionPlace;
-                if (sessionPlace != null &&
-                    sessionPlace.Place != null &&
-                    sessionPlace.Place.Room != null &&
-                    sessionPlace.Place.Room.RoomNumber.Value != null)
+                if (sessionPlace != null)
                     return "Room: " + sessionPlace.Place.Room.RoomNumber.Value;
                 else
                     return String.Empty;
@@ -102,7 +94,6 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
             {
                 return
                     _schedule != null &&
-                    _schedule.Slot != null &&
                     _schedule.Slot.CurrentSchedules.Count() > 1;
             }
         }
@@ -141,8 +132,7 @@ namespace FacetedWorlds.MyCon.ViewModels.MySchedule
                     if (availableSessions.Count == 1)
                     {
                         SessionPlace sessionPlace = availableSessions[0];
-                        if (sessionPlace.Session != null &&
-                            sessionPlace.Session.Track == null)
+                        if (sessionPlace.Session.Track.IsNull)
                             return sessionPlace;
                     }
                 }

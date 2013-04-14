@@ -22,9 +22,6 @@ namespace FacetedWorlds.MyCon.ViewModels.AvailableSessions
             {
                 return
                     from session in _time.AvailableSessions
-                    where session.Place != null
-                       && session.Place.Room != null
-                       && session.Place.Room.RoomNumber.Value != null
                     orderby session.Place.Room.RoomNumber.Value
                     select _newSessionHeaderViewModel(session);
             }

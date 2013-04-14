@@ -1,7 +1,7 @@
 ﻿<#@ template language="C#" hostspecific="True" debug="True" #>
 <#@ assembly name="System.Core"#>
-<#@ assembly name="$(SolutionDir)packages\Correspondence.Model.1.4.2.0\tools\UpdateControls.Correspondence.Factual.dll"#>
-<#@ assembly name="$(SolutionDir)packages\Correspondence.Model.1.4.2.0\tools\QEDCode.LLOne.dll"#>
+<#@ assembly name="$(SolutionDir)packages\Correspondence.Model.2.0.0.0\tools\UpdateControls.Correspondence.Factual.dll"#>
+<#@ assembly name="$(SolutionDir)packages\Correspondence.Model.2.0.0.0\tools\QEDCode.LLOne.dll"#>
 <#@ import namespace="System.IO"#>
 <#@ import namespace="System.Collections.Generic"#>
 <#@ import namespace="System.Linq"#>
@@ -43,8 +43,10 @@ using System.Linq;
 using UpdateControls.Correspondence;
 using UpdateControls.Correspondence.Mementos;
 using UpdateControls.Correspondence.Strategy;
+using UpdateControls.Correspondence.Tasks;
 using System;
 using System.IO;
+using System.Threading;
 
 /**
 / For use with http://graphviz.org/
@@ -88,7 +90,6 @@ namespace <#=targetNamespace.Name#>
 			{
 				<#=c.Name#> newFact = new <#=c.Name#>(memento);
 
-<# if (c.Unique || c.Fields.Any()) { #>
 				// Create a memory stream from the memento data.
 				using (MemoryStream data = new MemoryStream(memento.Data))
 				{
@@ -102,7 +103,6 @@ namespace <#=targetNamespace.Name#>
 <#}#>
 					}
 				}
-<#}#>
 
 				return newFact;
 			}
@@ -117,6 +117,16 @@ namespace <#=targetNamespace.Name#>
 				_fieldSerializerByType[typeof(<#=FieldType(field)#>)].WriteData(output, fact._<#=field.Name#>);
 <#}#>
 			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return <#=c.Name#>.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return <#=c.Name#>.GetNullInstance();
+            }
 		}
 
 		// Type
@@ -128,40 +138,82 @@ namespace <#=targetNamespace.Name#>
 			return _correspondenceFactType;
 		}
 
+        // Null and unloaded instances
+        public static <#=c.Name#> GetUnloadedInstance()
+        {
+            return new <#=c.Name#>((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static <#=c.Name#> GetNullInstance()
+        {
+            return new <#=c.Name#>((FactMemento)null) { IsNull = true };
+        }
+
+        public <#=c.Name#> Ensure()
+        {
+            if (_loadedTask != null)
+            {
+                ManualResetEvent loaded = new ManualResetEvent(false);
+                <#=c.Name#> fact = null;
+                _loadedTask.ContinueWith(delegate(Task<CorrespondenceFact> t)
+                {
+                    fact = (<#=c.Name#>)t.Result;
+                    loaded.Set();
+                });
+                loaded.WaitOne();
+                return fact;
+            }
+            else
+                return this;
+        }
+
         // Roles
 <# foreach (Predecessor predecessor in c.Predecessors) { #>
-        public static Role <#=RoleName(predecessor.Name)#> = new Role(new RoleMemento(
-			_correspondenceFactType,
-			"<#=predecessor.Name#>",
-			new CorrespondenceFactType("<#=targetNamespace.Name#>.<#=predecessor.FactType#>", 1),
-			<#=predecessor.IsPivot ? "true" : "false"#>));
+        private static Role _cache<#=RoleName(predecessor.Name)#>;
+        public static Role Get<#=RoleName(predecessor.Name)#>()
+        {
+            if (_cache<#=RoleName(predecessor.Name)#> == null)
+            {
+                _cache<#=RoleName(predecessor.Name)#> = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "<#=predecessor.Name#>",
+			        new CorrespondenceFactType("<#=targetNamespace.Name#>.<#=predecessor.FactType#>", 1),
+			        <#=predecessor.IsPivot ? "true" : "false"#>));
+            }
+            return _cache<#=RoleName(predecessor.Name)#>;
+        }
 <#}#>
 
         // Queries
 <# foreach (Query query in c.Queries) { #>
-        public static Query Make<#=QueryName(query.Name)#>()
+        private static Query _cache<#=QueryName(query.Name)#>;
+
+        public static Query Get<#=QueryName(query.Name)#>()
 		{
-			return new Query()
+            if (_cache<#=QueryName(query.Name)#> == null)
+            {
+			    _cache<#=QueryName(query.Name)#> = new Query()
 <# foreach (Join join in query.Joins) { #>
 <#   if (join.Conditions.Any()) { #>
 <#      Condition first = join.Conditions.First(); #>
-				.Join<#=join.Direction#>(<#=join.Type#>.<#=RoleName(join.Name)#>, Condition.WhereIs<#=first.Modifier == ConditionModifier.Positive ? "Not" : ""#>Empty(<#=first.Type#>.Make<#=QueryName(first.Name)#>())
+    				.Join<#=join.Direction#>(<#=join.Type#>.Get<#=RoleName(join.Name)#>(), Condition.WhereIs<#=first.Modifier == ConditionModifier.Positive ? "Not" : ""#>Empty(<#=first.Type#>.Get<#=QueryName(first.Name)#>())
 <#        foreach (Condition condition in join.Conditions.Skip(1)) { #>
-					.And().Is<#=condition.Modifier == ConditionModifier.Positive ? "Not" : ""#>Empty(<#=condition.Type#>.Make<#=QueryName(condition.Name)#>())
+	    				.And().Is<#=condition.Modifier == ConditionModifier.Positive ? "Not" : ""#>Empty(<#=condition.Type#>.Get<#=QueryName(condition.Name)#>())
 <#        } #>
 				)
 <#   } else { #>
-				.Join<#=join.Direction#>(<#=join.Type#>.<#=RoleName(join.Name)#>)
+		    		.Join<#=join.Direction#>(<#=join.Type#>.Get<#=RoleName(join.Name)#>())
 <#   }#>
 <#}#>
-            ;
+                ;
+            }
+            return _cache<#=QueryName(query.Name)#>;
 		}
-        public static Query <#=QueryName(query.Name)#> = Make<#=QueryName(query.Name)#>();
 <#}#>
 
         // Predicates
 <# foreach (Predicate predicate in c.Predicates) { #>
-        public static Condition <#=Capitalize(predicate.Query.Name)#> = Condition.WhereIs<#=predicate.Modifier == ConditionModifier.Positive ? "Not" : ""#>Empty(<#=QueryName(predicate.Query.Name)#>);
+        public static Condition <#=Capitalize(predicate.Query.Name)#> = Condition.WhereIs<#=predicate.Modifier == ConditionModifier.Positive ? "Not" : ""#>Empty(Get<#=QueryName(predicate.Query.Name)#>());
 <#}#>
 
         // Predecessors
@@ -199,7 +251,7 @@ namespace <#=targetNamespace.Name#>
 <# } #>
             InitializeResults();
 <# foreach (Predecessor predecessor in c.Predecessors) { #>
-            _<#=predecessor.Name#> = new <#=PredecessorClass(predecessor)#>(this, <#=RoleName(predecessor.Name)#>, <#=predecessor.Name#>);
+            _<#=predecessor.Name#> = new <#=PredecessorClass(predecessor)#>(this, Get<#=RoleName(predecessor.Name)#>(), <#=predecessor.Name#>);
 <#}#>
 <# foreach (Field field in c.Fields) {#>
             _<#=field.Name#> = <#=field.Name#><#=(field.Cardinality == Cardinality.Many) ? ".ToList()" : ""#>;
@@ -211,7 +263,7 @@ namespace <#=targetNamespace.Name#>
         {
             InitializeResults();
 <# foreach (Predecessor predecessor in c.Predecessors) { #>
-            _<#=predecessor.Name#> = new <#=PredecessorClass(predecessor)#>(this, <#=RoleName(predecessor.Name)#>, memento);
+            _<#=predecessor.Name#> = new <#=PredecessorClass(predecessor)#>(this, Get<#=RoleName(predecessor.Name)#>(), memento, <#=predecessor.FactType#>.GetUnloadedInstance, <#=predecessor.FactType#>.GetNullInstance);
 <#}#>
         }
 
@@ -219,21 +271,21 @@ namespace <#=targetNamespace.Name#>
         private void InitializeResults()
         {
 <# foreach (Result result in c.Results) { #>
-            _<#=result.Query.Name#> = new <#=ResultClass(result)#>(this, <#=QueryName(result.Query.Name)#>);
+            _<#=result.Query.Name#> = new <#=ResultClass(result)#>(this, Get<#=QueryName(result.Query.Name)#>(), <#=result.Type#>.GetUnloadedInstance, <#=result.Type#>.GetNullInstance);
 <#}#>
         }
 
         // Predecessor access
 <# foreach (Predecessor predecessor in c.Predecessors) {
         if (predecessor.Cardinality == Cardinality.Many) { #>
-        public IEnumerable<<#=predecessor.FactType#>> <#=Capitalize(predecessor.Name)#>
+        public PredecessorList<<#=predecessor.FactType#>> <#=Capitalize(predecessor.Name)#>
         {
             get { return _<#=predecessor.Name#>; }
         }
-     <# } else { #>
+<# } else { #>
         public <#=predecessor.FactType#> <#=Capitalize(predecessor.Name)#>
         {
-            get { return _<#=predecessor.Name#>.Fact; }
+            get { return IsNull ? <#=predecessor.FactType#>.GetNullInstance() : _<#=predecessor.Name#>.Fact; }
         }
 <#}}#>
 
@@ -276,7 +328,7 @@ namespace <#=targetNamespace.Name#>
 <# foreach (ResultValueFact result in c.Results.OfType<ResultValueFact>()) { #>
         public TransientDisputable<<#=result.Type#>, <#=ResultTypeFact(result)#>> <#=Capitalize(result.Query.Name)#>
         {
-            get { return _<#=result.Query.Name#>.AsTransientDisputable(fact => fact.Value); }
+            get { return _<#=result.Query.Name#>.AsTransientDisputable(fact => (<#=ResultTypeFact(result)#>)fact.Value); }
 			set
 			{
 				var current = _<#=result.Query.Name#>.Ensure().ToList();
@@ -303,15 +355,15 @@ namespace <#=targetNamespace.Name#>
 <# foreach (Query query in c.Queries) { #>
 			community.AddQuery(
 				<#=c.Name#>._correspondenceFactType,
-				<#=c.Name#>.<#=QueryName(query.Name)#>.QueryDefinition);
+				<#=c.Name#>.Get<#=QueryName(query.Name)#>().QueryDefinition);
 <#}#>
 <# foreach (Predecessor predecessor in c.Predecessors.Where(p => p.IsPivot && p.PublishConditions.Any())) { #>
 			community.AddUnpublisher(
-				<#=c.Name#>.<#=RoleName(predecessor.Name)#>,
+				<#=c.Name#>.Get<#=RoleName(predecessor.Name)#>(),
 <#      Condition first = predecessor.PublishConditions.First(); #>
-				Condition.WhereIs<#=first.Modifier == ConditionModifier.Positive ? "Not" : ""#>Empty(<#=first.Type#>.<#=QueryName(first.Name)#>)
+				Condition.WhereIs<#=first.Modifier == ConditionModifier.Positive ? "Not" : ""#>Empty(<#=first.Type#>.Get<#=QueryName(first.Name)#>())
 <#        foreach (Condition condition in predecessor.PublishConditions.Skip(1)) { #>
-					.And().Is<#=condition.Modifier == ConditionModifier.Positive ? "Not" : ""#>Empty(<#=condition.Type#>.<#=QueryName(condition.Name)#>)
+					.And().Is<#=condition.Modifier == ConditionModifier.Positive ? "Not" : ""#>Empty(<#=condition.Type#>.Get<#=QueryName(condition.Name)#>())
 <#        } #>
 				);
 <#}#>

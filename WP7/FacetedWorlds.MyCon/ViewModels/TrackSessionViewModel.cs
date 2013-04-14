@@ -47,7 +47,7 @@ namespace FacetedWorlds.MyCon.ViewModels
         {
             get
             {
-                return _sessionPlace.Session.Track == null
+                return _sessionPlace.Session.Track.IsNull
                     ? String.Empty
                     : _sessionPlace.Session.Track.Name;
             }
