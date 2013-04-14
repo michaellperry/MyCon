@@ -53,13 +53,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public string Conference
         {
-            get
-            {
-                if (_synchronizationService.Conference == null)
-                    return null;
-
-                return _synchronizationService.Conference.Name;
-            }
+            get { return _synchronizationService.Conference.Name; }
         }
 
         public Visibility VisibleWhenNoSelection
