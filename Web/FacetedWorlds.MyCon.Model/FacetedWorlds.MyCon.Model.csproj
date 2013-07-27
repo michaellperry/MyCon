@@ -41,16 +41,14 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="UpdateControls, Version=2.2.2.1, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\updatecontrols.2.2.2.3\lib\Net40\UpdateControls.dll</HintPath>
+      <HintPath>..\..\packages\UpdateControls.2.2.5.0\lib\Net40\UpdateControls.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.Correspondence, Version=2.0.0.0, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.2.0.0.0\lib\NET4\UpdateControls.Correspondence.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.2.1.0.0\lib\NET4\UpdateControls.Correspondence.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.XAML, Version=2.2.2.1, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\updatecontrols.2.2.2.3\lib\Net40\UpdateControls.XAML.dll</HintPath>
+      <HintPath>..\..\packages\UpdateControls.2.2.5.0\lib\Net40\UpdateControls.XAML.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

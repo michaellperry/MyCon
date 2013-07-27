@@ -195,14 +195,6 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <EmbeddedResource Include="Data\FactTree.bin" />
-    <EmbeddedResource Include="Data\FactTypeTable.bin" />
-    <EmbeddedResource Include="Data\IncomingTimestampTable.bin" />
-    <EmbeddedResource Include="Data\Index.bin" />
-    <EmbeddedResource Include="Data\MessageTable.bin" />
-    <EmbeddedResource Include="Data\PeerTable.bin" />
-    <EmbeddedResource Include="Data\RoleTable.bin" />
-    <None Include="FacetedWorlds.MyCon_StoreKey.pfx" />
     <None Include="FacetedWorlds.MyCon_TemporaryKey.pfx" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -298,12 +290,11 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UpdateControls, Version=2.2.2.1, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\updatecontrols.2.2.2.3\lib\windows8\UpdateControls.dll</HintPath>
+      <HintPath>..\..\packages\UpdateControls.2.2.5.0\lib\windows8\UpdateControls.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.Correspondence, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.2.0.0.0\lib\windows8\UpdateControls.Correspondence.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.2.1.0.0\lib\windows8\UpdateControls.Correspondence.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.Correspondence.BinaryHTTPClient, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -313,7 +304,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Correspondence.App.1.4.2.6\lib\windows8\UpdateControls.Correspondence.BinaryHTTPClient.Notification.dll</HintPath>
     </Reference>
-    <Reference Include="UpdateControls.Correspondence.Data, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
     <Reference Include="UpdateControls.Correspondence.BinaryHTTPClient.Notification">
       <HintPath>..\..\packages\Correspondence.App.2.0.0.0\lib\windows8\UpdateControls.Correspondence.BinaryHTTPClient.Notification.dll</HintPath>
     </Reference>
@@ -332,8 +322,7 @@
       <HintPath>..\..\packages\Correspondence.UnitTest.1.4.1.4\lib\windows8\UpdateControls.Correspondence.Memory.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.XAML, Version=2.2.2.1, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\updatecontrols.2.2.2.3\lib\windows8\UpdateControls.XAML.dll</HintPath>
+      <HintPath>..\..\packages\UpdateControls.2.2.5.0\lib\windows8\UpdateControls.XAML.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup />

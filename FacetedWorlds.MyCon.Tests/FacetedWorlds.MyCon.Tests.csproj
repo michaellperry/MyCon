@@ -138,20 +138,18 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UpdateControls, Version=2.2.2.1, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\updatecontrols.2.2.2.3\lib\windows8\UpdateControls.dll</HintPath>
+      <HintPath>..\packages\UpdateControls.2.2.5.0\lib\windows8\UpdateControls.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.Correspondence, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Correspondence.2.0.0.0\lib\windows8\UpdateControls.Correspondence.dll</HintPath>
+      <HintPath>..\packages\Correspondence.2.1.0.0\lib\windows8\UpdateControls.Correspondence.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.Correspondence.Memory, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Correspondence.UnitTest.2.0.0.0\lib\windows8\UpdateControls.Correspondence.Memory.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.XAML, Version=2.2.2.1, Culture=neutral, PublicKeyToken=19e83a8289e31a8f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\updatecontrols.2.2.2.3\lib\windows8\UpdateControls.XAML.dll</HintPath>
+      <HintPath>..\packages\UpdateControls.2.2.5.0\lib\windows8\UpdateControls.XAML.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

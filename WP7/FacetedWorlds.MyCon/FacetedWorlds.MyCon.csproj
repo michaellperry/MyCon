@@ -57,13 +57,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Itzben">
-      <HintPath>..\..\packages\itzben.1.0.2\lib\SL40-WP\Itzben.dll</HintPath>
+    <Reference Include="Itzben, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\itzben.1.0.3\lib\sl4-WindowsPhone71\Itzben.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Phone.Controls.Toolkit">
-      <HintPath>..\..\packages\WPtoolkit.4.2012.10.30\lib\sl4-windowsphone71\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
+    <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\WPToolkit.4.2013.06.11\lib\sl4-windowsphone71\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="System.Windows" />
@@ -73,12 +75,11 @@
     <Reference Include="System.Windows.Interactivity" />
     <Reference Include="System.Xml" />
     <Reference Include="UpdateControls, Version=2.2.2.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\updatecontrols.2.2.2.3\lib\sl4-windowsphone71\UpdateControls.dll</HintPath>
+      <HintPath>..\..\packages\UpdateControls.2.2.5.0\lib\sl4-windowsphone71\UpdateControls.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.Correspondence, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Correspondence.2.0.0.0\lib\SL4-windowsphone71\UpdateControls.Correspondence.dll</HintPath>
+      <HintPath>..\..\packages\Correspondence.2.1.0.0\lib\SL4-windowsphone71\UpdateControls.Correspondence.dll</HintPath>
     </Reference>
     <Reference Include="UpdateControls.Correspondence.BinaryHTTPClient, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -216,7 +217,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <None Include="FacetedWorlds.MyCon_2013_03_04_22_57_42.sap" />
     <None Include="MainPage.xaml">
       <SubType>Designer</SubType>
     </None>
@@ -312,19 +312,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\FactTree.bin" />
-    <Content Include="Data\FactTypeTable.bin" />
-    <Content Include="Data\IncomingTimestampTable.bin" />
-    <Content Include="Data\Index.bin" />
-    <Content Include="Data\PeerTable.bin" />
-    <Content Include="Data\RoleTable.bin" />
-    <Content Include="README_FIRST.txt" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
-    <None Include="Data\ClientGuid.bin" />
-    <Content Include="Data\MessageTable.bin" />
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml">

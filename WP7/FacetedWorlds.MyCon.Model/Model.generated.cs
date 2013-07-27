@@ -142,7 +142,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Individual", 1);
+			"FacetedWorlds.MyCon.Model.Individual", 8);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -310,7 +310,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.EnableToastNotification", 1);
+			"FacetedWorlds.MyCon.Model.EnableToastNotification", -1243635142);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -355,7 +355,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleIndividual = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "individual",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Individual", 1),
+			        Individual._correspondenceFactType,
 			        false));
             }
             return _cacheRoleIndividual;
@@ -442,13 +442,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				DisableToastNotification newFact = new DisableToastNotification(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -471,7 +464,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.DisableToastNotification", 1);
+			"FacetedWorlds.MyCon.Model.DisableToastNotification", -686635848);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -516,7 +509,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleEnable = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "enable",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.EnableToastNotification", 1),
+			        EnableToastNotification._correspondenceFactType,
 			        false));
             }
             return _cacheRoleEnable;
@@ -615,7 +608,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Conference", 1);
+			"FacetedWorlds.MyCon.Model.Conference", 8);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -1012,7 +1005,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Conference__name", 1);
+			"FacetedWorlds.MyCon.Model.Conference__name", 803419988);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -1057,7 +1050,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleConference = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "conference",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			        Conference._correspondenceFactType,
 			        true));
             }
             return _cacheRoleConference;
@@ -1070,7 +1063,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRolePrior = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "prior",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference__name", 1),
+			        Conference__name._correspondenceFactType,
 			        false));
             }
             return _cacheRolePrior;
@@ -1166,13 +1159,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				Conference__conferenceSurvey newFact = new Conference__conferenceSurvey(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -1195,7 +1181,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Conference__conferenceSurvey", 1);
+			"FacetedWorlds.MyCon.Model.Conference__conferenceSurvey", -216826820);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -1240,7 +1226,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleConference = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "conference",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			        Conference._correspondenceFactType,
 			        true));
             }
             return _cacheRoleConference;
@@ -1253,7 +1239,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRolePrior = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "prior",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference__conferenceSurvey", 1),
+			        Conference__conferenceSurvey._correspondenceFactType,
 			        false));
             }
             return _cacheRolePrior;
@@ -1266,7 +1252,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleValue = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "value",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Survey", 1),
+			        Survey._correspondenceFactType,
 			        false));
             }
             return _cacheRoleValue;
@@ -1394,7 +1380,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Conference__mapUrl", 1);
+			"FacetedWorlds.MyCon.Model.Conference__mapUrl", 803419988);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -1439,7 +1425,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleConference = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "conference",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			        Conference._correspondenceFactType,
 			        true));
             }
             return _cacheRoleConference;
@@ -1452,7 +1438,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRolePrior = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "prior",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference__mapUrl", 1),
+			        Conference__mapUrl._correspondenceFactType,
 			        false));
             }
             return _cacheRolePrior;
@@ -1548,13 +1534,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				ConferenceSessionSurvey newFact = new ConferenceSessionSurvey(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -1577,7 +1556,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.ConferenceSessionSurvey", 1);
+			"FacetedWorlds.MyCon.Model.ConferenceSessionSurvey", 597845948);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -1622,7 +1601,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleConference = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "conference",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			        Conference._correspondenceFactType,
 			        true));
             }
             return _cacheRoleConference;
@@ -1635,7 +1614,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleSessionSurvey = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "sessionSurvey",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Survey", 1),
+			        Survey._correspondenceFactType,
 			        false));
             }
             return _cacheRoleSessionSurvey;
@@ -1648,7 +1627,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRolePrior = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "prior",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.ConferenceSessionSurvey", 1),
+			        ConferenceSessionSurvey._correspondenceFactType,
 			        false));
             }
             return _cacheRolePrior;
@@ -1794,7 +1773,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Attendee", 1);
+			"FacetedWorlds.MyCon.Model.Attendee", 1099669528);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -1839,7 +1818,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleConference = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "conference",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			        Conference._correspondenceFactType,
 			        false));
             }
             return _cacheRoleConference;
@@ -2002,13 +1981,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				IndividualAttendee newFact = new IndividualAttendee(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -2031,7 +2003,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.IndividualAttendee", 1);
+			"FacetedWorlds.MyCon.Model.IndividualAttendee", -387550108);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -2076,7 +2048,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleIndividual = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "individual",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Individual", 1),
+			        Individual._correspondenceFactType,
 			        true));
             }
             return _cacheRoleIndividual;
@@ -2089,7 +2061,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleAttendee = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "attendee",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Attendee", 1),
+			        Attendee._correspondenceFactType,
 			        false));
             }
             return _cacheRoleAttendee;
@@ -2196,7 +2168,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Profile", 1);
+			"FacetedWorlds.MyCon.Model.Profile", 1099669528);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -2241,7 +2213,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleConference = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "conference",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			        Conference._correspondenceFactType,
 			        false));
             }
             return _cacheRoleConference;
@@ -2316,13 +2288,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				ProfileAttendee newFact = new ProfileAttendee(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -2345,7 +2310,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.ProfileAttendee", 1);
+			"FacetedWorlds.MyCon.Model.ProfileAttendee", 1202317476);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -2390,7 +2355,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleProfile = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "profile",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Profile", 1),
+			        Profile._correspondenceFactType,
 			        true));
             }
             return _cacheRoleProfile;
@@ -2403,7 +2368,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleAttendee = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "attendee",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Attendee", 1),
+			        Attendee._correspondenceFactType,
 			        false));
             }
             return _cacheRoleAttendee;
@@ -2479,13 +2444,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				Follow newFact = new Follow(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -2508,7 +2466,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Follow", 1);
+			"FacetedWorlds.MyCon.Model.Follow", -992000452);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -2553,7 +2511,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleIndividual = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "individual",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Individual", 1),
+			        Individual._correspondenceFactType,
 			        true));
             }
             return _cacheRoleIndividual;
@@ -2566,7 +2524,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleProfileAttendee = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "profileAttendee",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.ProfileAttendee", 1),
+			        ProfileAttendee._correspondenceFactType,
 			        false));
             }
             return _cacheRoleProfileAttendee;
@@ -2673,7 +2631,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Day", 1);
+			"FacetedWorlds.MyCon.Model.Day", 1099669724);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -2718,7 +2676,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleConference = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "conference",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			        Conference._correspondenceFactType,
 			        true));
             }
             return _cacheRoleConference;
@@ -2857,7 +2815,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Time", 1);
+			"FacetedWorlds.MyCon.Model.Time", -2087703020);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -2902,7 +2860,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleDay = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "day",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Day", 1),
+			        Day._correspondenceFactType,
 			        false));
             }
             return _cacheRoleDay;
@@ -3062,7 +3020,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.TimeDelete", 1);
+			"FacetedWorlds.MyCon.Model.TimeDelete", 227497178);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -3107,7 +3065,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleDeleted = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "deleted",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Time", 1),
+			        Time._correspondenceFactType,
 			        false));
             }
             return _cacheRoleDeleted;
@@ -3194,13 +3152,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				TimeUndelete newFact = new TimeUndelete(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -3223,7 +3174,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.TimeUndelete", 1);
+			"FacetedWorlds.MyCon.Model.TimeUndelete", 1763225232);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -3268,7 +3219,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleUndeleted = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "undeleted",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.TimeDelete", 1),
+			        TimeDelete._correspondenceFactType,
 			        false));
             }
             return _cacheRoleUndeleted;
@@ -3336,13 +3287,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				Slot newFact = new Slot(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -3365,7 +3309,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Slot", 1);
+			"FacetedWorlds.MyCon.Model.Slot", -1480070708);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -3410,7 +3354,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleAttendee = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "attendee",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Attendee", 1),
+			        Attendee._correspondenceFactType,
 			        false));
             }
             return _cacheRoleAttendee;
@@ -3423,7 +3367,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleSlotTime = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "slotTime",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Time", 1),
+			        Time._correspondenceFactType,
 			        true));
             }
             return _cacheRoleSlotTime;
@@ -3551,7 +3495,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Room", 1);
+			"FacetedWorlds.MyCon.Model.Room", -1711482154);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -3596,7 +3540,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleConference = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "conference",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			        Conference._correspondenceFactType,
 			        true));
             }
             return _cacheRoleConference;
@@ -3728,7 +3672,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Room__roomNumber", 1);
+			"FacetedWorlds.MyCon.Model.Room__roomNumber", -968433032);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -3773,7 +3717,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleRoom = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "room",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Room", 1),
+			        Room._correspondenceFactType,
 			        false));
             }
             return _cacheRoleRoom;
@@ -3786,7 +3730,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRolePrior = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "prior",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Room__roomNumber", 1),
+			        Room__roomNumber._correspondenceFactType,
 			        false));
             }
             return _cacheRolePrior;
@@ -3913,7 +3857,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Track", 1);
+			"FacetedWorlds.MyCon.Model.Track", 1099669676);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -3958,7 +3902,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleConference = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "conference",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			        Conference._correspondenceFactType,
 			        true));
             }
             return _cacheRoleConference;
@@ -4100,7 +4044,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Speaker", 1);
+			"FacetedWorlds.MyCon.Model.Speaker", 1099669676);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -4145,7 +4089,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleConference = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "conference",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			        Conference._correspondenceFactType,
 			        true));
             }
             return _cacheRoleConference;
@@ -4354,7 +4298,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Speaker__imageUrl", 1);
+			"FacetedWorlds.MyCon.Model.Speaker__imageUrl", 443104904);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -4399,7 +4343,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleSpeaker = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "speaker",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Speaker", 1),
+			        Speaker._correspondenceFactType,
 			        false));
             }
             return _cacheRoleSpeaker;
@@ -4412,7 +4356,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRolePrior = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "prior",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Speaker__imageUrl", 1),
+			        Speaker__imageUrl._correspondenceFactType,
 			        false));
             }
             return _cacheRolePrior;
@@ -4539,7 +4483,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Speaker__contact", 1);
+			"FacetedWorlds.MyCon.Model.Speaker__contact", 443104904);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -4584,7 +4528,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleSpeaker = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "speaker",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Speaker", 1),
+			        Speaker._correspondenceFactType,
 			        false));
             }
             return _cacheRoleSpeaker;
@@ -4597,7 +4541,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRolePrior = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "prior",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Speaker__contact", 1),
+			        Speaker__contact._correspondenceFactType,
 			        false));
             }
             return _cacheRolePrior;
@@ -4693,13 +4637,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				Speaker__bio newFact = new Speaker__bio(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -4722,7 +4659,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Speaker__bio", 1);
+			"FacetedWorlds.MyCon.Model.Speaker__bio", -577141912);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -4767,7 +4704,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleSpeaker = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "speaker",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Speaker", 1),
+			        Speaker._correspondenceFactType,
 			        false));
             }
             return _cacheRoleSpeaker;
@@ -4780,7 +4717,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRolePrior = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "prior",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Speaker__bio", 1),
+			        Speaker__bio._correspondenceFactType,
 			        false));
             }
             return _cacheRolePrior;
@@ -4793,7 +4730,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleValue = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "value",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.DocumentSegment", 1),
+			        DocumentSegment._correspondenceFactType,
 			        false));
             }
             return _cacheRoleValue;
@@ -4923,7 +4860,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.ConferenceNotice", 1);
+			"FacetedWorlds.MyCon.Model.ConferenceNotice", 2033074576);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -4968,7 +4905,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleConference = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "conference",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			        Conference._correspondenceFactType,
 			        true));
             }
             return _cacheRoleConference;
@@ -5050,13 +4987,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				Place newFact = new Place(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -5079,7 +5009,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Place", 1);
+			"FacetedWorlds.MyCon.Model.Place", -1871516312);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -5124,7 +5054,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRolePlaceTime = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "placeTime",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Time", 1),
+			        Time._correspondenceFactType,
 			        false));
             }
             return _cacheRolePlaceTime;
@@ -5137,7 +5067,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleRoom = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "room",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Room", 1),
+			        Room._correspondenceFactType,
 			        false));
             }
             return _cacheRoleRoom;
@@ -5264,7 +5194,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Level", 1);
+			"FacetedWorlds.MyCon.Model.Level", 8);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -5394,7 +5324,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Session", 1);
+			"FacetedWorlds.MyCon.Model.Session", 383681038);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -5439,7 +5369,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleConference = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "conference",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Conference", 1),
+			        Conference._correspondenceFactType,
 			        true));
             }
             return _cacheRoleConference;
@@ -5452,7 +5382,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleSpeaker = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "speaker",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Speaker", 1),
+			        Speaker._correspondenceFactType,
 			        false));
             }
             return _cacheRoleSpeaker;
@@ -5465,7 +5395,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleTrack = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "track",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Track", 1),
+			        Track._correspondenceFactType,
 			        false));
             }
             return _cacheRoleTrack;
@@ -5750,7 +5680,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Session__name", 1);
+			"FacetedWorlds.MyCon.Model.Session__name", -1186408944);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -5795,7 +5725,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleSession = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "session",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
+			        Session._correspondenceFactType,
 			        false));
             }
             return _cacheRoleSession;
@@ -5808,7 +5738,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRolePrior = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "prior",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session__name", 1),
+			        Session__name._correspondenceFactType,
 			        false));
             }
             return _cacheRolePrior;
@@ -5904,13 +5834,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				Session__description newFact = new Session__description(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -5933,7 +5856,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Session__description", 1);
+			"FacetedWorlds.MyCon.Model.Session__description", 2088311536);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -5978,7 +5901,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleSession = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "session",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
+			        Session._correspondenceFactType,
 			        false));
             }
             return _cacheRoleSession;
@@ -5991,7 +5914,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRolePrior = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "prior",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session__description", 1),
+			        Session__description._correspondenceFactType,
 			        false));
             }
             return _cacheRolePrior;
@@ -6004,7 +5927,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleValue = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "value",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.DocumentSegment", 1),
+			        DocumentSegment._correspondenceFactType,
 			        false));
             }
             return _cacheRoleValue;
@@ -6101,13 +6024,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				Session__level newFact = new Session__level(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -6130,7 +6046,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Session__level", 1);
+			"FacetedWorlds.MyCon.Model.Session__level", 2088311544);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -6175,7 +6091,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleSession = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "session",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
+			        Session._correspondenceFactType,
 			        false));
             }
             return _cacheRoleSession;
@@ -6188,7 +6104,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRolePrior = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "prior",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session__level", 1),
+			        Session__level._correspondenceFactType,
 			        false));
             }
             return _cacheRolePrior;
@@ -6201,7 +6117,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleValue = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "value",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Level", 1),
+			        Level._correspondenceFactType,
 			        false));
             }
             return _cacheRoleValue;
@@ -6329,7 +6245,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.SessionDelete", 1);
+			"FacetedWorlds.MyCon.Model.SessionDelete", 227497178);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -6374,7 +6290,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleDeleted = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "deleted",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
+			        Session._correspondenceFactType,
 			        false));
             }
             return _cacheRoleDeleted;
@@ -6461,13 +6377,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				SessionUndelete newFact = new SessionUndelete(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -6490,7 +6399,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.SessionUndelete", 1);
+			"FacetedWorlds.MyCon.Model.SessionUndelete", 1763225232);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -6535,7 +6444,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleUndeleted = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "undeleted",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionDelete", 1),
+			        SessionDelete._correspondenceFactType,
 			        false));
             }
             return _cacheRoleUndeleted;
@@ -6636,7 +6545,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.SessionNotice", 1);
+			"FacetedWorlds.MyCon.Model.SessionNotice", 43251120);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -6681,7 +6590,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleSession = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "session",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
+			        Session._correspondenceFactType,
 			        true));
             }
             return _cacheRoleSession;
@@ -6763,13 +6672,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				SessionPlace newFact = new SessionPlace(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -6792,7 +6694,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.SessionPlace", 1);
+			"FacetedWorlds.MyCon.Model.SessionPlace", 1353992592);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -6837,7 +6739,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleSession = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "session",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Session", 1),
+			        Session._correspondenceFactType,
 			        false));
             }
             return _cacheRoleSession;
@@ -6850,7 +6752,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRolePlace = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "place",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Place", 1),
+			        Place._correspondenceFactType,
 			        false));
             }
             return _cacheRolePlace;
@@ -6863,7 +6765,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRolePrior = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "prior",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionPlace", 1),
+			        SessionPlace._correspondenceFactType,
 			        false));
             }
             return _cacheRolePrior;
@@ -7021,7 +6923,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Schedule", 1);
+			"FacetedWorlds.MyCon.Model.Schedule", 767663854);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -7066,7 +6968,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleSlot = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "slot",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Slot", 1),
+			        Slot._correspondenceFactType,
 			        false));
             }
             return _cacheRoleSlot;
@@ -7079,7 +6981,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleSessionPlace = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "sessionPlace",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionPlace", 1),
+			        SessionPlace._correspondenceFactType,
 			        true));
             }
             return _cacheRoleSessionPlace;
@@ -7223,13 +7125,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				ScheduleRemove newFact = new ScheduleRemove(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -7252,7 +7147,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.ScheduleRemove", 1);
+			"FacetedWorlds.MyCon.Model.ScheduleRemove", 1967239064);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -7297,7 +7192,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleSchedule = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "schedule",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Schedule", 1),
+			        Schedule._correspondenceFactType,
 			        false));
             }
             return _cacheRoleSchedule;
@@ -7396,7 +7291,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.RatingQuestion", 1);
+			"FacetedWorlds.MyCon.Model.RatingQuestion", 8);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -7526,7 +7421,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.EssayQuestion", 1);
+			"FacetedWorlds.MyCon.Model.EssayQuestion", 8);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -7625,13 +7520,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				Survey newFact = new Survey(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -7654,7 +7542,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.Survey", 1);
+			"FacetedWorlds.MyCon.Model.Survey", 1398194064);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -7699,7 +7587,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleRatingQuestions = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "ratingQuestions",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.RatingQuestion", 1),
+			        RatingQuestion._correspondenceFactType,
 			        false));
             }
             return _cacheRoleRatingQuestions;
@@ -7712,7 +7600,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleEssayQuestions = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "essayQuestions",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.EssayQuestion", 1),
+			        EssayQuestion._correspondenceFactType,
 			        false));
             }
             return _cacheRoleEssayQuestions;
@@ -7788,13 +7676,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				SessionEvaluation newFact = new SessionEvaluation(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -7817,7 +7698,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.SessionEvaluation", 1);
+			"FacetedWorlds.MyCon.Model.SessionEvaluation", 863305896);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -7862,7 +7743,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleSchedule = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "schedule",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Schedule", 1),
+			        Schedule._correspondenceFactType,
 			        false));
             }
             return _cacheRoleSchedule;
@@ -7875,7 +7756,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleSurvey = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "survey",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.Survey", 1),
+			        Survey._correspondenceFactType,
 			        false));
             }
             return _cacheRoleSurvey;
@@ -8004,13 +7885,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				SessionEvaluationCompleted newFact = new SessionEvaluationCompleted(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -8033,7 +7907,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.SessionEvaluationCompleted", 1);
+			"FacetedWorlds.MyCon.Model.SessionEvaluationCompleted", 360872892);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -8078,7 +7952,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleSessionSurvey = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "sessionSurvey",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.ConferenceSessionSurvey", 1),
+			        ConferenceSessionSurvey._correspondenceFactType,
 			        true));
             }
             return _cacheRoleSessionSurvey;
@@ -8091,7 +7965,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleSessionEvaluation = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "sessionEvaluation",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluation", 1),
+			        SessionEvaluation._correspondenceFactType,
 			        false));
             }
             return _cacheRoleSessionEvaluation;
@@ -8104,7 +7978,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleRatingAnswers = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "ratingAnswers",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationRatingAnswer", 1),
+			        SessionEvaluationRatingAnswer._correspondenceFactType,
 			        false));
             }
             return _cacheRoleRatingAnswers;
@@ -8117,7 +7991,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleEssayAnswers = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "essayAnswers",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationEssayAnswer", 1),
+			        SessionEvaluationEssayAnswer._correspondenceFactType,
 			        false));
             }
             return _cacheRoleEssayAnswers;
@@ -8209,13 +8083,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				SessionEvaluationRating newFact = new SessionEvaluationRating(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -8238,7 +8105,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.SessionEvaluationRating", 1);
+			"FacetedWorlds.MyCon.Model.SessionEvaluationRating", -1965764728);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -8283,7 +8150,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleEvaluation = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "evaluation",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluation", 1),
+			        SessionEvaluation._correspondenceFactType,
 			        false));
             }
             return _cacheRoleEvaluation;
@@ -8296,7 +8163,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleQuestion = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "question",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.RatingQuestion", 1),
+			        RatingQuestion._correspondenceFactType,
 			        false));
             }
             return _cacheRoleQuestion;
@@ -8422,7 +8289,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.SessionEvaluationRatingAnswer", 1);
+			"FacetedWorlds.MyCon.Model.SessionEvaluationRatingAnswer", -1192529684);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -8467,7 +8334,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleRating = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "rating",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationRating", 1),
+			        SessionEvaluationRating._correspondenceFactType,
 			        false));
             }
             return _cacheRoleRating;
@@ -8480,7 +8347,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRolePrior = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "prior",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationRatingAnswer", 1),
+			        SessionEvaluationRatingAnswer._correspondenceFactType,
 			        false));
             }
             return _cacheRolePrior;
@@ -8576,13 +8443,6 @@ namespace FacetedWorlds.MyCon.Model
 			{
 				SessionEvaluationEssay newFact = new SessionEvaluationEssay(memento);
 
-				// Create a memory stream from the memento data.
-				using (MemoryStream data = new MemoryStream(memento.Data))
-				{
-					using (BinaryReader output = new BinaryReader(data))
-					{
-					}
-				}
 
 				return newFact;
 			}
@@ -8605,7 +8465,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.SessionEvaluationEssay", 1);
+			"FacetedWorlds.MyCon.Model.SessionEvaluationEssay", -1965764728);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -8650,7 +8510,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleEvaluation = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "evaluation",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluation", 1),
+			        SessionEvaluation._correspondenceFactType,
 			        false));
             }
             return _cacheRoleEvaluation;
@@ -8663,7 +8523,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleQuestion = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "question",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.EssayQuestion", 1),
+			        EssayQuestion._correspondenceFactType,
 			        false));
             }
             return _cacheRoleQuestion;
@@ -8789,7 +8649,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.SessionEvaluationEssayAnswer", 1);
+			"FacetedWorlds.MyCon.Model.SessionEvaluationEssayAnswer", -1534092824);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -8834,7 +8694,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRoleEssay = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "essay",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationEssay", 1),
+			        SessionEvaluationEssay._correspondenceFactType,
 			        false));
             }
             return _cacheRoleEssay;
@@ -8847,7 +8707,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRolePrior = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "prior",
-			        new CorrespondenceFactType("FacetedWorlds.MyCon.Model.SessionEvaluationEssayAnswer", 1),
+			        SessionEvaluationEssayAnswer._correspondenceFactType,
 			        false));
             }
             return _cacheRolePrior;
@@ -8974,7 +8834,7 @@ namespace FacetedWorlds.MyCon.Model
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.DocumentSegment", 1);
+			"FacetedWorlds.MyCon.Model.DocumentSegment", 8);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{

@@ -1,7 +1,7 @@
 ﻿<#@ template language="C#" hostspecific="True" debug="True" #>
 <#@ assembly name="System.Core"#>
-<#@ assembly name="$(SolutionDir)packages\Correspondence.Model.2.0.0.0\tools\UpdateControls.Correspondence.Factual.dll"#>
-<#@ assembly name="$(SolutionDir)packages\Correspondence.Model.2.0.0.0\tools\QEDCode.LLOne.dll"#>
+<#@ assembly name="$(SolutionDir)packages\Correspondence.Model.2.1.0.0\tools\UpdateControls.Correspondence.Factual.dll"#>
+<#@ assembly name="$(SolutionDir)packages\Correspondence.Model.2.1.0.0\tools\QEDCode.LLOne.dll"#>
 <#@ import namespace="System.IO"#>
 <#@ import namespace="System.Collections.Generic"#>
 <#@ import namespace="System.Linq"#>
@@ -90,6 +90,7 @@ namespace <#=targetNamespace.Name#>
 			{
 				<#=c.Name#> newFact = new <#=c.Name#>(memento);
 
+<# if (c.Fields.Any() || c.Unique) { #>
 				// Create a memory stream from the memento data.
 				using (MemoryStream data = new MemoryStream(memento.Data))
 				{
@@ -103,6 +104,7 @@ namespace <#=targetNamespace.Name#>
 <#}#>
 					}
 				}
+<#}#>
 
 				return newFact;
 			}
@@ -131,7 +133,7 @@ namespace <#=targetNamespace.Name#>
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"<#=targetNamespace.Name#>.<#=c.Name#>", 1);
+			"<#=targetNamespace.Name#>.<#=c.Name#>", <#=c.Version#>);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -177,7 +179,7 @@ namespace <#=targetNamespace.Name#>
                 _cache<#=RoleName(predecessor.Name)#> = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "<#=predecessor.Name#>",
-			        new CorrespondenceFactType("<#=targetNamespace.Name#>.<#=predecessor.FactType#>", 1),
+			        <#=predecessor.FactType#>._correspondenceFactType,
 			        <#=predecessor.IsPivot ? "true" : "false"#>));
             }
             return _cache<#=RoleName(predecessor.Name)#>;
