@@ -4,3 +4,42 @@ fact Individual {
 key:
     string anonymousId;
 }
+
+fact Catalog {
+key:
+    string domain;
+
+query:
+    ConferenceHeader* conferenceHeaders {
+        ConferenceHeader h : h.catalog = this
+            where h.isCurrent
+    }
+}
+
+fact ConferenceHeader {
+key:
+    unique;
+    publish Catalog catalog;
+    Conference conference;
+
+mutable:
+    string name;
+    string imageUrl;
+    date startDate;
+    string location;
+
+query:
+    bool isCurrent {
+        not exists ConferenceHeaderDelete d : d.conferenceHeader = this
+    }
+}
+
+fact ConferenceHeaderDelete {
+key:
+    ConferenceHeader conferenceHeader;
+}
+
+fact Conference {
+key:
+    unique;
+}

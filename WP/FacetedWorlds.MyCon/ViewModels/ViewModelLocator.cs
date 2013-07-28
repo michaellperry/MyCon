@@ -33,7 +33,8 @@ namespace FacetedWorlds.MyCon.ViewModels
         {
             get
             {
-                return new ConferenceListViewModel();
+                return ViewModel(() =>
+                    ConferenceListViewModelFactory.Create(_synchronizationService.Community));
             }
         }
     }

@@ -98,6 +98,7 @@
     </Compile>
     <Compile Include="Conferences\ViewModels\ConferenceHeaderViewModel.cs" />
     <Compile Include="Conferences\ViewModels\ConferenceListViewModel.cs" />
+    <Compile Include="Conferences\ViewModels\ConferenceViewModelFactory.cs" />
     <Compile Include="Conferences\Views\ConferenceHeaderView.xaml.cs">
       <DependentUpon>ConferenceHeaderView.xaml</DependentUpon>
     </Compile>
