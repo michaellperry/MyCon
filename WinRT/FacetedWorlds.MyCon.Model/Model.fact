@@ -145,24 +145,6 @@ key:
 	Attendee attendee;
 }
 
-fact Profile {
-key:
-	Conference conference;
-	string name;
-}
-
-fact ProfileAttendee {
-key:
-	publish Profile profile;
-	Attendee attendee;
-}
-
-fact Follow {
-key:
-	publish Individual individual;
-	ProfileAttendee profileAttendee;
-}
-
 fact Day {
 key:
 	publish Conference conference;

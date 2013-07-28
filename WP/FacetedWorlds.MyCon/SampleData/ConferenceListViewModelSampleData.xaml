@@ -1,0 +1,14 @@
+<ViewModels:ConferenceListViewModel xmlns:ViewModels="clr-namespace:FacetedWorlds.MyCon.Conferences.ViewModels">
+	<ViewModels:ConferenceListViewModel.Conferences>
+		<ViewModels:ConferenceHeaderViewModel Date="07/28/2013 00:44:32" Location="Curabitur nam sed" Name="Cras phasellus"/>
+		<ViewModels:ConferenceHeaderViewModel Date="07/28/2013 00:44:32" Location="Vestibulum duis" Name="Dis maecenas aliquam class"/>
+		<ViewModels:ConferenceHeaderViewModel Date="07/28/2013 00:44:32" Location="Adipiscing est curae" Name="Praesent consequat nunc accumsan donec"/>
+		<ViewModels:ConferenceHeaderViewModel Date="07/28/2013 00:44:32" Location="Etiam hac" Name="Parturient fusce integer"/>
+		<ViewModels:ConferenceHeaderViewModel Date="07/28/2013 00:44:32" Location="Vestibulum bibendum aenean convallis" Name="Dignissim mauris elementum facilisis nullam"/>
+		<ViewModels:ConferenceHeaderViewModel Date="07/28/2013 00:44:32" Location="Leo vestibulum fermentum adipiscing" Name="Lorem mus quisque"/>
+		<ViewModels:ConferenceHeaderViewModel Date="07/28/2013 00:44:32" Location="Fringilla dictumst" Name="Morbi parturient"/>
+		<ViewModels:ConferenceHeaderViewModel Date="07/28/2013 00:44:32" Location="Nec habitasse" Name="Eleifend non per aptent"/>
+		<ViewModels:ConferenceHeaderViewModel Date="07/28/2013 00:44:32" Location="Amet facilisi auctor" Name="Congue sed vestibulum hendrerit vivamus"/>
+		<ViewModels:ConferenceHeaderViewModel Date="07/28/2013 00:44:32" Location="Nulla sem cursus dictum ante" Name="Arcu himenaeos lectus aliquam"/>
+	</ViewModels:ConferenceListViewModel.Conferences>
+</ViewModels:ConferenceListViewModel>

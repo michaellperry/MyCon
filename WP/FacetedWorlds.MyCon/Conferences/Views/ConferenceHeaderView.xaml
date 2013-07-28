@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="FacetedWorlds.MyCon.Conferences.Views.ConferenceHeaderView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="480" d:DesignWidth="480">
+    
+    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}" d:DataContext="{d:DesignData /SampleData/ConferenceHeaderViewModelSampleData.xaml}">
+    	<Grid.ColumnDefinitions>
+    		<ColumnDefinition Width="Auto"/>
+    		<ColumnDefinition/>
+    	</Grid.ColumnDefinitions>
+    	<Border BorderThickness="1" HorizontalAlignment="Left" Height="170" Margin="12" VerticalAlignment="Top" Width="170">
+    		<Border.Background>
+    			<ImageBrush Stretch="Uniform" ImageSource="{Binding ImageUrl}"/>
+    		</Border.Background>
+    	</Border>
+    	<StackPanel Grid.Column="1" Orientation="Vertical">
+    		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="222" FontSize="{StaticResource PhoneFontSizeLarge}" Height="89" Margin="12"/>
+    		<TextBlock HorizontalAlignment="Left" Margin="12,0,12,12" TextWrapping="Wrap" Text="{Binding Date, StringFormat=\{0:MMMM d\, yyyy\}}" VerticalAlignment="Top" Width="222" FontSize="{StaticResource PhoneFontSizeMedium}">
+    			<TextBlock.Foreground>
+    				<SolidColorBrush Color="{StaticResource PhoneSubtleColor}"/>
+    			</TextBlock.Foreground>
+    		</TextBlock>
+    		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Location}" VerticalAlignment="Top" Width="222" FontSize="{StaticResource PhoneFontSizeMedium}" Margin="12,0,12,12">
+    			<TextBlock.Foreground>
+    				<SolidColorBrush Color="{StaticResource PhoneSubtleColor}"/>
+    			</TextBlock.Foreground>
+    		</TextBlock>
+
+    	</StackPanel>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,6 @@
+namespace FacetedWorlds.MyCon.Model;
+
+fact Individual {
+key:
+    string anonymousId;
+}
