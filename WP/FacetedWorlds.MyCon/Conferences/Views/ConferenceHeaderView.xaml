@@ -19,14 +19,14 @@
     			<ImageBrush Stretch="Uniform" ImageSource="{Binding ImageUrl}"/>
     		</Border.Background>
     	</Border>
-    	<StackPanel Grid.Column="1" Orientation="Vertical">
-    		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="222" FontSize="{StaticResource PhoneFontSizeLarge}" Height="89" Margin="12"/>
-    		<TextBlock HorizontalAlignment="Left" Margin="12,0,12,12" TextWrapping="Wrap" Text="{Binding Date, StringFormat=\{0:MMMM d\, yyyy\}}" VerticalAlignment="Top" Width="222" FontSize="{StaticResource PhoneFontSizeMedium}">
+    	<StackPanel Grid.Column="1" Orientation="Vertical" Margin="9">
+    		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="222" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="3"/>
+    		<TextBlock HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" Text="{Binding Date, StringFormat=\{0:MMMM d\, yyyy\}}" VerticalAlignment="Top" Width="222" FontSize="{StaticResource PhoneFontSizeMedium}">
     			<TextBlock.Foreground>
     				<SolidColorBrush Color="{StaticResource PhoneSubtleColor}"/>
     			</TextBlock.Foreground>
     		</TextBlock>
-    		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Location}" VerticalAlignment="Top" Width="222" FontSize="{StaticResource PhoneFontSizeMedium}" Margin="12,0,12,12">
+    		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Location}" VerticalAlignment="Top" Width="222" FontSize="{StaticResource PhoneFontSizeMedium}" Margin="3">
     			<TextBlock.Foreground>
     				<SolidColorBrush Color="{StaticResource PhoneSubtleColor}"/>
     			</TextBlock.Foreground>

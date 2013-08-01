@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using FacetedWorlds.MyCon.Conferences.Models;
 using FacetedWorlds.MyCon.Conferences.ViewModels;
 using UpdateControls.XAML;
 
@@ -9,12 +10,15 @@ namespace FacetedWorlds.MyCon.ViewModels
     public class ViewModelLocator : ViewModelLocatorBase
     {
         private readonly SynchronizationService _synchronizationService;
+        private readonly ConferenceSelection _conferenceSelection;
 
         public ViewModelLocator()
         {
             _synchronizationService = new SynchronizationService();
             if (!DesignerProperties.IsInDesignTool)
                 _synchronizationService.Initialize();
+
+            _conferenceSelection = new ConferenceSelection();
         }
 
         public object Main
@@ -34,7 +38,9 @@ namespace FacetedWorlds.MyCon.ViewModels
             get
             {
                 return ViewModel(() =>
-                    ConferenceListViewModelFactory.Create(_synchronizationService.Community));
+                    ConferenceListViewModelFactory.Create(
+                        _synchronizationService.Community,
+                        _conferenceSelection));
             }
         }
     }

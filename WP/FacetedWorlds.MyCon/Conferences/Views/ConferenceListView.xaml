@@ -4,9 +4,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="clr-namespace:System;assembly=mscorlib"
+    xmlns:t="clr-namespace:ControlTiltEffect"
     xmlns:local="clr-namespace:FacetedWorlds.MyCon.Conferences.Views" x:Class="FacetedWorlds.MyCon.Conferences.Views.ConferenceListView"
     mc:Ignorable="d"
     DataContext="{Binding ConferenceList, Source={StaticResource Locator}}"
+    Loaded="UserControl_Loaded"
     d:DesignHeight="768" d:DesignWidth="480">
 	<UserControl.Resources>
 		<DataTemplate x:Key="ConferenceDataTemplate">
@@ -37,7 +39,11 @@
 
         <!--ContentPanel - place additional content here-->
 		<Grid x:Name="ContentPanel" Margin="12,0" Grid.Row="1">
-			<ListBox ItemTemplate="{StaticResource ConferenceDataTemplate}" ItemsSource="{Binding Conferences}"/>
+			<ListBox 
+                t:TiltEffect.IsTiltEnabled="True" 
+                ItemTemplate="{StaticResource ConferenceDataTemplate}" 
+                ItemsSource="{Binding Conferences}" 
+                SelectedItem="{Binding SelectedConference, Mode=TwoWay}"/>
 		</Grid>
 
 	</Grid>

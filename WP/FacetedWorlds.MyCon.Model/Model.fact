@@ -26,6 +26,7 @@ mutable:
     string name;
     string imageUrl;
     date startDate;
+    date endDate;
     string location;
 
 query:

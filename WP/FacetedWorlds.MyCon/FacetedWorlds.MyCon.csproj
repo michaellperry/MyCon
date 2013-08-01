@@ -96,9 +96,13 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Conferences\Models\ConferenceSelection.cs" />
     <Compile Include="Conferences\ViewModels\ConferenceHeaderViewModel.cs" />
     <Compile Include="Conferences\ViewModels\ConferenceListViewModel.cs" />
     <Compile Include="Conferences\ViewModels\ConferenceViewModelFactory.cs" />
+    <Compile Include="Conferences\Views\ConferenceDetailsPage.xaml.cs">
+      <DependentUpon>ConferenceDetailsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Conferences\Views\ConferenceHeaderView.xaml.cs">
       <DependentUpon>ConferenceHeaderView.xaml</DependentUpon>
     </Compile>
@@ -117,6 +121,7 @@
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
     <Compile Include="SynchronizationService.cs" />
+    <Compile Include="TiltEffect.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
   </ItemGroup>
@@ -125,6 +130,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="Conferences\Views\ConferenceDetailsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Conferences\Views\ConferenceHeaderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -21,6 +21,8 @@ digraph "FacetedWorlds.MyCon.Model"
     ConferenceHeader__imageUrl -> ConferenceHeader__imageUrl [label="  *"]
     ConferenceHeader__startDate -> ConferenceHeader
     ConferenceHeader__startDate -> ConferenceHeader__startDate [label="  *"]
+    ConferenceHeader__endDate -> ConferenceHeader
+    ConferenceHeader__endDate -> ConferenceHeader__endDate [label="  *"]
     ConferenceHeader__location -> ConferenceHeader
     ConferenceHeader__location -> ConferenceHeader__location [label="  *"]
     ConferenceHeaderDelete -> ConferenceHeader
@@ -459,6 +461,19 @@ namespace FacetedWorlds.MyCon.Model
             }
             return _cacheQueryStartDate;
 		}
+        private static Query _cacheQueryEndDate;
+
+        public static Query GetQueryEndDate()
+		{
+            if (_cacheQueryEndDate == null)
+            {
+			    _cacheQueryEndDate = new Query()
+    				.JoinSuccessors(ConferenceHeader__endDate.GetRoleConferenceHeader(), Condition.WhereIsEmpty(ConferenceHeader__endDate.GetQueryIsCurrent())
+				)
+                ;
+            }
+            return _cacheQueryEndDate;
+		}
         private static Query _cacheQueryLocation;
 
         public static Query GetQueryLocation()
@@ -501,6 +516,7 @@ namespace FacetedWorlds.MyCon.Model
         private Result<ConferenceHeader__name> _name;
         private Result<ConferenceHeader__imageUrl> _imageUrl;
         private Result<ConferenceHeader__startDate> _startDate;
+        private Result<ConferenceHeader__endDate> _endDate;
         private Result<ConferenceHeader__location> _location;
 
         // Business constructor
@@ -529,6 +545,7 @@ namespace FacetedWorlds.MyCon.Model
             _name = new Result<ConferenceHeader__name>(this, GetQueryName(), ConferenceHeader__name.GetUnloadedInstance, ConferenceHeader__name.GetNullInstance);
             _imageUrl = new Result<ConferenceHeader__imageUrl>(this, GetQueryImageUrl(), ConferenceHeader__imageUrl.GetUnloadedInstance, ConferenceHeader__imageUrl.GetNullInstance);
             _startDate = new Result<ConferenceHeader__startDate>(this, GetQueryStartDate(), ConferenceHeader__startDate.GetUnloadedInstance, ConferenceHeader__startDate.GetNullInstance);
+            _endDate = new Result<ConferenceHeader__endDate>(this, GetQueryEndDate(), ConferenceHeader__endDate.GetUnloadedInstance, ConferenceHeader__endDate.GetNullInstance);
             _location = new Result<ConferenceHeader__location>(this, GetQueryLocation(), ConferenceHeader__location.GetUnloadedInstance, ConferenceHeader__location.GetNullInstance);
         }
 
@@ -582,6 +599,18 @@ namespace FacetedWorlds.MyCon.Model
 				if (current.Count != 1 || !object.Equals(current[0].Value, value.Value))
 				{
 					Community.AddFact(new ConferenceHeader__startDate(this, _startDate, value.Value));
+				}
+			}
+        }
+        public TransientDisputable<ConferenceHeader__endDate, DateTime> EndDate
+        {
+            get { return _endDate.AsTransientDisputable(fact => fact.Value); }
+			set
+			{
+				var current = _endDate.Ensure().ToList();
+				if (current.Count != 1 || !object.Equals(current[0].Value, value.Value))
+				{
+					Community.AddFact(new ConferenceHeader__endDate(this, _endDate, value.Value));
 				}
 			}
         }
@@ -1155,6 +1184,191 @@ namespace FacetedWorlds.MyCon.Model
 
     }
     
+    public partial class ConferenceHeader__endDate : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				ConferenceHeader__endDate newFact = new ConferenceHeader__endDate(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+						newFact._value = (DateTime)_fieldSerializerByType[typeof(DateTime)].ReadData(output);
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				ConferenceHeader__endDate fact = (ConferenceHeader__endDate)obj;
+				_fieldSerializerByType[typeof(DateTime)].WriteData(output, fact._value);
+			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return ConferenceHeader__endDate.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return ConferenceHeader__endDate.GetNullInstance();
+            }
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.ConferenceHeader__endDate", 1696361360);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Null and unloaded instances
+        public static ConferenceHeader__endDate GetUnloadedInstance()
+        {
+            return new ConferenceHeader__endDate((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static ConferenceHeader__endDate GetNullInstance()
+        {
+            return new ConferenceHeader__endDate((FactMemento)null) { IsNull = true };
+        }
+
+        public ConferenceHeader__endDate Ensure()
+        {
+            if (_loadedTask != null)
+            {
+                ManualResetEvent loaded = new ManualResetEvent(false);
+                ConferenceHeader__endDate fact = null;
+                _loadedTask.ContinueWith(delegate(Task<CorrespondenceFact> t)
+                {
+                    fact = (ConferenceHeader__endDate)t.Result;
+                    loaded.Set();
+                });
+                loaded.WaitOne();
+                return fact;
+            }
+            else
+                return this;
+        }
+
+        // Roles
+        private static Role _cacheRoleConferenceHeader;
+        public static Role GetRoleConferenceHeader()
+        {
+            if (_cacheRoleConferenceHeader == null)
+            {
+                _cacheRoleConferenceHeader = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "conferenceHeader",
+			        ConferenceHeader._correspondenceFactType,
+			        false));
+            }
+            return _cacheRoleConferenceHeader;
+        }
+        private static Role _cacheRolePrior;
+        public static Role GetRolePrior()
+        {
+            if (_cacheRolePrior == null)
+            {
+                _cacheRolePrior = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "prior",
+			        ConferenceHeader__endDate._correspondenceFactType,
+			        false));
+            }
+            return _cacheRolePrior;
+        }
+
+        // Queries
+        private static Query _cacheQueryIsCurrent;
+
+        public static Query GetQueryIsCurrent()
+		{
+            if (_cacheQueryIsCurrent == null)
+            {
+			    _cacheQueryIsCurrent = new Query()
+		    		.JoinSuccessors(ConferenceHeader__endDate.GetRolePrior())
+                ;
+            }
+            return _cacheQueryIsCurrent;
+		}
+
+        // Predicates
+        public static Condition IsCurrent = Condition.WhereIsEmpty(GetQueryIsCurrent());
+
+        // Predecessors
+        private PredecessorObj<ConferenceHeader> _conferenceHeader;
+        private PredecessorList<ConferenceHeader__endDate> _prior;
+
+        // Fields
+        private DateTime _value;
+
+        // Results
+
+        // Business constructor
+        public ConferenceHeader__endDate(
+            ConferenceHeader conferenceHeader
+            ,IEnumerable<ConferenceHeader__endDate> prior
+            ,DateTime value
+            )
+        {
+            InitializeResults();
+            _conferenceHeader = new PredecessorObj<ConferenceHeader>(this, GetRoleConferenceHeader(), conferenceHeader);
+            _prior = new PredecessorList<ConferenceHeader__endDate>(this, GetRolePrior(), prior);
+            _value = value;
+        }
+
+        // Hydration constructor
+        private ConferenceHeader__endDate(FactMemento memento)
+        {
+            InitializeResults();
+            _conferenceHeader = new PredecessorObj<ConferenceHeader>(this, GetRoleConferenceHeader(), memento, ConferenceHeader.GetUnloadedInstance, ConferenceHeader.GetNullInstance);
+            _prior = new PredecessorList<ConferenceHeader__endDate>(this, GetRolePrior(), memento, ConferenceHeader__endDate.GetUnloadedInstance, ConferenceHeader__endDate.GetNullInstance);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+        public ConferenceHeader ConferenceHeader
+        {
+            get { return IsNull ? ConferenceHeader.GetNullInstance() : _conferenceHeader.Fact; }
+        }
+        public PredecessorList<ConferenceHeader__endDate> Prior
+        {
+            get { return _prior; }
+        }
+
+        // Field access
+        public DateTime Value
+        {
+            get { return _value; }
+        }
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
     public partial class ConferenceHeader__location : CorrespondenceFact
     {
 		// Factory
@@ -1635,6 +1849,9 @@ namespace FacetedWorlds.MyCon.Model
 				ConferenceHeader.GetQueryStartDate().QueryDefinition);
 			community.AddQuery(
 				ConferenceHeader._correspondenceFactType,
+				ConferenceHeader.GetQueryEndDate().QueryDefinition);
+			community.AddQuery(
+				ConferenceHeader._correspondenceFactType,
 				ConferenceHeader.GetQueryLocation().QueryDefinition);
 			community.AddQuery(
 				ConferenceHeader._correspondenceFactType,
@@ -1660,6 +1877,13 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				ConferenceHeader__startDate._correspondenceFactType,
 				ConferenceHeader__startDate.GetQueryIsCurrent().QueryDefinition);
+			community.AddType(
+				ConferenceHeader__endDate._correspondenceFactType,
+				new ConferenceHeader__endDate.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { ConferenceHeader__endDate._correspondenceFactType }));
+			community.AddQuery(
+				ConferenceHeader__endDate._correspondenceFactType,
+				ConferenceHeader__endDate.GetQueryIsCurrent().QueryDefinition);
 			community.AddType(
 				ConferenceHeader__location._correspondenceFactType,
 				new ConferenceHeader__location.CorrespondenceFactFactory(fieldSerializerByType),
