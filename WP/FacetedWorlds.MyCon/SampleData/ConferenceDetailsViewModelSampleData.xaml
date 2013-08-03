@@ -1,0 +1,32 @@
+<ViewModels:ConferenceDetailsViewModel xmlns:ViewModels="clr-namespace:FacetedWorlds.MyCon.Conferences.ViewModels" xmlns:Model="clr-namespace:FacetedWorlds.MyCon.Model;assembly=FacetedWorlds.MyCon.Model" xmlns:System="clr-namespace:System;assembly=mscorlib" Address="Curabitur class vestibulum" City="Curae nunc aliquam integer quisque" Date="Consequat convallis" Description="Cras aenean nam maecenas duis" HomePageUrl="Mauris nullam" ImageUrl="Dignissim donec" Name="Elementum praesent vivamus aliquam">
+	<ViewModels:ConferenceDetailsViewModel.ConferenceHeader>
+		<Model:ConferenceHeader IsLoaded="True" IsNull="False">
+			<Model:ConferenceHeader.Conference>
+				<Model:Conference IsLoaded="True" IsNull="False">
+					<Model:Conference.Unique>
+						<System:Guid/>
+					</Model:Conference.Unique>
+				</Model:Conference>
+			</Model:ConferenceHeader.Conference>
+			<Model:ConferenceHeader.Catalog>
+				<Model:Catalog Domain="Phasellus amet" IsLoaded="True" IsNull="False">
+					<Model:Catalog.ConferenceHeaders>
+						<Model:ConferenceHeader IsLoaded="True" IsNull="False"/>
+						<Model:ConferenceHeader IsLoaded="True" IsNull="False"/>
+						<Model:ConferenceHeader IsLoaded="True" IsNull="False"/>
+						<Model:ConferenceHeader IsLoaded="True" IsNull="False"/>
+						<Model:ConferenceHeader IsLoaded="True" IsNull="False"/>
+						<Model:ConferenceHeader IsLoaded="True" IsNull="False"/>
+						<Model:ConferenceHeader IsLoaded="True" IsNull="False"/>
+						<Model:ConferenceHeader IsLoaded="True" IsNull="False"/>
+						<Model:ConferenceHeader IsLoaded="True" IsNull="False"/>
+						<Model:ConferenceHeader IsLoaded="True" IsNull="False"/>
+					</Model:Catalog.ConferenceHeaders>
+				</Model:Catalog>
+			</Model:ConferenceHeader.Catalog>
+			<Model:ConferenceHeader.Unique>
+				<System:Guid/>
+			</Model:ConferenceHeader.Unique>
+		</Model:ConferenceHeader>
+	</ViewModels:ConferenceDetailsViewModel.ConferenceHeader>
+</ViewModels:ConferenceDetailsViewModel>

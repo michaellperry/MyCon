@@ -11,10 +11,11 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
+    DataContext="{Binding ConferenceDetails, Source={StaticResource Locator}}"
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot" Background="Transparent" d:DataContext="{d:DesignData /SampleData/ConferenceDetailsViewModelSampleData.xaml}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -22,27 +23,45 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0">
-            <TextBlock Text="AwesomeFest 2013" Margin="21,0,0,12" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock Text="{Binding Name}" Margin="21,0,0,12" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-        	<Border BorderThickness="1" HorizontalAlignment="Left" Height="202" Margin="22,23,0,0" VerticalAlignment="Top" Width="203">
+        	<Grid.ColumnDefinitions>
+        		<ColumnDefinition Width="Auto"/>
+        		<ColumnDefinition/>
+        	</Grid.ColumnDefinitions>
+        	<Grid.RowDefinitions>
+        		<RowDefinition Height="Auto"/>
+        		<RowDefinition/>
+        	</Grid.RowDefinitions>
+        	<Border BorderThickness="1" Margin="6" Width="200" Height="200" HorizontalAlignment="Left" VerticalAlignment="Top">
         		<Border.Background>
-        			<ImageBrush Stretch="Uniform" ImageSource="http://files.g4tv.com/ImageDb3/284724_S/darth-vader-rock-guitarist.jpg"/>
+        			<ImageBrush Stretch="Uniform" ImageSource="{Binding ImageUrl}"/>
         		</Border.Background>
         	</Border>
-        	<TextBlock HorizontalAlignment="Left" Margin="254,23,0,0" TextWrapping="Wrap" Text="February 26, 2014" VerticalAlignment="Top" FontSize="{StaticResource PhoneFontSizeMedium}"/>
-        	<TextBlock HorizontalAlignment="Left" Height="366" Margin="22,252,0,0" TextWrapping="Wrap" Text="AwesomeFest is Awesome! Come grow your awesomeness with our awesome speakers. If you are working on an awesome technology, you'll need some awesome support. That's where AwesomeFest comes in! Be awesome! Come to AwesomeFest!" VerticalAlignment="Top" Width="402" FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
-        	<TextBlock HorizontalAlignment="Left" Margin="252,184,0,0" TextWrapping="Wrap" Text="awesomefest.com" VerticalAlignment="Top" FontSize="{StaticResource PhoneFontSizeMedium}"/>
-        	<TextBlock HorizontalAlignment="Left" Margin="252,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="{StaticResource PhoneFontSizeMedium}">
-        		<Run Text="Allen Convention Center"/>
-        		<LineBreak/>
-        		<Run Text="555 Stacey Road"/>
-        		<LineBreak/>
-        		<Run Text="Allen, TX"/>
-        	</TextBlock>
-
+        	<StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top">
+        		<TextBlock TextWrapping="Wrap" Text="{Binding Date}" FontSize="{StaticResource PhoneFontSizeMedium}" Margin="3"/>
+        		<TextBlock TextWrapping="Wrap" FontSize="{StaticResource PhoneFontSizeMedium}" Margin="3,3,3,0" Text="{Binding Address}">
+        			<TextBlock.Foreground>
+        				<SolidColorBrush Color="{StaticResource PhoneSubtleColor}"/>
+        			</TextBlock.Foreground>
+        			<Run Text="Allen Convention Center"/>
+        			<LineBreak/>
+        			<Run Text="555 Stacey Road"/>
+        		</TextBlock>
+        		<TextBlock
+        			TextWrapping="Wrap"
+        			Text="{Binding City}"
+        			FontSize="{StaticResource PhoneFontSizeMedium}" Margin="3,0,3,3" >
+        			<TextBlock.Foreground>
+        				<SolidColorBrush Color="{StaticResource PhoneSubtleColor}"/>
+        			</TextBlock.Foreground>
+        		</TextBlock>
+        		<TextBlock TextWrapping="Wrap" Text="{Binding HomePageUrl}" FontSize="{StaticResource PhoneFontSizeMedium}" Margin="3"/>
+        	</StackPanel>
+        	<TextBlock TextWrapping="Wrap" Text="{Binding Description}" FontSize="{StaticResource PhoneFontSizeMediumLarge}" Grid.Row="1" Grid.ColumnSpan="2" Margin="6"/>
         </Grid>
     </Grid>
 

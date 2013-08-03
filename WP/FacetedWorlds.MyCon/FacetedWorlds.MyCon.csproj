@@ -97,7 +97,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Conferences\Models\ConferenceSelection.cs" />
+    <Compile Include="Conferences\ViewModels\ConferenceDetailsViewModel.cs" />
     <Compile Include="Conferences\ViewModels\ConferenceHeaderViewModel.cs" />
+    <Compile Include="Conferences\ViewModels\ConferenceHeaderViewModelBase.cs" />
     <Compile Include="Conferences\ViewModels\ConferenceListViewModel.cs" />
     <Compile Include="Conferences\ViewModels\ConferenceViewModelFactory.cs" />
     <Compile Include="Conferences\Views\ConferenceDetailsPage.xaml.cs">
@@ -109,6 +111,7 @@
     <Compile Include="Conferences\Views\ConferenceListView.xaml.cs">
       <DependentUpon>ConferenceListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\SegmentExtensions.cs" />
     <Compile Include="HTTPConfigurationProvider.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -213,6 +216,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <DesignData Include="SampleData\ConferenceDetailsViewModelSampleData.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+    </DesignData>
     <DesignData Include="SampleData\ConferenceHeaderViewModelSampleData.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>

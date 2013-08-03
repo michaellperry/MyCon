@@ -27,7 +27,10 @@ mutable:
     string imageUrl;
     date startDate;
     date endDate;
-    string location;
+    string address;
+    string city;
+    string homePageUrl;
+    DocumentSegment* description;
 
 query:
     bool isCurrent {
@@ -43,4 +46,9 @@ key:
 fact Conference {
 key:
     unique;
+}
+
+fact DocumentSegment {
+key:
+	string text;
 }

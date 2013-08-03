@@ -23,8 +23,15 @@ digraph "FacetedWorlds.MyCon.Model"
     ConferenceHeader__startDate -> ConferenceHeader__startDate [label="  *"]
     ConferenceHeader__endDate -> ConferenceHeader
     ConferenceHeader__endDate -> ConferenceHeader__endDate [label="  *"]
-    ConferenceHeader__location -> ConferenceHeader
-    ConferenceHeader__location -> ConferenceHeader__location [label="  *"]
+    ConferenceHeader__address -> ConferenceHeader
+    ConferenceHeader__address -> ConferenceHeader__address [label="  *"]
+    ConferenceHeader__city -> ConferenceHeader
+    ConferenceHeader__city -> ConferenceHeader__city [label="  *"]
+    ConferenceHeader__homePageUrl -> ConferenceHeader
+    ConferenceHeader__homePageUrl -> ConferenceHeader__homePageUrl [label="  *"]
+    ConferenceHeader__description -> ConferenceHeader
+    ConferenceHeader__description -> ConferenceHeader__description [label="  *"]
+    ConferenceHeader__description -> DocumentSegment [label="  *"]
     ConferenceHeaderDelete -> ConferenceHeader
 }
 **/
@@ -474,18 +481,57 @@ namespace FacetedWorlds.MyCon.Model
             }
             return _cacheQueryEndDate;
 		}
-        private static Query _cacheQueryLocation;
+        private static Query _cacheQueryAddress;
 
-        public static Query GetQueryLocation()
+        public static Query GetQueryAddress()
 		{
-            if (_cacheQueryLocation == null)
+            if (_cacheQueryAddress == null)
             {
-			    _cacheQueryLocation = new Query()
-    				.JoinSuccessors(ConferenceHeader__location.GetRoleConferenceHeader(), Condition.WhereIsEmpty(ConferenceHeader__location.GetQueryIsCurrent())
+			    _cacheQueryAddress = new Query()
+    				.JoinSuccessors(ConferenceHeader__address.GetRoleConferenceHeader(), Condition.WhereIsEmpty(ConferenceHeader__address.GetQueryIsCurrent())
 				)
                 ;
             }
-            return _cacheQueryLocation;
+            return _cacheQueryAddress;
+		}
+        private static Query _cacheQueryCity;
+
+        public static Query GetQueryCity()
+		{
+            if (_cacheQueryCity == null)
+            {
+			    _cacheQueryCity = new Query()
+    				.JoinSuccessors(ConferenceHeader__city.GetRoleConferenceHeader(), Condition.WhereIsEmpty(ConferenceHeader__city.GetQueryIsCurrent())
+				)
+                ;
+            }
+            return _cacheQueryCity;
+		}
+        private static Query _cacheQueryHomePageUrl;
+
+        public static Query GetQueryHomePageUrl()
+		{
+            if (_cacheQueryHomePageUrl == null)
+            {
+			    _cacheQueryHomePageUrl = new Query()
+    				.JoinSuccessors(ConferenceHeader__homePageUrl.GetRoleConferenceHeader(), Condition.WhereIsEmpty(ConferenceHeader__homePageUrl.GetQueryIsCurrent())
+				)
+                ;
+            }
+            return _cacheQueryHomePageUrl;
+		}
+        private static Query _cacheQueryDescription;
+
+        public static Query GetQueryDescription()
+		{
+            if (_cacheQueryDescription == null)
+            {
+			    _cacheQueryDescription = new Query()
+    				.JoinSuccessors(ConferenceHeader__description.GetRoleConferenceHeader(), Condition.WhereIsEmpty(ConferenceHeader__description.GetQueryIsCurrent())
+				)
+                ;
+            }
+            return _cacheQueryDescription;
 		}
         private static Query _cacheQueryIsCurrent;
 
@@ -517,7 +563,10 @@ namespace FacetedWorlds.MyCon.Model
         private Result<ConferenceHeader__imageUrl> _imageUrl;
         private Result<ConferenceHeader__startDate> _startDate;
         private Result<ConferenceHeader__endDate> _endDate;
-        private Result<ConferenceHeader__location> _location;
+        private Result<ConferenceHeader__address> _address;
+        private Result<ConferenceHeader__city> _city;
+        private Result<ConferenceHeader__homePageUrl> _homePageUrl;
+        private Result<ConferenceHeader__description> _description;
 
         // Business constructor
         public ConferenceHeader(
@@ -546,7 +595,10 @@ namespace FacetedWorlds.MyCon.Model
             _imageUrl = new Result<ConferenceHeader__imageUrl>(this, GetQueryImageUrl(), ConferenceHeader__imageUrl.GetUnloadedInstance, ConferenceHeader__imageUrl.GetNullInstance);
             _startDate = new Result<ConferenceHeader__startDate>(this, GetQueryStartDate(), ConferenceHeader__startDate.GetUnloadedInstance, ConferenceHeader__startDate.GetNullInstance);
             _endDate = new Result<ConferenceHeader__endDate>(this, GetQueryEndDate(), ConferenceHeader__endDate.GetUnloadedInstance, ConferenceHeader__endDate.GetNullInstance);
-            _location = new Result<ConferenceHeader__location>(this, GetQueryLocation(), ConferenceHeader__location.GetUnloadedInstance, ConferenceHeader__location.GetNullInstance);
+            _address = new Result<ConferenceHeader__address>(this, GetQueryAddress(), ConferenceHeader__address.GetUnloadedInstance, ConferenceHeader__address.GetNullInstance);
+            _city = new Result<ConferenceHeader__city>(this, GetQueryCity(), ConferenceHeader__city.GetUnloadedInstance, ConferenceHeader__city.GetNullInstance);
+            _homePageUrl = new Result<ConferenceHeader__homePageUrl>(this, GetQueryHomePageUrl(), ConferenceHeader__homePageUrl.GetUnloadedInstance, ConferenceHeader__homePageUrl.GetNullInstance);
+            _description = new Result<ConferenceHeader__description>(this, GetQueryDescription(), ConferenceHeader__description.GetUnloadedInstance, ConferenceHeader__description.GetNullInstance);
         }
 
         // Predecessor access
@@ -614,19 +666,55 @@ namespace FacetedWorlds.MyCon.Model
 				}
 			}
         }
-        public TransientDisputable<ConferenceHeader__location, string> Location
+        public TransientDisputable<ConferenceHeader__address, string> Address
         {
-            get { return _location.AsTransientDisputable(fact => fact.Value); }
+            get { return _address.AsTransientDisputable(fact => fact.Value); }
 			set
 			{
-				var current = _location.Ensure().ToList();
+				var current = _address.Ensure().ToList();
 				if (current.Count != 1 || !object.Equals(current[0].Value, value.Value))
 				{
-					Community.AddFact(new ConferenceHeader__location(this, _location, value.Value));
+					Community.AddFact(new ConferenceHeader__address(this, _address, value.Value));
+				}
+			}
+        }
+        public TransientDisputable<ConferenceHeader__city, string> City
+        {
+            get { return _city.AsTransientDisputable(fact => fact.Value); }
+			set
+			{
+				var current = _city.Ensure().ToList();
+				if (current.Count != 1 || !object.Equals(current[0].Value, value.Value))
+				{
+					Community.AddFact(new ConferenceHeader__city(this, _city, value.Value));
+				}
+			}
+        }
+        public TransientDisputable<ConferenceHeader__homePageUrl, string> HomePageUrl
+        {
+            get { return _homePageUrl.AsTransientDisputable(fact => fact.Value); }
+			set
+			{
+				var current = _homePageUrl.Ensure().ToList();
+				if (current.Count != 1 || !object.Equals(current[0].Value, value.Value))
+				{
+					Community.AddFact(new ConferenceHeader__homePageUrl(this, _homePageUrl, value.Value));
 				}
 			}
         }
 
+        public TransientDisputable<ConferenceHeader__description, IEnumerable<DocumentSegment>> Description
+        {
+            get { return _description.AsTransientDisputable(fact => (IEnumerable<DocumentSegment>)fact.Value); }
+			set
+			{
+				var current = _description.Ensure().ToList();
+				if (current.Count != 1 || !object.Equals(current[0].Value, value.Value))
+				{
+					Community.AddFact(new ConferenceHeader__description(this, _description, value.Value));
+				}
+			}
+        }
     }
     
     public partial class ConferenceHeader__name : CorrespondenceFact
@@ -1369,7 +1457,7 @@ namespace FacetedWorlds.MyCon.Model
 
     }
     
-    public partial class ConferenceHeader__location : CorrespondenceFact
+    public partial class ConferenceHeader__address : CorrespondenceFact
     {
 		// Factory
 		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
@@ -1383,7 +1471,7 @@ namespace FacetedWorlds.MyCon.Model
 
 			public CorrespondenceFact CreateFact(FactMemento memento)
 			{
-				ConferenceHeader__location newFact = new ConferenceHeader__location(memento);
+				ConferenceHeader__address newFact = new ConferenceHeader__address(memento);
 
 				// Create a memory stream from the memento data.
 				using (MemoryStream data = new MemoryStream(memento.Data))
@@ -1399,24 +1487,24 @@ namespace FacetedWorlds.MyCon.Model
 
 			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
 			{
-				ConferenceHeader__location fact = (ConferenceHeader__location)obj;
+				ConferenceHeader__address fact = (ConferenceHeader__address)obj;
 				_fieldSerializerByType[typeof(string)].WriteData(output, fact._value);
 			}
 
             public CorrespondenceFact GetUnloadedInstance()
             {
-                return ConferenceHeader__location.GetUnloadedInstance();
+                return ConferenceHeader__address.GetUnloadedInstance();
             }
 
             public CorrespondenceFact GetNullInstance()
             {
-                return ConferenceHeader__location.GetNullInstance();
+                return ConferenceHeader__address.GetNullInstance();
             }
 		}
 
 		// Type
 		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
-			"FacetedWorlds.MyCon.Model.ConferenceHeader__location", 1696361312);
+			"FacetedWorlds.MyCon.Model.ConferenceHeader__address", 1696361312);
 
 		protected override CorrespondenceFactType GetCorrespondenceFactType()
 		{
@@ -1424,25 +1512,25 @@ namespace FacetedWorlds.MyCon.Model
 		}
 
         // Null and unloaded instances
-        public static ConferenceHeader__location GetUnloadedInstance()
+        public static ConferenceHeader__address GetUnloadedInstance()
         {
-            return new ConferenceHeader__location((FactMemento)null) { IsLoaded = false };
+            return new ConferenceHeader__address((FactMemento)null) { IsLoaded = false };
         }
 
-        public static ConferenceHeader__location GetNullInstance()
+        public static ConferenceHeader__address GetNullInstance()
         {
-            return new ConferenceHeader__location((FactMemento)null) { IsNull = true };
+            return new ConferenceHeader__address((FactMemento)null) { IsNull = true };
         }
 
-        public ConferenceHeader__location Ensure()
+        public ConferenceHeader__address Ensure()
         {
             if (_loadedTask != null)
             {
                 ManualResetEvent loaded = new ManualResetEvent(false);
-                ConferenceHeader__location fact = null;
+                ConferenceHeader__address fact = null;
                 _loadedTask.ContinueWith(delegate(Task<CorrespondenceFact> t)
                 {
-                    fact = (ConferenceHeader__location)t.Result;
+                    fact = (ConferenceHeader__address)t.Result;
                     loaded.Set();
                 });
                 loaded.WaitOne();
@@ -1474,7 +1562,7 @@ namespace FacetedWorlds.MyCon.Model
                 _cacheRolePrior = new Role(new RoleMemento(
 			        _correspondenceFactType,
 			        "prior",
-			        ConferenceHeader__location._correspondenceFactType,
+			        ConferenceHeader__address._correspondenceFactType,
 			        false));
             }
             return _cacheRolePrior;
@@ -1488,7 +1576,7 @@ namespace FacetedWorlds.MyCon.Model
             if (_cacheQueryIsCurrent == null)
             {
 			    _cacheQueryIsCurrent = new Query()
-		    		.JoinSuccessors(ConferenceHeader__location.GetRolePrior())
+		    		.JoinSuccessors(ConferenceHeader__address.GetRolePrior())
                 ;
             }
             return _cacheQueryIsCurrent;
@@ -1499,7 +1587,7 @@ namespace FacetedWorlds.MyCon.Model
 
         // Predecessors
         private PredecessorObj<ConferenceHeader> _conferenceHeader;
-        private PredecessorList<ConferenceHeader__location> _prior;
+        private PredecessorList<ConferenceHeader__address> _prior;
 
         // Fields
         private string _value;
@@ -1507,24 +1595,24 @@ namespace FacetedWorlds.MyCon.Model
         // Results
 
         // Business constructor
-        public ConferenceHeader__location(
+        public ConferenceHeader__address(
             ConferenceHeader conferenceHeader
-            ,IEnumerable<ConferenceHeader__location> prior
+            ,IEnumerable<ConferenceHeader__address> prior
             ,string value
             )
         {
             InitializeResults();
             _conferenceHeader = new PredecessorObj<ConferenceHeader>(this, GetRoleConferenceHeader(), conferenceHeader);
-            _prior = new PredecessorList<ConferenceHeader__location>(this, GetRolePrior(), prior);
+            _prior = new PredecessorList<ConferenceHeader__address>(this, GetRolePrior(), prior);
             _value = value;
         }
 
         // Hydration constructor
-        private ConferenceHeader__location(FactMemento memento)
+        private ConferenceHeader__address(FactMemento memento)
         {
             InitializeResults();
             _conferenceHeader = new PredecessorObj<ConferenceHeader>(this, GetRoleConferenceHeader(), memento, ConferenceHeader.GetUnloadedInstance, ConferenceHeader.GetNullInstance);
-            _prior = new PredecessorList<ConferenceHeader__location>(this, GetRolePrior(), memento, ConferenceHeader__location.GetUnloadedInstance, ConferenceHeader__location.GetNullInstance);
+            _prior = new PredecessorList<ConferenceHeader__address>(this, GetRolePrior(), memento, ConferenceHeader__address.GetUnloadedInstance, ConferenceHeader__address.GetNullInstance);
         }
 
         // Result initializer
@@ -1537,7 +1625,7 @@ namespace FacetedWorlds.MyCon.Model
         {
             get { return IsNull ? ConferenceHeader.GetNullInstance() : _conferenceHeader.Fact; }
         }
-        public PredecessorList<ConferenceHeader__location> Prior
+        public PredecessorList<ConferenceHeader__address> Prior
         {
             get { return _prior; }
         }
@@ -1547,6 +1635,566 @@ namespace FacetedWorlds.MyCon.Model
         {
             get { return _value; }
         }
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
+    public partial class ConferenceHeader__city : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				ConferenceHeader__city newFact = new ConferenceHeader__city(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+						newFact._value = (string)_fieldSerializerByType[typeof(string)].ReadData(output);
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				ConferenceHeader__city fact = (ConferenceHeader__city)obj;
+				_fieldSerializerByType[typeof(string)].WriteData(output, fact._value);
+			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return ConferenceHeader__city.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return ConferenceHeader__city.GetNullInstance();
+            }
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.ConferenceHeader__city", 1696361312);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Null and unloaded instances
+        public static ConferenceHeader__city GetUnloadedInstance()
+        {
+            return new ConferenceHeader__city((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static ConferenceHeader__city GetNullInstance()
+        {
+            return new ConferenceHeader__city((FactMemento)null) { IsNull = true };
+        }
+
+        public ConferenceHeader__city Ensure()
+        {
+            if (_loadedTask != null)
+            {
+                ManualResetEvent loaded = new ManualResetEvent(false);
+                ConferenceHeader__city fact = null;
+                _loadedTask.ContinueWith(delegate(Task<CorrespondenceFact> t)
+                {
+                    fact = (ConferenceHeader__city)t.Result;
+                    loaded.Set();
+                });
+                loaded.WaitOne();
+                return fact;
+            }
+            else
+                return this;
+        }
+
+        // Roles
+        private static Role _cacheRoleConferenceHeader;
+        public static Role GetRoleConferenceHeader()
+        {
+            if (_cacheRoleConferenceHeader == null)
+            {
+                _cacheRoleConferenceHeader = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "conferenceHeader",
+			        ConferenceHeader._correspondenceFactType,
+			        false));
+            }
+            return _cacheRoleConferenceHeader;
+        }
+        private static Role _cacheRolePrior;
+        public static Role GetRolePrior()
+        {
+            if (_cacheRolePrior == null)
+            {
+                _cacheRolePrior = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "prior",
+			        ConferenceHeader__city._correspondenceFactType,
+			        false));
+            }
+            return _cacheRolePrior;
+        }
+
+        // Queries
+        private static Query _cacheQueryIsCurrent;
+
+        public static Query GetQueryIsCurrent()
+		{
+            if (_cacheQueryIsCurrent == null)
+            {
+			    _cacheQueryIsCurrent = new Query()
+		    		.JoinSuccessors(ConferenceHeader__city.GetRolePrior())
+                ;
+            }
+            return _cacheQueryIsCurrent;
+		}
+
+        // Predicates
+        public static Condition IsCurrent = Condition.WhereIsEmpty(GetQueryIsCurrent());
+
+        // Predecessors
+        private PredecessorObj<ConferenceHeader> _conferenceHeader;
+        private PredecessorList<ConferenceHeader__city> _prior;
+
+        // Fields
+        private string _value;
+
+        // Results
+
+        // Business constructor
+        public ConferenceHeader__city(
+            ConferenceHeader conferenceHeader
+            ,IEnumerable<ConferenceHeader__city> prior
+            ,string value
+            )
+        {
+            InitializeResults();
+            _conferenceHeader = new PredecessorObj<ConferenceHeader>(this, GetRoleConferenceHeader(), conferenceHeader);
+            _prior = new PredecessorList<ConferenceHeader__city>(this, GetRolePrior(), prior);
+            _value = value;
+        }
+
+        // Hydration constructor
+        private ConferenceHeader__city(FactMemento memento)
+        {
+            InitializeResults();
+            _conferenceHeader = new PredecessorObj<ConferenceHeader>(this, GetRoleConferenceHeader(), memento, ConferenceHeader.GetUnloadedInstance, ConferenceHeader.GetNullInstance);
+            _prior = new PredecessorList<ConferenceHeader__city>(this, GetRolePrior(), memento, ConferenceHeader__city.GetUnloadedInstance, ConferenceHeader__city.GetNullInstance);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+        public ConferenceHeader ConferenceHeader
+        {
+            get { return IsNull ? ConferenceHeader.GetNullInstance() : _conferenceHeader.Fact; }
+        }
+        public PredecessorList<ConferenceHeader__city> Prior
+        {
+            get { return _prior; }
+        }
+
+        // Field access
+        public string Value
+        {
+            get { return _value; }
+        }
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
+    public partial class ConferenceHeader__homePageUrl : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				ConferenceHeader__homePageUrl newFact = new ConferenceHeader__homePageUrl(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+						newFact._value = (string)_fieldSerializerByType[typeof(string)].ReadData(output);
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				ConferenceHeader__homePageUrl fact = (ConferenceHeader__homePageUrl)obj;
+				_fieldSerializerByType[typeof(string)].WriteData(output, fact._value);
+			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return ConferenceHeader__homePageUrl.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return ConferenceHeader__homePageUrl.GetNullInstance();
+            }
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.ConferenceHeader__homePageUrl", 1696361312);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Null and unloaded instances
+        public static ConferenceHeader__homePageUrl GetUnloadedInstance()
+        {
+            return new ConferenceHeader__homePageUrl((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static ConferenceHeader__homePageUrl GetNullInstance()
+        {
+            return new ConferenceHeader__homePageUrl((FactMemento)null) { IsNull = true };
+        }
+
+        public ConferenceHeader__homePageUrl Ensure()
+        {
+            if (_loadedTask != null)
+            {
+                ManualResetEvent loaded = new ManualResetEvent(false);
+                ConferenceHeader__homePageUrl fact = null;
+                _loadedTask.ContinueWith(delegate(Task<CorrespondenceFact> t)
+                {
+                    fact = (ConferenceHeader__homePageUrl)t.Result;
+                    loaded.Set();
+                });
+                loaded.WaitOne();
+                return fact;
+            }
+            else
+                return this;
+        }
+
+        // Roles
+        private static Role _cacheRoleConferenceHeader;
+        public static Role GetRoleConferenceHeader()
+        {
+            if (_cacheRoleConferenceHeader == null)
+            {
+                _cacheRoleConferenceHeader = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "conferenceHeader",
+			        ConferenceHeader._correspondenceFactType,
+			        false));
+            }
+            return _cacheRoleConferenceHeader;
+        }
+        private static Role _cacheRolePrior;
+        public static Role GetRolePrior()
+        {
+            if (_cacheRolePrior == null)
+            {
+                _cacheRolePrior = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "prior",
+			        ConferenceHeader__homePageUrl._correspondenceFactType,
+			        false));
+            }
+            return _cacheRolePrior;
+        }
+
+        // Queries
+        private static Query _cacheQueryIsCurrent;
+
+        public static Query GetQueryIsCurrent()
+		{
+            if (_cacheQueryIsCurrent == null)
+            {
+			    _cacheQueryIsCurrent = new Query()
+		    		.JoinSuccessors(ConferenceHeader__homePageUrl.GetRolePrior())
+                ;
+            }
+            return _cacheQueryIsCurrent;
+		}
+
+        // Predicates
+        public static Condition IsCurrent = Condition.WhereIsEmpty(GetQueryIsCurrent());
+
+        // Predecessors
+        private PredecessorObj<ConferenceHeader> _conferenceHeader;
+        private PredecessorList<ConferenceHeader__homePageUrl> _prior;
+
+        // Fields
+        private string _value;
+
+        // Results
+
+        // Business constructor
+        public ConferenceHeader__homePageUrl(
+            ConferenceHeader conferenceHeader
+            ,IEnumerable<ConferenceHeader__homePageUrl> prior
+            ,string value
+            )
+        {
+            InitializeResults();
+            _conferenceHeader = new PredecessorObj<ConferenceHeader>(this, GetRoleConferenceHeader(), conferenceHeader);
+            _prior = new PredecessorList<ConferenceHeader__homePageUrl>(this, GetRolePrior(), prior);
+            _value = value;
+        }
+
+        // Hydration constructor
+        private ConferenceHeader__homePageUrl(FactMemento memento)
+        {
+            InitializeResults();
+            _conferenceHeader = new PredecessorObj<ConferenceHeader>(this, GetRoleConferenceHeader(), memento, ConferenceHeader.GetUnloadedInstance, ConferenceHeader.GetNullInstance);
+            _prior = new PredecessorList<ConferenceHeader__homePageUrl>(this, GetRolePrior(), memento, ConferenceHeader__homePageUrl.GetUnloadedInstance, ConferenceHeader__homePageUrl.GetNullInstance);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+        public ConferenceHeader ConferenceHeader
+        {
+            get { return IsNull ? ConferenceHeader.GetNullInstance() : _conferenceHeader.Fact; }
+        }
+        public PredecessorList<ConferenceHeader__homePageUrl> Prior
+        {
+            get { return _prior; }
+        }
+
+        // Field access
+        public string Value
+        {
+            get { return _value; }
+        }
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
+    public partial class ConferenceHeader__description : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				ConferenceHeader__description newFact = new ConferenceHeader__description(memento);
+
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				ConferenceHeader__description fact = (ConferenceHeader__description)obj;
+			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return ConferenceHeader__description.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return ConferenceHeader__description.GetNullInstance();
+            }
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.ConferenceHeader__description", 676114496);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Null and unloaded instances
+        public static ConferenceHeader__description GetUnloadedInstance()
+        {
+            return new ConferenceHeader__description((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static ConferenceHeader__description GetNullInstance()
+        {
+            return new ConferenceHeader__description((FactMemento)null) { IsNull = true };
+        }
+
+        public ConferenceHeader__description Ensure()
+        {
+            if (_loadedTask != null)
+            {
+                ManualResetEvent loaded = new ManualResetEvent(false);
+                ConferenceHeader__description fact = null;
+                _loadedTask.ContinueWith(delegate(Task<CorrespondenceFact> t)
+                {
+                    fact = (ConferenceHeader__description)t.Result;
+                    loaded.Set();
+                });
+                loaded.WaitOne();
+                return fact;
+            }
+            else
+                return this;
+        }
+
+        // Roles
+        private static Role _cacheRoleConferenceHeader;
+        public static Role GetRoleConferenceHeader()
+        {
+            if (_cacheRoleConferenceHeader == null)
+            {
+                _cacheRoleConferenceHeader = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "conferenceHeader",
+			        ConferenceHeader._correspondenceFactType,
+			        false));
+            }
+            return _cacheRoleConferenceHeader;
+        }
+        private static Role _cacheRolePrior;
+        public static Role GetRolePrior()
+        {
+            if (_cacheRolePrior == null)
+            {
+                _cacheRolePrior = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "prior",
+			        ConferenceHeader__description._correspondenceFactType,
+			        false));
+            }
+            return _cacheRolePrior;
+        }
+        private static Role _cacheRoleValue;
+        public static Role GetRoleValue()
+        {
+            if (_cacheRoleValue == null)
+            {
+                _cacheRoleValue = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "value",
+			        DocumentSegment._correspondenceFactType,
+			        false));
+            }
+            return _cacheRoleValue;
+        }
+
+        // Queries
+        private static Query _cacheQueryIsCurrent;
+
+        public static Query GetQueryIsCurrent()
+		{
+            if (_cacheQueryIsCurrent == null)
+            {
+			    _cacheQueryIsCurrent = new Query()
+		    		.JoinSuccessors(ConferenceHeader__description.GetRolePrior())
+                ;
+            }
+            return _cacheQueryIsCurrent;
+		}
+
+        // Predicates
+        public static Condition IsCurrent = Condition.WhereIsEmpty(GetQueryIsCurrent());
+
+        // Predecessors
+        private PredecessorObj<ConferenceHeader> _conferenceHeader;
+        private PredecessorList<ConferenceHeader__description> _prior;
+        private PredecessorList<DocumentSegment> _value;
+
+        // Fields
+
+        // Results
+
+        // Business constructor
+        public ConferenceHeader__description(
+            ConferenceHeader conferenceHeader
+            ,IEnumerable<ConferenceHeader__description> prior
+            ,IEnumerable<DocumentSegment> value
+            )
+        {
+            InitializeResults();
+            _conferenceHeader = new PredecessorObj<ConferenceHeader>(this, GetRoleConferenceHeader(), conferenceHeader);
+            _prior = new PredecessorList<ConferenceHeader__description>(this, GetRolePrior(), prior);
+            _value = new PredecessorList<DocumentSegment>(this, GetRoleValue(), value);
+        }
+
+        // Hydration constructor
+        private ConferenceHeader__description(FactMemento memento)
+        {
+            InitializeResults();
+            _conferenceHeader = new PredecessorObj<ConferenceHeader>(this, GetRoleConferenceHeader(), memento, ConferenceHeader.GetUnloadedInstance, ConferenceHeader.GetNullInstance);
+            _prior = new PredecessorList<ConferenceHeader__description>(this, GetRolePrior(), memento, ConferenceHeader__description.GetUnloadedInstance, ConferenceHeader__description.GetNullInstance);
+            _value = new PredecessorList<DocumentSegment>(this, GetRoleValue(), memento, DocumentSegment.GetUnloadedInstance, DocumentSegment.GetNullInstance);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+        public ConferenceHeader ConferenceHeader
+        {
+            get { return IsNull ? ConferenceHeader.GetNullInstance() : _conferenceHeader.Fact; }
+        }
+        public PredecessorList<ConferenceHeader__description> Prior
+        {
+            get { return _prior; }
+        }
+        public PredecessorList<DocumentSegment> Value
+        {
+            get { return _value; }
+        }
+
+        // Field access
 
         // Query result access
 
@@ -1818,6 +2466,136 @@ namespace FacetedWorlds.MyCon.Model
 
     }
     
+    public partial class DocumentSegment : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				DocumentSegment newFact = new DocumentSegment(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+						newFact._text = (string)_fieldSerializerByType[typeof(string)].ReadData(output);
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				DocumentSegment fact = (DocumentSegment)obj;
+				_fieldSerializerByType[typeof(string)].WriteData(output, fact._text);
+			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return DocumentSegment.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return DocumentSegment.GetNullInstance();
+            }
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.DocumentSegment", 8);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Null and unloaded instances
+        public static DocumentSegment GetUnloadedInstance()
+        {
+            return new DocumentSegment((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static DocumentSegment GetNullInstance()
+        {
+            return new DocumentSegment((FactMemento)null) { IsNull = true };
+        }
+
+        public DocumentSegment Ensure()
+        {
+            if (_loadedTask != null)
+            {
+                ManualResetEvent loaded = new ManualResetEvent(false);
+                DocumentSegment fact = null;
+                _loadedTask.ContinueWith(delegate(Task<CorrespondenceFact> t)
+                {
+                    fact = (DocumentSegment)t.Result;
+                    loaded.Set();
+                });
+                loaded.WaitOne();
+                return fact;
+            }
+            else
+                return this;
+        }
+
+        // Roles
+
+        // Queries
+
+        // Predicates
+
+        // Predecessors
+
+        // Fields
+        private string _text;
+
+        // Results
+
+        // Business constructor
+        public DocumentSegment(
+            string text
+            )
+        {
+            InitializeResults();
+            _text = text;
+        }
+
+        // Hydration constructor
+        private DocumentSegment(FactMemento memento)
+        {
+            InitializeResults();
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+
+        // Field access
+        public string Text
+        {
+            get { return _text; }
+        }
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
 
 	public class CorrespondenceModel : ICorrespondenceModel
 	{
@@ -1852,7 +2630,16 @@ namespace FacetedWorlds.MyCon.Model
 				ConferenceHeader.GetQueryEndDate().QueryDefinition);
 			community.AddQuery(
 				ConferenceHeader._correspondenceFactType,
-				ConferenceHeader.GetQueryLocation().QueryDefinition);
+				ConferenceHeader.GetQueryAddress().QueryDefinition);
+			community.AddQuery(
+				ConferenceHeader._correspondenceFactType,
+				ConferenceHeader.GetQueryCity().QueryDefinition);
+			community.AddQuery(
+				ConferenceHeader._correspondenceFactType,
+				ConferenceHeader.GetQueryHomePageUrl().QueryDefinition);
+			community.AddQuery(
+				ConferenceHeader._correspondenceFactType,
+				ConferenceHeader.GetQueryDescription().QueryDefinition);
 			community.AddQuery(
 				ConferenceHeader._correspondenceFactType,
 				ConferenceHeader.GetQueryIsCurrent().QueryDefinition);
@@ -1885,12 +2672,33 @@ namespace FacetedWorlds.MyCon.Model
 				ConferenceHeader__endDate._correspondenceFactType,
 				ConferenceHeader__endDate.GetQueryIsCurrent().QueryDefinition);
 			community.AddType(
-				ConferenceHeader__location._correspondenceFactType,
-				new ConferenceHeader__location.CorrespondenceFactFactory(fieldSerializerByType),
-				new FactMetadata(new List<CorrespondenceFactType> { ConferenceHeader__location._correspondenceFactType }));
+				ConferenceHeader__address._correspondenceFactType,
+				new ConferenceHeader__address.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { ConferenceHeader__address._correspondenceFactType }));
 			community.AddQuery(
-				ConferenceHeader__location._correspondenceFactType,
-				ConferenceHeader__location.GetQueryIsCurrent().QueryDefinition);
+				ConferenceHeader__address._correspondenceFactType,
+				ConferenceHeader__address.GetQueryIsCurrent().QueryDefinition);
+			community.AddType(
+				ConferenceHeader__city._correspondenceFactType,
+				new ConferenceHeader__city.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { ConferenceHeader__city._correspondenceFactType }));
+			community.AddQuery(
+				ConferenceHeader__city._correspondenceFactType,
+				ConferenceHeader__city.GetQueryIsCurrent().QueryDefinition);
+			community.AddType(
+				ConferenceHeader__homePageUrl._correspondenceFactType,
+				new ConferenceHeader__homePageUrl.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { ConferenceHeader__homePageUrl._correspondenceFactType }));
+			community.AddQuery(
+				ConferenceHeader__homePageUrl._correspondenceFactType,
+				ConferenceHeader__homePageUrl.GetQueryIsCurrent().QueryDefinition);
+			community.AddType(
+				ConferenceHeader__description._correspondenceFactType,
+				new ConferenceHeader__description.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { ConferenceHeader__description._correspondenceFactType }));
+			community.AddQuery(
+				ConferenceHeader__description._correspondenceFactType,
+				ConferenceHeader__description.GetQueryIsCurrent().QueryDefinition);
 			community.AddType(
 				ConferenceHeaderDelete._correspondenceFactType,
 				new ConferenceHeaderDelete.CorrespondenceFactFactory(fieldSerializerByType),
@@ -1899,6 +2707,10 @@ namespace FacetedWorlds.MyCon.Model
 				Conference._correspondenceFactType,
 				new Conference.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Conference._correspondenceFactType }));
+			community.AddType(
+				DocumentSegment._correspondenceFactType,
+				new DocumentSegment.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { DocumentSegment._correspondenceFactType }));
 		}
 	}
 }

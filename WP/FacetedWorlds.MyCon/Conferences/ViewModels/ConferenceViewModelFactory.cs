@@ -54,7 +54,7 @@ namespace FacetedWorlds.MyCon.Conferences.ViewModels
             return new ConferenceListViewModel(catalog, conferenceSelection, makeConferenceHeaderViewModel);
         }
 
-        private static void DefineConference(ICommunity community, Catalog catalog, string name, string imageUrl, DateTime startDate, DateTime endDate, string location)
+        private static void DefineConference(ICommunity community, Catalog catalog, string name, string imageUrl, DateTime startDate, DateTime endDate, string city)
         {
             var conference = community.AddFact(new Conference());
             var header = community.AddFact(new ConferenceHeader(catalog, conference));
@@ -62,7 +62,13 @@ namespace FacetedWorlds.MyCon.Conferences.ViewModels
             header.ImageUrl = imageUrl;
             header.StartDate = startDate;
             header.EndDate = endDate;
-            header.Location = location;
+            header.City = city;
+            header.Address = "111 Main Street";
+            header.HomePageUrl = "awesomefest.com";
+            header.Description.SetString(
+                "Awesomeness!! Go to AwesomeFest!!!",
+                value => header.Description = value,
+                community);
         }
     }
 }

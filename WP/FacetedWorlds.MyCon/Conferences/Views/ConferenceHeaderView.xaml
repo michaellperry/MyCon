@@ -26,7 +26,7 @@
     				<SolidColorBrush Color="{StaticResource PhoneSubtleColor}"/>
     			</TextBlock.Foreground>
     		</TextBlock>
-    		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Location}" VerticalAlignment="Top" Width="222" FontSize="{StaticResource PhoneFontSizeMedium}" Margin="3">
+    		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding City}" VerticalAlignment="Top" Width="222" FontSize="{StaticResource PhoneFontSizeMedium}" Margin="3">
     			<TextBlock.Foreground>
     				<SolidColorBrush Color="{StaticResource PhoneSubtleColor}"/>
     			</TextBlock.Foreground>

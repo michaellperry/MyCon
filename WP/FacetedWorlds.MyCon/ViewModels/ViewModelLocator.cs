@@ -43,5 +43,21 @@ namespace FacetedWorlds.MyCon.ViewModels
                         _conferenceSelection));
             }
         }
+
+        public object ConferenceDetails
+        {
+            get
+            {
+                return ViewModel(delegate()
+                {
+                    if (_conferenceSelection.SelectedConference == null)
+                        return null;
+
+                    return new ConferenceDetailsViewModel(
+                        _conferenceSelection.SelectedConference,
+                        _conferenceSelection);
+                });
+            }
+        }
     }
 }
