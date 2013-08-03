@@ -4,47 +4,69 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="clr-namespace:System;assembly=mscorlib"
-    xmlns:t="clr-namespace:ControlTiltEffect"
-    xmlns:local="clr-namespace:FacetedWorlds.MyCon.Conferences.Views" x:Class="FacetedWorlds.MyCon.Conferences.Views.ConferenceListView"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:local="clr-namespace:FacetedWorlds.MyCon.Conferences.Views"
+    x:Class="FacetedWorlds.MyCon.Conferences.Views.ConferenceListView"
     mc:Ignorable="d"
     DataContext="{Binding ConferenceList, Source={StaticResource Locator}}"
     Loaded="UserControl_Loaded"
-    d:DesignHeight="768" d:DesignWidth="480">
-	<UserControl.Resources>
-		<DataTemplate x:Key="ConferenceDataTemplate">
-			<local:ConferenceHeaderView/>
-		</DataTemplate>
-	</UserControl.Resources>
-    
-	<UserControl.FontFamily>
-		<StaticResource ResourceKey="PhoneFontFamilyNormal"/>
-	</UserControl.FontFamily>
-	<UserControl.FontSize>
-		<StaticResource ResourceKey="PhoneFontSizeNormal"/>
-	</UserControl.FontSize>
-	<UserControl.Foreground>
-		<StaticResource ResourceKey="PhoneForegroundBrush"/>
-	</UserControl.Foreground>
-    
-	<Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}" d:DataContext="{d:DesignData /SampleData/ConferenceListViewModelSampleData.xaml}">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="161"/>
-			<RowDefinition/>
-		</Grid.RowDefinitions>
-<!--TitlePanel contains the name of the application and page title-->
-		<StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,0">
-			<TextBlock Text="MY CON" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0" />
-			<TextBlock Text="conferences" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" />
-		</StackPanel>
+    d:DesignHeight="768"
+    d:DesignWidth="480">
+    <UserControl.Resources>
+        <DataTemplate
+            x:Key="ConferenceDataTemplate">
+            <local:ConferenceHeaderView />
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <UserControl.FontFamily>
+        <StaticResource
+            ResourceKey="PhoneFontFamilyNormal" />
+    </UserControl.FontFamily>
+    <UserControl.FontSize>
+        <StaticResource
+            ResourceKey="PhoneFontSizeNormal" />
+    </UserControl.FontSize>
+    <UserControl.Foreground>
+        <StaticResource
+            ResourceKey="PhoneForegroundBrush" />
+    </UserControl.Foreground>
+
+    <Grid
+        x:Name="LayoutRoot"
+        Background="{StaticResource PhoneBackgroundBrush}"
+        d:DataContext="{d:DesignData /SampleData/ConferenceListViewModelSampleData.xaml}">
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="161" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel
+            x:Name="TitlePanel"
+            Grid.Row="0"
+            Margin="12,17,0,0">
+            <TextBlock
+                Text="MY CON"
+                Style="{StaticResource PhoneTextNormalStyle}"
+                Margin="12,0" />
+            <TextBlock
+                Text="conferences"
+                Margin="9,-7,0,0"
+                Style="{StaticResource PhoneTextTitle1Style}" />
+        </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-		<Grid x:Name="ContentPanel" Margin="12,0" Grid.Row="1">
-			<ListBox 
-                t:TiltEffect.IsTiltEnabled="True" 
-                ItemTemplate="{StaticResource ConferenceDataTemplate}" 
-                ItemsSource="{Binding Conferences}" 
-                SelectedItem="{Binding SelectedConference, Mode=TwoWay}"/>
-		</Grid>
+        <Grid
+            x:Name="ContentPanel"
+            Margin="12,0"
+            Grid.Row="1">
+            <ListBox
+                toolkit:TiltEffect.IsTiltEnabled="True"
+                ItemTemplate="{StaticResource ConferenceDataTemplate}"
+                ItemsSource="{Binding Conferences}"
+                SelectedItem="{Binding SelectedConference, Mode=TwoWay}" />
+        </Grid>
 
-	</Grid>
+    </Grid>
 </UserControl>
