@@ -40,6 +40,16 @@
             </toolkit:NavigationOutTransition.Forward>
         </toolkit:NavigationOutTransition>
     </toolkit:TransitionService.NavigationOutTransition>
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True">
+            <shell:ApplicationBarIconButton
+                x:Name="JoinButton"
+                IconUri="/Assets/AppBar/Join.png"
+                IsEnabled="True"
+                Text="i'm going"
+                />
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid
         x:Name="LayoutRoot"
@@ -129,13 +139,15 @@
                     FontSize="{StaticResource PhoneFontSizeMedium}"
                     Margin="3" />
             </StackPanel>
-            <TextBlock
-                TextWrapping="Wrap"
-                Text="{Binding Description}"
-                FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+            <ScrollViewer
                 Grid.Row="1"
-                Grid.ColumnSpan="2"
-                Margin="6" />
+                Grid.ColumnSpan="2">
+                <TextBlock
+                    TextWrapping="Wrap"
+                    Text="{Binding Description}"
+                    FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+                    Margin="6" />
+            </ScrollViewer>
         </Grid>
     </Grid>
 
