@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="Marketing.Icon"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" d:DesignWidth="300" Height="456.267">
+    <Canvas Background="Black">
+		<Rectangle Fill="#FF373772" Height="34.623" Canvas.Left="78.443" Canvas.Top="310.778" Width="161.677"/>
+		<Rectangle Fill="#FF727237" Height="71.964" Canvas.Left="78.443" Canvas.Top="343.006" Width="156.886"/>
+            
+		<Path Data="M32.75,20.5 C24.051515,20.5 17,37.960896 17,59.5 17,81.039108 24.051515,98.5 32.75,98.5 41.448486,98.5 48.5,81.039108 48.5,59.5 48.5,37.960896 41.448486,20.5 32.75,20.5 z M32.5,0.5 C50.173111,0.5 64.5,27.139057 64.5,60 64.5,92.860939 50.173111,119.5 32.5,119.5 14.826888,119.5 0.49999988,92.860939 0.5,60 0.49999988,27.139057 14.826888,0.5 32.5,0.5 z" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="120" Stretch="Fill" VerticalAlignment="Top" Width="65" Canvas.Left="122" Canvas.Top="98.935"/>
+		<Path Fill="#FFF4F4F5" HorizontalAlignment="Left" VerticalAlignment="Top" Height="240.301" Width="212.482" Data="M43.295682,194.93927 L21.04288,251.91483 157.27118,305.12119 179.52397,248.14561 z M54.78571,165.52046 L45.478509,189.3504 181.7068,242.55675 191.01401,218.72681 z M133.48851,86.088967 L146.71601,93.186587 62.718957,152.78391 194.33164,204.18762 164.57637,98.251001 179.51291,97.685517 211.33164,210.82729 211.982,211.0813 167.23409,325.65298 0.5,260.53192 45.247887,145.96025 45.884434,146.20886 z" RenderTransformOrigin="0.954582761361735,0.34340931899762" Stretch="Fill" Canvas.Left="31.729" Canvas.Top="180.318">
+			<Path.RenderTransform>
+				<TransformGroup>
+					<ScaleTransform/>
+					<SkewTransform/>
+					<RotateTransform Angle="-21.334"/>
+					<TranslateTransform X="-10.725807902473093" Y="2.0202649577368277"/>
+				</TransformGroup>
+			</Path.RenderTransform>
+		</Path>
+		<Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="33.5" VerticalAlignment="Top" Width="65" Canvas.Left="122" Canvas.Top="185.435"/>
+		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="festify" VerticalAlignment="Top" Width="126.334" Foreground="White" FontSize="14.667" FontFamily="Cambria" FontStyle="Italic" TextAlignment="Center" Canvas.Left="94.821" Canvas.Top="320.809"/>
+		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="f" VerticalAlignment="Top" Width="126.334" Foreground="White" FontSize="48" FontFamily="Cambria" FontStyle="Italic" TextAlignment="Center" Canvas.Left="90.357" Canvas.Top="345.401"/>
+            
+	</Canvas>
+</UserControl>
