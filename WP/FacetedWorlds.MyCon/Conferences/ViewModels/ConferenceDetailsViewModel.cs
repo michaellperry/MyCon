@@ -43,12 +43,13 @@ namespace FacetedWorlds.MyCon.Conferences.ViewModels
             _conferenceSelection.SelectedConference = null;
         }
 
-        public void JoinConference()
+        public Guid JoinConference()
         {
             Profile profile = _individual.EnsureProfile();
             Attendee attendee = profile.Attending(ConferenceHeader.Conference);
             foreach (var inactive in attendee.Inactives.Ensure())
                 inactive.MakeActive();
+            return ConferenceHeader.Conference.Unique;
         }
     }
 }

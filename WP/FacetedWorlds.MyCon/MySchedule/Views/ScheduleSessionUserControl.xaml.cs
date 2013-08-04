@@ -10,9 +10,9 @@ using Microsoft.Phone.Shell;
 
 namespace FacetedWorlds.MyCon.MySchedule.Views
 {
-    public partial class ScheduleView : UserControl
+    public partial class ScheduleSessionUserControl : UserControl
     {
-        public ScheduleView()
+        public ScheduleSessionUserControl()
         {
             InitializeComponent();
         }

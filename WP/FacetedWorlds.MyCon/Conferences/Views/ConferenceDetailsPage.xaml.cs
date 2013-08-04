@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using FacetedWorlds.MyCon.Conferences.ViewModels;
+using FacetedWorlds.MyCon.ViewModels;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using UpdateControls.XAML;
@@ -17,6 +18,19 @@ namespace FacetedWorlds.MyCon.Conferences.Views
         public ConferenceDetailsPage()
         {
             InitializeComponent();
+        }
+
+        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            var locator = App.Current.Resources["Locator"] as ViewModelLocator;
+            if (locator == null)
+                return;
+
+            Guid conferenceId;
+            if (!Guid.TryParse(NavigationContext.QueryString["ConferenceId"], out conferenceId))
+                return;
+
+            DataContext = locator.GetConferenceDetailsViewModel(conferenceId);
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -37,9 +51,13 @@ namespace FacetedWorlds.MyCon.Conferences.Views
             if (viewModel == null)
                 return;
 
-            viewModel.JoinConference();
+            Guid id = viewModel.JoinConference();
 
-            NavigationService.GoBack();
+            NavigationService.Navigate(new Uri(
+                String.Format(
+                    "/MySchedule/Views/SchedulePage.xaml?ConferenceId={0}",
+                    id),
+                UriKind.Relative));
         }
     }
 }

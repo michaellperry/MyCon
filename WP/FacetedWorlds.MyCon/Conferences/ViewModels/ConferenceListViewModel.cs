@@ -14,7 +14,7 @@ namespace FacetedWorlds.MyCon.Conferences.ViewModels
         private readonly ConferenceSelection _selection;
         private readonly Func<ConferenceHeader, ConferenceHeaderViewModel> _makeConferenceHeaderViewModel;
 
-        public event Action ConferenceSelected;
+        public event Action<ConferenceHeader> ConferenceSelected;
 
         public ConferenceListViewModel(Catalog catalog, ConferenceSelection selection, Func<ConferenceHeader, ConferenceHeaderViewModel> makeConferenceHeaderViewModel)
         {
@@ -53,7 +53,7 @@ namespace FacetedWorlds.MyCon.Conferences.ViewModels
                     _selection.SelectedConference = value.ConferenceHeader;
 
                     if (ConferenceSelected != null)
-                        ConferenceSelected();
+                        ConferenceSelected(value.ConferenceHeader);
                 }
             }
         }

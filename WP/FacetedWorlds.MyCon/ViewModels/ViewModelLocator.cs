@@ -4,11 +4,15 @@ using System.Linq;
 using FacetedWorlds.MyCon.Conferences.Models;
 using FacetedWorlds.MyCon.Conferences.ViewModels;
 using UpdateControls.XAML;
+using FacetedWorlds.MyCon.MySchedule.ViewModels;
+using FacetedWorlds.MyCon.Model;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {
     public class ViewModelLocator : ViewModelLocatorBase
     {
+        private const string Environment = "Development";
+
         private readonly SynchronizationService _synchronizationService;
         private readonly ConferenceSelection _conferenceSelection;
 
@@ -39,26 +43,34 @@ namespace FacetedWorlds.MyCon.ViewModels
             {
                 return ViewModel(() =>
                     ConferenceListViewModelFactory.Create(
-                        _synchronizationService.Community,
+                        Environment, 
+                        _synchronizationService.Community, 
                         _conferenceSelection));
             }
         }
 
-        public object ConferenceDetails
+        public object GetConferenceDetailsViewModel(Guid conferenceId)
         {
-            get
-            {
-                return ViewModel(delegate()
-                {
-                    if (_conferenceSelection.SelectedConference == null)
-                        return null;
+            var catalog = _synchronizationService.Community.AddFact(new Catalog(Environment));
+            var conferenceHeader = catalog.ConferenceHeaders.Ensure()
+                .FirstOrDefault(c => c.Conference.Unique == conferenceId);
+            if (conferenceHeader == null)
+                return null;
 
-                    return new ConferenceDetailsViewModel(
-                        _synchronizationService.Individual,
-                        _conferenceSelection.SelectedConference,
-                        _conferenceSelection);
-                });
-            }
+            return ForView.Wrap(new ConferenceDetailsViewModel(
+                _synchronizationService.Individual,
+                conferenceHeader,
+                _conferenceSelection));
+        }
+
+        public object GetScheduleViewModel(Guid conferenceId)
+        {
+            var attendee = _synchronizationService.Individual.ActiveAttendees.Ensure()
+                .FirstOrDefault(a => a.Conference.Unique == conferenceId);
+            if (attendee == null)
+                return null;
+
+            return ForView.Wrap(new ScheduleViewModel(attendee));
         }
     }
 }

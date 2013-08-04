@@ -11,12 +11,11 @@ namespace FacetedWorlds.MyCon.Conferences.ViewModels
 {
     public class ConferenceListViewModelFactory
     {
-        private const string Environment = "Development";
         private const bool LoadSampleData = true;
 
-        public static ConferenceListViewModel Create(ICommunity community, ConferenceSelection conferenceSelection)
+        public static ConferenceListViewModel Create(string environment, ICommunity community, ConferenceSelection conferenceSelection)
         {
-            var catalog = community.AddFact(new Catalog(Environment));
+            var catalog = community.AddFact(new Catalog(environment));
 
             if (LoadSampleData && !catalog.ConferenceHeaders.Ensure().Any())
             {
@@ -46,7 +45,7 @@ namespace FacetedWorlds.MyCon.Conferences.ViewModels
                     "Wisconsin Dells, WI");
             }
 
-            
+
             Func<ConferenceHeader, ConferenceHeaderViewModel> makeConferenceHeaderViewModel =
                 conferenceHeader =>
                     new ConferenceHeaderViewModel(conferenceHeader);

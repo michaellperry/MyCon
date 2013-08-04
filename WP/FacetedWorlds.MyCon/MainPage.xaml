@@ -7,7 +7,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:conferences="clr-namespace:FacetedWorlds.MyCon.Conferences.Views"
-    xmlns:myschedule="clr-namespace:FacetedWorlds.MyCon.MySchedule.Views"
     x:Class="FacetedWorlds.MyCon.MainPage"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -18,15 +17,6 @@
     shell:SystemTray.IsVisible="True"
     DataContext="{Binding Main, Source={StaticResource Locator}}">
 
-    <phone:PhoneApplicationPage.Resources>
-        <shell:ApplicationBar
-            x:Key="MyScheduleApplicationBar">
-            <shell:ApplicationBarIconButton
-                IconUri="/Assets/AppBar/Leave.png"
-                Text="leave"
-                Click="Leave_Click"/>
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid
         x:Name="LayoutRoot"
@@ -36,10 +26,7 @@
                 Height="768" />
         </Grid.RowDefinitions>
 
-        <conferences:ConferenceListView
-            Visibility="{Binding ConferencesVisibility}"/>
-        <myschedule:ScheduleView
-            Visibility="{Binding MyScheduleVisibility}"/>
+        <conferences:ConferenceListView />
     </Grid>
 
 </phone:PhoneApplicationPage>

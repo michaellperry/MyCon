@@ -117,6 +117,12 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MySchedule\Views\SchedulePage.xaml.cs">
+      <DependentUpon>SchedulePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MySchedule\Views\ScheduleSessionUserControl.xaml.cs">
+      <DependentUpon>ScheduleSessionUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\AppResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -124,9 +130,6 @@
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
     <Compile Include="MySchedule\ViewModels\ScheduleViewModel.cs" />
-    <Compile Include="MySchedule\Views\ScheduleView.xaml.cs">
-      <DependentUpon>ScheduleView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="SynchronizationService.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
@@ -152,7 +155,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MySchedule\Views\ScheduleView.xaml">
+    <Page Include="MySchedule\Views\SchedulePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MySchedule\Views\ScheduleSessionUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -166,8 +173,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\AlignmentGrid.png" />
+    <Content Include="Assets\AppBar\Add.png" />
+    <Content Include="Assets\AppBar\Check.png" />
+    <Content Include="Assets\AppBar\Close.png" />
+    <Content Include="Assets\AppBar\Tracks.png" />
+    <Content Include="Assets\AppBar\Email.png" />
+    <Content Include="Assets\AppBar\Search.png" />
+    <Content Include="Assets\AppBar\Share.png" />
     <Content Include="Assets\AppBar\Join.png" />
     <Content Include="Assets\AppBar\Leave.png" />
+    <Content Include="Assets\AppBar\Map.png" />
     <Content Include="Assets\ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

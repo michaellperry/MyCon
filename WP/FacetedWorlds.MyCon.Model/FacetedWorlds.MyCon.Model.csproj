@@ -85,6 +85,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Attendee.cs" />
     <Compile Include="AttendeeInactive.cs" />
     <Compile Include="Individual.cs" />
     <Compile Include="Model.generated.cs">

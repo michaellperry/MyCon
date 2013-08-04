@@ -31,31 +31,5 @@ namespace FacetedWorlds.MyCon.ViewModels
                     : _community.LastException.Message;
             }
         }
-
-        public Visibility ConferencesVisibility
-        {
-            get
-            {
-                return _individual.ActiveAttendees.Any()
-                    ? Visibility.Collapsed
-                    : Visibility.Visible;
-            }
-        }
-
-        public Visibility MyScheduleVisibility
-        {
-            get
-            {
-                return _individual.ActiveAttendees.Any()
-                    ? Visibility.Visible
-                    : Visibility.Collapsed;
-            }
-        }
-
-        public void LeaveConference()
-        {
-            foreach (var attendee in _individual.ActiveAttendees.Ensure())
-                _community.AddFact(new AttendeeInactive(attendee));
-        }
     }
 }

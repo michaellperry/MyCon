@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using FacetedWorlds.MyCon.Conferences.ViewModels;
+using FacetedWorlds.MyCon.Model;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using UpdateControls.XAML;
@@ -28,9 +29,14 @@ namespace FacetedWorlds.MyCon.Conferences.Views
             viewModel.ConferenceSelected += ViewModel_ConferenceSelected;
         }
 
-        void ViewModel_ConferenceSelected()
+        void ViewModel_ConferenceSelected(ConferenceHeader selectedConfereceHeader)
         {
-            App.RootFrame.Navigate(new Uri("/Conferences/Views/ConferenceDetailsPage.xaml", UriKind.Relative));
+            var id = selectedConfereceHeader.Conference.Unique;
+            App.RootFrame.Navigate(new Uri(
+                String.Format(
+                    "/Conferences/Views/ConferenceDetailsPage.xaml?ConferenceId={0}",
+                    id),
+                UriKind.Relative));
         }
     }
 }

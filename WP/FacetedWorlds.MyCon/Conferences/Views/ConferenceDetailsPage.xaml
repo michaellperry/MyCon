@@ -14,7 +14,8 @@
     Orientation="Portrait"
     mc:Ignorable="d"
     DataContext="{Binding ConferenceDetails, Source={StaticResource Locator}}"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True"
+    Loaded="PhoneApplicationPage_Loaded">
 
     <toolkit:TransitionService.NavigationInTransition>
         <toolkit:NavigationInTransition>
