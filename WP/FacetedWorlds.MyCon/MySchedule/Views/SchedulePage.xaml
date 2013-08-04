@@ -40,6 +40,9 @@
             IsMenuEnabled="True">
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem
+                    Text="Pin to Start"
+                    Click="PinToStart_Click" />
+                <shell:ApplicationBarMenuItem
                     Text="Settings"
                     Click="Settings_Click" />
             </shell:ApplicationBar.MenuItems>

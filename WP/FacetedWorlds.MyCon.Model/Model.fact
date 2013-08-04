@@ -102,6 +102,11 @@ key:
 fact Conference {
 key:
     unique;
+
+query:
+    ConferenceHeader *conferenceHeaders {
+        ConferenceHeader h : h.conference = this
+    }
 }
 
 fact DocumentSegment {

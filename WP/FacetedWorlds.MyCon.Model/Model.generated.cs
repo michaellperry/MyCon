@@ -3242,6 +3242,18 @@ namespace FacetedWorlds.MyCon.Model
         // Roles
 
         // Queries
+        private static Query _cacheQueryConferenceHeaders;
+
+        public static Query GetQueryConferenceHeaders()
+		{
+            if (_cacheQueryConferenceHeaders == null)
+            {
+			    _cacheQueryConferenceHeaders = new Query()
+		    		.JoinSuccessors(ConferenceHeader.GetRoleConference())
+                ;
+            }
+            return _cacheQueryConferenceHeaders;
+		}
 
         // Predicates
 
@@ -3253,6 +3265,7 @@ namespace FacetedWorlds.MyCon.Model
         // Fields
 
         // Results
+        private Result<ConferenceHeader> _conferenceHeaders;
 
         // Business constructor
         public Conference(
@@ -3271,6 +3284,7 @@ namespace FacetedWorlds.MyCon.Model
         // Result initializer
         private void InitializeResults()
         {
+            _conferenceHeaders = new Result<ConferenceHeader>(this, GetQueryConferenceHeaders(), ConferenceHeader.GetUnloadedInstance, ConferenceHeader.GetNullInstance);
         }
 
         // Predecessor access
@@ -3280,6 +3294,10 @@ namespace FacetedWorlds.MyCon.Model
 
 
         // Query result access
+        public Result<ConferenceHeader> ConferenceHeaders
+        {
+            get { return _conferenceHeaders; }
+        }
 
         // Mutable property access
 
@@ -3561,6 +3579,9 @@ namespace FacetedWorlds.MyCon.Model
 				Conference._correspondenceFactType,
 				new Conference.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Conference._correspondenceFactType }));
+			community.AddQuery(
+				Conference._correspondenceFactType,
+				Conference.GetQueryConferenceHeaders().QueryDefinition);
 			community.AddType(
 				DocumentSegment._correspondenceFactType,
 				new DocumentSegment.CorrespondenceFactFactory(fieldSerializerByType),

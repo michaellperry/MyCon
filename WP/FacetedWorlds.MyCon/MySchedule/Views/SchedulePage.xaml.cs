@@ -66,5 +66,15 @@ namespace FacetedWorlds.MyCon.MySchedule.Views
             else
                 NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
         }
+
+        private void PinToStart_Click(object sender, EventArgs e)
+        {
+            var viewModel = ForView.Unwrap<ScheduleViewModel>(DataContext);
+            if (viewModel == null)
+                return;
+
+            ShellTileData tileData = viewModel.GetTileData();
+            ShellTile.Create(NavigationService.CurrentSource, tileData);
+        }
     }
 }
