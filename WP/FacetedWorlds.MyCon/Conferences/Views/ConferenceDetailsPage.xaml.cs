@@ -30,5 +30,16 @@ namespace FacetedWorlds.MyCon.Conferences.Views
 
             base.OnNavigatedFrom(e);
         }
+
+        private void JoinButton_Click(object sender, EventArgs e)
+        {
+            var viewModel = ForView.Unwrap<ConferenceDetailsViewModel>(DataContext);
+            if (viewModel == null)
+                return;
+
+            viewModel.JoinConference();
+
+            NavigationService.GoBack();
+        }
     }
 }

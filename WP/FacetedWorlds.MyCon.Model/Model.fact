@@ -3,6 +3,62 @@ namespace FacetedWorlds.MyCon.Model;
 fact Individual {
 key:
     string anonymousId;
+
+query:
+    Profile* profiles {
+        IndividualProfile ip : ip.individual = this
+        Profile p : ip.profile = p
+    }
+
+    Attendee* activeAttendees {
+        IndividualProfile ip : ip.individual = this
+        Attendee a : a.profile = ip.profile
+            where a.isActive
+    }
+}
+
+fact Profile {
+key:
+    string profileId;
+}
+
+fact IndividualProfile {
+key:
+    publish Individual individual;
+    Profile profile;
+}
+
+fact Attendee {
+key:
+    publish Conference conference;
+    publish Profile profile;
+
+query:
+    AttendeeInactive* inactives {
+        AttendeeInactive i : i.attendee = this
+            where i.isCurrent
+    }
+
+    bool isActive {
+        not exists AttendeeInactive i : i.attendee = this
+            where i.isCurrent
+    }
+}
+
+fact AttendeeInactive {
+key:
+    unique;
+    Attendee attendee;
+
+query:
+    bool isCurrent {
+        not exists AttendeeActive a : a.attendeeInactive = this
+    }
+}
+
+fact AttendeeActive {
+key:
+    AttendeeInactive attendeeInactive;
 }
 
 fact Catalog {

@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Input;
+using System.Windows;
 using FacetedWorlds.MyCon.Model;
 using UpdateControls.Correspondence;
-using UpdateControls.XAML;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {
@@ -32,6 +30,32 @@ namespace FacetedWorlds.MyCon.ViewModels
                     ? String.Empty
                     : _community.LastException.Message;
             }
+        }
+
+        public Visibility ConferencesVisibility
+        {
+            get
+            {
+                return _individual.ActiveAttendees.Any()
+                    ? Visibility.Collapsed
+                    : Visibility.Visible;
+            }
+        }
+
+        public Visibility MyScheduleVisibility
+        {
+            get
+            {
+                return _individual.ActiveAttendees.Any()
+                    ? Visibility.Visible
+                    : Visibility.Collapsed;
+            }
+        }
+
+        public void LeaveConference()
+        {
+            foreach (var attendee in _individual.ActiveAttendees.Ensure())
+                _community.AddFact(new AttendeeInactive(attendee));
         }
     }
 }

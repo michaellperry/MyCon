@@ -13,6 +13,12 @@ using System.Threading;
 digraph "FacetedWorlds.MyCon.Model"
 {
     rankdir=BT
+    IndividualProfile -> Individual [color="red"]
+    IndividualProfile -> Profile
+    Attendee -> Conference [color="red"]
+    Attendee -> Profile [color="red"]
+    AttendeeInactive -> Attendee
+    AttendeeActive -> AttendeeInactive
     ConferenceHeader -> Catalog [color="red"]
     ConferenceHeader -> Conference
     ConferenceHeader__name -> ConferenceHeader
@@ -124,6 +130,34 @@ namespace FacetedWorlds.MyCon.Model
         // Roles
 
         // Queries
+        private static Query _cacheQueryProfiles;
+
+        public static Query GetQueryProfiles()
+		{
+            if (_cacheQueryProfiles == null)
+            {
+			    _cacheQueryProfiles = new Query()
+		    		.JoinSuccessors(IndividualProfile.GetRoleIndividual())
+		    		.JoinPredecessors(IndividualProfile.GetRoleProfile())
+                ;
+            }
+            return _cacheQueryProfiles;
+		}
+        private static Query _cacheQueryActiveAttendees;
+
+        public static Query GetQueryActiveAttendees()
+		{
+            if (_cacheQueryActiveAttendees == null)
+            {
+			    _cacheQueryActiveAttendees = new Query()
+		    		.JoinSuccessors(IndividualProfile.GetRoleIndividual())
+		    		.JoinPredecessors(IndividualProfile.GetRoleProfile())
+    				.JoinSuccessors(Attendee.GetRoleProfile(), Condition.WhereIsEmpty(Attendee.GetQueryIsActive())
+				)
+                ;
+            }
+            return _cacheQueryActiveAttendees;
+		}
 
         // Predicates
 
@@ -133,6 +167,8 @@ namespace FacetedWorlds.MyCon.Model
         private string _anonymousId;
 
         // Results
+        private Result<Profile> _profiles;
+        private Result<Attendee> _activeAttendees;
 
         // Business constructor
         public Individual(
@@ -152,6 +188,8 @@ namespace FacetedWorlds.MyCon.Model
         // Result initializer
         private void InitializeResults()
         {
+            _profiles = new Result<Profile>(this, GetQueryProfiles(), Profile.GetUnloadedInstance, Profile.GetNullInstance);
+            _activeAttendees = new Result<Attendee>(this, GetQueryActiveAttendees(), Attendee.GetUnloadedInstance, Attendee.GetNullInstance);
         }
 
         // Predecessor access
@@ -161,6 +199,787 @@ namespace FacetedWorlds.MyCon.Model
         {
             get { return _anonymousId; }
         }
+
+        // Query result access
+        public Result<Profile> Profiles
+        {
+            get { return _profiles; }
+        }
+        public Result<Attendee> ActiveAttendees
+        {
+            get { return _activeAttendees; }
+        }
+
+        // Mutable property access
+
+    }
+    
+    public partial class Profile : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				Profile newFact = new Profile(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+						newFact._profileId = (string)_fieldSerializerByType[typeof(string)].ReadData(output);
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				Profile fact = (Profile)obj;
+				_fieldSerializerByType[typeof(string)].WriteData(output, fact._profileId);
+			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Profile.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Profile.GetNullInstance();
+            }
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.Profile", 8);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Null and unloaded instances
+        public static Profile GetUnloadedInstance()
+        {
+            return new Profile((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Profile GetNullInstance()
+        {
+            return new Profile((FactMemento)null) { IsNull = true };
+        }
+
+        public Profile Ensure()
+        {
+            if (_loadedTask != null)
+            {
+                ManualResetEvent loaded = new ManualResetEvent(false);
+                Profile fact = null;
+                _loadedTask.ContinueWith(delegate(Task<CorrespondenceFact> t)
+                {
+                    fact = (Profile)t.Result;
+                    loaded.Set();
+                });
+                loaded.WaitOne();
+                return fact;
+            }
+            else
+                return this;
+        }
+
+        // Roles
+
+        // Queries
+
+        // Predicates
+
+        // Predecessors
+
+        // Fields
+        private string _profileId;
+
+        // Results
+
+        // Business constructor
+        public Profile(
+            string profileId
+            )
+        {
+            InitializeResults();
+            _profileId = profileId;
+        }
+
+        // Hydration constructor
+        private Profile(FactMemento memento)
+        {
+            InitializeResults();
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+
+        // Field access
+        public string ProfileId
+        {
+            get { return _profileId; }
+        }
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
+    public partial class IndividualProfile : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				IndividualProfile newFact = new IndividualProfile(memento);
+
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				IndividualProfile fact = (IndividualProfile)obj;
+			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return IndividualProfile.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return IndividualProfile.GetNullInstance();
+            }
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.IndividualProfile", 1770677284);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Null and unloaded instances
+        public static IndividualProfile GetUnloadedInstance()
+        {
+            return new IndividualProfile((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static IndividualProfile GetNullInstance()
+        {
+            return new IndividualProfile((FactMemento)null) { IsNull = true };
+        }
+
+        public IndividualProfile Ensure()
+        {
+            if (_loadedTask != null)
+            {
+                ManualResetEvent loaded = new ManualResetEvent(false);
+                IndividualProfile fact = null;
+                _loadedTask.ContinueWith(delegate(Task<CorrespondenceFact> t)
+                {
+                    fact = (IndividualProfile)t.Result;
+                    loaded.Set();
+                });
+                loaded.WaitOne();
+                return fact;
+            }
+            else
+                return this;
+        }
+
+        // Roles
+        private static Role _cacheRoleIndividual;
+        public static Role GetRoleIndividual()
+        {
+            if (_cacheRoleIndividual == null)
+            {
+                _cacheRoleIndividual = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "individual",
+			        Individual._correspondenceFactType,
+			        true));
+            }
+            return _cacheRoleIndividual;
+        }
+        private static Role _cacheRoleProfile;
+        public static Role GetRoleProfile()
+        {
+            if (_cacheRoleProfile == null)
+            {
+                _cacheRoleProfile = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "profile",
+			        Profile._correspondenceFactType,
+			        false));
+            }
+            return _cacheRoleProfile;
+        }
+
+        // Queries
+
+        // Predicates
+
+        // Predecessors
+        private PredecessorObj<Individual> _individual;
+        private PredecessorObj<Profile> _profile;
+
+        // Fields
+
+        // Results
+
+        // Business constructor
+        public IndividualProfile(
+            Individual individual
+            ,Profile profile
+            )
+        {
+            InitializeResults();
+            _individual = new PredecessorObj<Individual>(this, GetRoleIndividual(), individual);
+            _profile = new PredecessorObj<Profile>(this, GetRoleProfile(), profile);
+        }
+
+        // Hydration constructor
+        private IndividualProfile(FactMemento memento)
+        {
+            InitializeResults();
+            _individual = new PredecessorObj<Individual>(this, GetRoleIndividual(), memento, Individual.GetUnloadedInstance, Individual.GetNullInstance);
+            _profile = new PredecessorObj<Profile>(this, GetRoleProfile(), memento, Profile.GetUnloadedInstance, Profile.GetNullInstance);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+        public Individual Individual
+        {
+            get { return IsNull ? Individual.GetNullInstance() : _individual.Fact; }
+        }
+        public Profile Profile
+        {
+            get { return IsNull ? Profile.GetNullInstance() : _profile.Fact; }
+        }
+
+        // Field access
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
+    public partial class Attendee : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				Attendee newFact = new Attendee(memento);
+
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				Attendee fact = (Attendee)obj;
+			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return Attendee.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return Attendee.GetNullInstance();
+            }
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.Attendee", 1640206880);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Null and unloaded instances
+        public static Attendee GetUnloadedInstance()
+        {
+            return new Attendee((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static Attendee GetNullInstance()
+        {
+            return new Attendee((FactMemento)null) { IsNull = true };
+        }
+
+        public Attendee Ensure()
+        {
+            if (_loadedTask != null)
+            {
+                ManualResetEvent loaded = new ManualResetEvent(false);
+                Attendee fact = null;
+                _loadedTask.ContinueWith(delegate(Task<CorrespondenceFact> t)
+                {
+                    fact = (Attendee)t.Result;
+                    loaded.Set();
+                });
+                loaded.WaitOne();
+                return fact;
+            }
+            else
+                return this;
+        }
+
+        // Roles
+        private static Role _cacheRoleConference;
+        public static Role GetRoleConference()
+        {
+            if (_cacheRoleConference == null)
+            {
+                _cacheRoleConference = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "conference",
+			        Conference._correspondenceFactType,
+			        true));
+            }
+            return _cacheRoleConference;
+        }
+        private static Role _cacheRoleProfile;
+        public static Role GetRoleProfile()
+        {
+            if (_cacheRoleProfile == null)
+            {
+                _cacheRoleProfile = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "profile",
+			        Profile._correspondenceFactType,
+			        true));
+            }
+            return _cacheRoleProfile;
+        }
+
+        // Queries
+        private static Query _cacheQueryInactives;
+
+        public static Query GetQueryInactives()
+		{
+            if (_cacheQueryInactives == null)
+            {
+			    _cacheQueryInactives = new Query()
+    				.JoinSuccessors(AttendeeInactive.GetRoleAttendee(), Condition.WhereIsEmpty(AttendeeInactive.GetQueryIsCurrent())
+				)
+                ;
+            }
+            return _cacheQueryInactives;
+		}
+        private static Query _cacheQueryIsActive;
+
+        public static Query GetQueryIsActive()
+		{
+            if (_cacheQueryIsActive == null)
+            {
+			    _cacheQueryIsActive = new Query()
+    				.JoinSuccessors(AttendeeInactive.GetRoleAttendee(), Condition.WhereIsEmpty(AttendeeInactive.GetQueryIsCurrent())
+				)
+                ;
+            }
+            return _cacheQueryIsActive;
+		}
+
+        // Predicates
+        public static Condition IsActive = Condition.WhereIsEmpty(GetQueryIsActive());
+
+        // Predecessors
+        private PredecessorObj<Conference> _conference;
+        private PredecessorObj<Profile> _profile;
+
+        // Fields
+
+        // Results
+        private Result<AttendeeInactive> _inactives;
+
+        // Business constructor
+        public Attendee(
+            Conference conference
+            ,Profile profile
+            )
+        {
+            InitializeResults();
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), conference);
+            _profile = new PredecessorObj<Profile>(this, GetRoleProfile(), profile);
+        }
+
+        // Hydration constructor
+        private Attendee(FactMemento memento)
+        {
+            InitializeResults();
+            _conference = new PredecessorObj<Conference>(this, GetRoleConference(), memento, Conference.GetUnloadedInstance, Conference.GetNullInstance);
+            _profile = new PredecessorObj<Profile>(this, GetRoleProfile(), memento, Profile.GetUnloadedInstance, Profile.GetNullInstance);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+            _inactives = new Result<AttendeeInactive>(this, GetQueryInactives(), AttendeeInactive.GetUnloadedInstance, AttendeeInactive.GetNullInstance);
+        }
+
+        // Predecessor access
+        public Conference Conference
+        {
+            get { return IsNull ? Conference.GetNullInstance() : _conference.Fact; }
+        }
+        public Profile Profile
+        {
+            get { return IsNull ? Profile.GetNullInstance() : _profile.Fact; }
+        }
+
+        // Field access
+
+        // Query result access
+        public Result<AttendeeInactive> Inactives
+        {
+            get { return _inactives; }
+        }
+
+        // Mutable property access
+
+    }
+    
+    public partial class AttendeeInactive : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				AttendeeInactive newFact = new AttendeeInactive(memento);
+
+				// Create a memory stream from the memento data.
+				using (MemoryStream data = new MemoryStream(memento.Data))
+				{
+					using (BinaryReader output = new BinaryReader(data))
+					{
+						newFact._unique = (Guid)_fieldSerializerByType[typeof(Guid)].ReadData(output);
+					}
+				}
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				AttendeeInactive fact = (AttendeeInactive)obj;
+				_fieldSerializerByType[typeof(Guid)].WriteData(output, fact._unique);
+			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return AttendeeInactive.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return AttendeeInactive.GetNullInstance();
+            }
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.AttendeeInactive", -1617690182);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Null and unloaded instances
+        public static AttendeeInactive GetUnloadedInstance()
+        {
+            return new AttendeeInactive((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static AttendeeInactive GetNullInstance()
+        {
+            return new AttendeeInactive((FactMemento)null) { IsNull = true };
+        }
+
+        public AttendeeInactive Ensure()
+        {
+            if (_loadedTask != null)
+            {
+                ManualResetEvent loaded = new ManualResetEvent(false);
+                AttendeeInactive fact = null;
+                _loadedTask.ContinueWith(delegate(Task<CorrespondenceFact> t)
+                {
+                    fact = (AttendeeInactive)t.Result;
+                    loaded.Set();
+                });
+                loaded.WaitOne();
+                return fact;
+            }
+            else
+                return this;
+        }
+
+        // Roles
+        private static Role _cacheRoleAttendee;
+        public static Role GetRoleAttendee()
+        {
+            if (_cacheRoleAttendee == null)
+            {
+                _cacheRoleAttendee = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "attendee",
+			        Attendee._correspondenceFactType,
+			        false));
+            }
+            return _cacheRoleAttendee;
+        }
+
+        // Queries
+        private static Query _cacheQueryIsCurrent;
+
+        public static Query GetQueryIsCurrent()
+		{
+            if (_cacheQueryIsCurrent == null)
+            {
+			    _cacheQueryIsCurrent = new Query()
+		    		.JoinSuccessors(AttendeeActive.GetRoleAttendeeInactive())
+                ;
+            }
+            return _cacheQueryIsCurrent;
+		}
+
+        // Predicates
+        public static Condition IsCurrent = Condition.WhereIsEmpty(GetQueryIsCurrent());
+
+        // Predecessors
+        private PredecessorObj<Attendee> _attendee;
+
+        // Unique
+        private Guid _unique;
+
+        // Fields
+
+        // Results
+
+        // Business constructor
+        public AttendeeInactive(
+            Attendee attendee
+            )
+        {
+            _unique = Guid.NewGuid();
+            InitializeResults();
+            _attendee = new PredecessorObj<Attendee>(this, GetRoleAttendee(), attendee);
+        }
+
+        // Hydration constructor
+        private AttendeeInactive(FactMemento memento)
+        {
+            InitializeResults();
+            _attendee = new PredecessorObj<Attendee>(this, GetRoleAttendee(), memento, Attendee.GetUnloadedInstance, Attendee.GetNullInstance);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+        public Attendee Attendee
+        {
+            get { return IsNull ? Attendee.GetNullInstance() : _attendee.Fact; }
+        }
+
+        // Field access
+		public Guid Unique { get { return _unique; } }
+
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
+    public partial class AttendeeActive : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				AttendeeActive newFact = new AttendeeActive(memento);
+
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				AttendeeActive fact = (AttendeeActive)obj;
+			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return AttendeeActive.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return AttendeeActive.GetNullInstance();
+            }
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.AttendeeActive", 198765784);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Null and unloaded instances
+        public static AttendeeActive GetUnloadedInstance()
+        {
+            return new AttendeeActive((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static AttendeeActive GetNullInstance()
+        {
+            return new AttendeeActive((FactMemento)null) { IsNull = true };
+        }
+
+        public AttendeeActive Ensure()
+        {
+            if (_loadedTask != null)
+            {
+                ManualResetEvent loaded = new ManualResetEvent(false);
+                AttendeeActive fact = null;
+                _loadedTask.ContinueWith(delegate(Task<CorrespondenceFact> t)
+                {
+                    fact = (AttendeeActive)t.Result;
+                    loaded.Set();
+                });
+                loaded.WaitOne();
+                return fact;
+            }
+            else
+                return this;
+        }
+
+        // Roles
+        private static Role _cacheRoleAttendeeInactive;
+        public static Role GetRoleAttendeeInactive()
+        {
+            if (_cacheRoleAttendeeInactive == null)
+            {
+                _cacheRoleAttendeeInactive = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "attendeeInactive",
+			        AttendeeInactive._correspondenceFactType,
+			        false));
+            }
+            return _cacheRoleAttendeeInactive;
+        }
+
+        // Queries
+
+        // Predicates
+
+        // Predecessors
+        private PredecessorObj<AttendeeInactive> _attendeeInactive;
+
+        // Fields
+
+        // Results
+
+        // Business constructor
+        public AttendeeActive(
+            AttendeeInactive attendeeInactive
+            )
+        {
+            InitializeResults();
+            _attendeeInactive = new PredecessorObj<AttendeeInactive>(this, GetRoleAttendeeInactive(), attendeeInactive);
+        }
+
+        // Hydration constructor
+        private AttendeeActive(FactMemento memento)
+        {
+            InitializeResults();
+            _attendeeInactive = new PredecessorObj<AttendeeInactive>(this, GetRoleAttendeeInactive(), memento, AttendeeInactive.GetUnloadedInstance, AttendeeInactive.GetNullInstance);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+        public AttendeeInactive AttendeeInactive
+        {
+            get { return IsNull ? AttendeeInactive.GetNullInstance() : _attendeeInactive.Fact; }
+        }
+
+        // Field access
 
         // Query result access
 
@@ -2605,6 +3424,41 @@ namespace FacetedWorlds.MyCon.Model
 				Individual._correspondenceFactType,
 				new Individual.CorrespondenceFactFactory(fieldSerializerByType),
 				new FactMetadata(new List<CorrespondenceFactType> { Individual._correspondenceFactType }));
+			community.AddQuery(
+				Individual._correspondenceFactType,
+				Individual.GetQueryProfiles().QueryDefinition);
+			community.AddQuery(
+				Individual._correspondenceFactType,
+				Individual.GetQueryActiveAttendees().QueryDefinition);
+			community.AddType(
+				Profile._correspondenceFactType,
+				new Profile.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { Profile._correspondenceFactType }));
+			community.AddType(
+				IndividualProfile._correspondenceFactType,
+				new IndividualProfile.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { IndividualProfile._correspondenceFactType }));
+			community.AddType(
+				Attendee._correspondenceFactType,
+				new Attendee.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { Attendee._correspondenceFactType }));
+			community.AddQuery(
+				Attendee._correspondenceFactType,
+				Attendee.GetQueryInactives().QueryDefinition);
+			community.AddQuery(
+				Attendee._correspondenceFactType,
+				Attendee.GetQueryIsActive().QueryDefinition);
+			community.AddType(
+				AttendeeInactive._correspondenceFactType,
+				new AttendeeInactive.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { AttendeeInactive._correspondenceFactType }));
+			community.AddQuery(
+				AttendeeInactive._correspondenceFactType,
+				AttendeeInactive.GetQueryIsCurrent().QueryDefinition);
+			community.AddType(
+				AttendeeActive._correspondenceFactType,
+				new AttendeeActive.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { AttendeeActive._correspondenceFactType }));
 			community.AddType(
 				Catalog._correspondenceFactType,
 				new Catalog.CorrespondenceFactFactory(fieldSerializerByType),

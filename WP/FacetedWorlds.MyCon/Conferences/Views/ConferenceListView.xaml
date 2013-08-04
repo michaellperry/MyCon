@@ -47,7 +47,7 @@
             Grid.Row="0"
             Margin="12,17,0,0">
             <TextBlock
-                Text="MY CON"
+                Text="FESTIFY"
                 Style="{StaticResource PhoneTextNormalStyle}"
                 Margin="12,0" />
             <TextBlock

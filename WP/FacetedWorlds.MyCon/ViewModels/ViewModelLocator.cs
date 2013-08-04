@@ -54,6 +54,7 @@ namespace FacetedWorlds.MyCon.ViewModels
                         return null;
 
                     return new ConferenceDetailsViewModel(
+                        _synchronizationService.Individual,
                         _conferenceSelection.SelectedConference,
                         _conferenceSelection);
                 });

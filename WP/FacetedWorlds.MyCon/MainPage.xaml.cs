@@ -1,41 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Navigation;
+﻿using System.Windows;
+using FacetedWorlds.MyCon.ViewModels;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using FacetedWorlds.MyCon.Resources;
+using UpdateControls;
+using UpdateControls.Fields;
+using UpdateControls.XAML;
 
 namespace FacetedWorlds.MyCon
 {
-    public partial class MainPage : PhoneApplicationPage
+    public partial class MainPage : PhoneApplicationPage, IUpdatable
     {
-        // Constructor
+        private Dependent<string> _visibleAppBar;
+
         public MainPage()
         {
             InitializeComponent();
 
-            // Sample code to localize the ApplicationBar
-            //BuildLocalizedApplicationBar();
+            _visibleAppBar = new Dependent<string>(() => VisibleAppBar());
+            _visibleAppBar.Invalidated += () => UpdateScheduler.ScheduleUpdate(this);
+            UpdateNow();
         }
 
-        // Sample code for building a localized ApplicationBar
-        //private void BuildLocalizedApplicationBar()
-        //{
-        //    // Set the page's ApplicationBar to a new instance of ApplicationBar.
-        //    ApplicationBar = new ApplicationBar();
+        public void UpdateNow()
+        {
+            this.ApplicationBar = Resources[_visibleAppBar.Value] as ApplicationBar;
+        }
 
-        //    // Create a new button and set the text value to the localized string from AppResources.
-        //    ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.add.rest.png", UriKind.Relative));
-        //    appBarButton.Text = AppResources.AppBarButtonText;
-        //    ApplicationBar.Buttons.Add(appBarButton);
+        private string VisibleAppBar()
+        {
+            var viewModel = ForView.Unwrap<MainViewModel>(DataContext);
+            if (viewModel == null)
+                return null;
 
-        //    // Create a new menu item with the localized string from AppResources.
-        //    ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
-        //    ApplicationBar.MenuItems.Add(appBarMenuItem);
-        //}
+            if (viewModel.ConferencesVisibility == Visibility.Visible)
+                return "ConferencesApplicationBar";
+            if (viewModel.MyScheduleVisibility == Visibility.Visible)
+                return "MyScheduleApplicationBar";
+            return null;
+        }
+
+        private void Leave_Click(object sender, System.EventArgs e)
+        {
+            var viewModel = ForView.Unwrap<MainViewModel>(DataContext);
+            if (viewModel == null)
+                return;
+
+            viewModel.LeaveConference();
+        }
     }
 }

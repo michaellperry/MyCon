@@ -43,10 +43,10 @@
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True">
             <shell:ApplicationBarIconButton
-                x:Name="JoinButton"
                 IconUri="/Assets/AppBar/Join.png"
                 IsEnabled="True"
                 Text="i'm going"
+                Click="JoinButton_Click"
                 />
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>

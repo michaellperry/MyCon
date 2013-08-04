@@ -10,13 +10,16 @@ namespace FacetedWorlds.MyCon.Conferences.ViewModels
 {
     public class ConferenceDetailsViewModel : ConferenceHeaderViewModelBase
     {
+        private readonly Individual _individual;
         private readonly ConferenceSelection _conferenceSelection;
 
         public ConferenceDetailsViewModel(
+            Individual individual,
             ConferenceHeader conferenceHeader,
             ConferenceSelection conferenceSelection)
             : base(conferenceHeader)
         {
+            _individual = individual;
             _conferenceSelection = conferenceSelection;
         }
 
@@ -38,6 +41,14 @@ namespace FacetedWorlds.MyCon.Conferences.ViewModels
         public void NavigatedFrom()
         {
             _conferenceSelection.SelectedConference = null;
+        }
+
+        public void JoinConference()
+        {
+            Profile profile = _individual.EnsureProfile();
+            Attendee attendee = profile.Attending(ConferenceHeader.Conference);
+            foreach (var inactive in attendee.Inactives.Ensure())
+                inactive.MakeActive();
         }
     }
 }
