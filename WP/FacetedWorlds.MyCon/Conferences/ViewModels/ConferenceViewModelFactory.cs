@@ -35,7 +35,7 @@ namespace FacetedWorlds.MyCon.Conferences.ViewModels
                     new DateTime(2014, 2, 27),
                     new DateTime(2014, 2, 28),
                     "Allen, TX");
-                DefineConference(
+                var conference = DefineConference(
                     community,
                     catalog,
                     "That Conference 2013",
@@ -43,6 +43,7 @@ namespace FacetedWorlds.MyCon.Conferences.ViewModels
                     new DateTime(2013, 8, 16),
                     new DateTime(2013, 8, 19),
                     "Wisconsin Dells, WI");
+                DefineConferenceSessions(community, conference);
             }
 
 
@@ -53,7 +54,7 @@ namespace FacetedWorlds.MyCon.Conferences.ViewModels
             return new ConferenceListViewModel(catalog, conferenceSelection, makeConferenceHeaderViewModel);
         }
 
-        private static void DefineConference(ICommunity community, Catalog catalog, string name, string imageUrl, DateTime startDate, DateTime endDate, string city)
+        private static Conference DefineConference(ICommunity community, Catalog catalog, string name, string imageUrl, DateTime startDate, DateTime endDate, string city)
         {
             var conference = community.AddFact(new Conference());
             var header = community.AddFact(new ConferenceHeader(catalog, conference));
@@ -68,6 +69,44 @@ namespace FacetedWorlds.MyCon.Conferences.ViewModels
                 "Awesomeness!! Go to AwesomeFest!!!",
                 value => header.Description = value,
                 community);
+            return conference;
+        }
+
+        private static void DefineConferenceSessions(ICommunity community, Conference conference)
+        {
+            var developer = community.AddFact(new Track(conference));
+            developer.Name = "Developer";
+
+            var michael = community.AddFact(new Speaker(conference));
+            michael.Name = "Michael L Perry";
+            michael.ImageUrl = "http://qedcode.com/extras/Perry_Headshot_Medium.jpg";
+            michael.Contact = "@michaellperry";
+            michael.Bio.SetString(
+                "Software is math. Michael L Perry has built upon the works of mathematicians like Bertrand Meyer, James Rumbaugh, and Donald Knuth to develop a mathematical system for software development. He has captured this system in a set of open source projects, Update Controls and Correspondence. As a Principal Consultant at Improving Enterprises, he applies mathematical concepts to building scalable and robust enterprise systems. You can find out more at qedcode.com.",
+                v => michael.Bio = v,
+                community);
+
+            var provable = community.AddFact(new Session(michael));
+            provable.Title = "4 Ways to Prevent Code Abuse";
+            provable.Description.SetString(
+                "Your code is right. Other people are just using it wrong!" +
+                "Learn 4 simple techniques to prevent people from using your code incorrectly. We'll apply those techniques to a class in the .NET Framework that is really easy to get wrong. By the time we're done, you'll have to try really hard to mess it up." +
+                "Some APIs will throw exceptions when you get something wrong. That's not helpful! I'll show you how to write an API that guides you toward correct code. It won't even compile unless you get it right." +
+                "These 4 techniques are built into the C# language today, so take advantage of them! Everybody on your team will thank you. And you'll spend less time fixing their bugs.",
+                v => provable.Description = v,
+                community);
+
+            community.AddFact(new SessionTrack(provable, developer, new List<SessionTrack>()));
+
+            var eight = community.AddFact(new Time(conference));
+            eight.StartTime = new DateTime(2013, 7, 12, 8, 0, 0);
+
+            var room100 = community.AddFact(new Room(conference));
+            room100.RoomNumber = "100";
+
+            var room100AtEight = community.AddFact(new Slot(eight, room100));
+
+            community.AddFact(new SessionSlot(provable, room100AtEight, new List<SessionSlot>()));
         }
     }
 }

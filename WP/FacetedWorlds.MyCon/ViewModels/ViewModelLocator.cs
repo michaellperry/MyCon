@@ -4,8 +4,10 @@ using System.Linq;
 using FacetedWorlds.MyCon.Conferences.Models;
 using FacetedWorlds.MyCon.Conferences.ViewModels;
 using UpdateControls.XAML;
-using FacetedWorlds.MyCon.MySchedule.ViewModels;
+using FacetedWorlds.MyCon.Schedule.ViewModels;
 using FacetedWorlds.MyCon.Model;
+using FacetedWorlds.MyCon.ImageUtilities;
+using FacetedWorlds.MyCon.Schedule.Models;
 
 namespace FacetedWorlds.MyCon.ViewModels
 {
@@ -15,6 +17,8 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         private readonly SynchronizationService _synchronizationService;
         private readonly ConferenceSelection _conferenceSelection;
+        private readonly ImageCache _imageCache;
+        private readonly SearchModel _searchModel;
 
         public ViewModelLocator()
         {
@@ -23,6 +27,8 @@ namespace FacetedWorlds.MyCon.ViewModels
                 _synchronizationService.Initialize();
 
             _conferenceSelection = new ConferenceSelection();
+            _imageCache = new ImageCache();
+            _searchModel = new SearchModel();
         }
 
         public object Main
@@ -70,7 +76,11 @@ namespace FacetedWorlds.MyCon.ViewModels
             if (attendee == null)
                 return null;
 
-            return ForView.Wrap(new ScheduleViewModel(attendee));
+            return ForView.Wrap(new ScheduleViewModel(
+                _synchronizationService,
+                attendee,
+                _imageCache,
+                _searchModel));
         }
     }
 }

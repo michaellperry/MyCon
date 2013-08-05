@@ -8,7 +8,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
-namespace FacetedWorlds.MyCon.MySchedule.Views
+namespace FacetedWorlds.MyCon.Schedule.Views
 {
     public partial class ScheduleSessionUserControl : UserControl
     {

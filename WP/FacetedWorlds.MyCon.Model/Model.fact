@@ -107,6 +107,89 @@ query:
     ConferenceHeader *conferenceHeaders {
         ConferenceHeader h : h.conference = this
     }
+
+    Time* times {
+        Time t : t.conference = this
+    }
+}
+
+fact Speaker {
+key:
+    unique;
+    publish Conference conference;
+
+mutable:
+    string name;
+	string imageUrl;
+	string contact;
+	DocumentSegment* bio;
+}
+
+fact Session {
+key:
+    unique;
+    Speaker speaker;
+
+mutable:
+    string title;
+	DocumentSegment* description;
+}
+
+fact Track {
+key:
+    unique;
+    publish Conference conference;
+
+mutable:
+    string name;
+}
+
+fact SessionTrack {
+key:
+    Session session;
+    Track track;
+    SessionTrack* prior;
+
+query:
+    bool isCurrent {
+        not exists SessionTrack next : next.prior = this
+    }
+}
+
+fact Time {
+key:
+    unique;
+    publish Conference conference;
+
+mutable:
+    time startTime;
+}
+
+fact Room {
+key:
+    unique;
+    publish Conference conference;
+
+mutable:
+    string roomNumber;
+}
+
+fact Slot {
+key:
+    Time slotTime;
+    Room room;
+}
+
+fact SessionSlot {
+key:
+    Session session;
+    Slot slot;
+    SessionSlot* prior;
+
+query:
+    bool isCurrent {
+        not exists SessionSlot next : next.prior = this
+    }
 }
 
 fact DocumentSegment {

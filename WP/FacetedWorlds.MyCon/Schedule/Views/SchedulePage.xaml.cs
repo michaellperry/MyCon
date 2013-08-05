@@ -5,13 +5,13 @@ using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-using FacetedWorlds.MyCon.MySchedule.ViewModels;
+using FacetedWorlds.MyCon.Schedule.ViewModels;
 using FacetedWorlds.MyCon.ViewModels;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using UpdateControls.XAML;
 
-namespace FacetedWorlds.MyCon.MySchedule.Views
+namespace FacetedWorlds.MyCon.Schedule.Views
 {
     public partial class SchedulePage : PhoneApplicationPage
     {

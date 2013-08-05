@@ -12,6 +12,11 @@
         <local:LocalizedStrings
             xmlns:local="clr-namespace:FacetedWorlds.MyCon"
             x:Key="LocalizedStrings" />
+        <Color
+            x:Key="OverbookedColor">#FFE21B1B</Color>
+        <SolidColorBrush
+            x:Key="OverbookedBrush"
+            Color="{StaticResource OverbookedColor}" />
         <vm:ViewModelLocator
             x:Key="Locator" />
     </Application.Resources>

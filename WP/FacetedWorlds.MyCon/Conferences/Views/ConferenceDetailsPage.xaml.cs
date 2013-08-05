@@ -55,7 +55,7 @@ namespace FacetedWorlds.MyCon.Conferences.Views
 
             NavigationService.Navigate(new Uri(
                 String.Format(
-                    "/MySchedule/Views/SchedulePage.xaml?ConferenceId={0}",
+                    "/Schedule/Views/SchedulePage.xaml?ConferenceId={0}",
                     id),
                 UriKind.Relative));
         }
