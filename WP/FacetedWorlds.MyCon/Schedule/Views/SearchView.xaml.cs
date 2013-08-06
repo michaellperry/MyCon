@@ -1,0 +1,32 @@
+﻿using System;
+using System.Windows;
+using System.Windows.Input;
+using Microsoft.Phone.Controls;
+
+namespace FacetedWorlds.MyCon.Schedule.Views
+{
+    public partial class SearchView : PhoneApplicationPage
+    {
+        public SearchView()
+        {
+            InitializeComponent();
+        }
+
+        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (String.IsNullOrEmpty(SearchTermTextBox.Text))
+                SearchTermTextBox.Focus();
+        }
+
+        private void SearchTermTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                Focus();
+        }
+
+        private void Search_Click(object sender, EventArgs e)
+        {
+            Focus();
+        }
+    }
+}

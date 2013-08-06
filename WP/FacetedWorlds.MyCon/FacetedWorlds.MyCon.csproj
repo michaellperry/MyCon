@@ -111,6 +111,12 @@
     <Compile Include="Conferences\Views\ConferenceListView.xaml.cs">
       <DependentUpon>ConferenceListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\RatingControl.xaml.cs">
+      <DependentUpon>RatingControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RatingItemControl.xaml.cs">
+      <DependentUpon>RatingItemControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\CachedImageUrlValueConverter.cs" />
     <Compile Include="Extensions\SegmentExtensions.cs" />
     <Compile Include="HTTPConfigurationProvider.cs" />
@@ -125,6 +131,14 @@
     <Compile Include="Schedule\Models\SearchModel.cs" />
     <Compile Include="Schedule\ViewModels\ScheduleDayViewModel.cs" />
     <Compile Include="Schedule\ViewModels\ScheduleSlotViewModel.cs" />
+    <Compile Include="Schedule\ViewModels\SessionDetailsViewModel.cs" />
+    <Compile Include="Schedule\ViewModels\SessionEvaluationViewModel.cs" />
+    <Compile Include="Schedule\ViewModels\SessionViewModelBase.cs" />
+    <Compile Include="Schedule\ViewModels\TracksViewModel.cs" />
+    <Compile Include="Schedule\Views\DependencyExtensions.cs" />
+    <Compile Include="Schedule\Views\NoticesView.xaml.cs">
+      <DependentUpon>NoticesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Schedule\Views\SchedulePage.xaml.cs">
       <DependentUpon>SchedulePage.xaml</DependentUpon>
     </Compile>
@@ -138,6 +152,43 @@
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Schedule\ViewModels\ScheduleViewModel.cs" />
+    <Compile Include="Schedule\Views\ScheduleView.xaml.cs">
+      <DependentUpon>ScheduleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Schedule\Views\SearchSessionUserControl.xaml.cs">
+      <DependentUpon>SearchSessionUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Schedule\Views\SearchView.xaml.cs">
+      <DependentUpon>SearchView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Schedule\Views\SessionDetailsView.xaml.cs">
+      <DependentUpon>SessionDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Schedule\Views\SessionEvaluationView.xaml.cs">
+      <DependentUpon>SessionEvaluationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Schedule\Views\SessionUserControl.cs" />
+    <Compile Include="Schedule\Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Schedule\Views\SlotSessionUserControl.xaml.cs">
+      <DependentUpon>SlotSessionUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Schedule\Views\SlotView.xaml.cs">
+      <DependentUpon>SlotView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Schedule\Views\SpeakerSessionUserControl.xaml.cs">
+      <DependentUpon>SpeakerSessionUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Schedule\Views\SpeakerView.xaml.cs">
+      <DependentUpon>SpeakerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Schedule\Views\TrackSessionUserControl.xaml.cs">
+      <DependentUpon>TrackSessionUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Schedule\Views\TracksView.xaml.cs">
+      <DependentUpon>TracksView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SynchronizationService.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
@@ -159,9 +210,21 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\RatingControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\RatingItemControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Schedule\Views\NoticesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Schedule\Views\SchedulePage.xaml">
       <SubType>Designer</SubType>
@@ -170,6 +233,54 @@
     <Page Include="Schedule\Views\ScheduleSessionUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Schedule\Views\ScheduleView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Schedule\Views\SearchSessionUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Schedule\Views\SearchView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Schedule\Views\SessionDetailsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Schedule\Views\SessionEvaluationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Schedule\Views\SettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Schedule\Views\SlotSessionUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Schedule\Views\SlotView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Schedule\Views\SpeakerSessionUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Schedule\Views\SpeakerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Schedule\Views\TrackSessionUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Schedule\Views\TracksView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -232,6 +343,7 @@
     <Reference Include="Itzben">
       <HintPath>..\..\packages\itzben.1.0.3\lib\SL40-WP\Itzben.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Phone.Controls, Version=8.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Controls.Toolkit">
       <HintPath>..\..\packages\WPToolkit.4.2013.06.11\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
     </Reference>
@@ -270,7 +382,6 @@
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </DesignData>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

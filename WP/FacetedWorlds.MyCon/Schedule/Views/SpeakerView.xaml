@@ -1,0 +1,83 @@
+﻿<phone:PhoneApplicationPage
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:FacetedWorlds_MyCon_Converters="clr-namespace:FacetedWorlds.MyCon.Converters" xmlns:local="clr-namespace:FacetedWorlds.MyCon.Schedule.Views" 
+    x:Class="FacetedWorlds.MyCon.Schedule.Views.SpeakerView"
+    SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
+    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    shell:SystemTray.IsVisible="True"
+    Loaded="PhoneApplicationPage_Loaded">
+
+	<phone:PhoneApplicationPage.Resources>
+		<FacetedWorlds_MyCon_Converters:CachedImageUrlValueConverter x:Key="CachedImageUrlValueConverter"/>
+		<DataTemplate x:Key="TrackSessionViewModelTemplate">
+			<local:SpeakerSessionUserControl/>
+		</DataTemplate>
+		<DataTemplate x:Key="SpeakerDayViewModelTemplate">
+			<StackPanel>
+				<TextBlock Text="{Binding Day}" FontSize="{StaticResource PhoneFontSizeMedium}" Visibility="{Binding DayVisible}"/>
+				<ItemsControl ItemTemplate="{StaticResource TrackSessionViewModelTemplate}" ItemsSource="{Binding Sessions}"/>
+			</StackPanel>
+		</DataTemplate>
+	</phone:PhoneApplicationPage.Resources>
+
+	<phone:PhoneApplicationPage.FontFamily>
+		<StaticResource ResourceKey="PhoneFontFamilyNormal"/>
+	</phone:PhoneApplicationPage.FontFamily>
+<!--Sample code showing usage of ApplicationBar-->
+<!--<phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
+                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>-->
+	<phone:PhoneApplicationPage.FontSize>
+		<StaticResource ResourceKey="PhoneFontSizeNormal"/>
+	</phone:PhoneApplicationPage.FontSize>
+	<phone:PhoneApplicationPage.Foreground>
+		<StaticResource ResourceKey="PhoneForegroundBrush"/>
+	</phone:PhoneApplicationPage.Foreground>
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent" d:DataContext="{d:DesignData /SampleData/SpeakerViewModelSampleData.xaml}">
+        <Grid.RowDefinitions>
+        	<RowDefinition Height="Auto"/>
+        	<RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="TitlePanel" Margin="12,17,0,12" Grid.Row="0">
+        	<Grid.RowDefinitions>
+        		<RowDefinition Height="Auto"/>
+        		<RowDefinition Height="Auto"/>
+        	</Grid.RowDefinitions>
+        	<Grid.ColumnDefinitions>
+        		<ColumnDefinition Width="0.282*"/>
+        		<ColumnDefinition Width="0.718*"/>
+        	</Grid.ColumnDefinitions>
+    		<Image Source="{Binding ImageUrl, Converter={StaticResource CachedImageUrlValueConverter}}" Stretch="None" Margin="8,8,8,0" Height="115" VerticalAlignment="Top" d:LayoutOverrides="Width" Grid.RowSpan="2"/>
+    		<TextBlock x:Name="PageTitle" Text="{Binding Name}" Margin="8,-7,8,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="{StaticResource PhoneFontSizeExtraLarge}" TextWrapping="Wrap" d:LayoutOverrides="Width" Grid.Column="1" VerticalAlignment="Top"/>
+    		<TextBlock Text="{Binding Contact}" HorizontalAlignment="Left" Grid.Column="1" Margin="8" Grid.Row="1" VerticalAlignment="Top" FontSize="{StaticResource PhoneFontSizeMediumLarge}" Foreground="{StaticResource PhoneSubtleBrush}"/>
+    	</Grid>
+<!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+        	<ScrollViewer>
+        		<StackPanel Orientation="Vertical">
+        			<ItemsControl ItemTemplate="{StaticResource SpeakerDayViewModelTemplate}" ItemsSource="{Binding Days}"/>
+        			<TextBlock Text="{Binding Bio}" VerticalAlignment="Top" TextWrapping="Wrap" Margin="8,16,8,0"/>
+        		</StackPanel>
+        	</ScrollViewer>
+        </Grid>
+    </Grid>
+
+</phone:PhoneApplicationPage>

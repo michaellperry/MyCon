@@ -82,5 +82,25 @@ namespace FacetedWorlds.MyCon.ViewModels
                 _imageCache,
                 _searchModel));
         }
+
+        public object GetSessionDetailsViewModel(string sessionId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object GetSessionEvaluationViewModel(string sessionId)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal object GetSlotViewModel(string startTime)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal object GetSpeakerViewModel(string speakerId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -99,7 +99,7 @@ namespace FacetedWorlds.MyCon.Conferences.ViewModels
             community.AddFact(new SessionTrack(provable, developer, new List<SessionTrack>()));
 
             var eight = community.AddFact(new Time(conference));
-            eight.StartTime = new DateTime(2013, 7, 12, 8, 0, 0);
+            eight.StartTime = new DateTime(2013, 7, 12, 8, 0, 0, DateTimeKind.Local);
 
             var room100 = community.AddFact(new Room(conference));
             room100.RoomNumber = "100";

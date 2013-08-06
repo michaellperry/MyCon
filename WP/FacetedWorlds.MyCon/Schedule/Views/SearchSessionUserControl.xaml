@@ -1,0 +1,48 @@
+﻿<views:SessionUserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:FacetedWorlds_MyCon_Converters="clr-namespace:FacetedWorlds.MyCon.Converters"
+	xmlns:Itzben="clr-namespace:Itzben;assembly=Itzben"
+    xmlns:views="clr-namespace:FacetedWorlds.MyCon.Schedule.Views"
+	mc:Ignorable="d"
+	x:Class="FacetedWorlds.MyCon.Schedule.Views.SearchSessionUserControl"
+	d:DesignWidth="456" d:DesignHeight="157">
+
+	<views:SessionUserControl.Resources>
+		<Itzben:StringFormatConverter x:Key="StringFormatConverter"/>
+		<Itzben:VisibleWhenTrueConverter x:Key="VisibleWhenTrueConverter"/>
+		<FacetedWorlds_MyCon_Converters:CachedImageUrlValueConverter x:Key="CachedImageUrlValueConverter"/>
+	</views:SessionUserControl.Resources>
+
+	<Grid x:Name="LayoutRoot" Background="Transparent" d:DataContext="{d:DesignData /SampleData/TrackSessionViewModelSampleData.xaml}">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="96"/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<Grid Grid.Column="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition Width="116"/>
+			</Grid.ColumnDefinitions>
+			<TextBlock Text="{Binding Track}" Margin="4,0,8,4" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneSubtleBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Grid.Row="2" Grid.RowSpan="2"/>
+			<TextBlock Text="{Binding Speaker}" Margin="4,0,4,4" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneSubtleBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" TextWrapping="Wrap" Grid.Row="1"/>
+			<TextBlock Text="{Binding Title}" Margin="4,4,8,4" TextWrapping="Wrap" FontSize="{StaticResource PhoneFontSizeMediumLarge}" Foreground="{StaticResource PhoneForegroundBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Grid.ColumnSpan="2"/>
+			<TextBlock Text="{Binding Time, ConverterParameter=\{0:h:mm tt\}, Converter={StaticResource StringFormatConverter}}" Margin="4,0,4,4" VerticalAlignment="Top" FontSize="{StaticResource PhoneFontSizeNormal}" Foreground="{StaticResource PhoneSubtleBrush}" FontFamily="{StaticResource PhoneFontFamilyNormal}" d:LayoutOverrides="GridBox" Visibility="{Binding TimeVisible, ElementName=userControl}" Grid.Row="1" Grid.Column="1"/>
+		</Grid>
+		<Grid Margin="5,5,5,0" HorizontalAlignment="Center" VerticalAlignment="Top">
+			<Rectangle Fill="{StaticResource PhoneAccentBrush}" Visibility="{Binding Scheduled, Converter={StaticResource VisibleWhenTrueConverter}}"/>
+			<Rectangle Visibility="{Binding Overbooked, Converter={StaticResource VisibleWhenTrueConverter}}" Fill="{StaticResource OverbookedBrush}"/>
+			<Image Grid.Column="1" Margin="3" Source="{Binding ImageUrl, Converter={StaticResource CachedImageUrlValueConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="None"/>
+		</Grid>
+	</Grid>
+</views:SessionUserControl>

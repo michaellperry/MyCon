@@ -72,7 +72,7 @@ namespace FacetedWorlds.MyCon
             {
                 anid = UserExtendedProperties.GetValue("ANID") as string;
             }
-            catch (NotSupportedException ex)
+            catch (NotSupportedException)
             {
                 anid = null;
             }
