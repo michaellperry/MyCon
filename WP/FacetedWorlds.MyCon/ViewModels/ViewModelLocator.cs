@@ -71,8 +71,7 @@ namespace FacetedWorlds.MyCon.ViewModels
 
         public object GetScheduleViewModel(Guid conferenceId)
         {
-            var attendee = _synchronizationService.Individual.ActiveAttendees.Ensure()
-                .FirstOrDefault(a => a.Conference.Unique == conferenceId);
+            Attendee attendee = GetAttendee(conferenceId);
             if (attendee == null)
                 return null;
 
@@ -93,14 +92,30 @@ namespace FacetedWorlds.MyCon.ViewModels
             throw new NotImplementedException();
         }
 
-        internal object GetSlotViewModel(string startTime)
+        public object GetSlotViewModel(Guid conferenceId, Guid timeId)
+        {
+            var attendee = GetAttendee(conferenceId);
+            if (attendee == null)
+                return null;
+
+            var time = attendee.Conference.Times.Ensure()
+                .FirstOrDefault(t => t.Unique == timeId);
+            if (time == null)
+                return null;
+
+            return ForView.Wrap(new SlotViewModel(time, _imageCache));
+        }
+
+        public object GetSpeakerViewModel(string speakerId)
         {
             throw new NotImplementedException();
         }
 
-        internal object GetSpeakerViewModel(string speakerId)
+        private Attendee GetAttendee(Guid conferenceId)
         {
-            throw new NotImplementedException();
+            var attendee = _synchronizationService.Individual.ActiveAttendees.Ensure()
+                            .FirstOrDefault(a => a.Conference.Unique == conferenceId);
+            return attendee;
         }
     }
 }

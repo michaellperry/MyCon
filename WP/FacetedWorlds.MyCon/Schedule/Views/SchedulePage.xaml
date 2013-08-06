@@ -8,7 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:FacetedWorlds.MyCon.Schedule.Views"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
-    SupportedOrientations="Portrait" Orientation="Portrait"
+    SupportedOrientations="Portrait"
+    Orientation="Landscape"
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True"
     Loaded="PhoneApplicationPage_Loaded">
@@ -28,7 +29,8 @@
                     ItemTemplate="{StaticResource ScheduleSlotViewModelTemplate}"
                     ItemsSource="{Binding Slots}"
                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                    HorizontalContentAlignment="Stretch" />
+                    HorizontalContentAlignment="Stretch"
+                    toolkit:TiltEffect.IsTiltEnabled="True"/>
             </StackPanel>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
@@ -54,10 +56,6 @@
                 IconUri="/Assets/AppBar/Search.png"
                 Text="search"
                 Click="Search_Click" />
-            <shell:ApplicationBarIconButton
-                IconUri="/Assets/AppBar/Map.png"
-                Text="map"
-                Click="Map_Click" />
             <shell:ApplicationBarIconButton
                 IconUri="/Assets/AppBar/Leave.png"
                 Text="leave"
@@ -86,8 +84,7 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid
         x:Name="LayoutRoot"
-        Background="Transparent"
-        d:DataContext="{d:DesignData /SampleData/ScheduleViewModelSampleData.xaml}">
+        Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition
                 Height="Auto" />

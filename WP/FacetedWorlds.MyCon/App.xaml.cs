@@ -7,6 +7,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using FacetedWorlds.MyCon.Resources;
+using System.Windows.Controls;
 
 namespace FacetedWorlds.MyCon
 {
@@ -125,6 +126,8 @@ namespace FacetedWorlds.MyCon
 
             // Ensure we don't initialize again
             phoneApplicationInitialized = true;
+
+            TiltEffect.TiltableItems.Add(typeof(ItemsControl));
         }
 
         // Do not add any additional code to this method

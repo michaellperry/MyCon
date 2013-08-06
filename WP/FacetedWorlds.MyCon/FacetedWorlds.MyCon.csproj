@@ -134,6 +134,8 @@
     <Compile Include="Schedule\ViewModels\SessionDetailsViewModel.cs" />
     <Compile Include="Schedule\ViewModels\SessionEvaluationViewModel.cs" />
     <Compile Include="Schedule\ViewModels\SessionViewModelBase.cs" />
+    <Compile Include="Schedule\ViewModels\SlotViewModel.cs" />
+    <Compile Include="Schedule\ViewModels\TrackSessionViewModel.cs" />
     <Compile Include="Schedule\ViewModels\TracksViewModel.cs" />
     <Compile Include="Schedule\Views\DependencyExtensions.cs" />
     <Compile Include="Schedule\Views\NoticesView.xaml.cs">
@@ -152,9 +154,6 @@
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Schedule\ViewModels\ScheduleViewModel.cs" />
-    <Compile Include="Schedule\Views\ScheduleView.xaml.cs">
-      <DependentUpon>ScheduleView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Schedule\Views\SearchSessionUserControl.xaml.cs">
       <DependentUpon>SearchSessionUserControl.xaml</DependentUpon>
     </Compile>
@@ -233,10 +232,6 @@
     <Page Include="Schedule\Views\ScheduleSessionUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Schedule\Views\ScheduleView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Schedule\Views\SearchSessionUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>

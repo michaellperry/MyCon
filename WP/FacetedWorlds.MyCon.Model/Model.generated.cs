@@ -55,6 +55,7 @@ digraph "FacetedWorlds.MyCon.Model"
     Session__description -> Session
     Session__description -> Session__description [label="  *"]
     Session__description -> DocumentSegment [label="  *"]
+    SessionDelete -> Session
     Track -> Conference [color="red"]
     Track__name -> Track
     Track__name -> Track__name [label="  *"]
@@ -4482,8 +4483,34 @@ namespace FacetedWorlds.MyCon.Model
             }
             return _cacheQueryDescription;
 		}
+        private static Query _cacheQueryIsCurrent;
+
+        public static Query GetQueryIsCurrent()
+		{
+            if (_cacheQueryIsCurrent == null)
+            {
+			    _cacheQueryIsCurrent = new Query()
+		    		.JoinSuccessors(SessionDelete.GetRoleSession())
+                ;
+            }
+            return _cacheQueryIsCurrent;
+		}
+        private static Query _cacheQueryTracks;
+
+        public static Query GetQueryTracks()
+		{
+            if (_cacheQueryTracks == null)
+            {
+			    _cacheQueryTracks = new Query()
+		    		.JoinSuccessors(SessionTrack.GetRoleSession())
+		    		.JoinPredecessors(SessionTrack.GetRoleTrack())
+                ;
+            }
+            return _cacheQueryTracks;
+		}
 
         // Predicates
+        public static Condition IsCurrent = Condition.WhereIsEmpty(GetQueryIsCurrent());
 
         // Predecessors
         private PredecessorObj<Speaker> _speaker;
@@ -4496,6 +4523,7 @@ namespace FacetedWorlds.MyCon.Model
         // Results
         private Result<Session__title> _title;
         private Result<Session__description> _description;
+        private Result<Track> _tracks;
 
         // Business constructor
         public Session(
@@ -4519,6 +4547,7 @@ namespace FacetedWorlds.MyCon.Model
         {
             _title = new Result<Session__title>(this, GetQueryTitle(), Session__title.GetUnloadedInstance, Session__title.GetNullInstance);
             _description = new Result<Session__description>(this, GetQueryDescription(), Session__description.GetUnloadedInstance, Session__description.GetNullInstance);
+            _tracks = new Result<Track>(this, GetQueryTracks(), Track.GetUnloadedInstance, Track.GetNullInstance);
         }
 
         // Predecessor access
@@ -4532,6 +4561,10 @@ namespace FacetedWorlds.MyCon.Model
 
 
         // Query result access
+        public Result<Track> Tracks
+        {
+            get { return _tracks; }
+        }
 
         // Mutable property access
         public TransientDisputable<Session__title, string> Title
@@ -4926,6 +4959,141 @@ namespace FacetedWorlds.MyCon.Model
         public PredecessorList<DocumentSegment> Value
         {
             get { return _value; }
+        }
+
+        // Field access
+
+        // Query result access
+
+        // Mutable property access
+
+    }
+    
+    public partial class SessionDelete : CorrespondenceFact
+    {
+		// Factory
+		internal class CorrespondenceFactFactory : ICorrespondenceFactFactory
+		{
+			private IDictionary<Type, IFieldSerializer> _fieldSerializerByType;
+
+			public CorrespondenceFactFactory(IDictionary<Type, IFieldSerializer> fieldSerializerByType)
+			{
+				_fieldSerializerByType = fieldSerializerByType;
+			}
+
+			public CorrespondenceFact CreateFact(FactMemento memento)
+			{
+				SessionDelete newFact = new SessionDelete(memento);
+
+
+				return newFact;
+			}
+
+			public void WriteFactData(CorrespondenceFact obj, BinaryWriter output)
+			{
+				SessionDelete fact = (SessionDelete)obj;
+			}
+
+            public CorrespondenceFact GetUnloadedInstance()
+            {
+                return SessionDelete.GetUnloadedInstance();
+            }
+
+            public CorrespondenceFact GetNullInstance()
+            {
+                return SessionDelete.GetNullInstance();
+            }
+		}
+
+		// Type
+		internal static CorrespondenceFactType _correspondenceFactType = new CorrespondenceFactType(
+			"FacetedWorlds.MyCon.Model.SessionDelete", -2039215120);
+
+		protected override CorrespondenceFactType GetCorrespondenceFactType()
+		{
+			return _correspondenceFactType;
+		}
+
+        // Null and unloaded instances
+        public static SessionDelete GetUnloadedInstance()
+        {
+            return new SessionDelete((FactMemento)null) { IsLoaded = false };
+        }
+
+        public static SessionDelete GetNullInstance()
+        {
+            return new SessionDelete((FactMemento)null) { IsNull = true };
+        }
+
+        public SessionDelete Ensure()
+        {
+            if (_loadedTask != null)
+            {
+                ManualResetEvent loaded = new ManualResetEvent(false);
+                SessionDelete fact = null;
+                _loadedTask.ContinueWith(delegate(Task<CorrespondenceFact> t)
+                {
+                    fact = (SessionDelete)t.Result;
+                    loaded.Set();
+                });
+                loaded.WaitOne();
+                return fact;
+            }
+            else
+                return this;
+        }
+
+        // Roles
+        private static Role _cacheRoleSession;
+        public static Role GetRoleSession()
+        {
+            if (_cacheRoleSession == null)
+            {
+                _cacheRoleSession = new Role(new RoleMemento(
+			        _correspondenceFactType,
+			        "session",
+			        Session._correspondenceFactType,
+			        false));
+            }
+            return _cacheRoleSession;
+        }
+
+        // Queries
+
+        // Predicates
+
+        // Predecessors
+        private PredecessorObj<Session> _session;
+
+        // Fields
+
+        // Results
+
+        // Business constructor
+        public SessionDelete(
+            Session session
+            )
+        {
+            InitializeResults();
+            _session = new PredecessorObj<Session>(this, GetRoleSession(), session);
+        }
+
+        // Hydration constructor
+        private SessionDelete(FactMemento memento)
+        {
+            InitializeResults();
+            _session = new PredecessorObj<Session>(this, GetRoleSession(), memento, Session.GetUnloadedInstance, Session.GetNullInstance);
+        }
+
+        // Result initializer
+        private void InitializeResults()
+        {
+        }
+
+        // Predecessor access
+        public Session Session
+        {
+            get { return IsNull ? Session.GetNullInstance() : _session.Fact; }
         }
 
         // Field access
@@ -5600,6 +5768,21 @@ namespace FacetedWorlds.MyCon.Model
             }
             return _cacheQueryStartTime;
 		}
+        private static Query _cacheQuerySessionSlots;
+
+        public static Query GetQuerySessionSlots()
+		{
+            if (_cacheQuerySessionSlots == null)
+            {
+			    _cacheQuerySessionSlots = new Query()
+		    		.JoinSuccessors(Slot.GetRoleSlotTime())
+    				.JoinSuccessors(SessionSlot.GetRoleSlot(), Condition.WhereIsEmpty(SessionSlot.GetQueryIsCurrent())
+	    				.And().IsNotEmpty(SessionSlot.GetQuerySessionExists())
+				)
+                ;
+            }
+            return _cacheQuerySessionSlots;
+		}
 
         // Predicates
 
@@ -5613,6 +5796,7 @@ namespace FacetedWorlds.MyCon.Model
 
         // Results
         private Result<Time__startTime> _startTime;
+        private Result<SessionSlot> _sessionSlots;
 
         // Business constructor
         public Time(
@@ -5635,6 +5819,7 @@ namespace FacetedWorlds.MyCon.Model
         private void InitializeResults()
         {
             _startTime = new Result<Time__startTime>(this, GetQueryStartTime(), Time__startTime.GetUnloadedInstance, Time__startTime.GetNullInstance);
+            _sessionSlots = new Result<SessionSlot>(this, GetQuerySessionSlots(), SessionSlot.GetUnloadedInstance, SessionSlot.GetNullInstance);
         }
 
         // Predecessor access
@@ -5648,6 +5833,10 @@ namespace FacetedWorlds.MyCon.Model
 
 
         // Query result access
+        public Result<SessionSlot> SessionSlots
+        {
+            get { return _sessionSlots; }
+        }
 
         // Mutable property access
         public TransientDisputable<Time__startTime, DateTime> StartTime
@@ -6496,9 +6685,23 @@ namespace FacetedWorlds.MyCon.Model
             }
             return _cacheQueryIsCurrent;
 		}
+        private static Query _cacheQuerySessionExists;
+
+        public static Query GetQuerySessionExists()
+		{
+            if (_cacheQuerySessionExists == null)
+            {
+			    _cacheQuerySessionExists = new Query()
+    				.JoinPredecessors(SessionSlot.GetRoleSession(), Condition.WhereIsEmpty(Session.GetQueryIsCurrent())
+				)
+                ;
+            }
+            return _cacheQuerySessionExists;
+		}
 
         // Predicates
         public static Condition IsCurrent = Condition.WhereIsEmpty(GetQueryIsCurrent());
+        public static Condition SessionExists = Condition.WhereIsNotEmpty(GetQuerySessionExists());
 
         // Predecessors
         private PredecessorObj<Session> _session;
@@ -6894,6 +7097,12 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				Session._correspondenceFactType,
 				Session.GetQueryDescription().QueryDefinition);
+			community.AddQuery(
+				Session._correspondenceFactType,
+				Session.GetQueryIsCurrent().QueryDefinition);
+			community.AddQuery(
+				Session._correspondenceFactType,
+				Session.GetQueryTracks().QueryDefinition);
 			community.AddType(
 				Session__title._correspondenceFactType,
 				new Session__title.CorrespondenceFactFactory(fieldSerializerByType),
@@ -6908,6 +7117,10 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				Session__description._correspondenceFactType,
 				Session__description.GetQueryIsCurrent().QueryDefinition);
+			community.AddType(
+				SessionDelete._correspondenceFactType,
+				new SessionDelete.CorrespondenceFactFactory(fieldSerializerByType),
+				new FactMetadata(new List<CorrespondenceFactType> { SessionDelete._correspondenceFactType }));
 			community.AddType(
 				Track._correspondenceFactType,
 				new Track.CorrespondenceFactFactory(fieldSerializerByType),
@@ -6936,6 +7149,9 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				Time._correspondenceFactType,
 				Time.GetQueryStartTime().QueryDefinition);
+			community.AddQuery(
+				Time._correspondenceFactType,
+				Time.GetQuerySessionSlots().QueryDefinition);
 			community.AddType(
 				Time__startTime._correspondenceFactType,
 				new Time__startTime.CorrespondenceFactFactory(fieldSerializerByType),
@@ -6968,6 +7184,9 @@ namespace FacetedWorlds.MyCon.Model
 			community.AddQuery(
 				SessionSlot._correspondenceFactType,
 				SessionSlot.GetQueryIsCurrent().QueryDefinition);
+			community.AddQuery(
+				SessionSlot._correspondenceFactType,
+				SessionSlot.GetQuerySessionExists().QueryDefinition);
 			community.AddType(
 				DocumentSegment._correspondenceFactType,
 				new DocumentSegment.CorrespondenceFactFactory(fieldSerializerByType),

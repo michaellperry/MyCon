@@ -20,6 +20,16 @@ namespace FacetedWorlds.MyCon.Schedule.ViewModels
             _imageCache = imageCache;
         }
 
+        public Guid ConferenceId
+        {
+            get { return _attendee.Conference.Unique; }
+        }
+
+        public Guid TimeId
+        {
+            get { return _time.Unique; }
+        }
+
         public string Time
         {
             get { return String.Format("{0:h:mm}", _time.StartTime.Value.ToLocalTime()); }

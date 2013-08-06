@@ -21,7 +21,7 @@
     <Grid
         x:Name="LayoutRoot"
         Background="Transparent"
-        d:DataContext="{d:DesignData /SampleData/ScheduleSlotViewModelSampleData.xaml}">
+        Tap="UserControl_Tap">
         <Grid.ColumnDefinitions>
             <ColumnDefinition
                 Width="57" />

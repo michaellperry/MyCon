@@ -23,10 +23,17 @@ namespace FacetedWorlds.MyCon.Schedule.Views
 
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
-            string startTime = NavigationContext.QueryString["StartTime"];
+            Guid conferenceId;
+            if (!Guid.TryParse(NavigationContext.QueryString["ConferenceId"], out conferenceId))
+                return;
+
+            Guid timeId;
+            if (!Guid.TryParse(NavigationContext.QueryString["TimeId"], out timeId))
+                return;
+
             ViewModelLocator locator = Application.Current.Resources["Locator"] as ViewModelLocator;
             if (locator != null)
-                DataContext = locator.GetSlotViewModel(startTime);
+                DataContext = locator.GetSlotViewModel(conferenceId, timeId);
         }
     }
 }

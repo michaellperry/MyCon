@@ -133,6 +133,21 @@ key:
 mutable:
     string title;
 	DocumentSegment* description;
+
+query:
+    bool isCurrent {
+        not exists SessionDelete d : d.session = this
+    }
+
+    Track* tracks {
+        SessionTrack st : st.session = this
+        Track t : st.track = t
+    }
+}
+
+fact SessionDelete {
+key:
+    Session session;
 }
 
 fact Track {
@@ -163,6 +178,12 @@ key:
 
 mutable:
     time startTime;
+
+query:
+    SessionSlot* sessionSlots {
+        SessionSlot s : s.slot.slotTime = this
+            where s.isCurrent and s.sessionExists
+    }
 }
 
 fact Room {
@@ -189,6 +210,11 @@ key:
 query:
     bool isCurrent {
         not exists SessionSlot next : next.prior = this
+    }
+
+    bool sessionExists {
+        exists Session s : s = this.session
+            where s.isCurrent
     }
 }
 
